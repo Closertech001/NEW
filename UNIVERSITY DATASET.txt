@@ -1,2 +1,1021 @@
-Q: What is the name of the university?
-A: The university is called ABC University.
+Q: What is the history of Crescent University?
+A: Founded by H.E. Bola Ajibola via IMA, licensed in 2005, and commenced academics in December 2005.
+
+Q: What is the mission of Crescent University?
+A: Mission: Deliver education with quality assurance, discipline, and societal value.
+
+Q: What is the vision of Crescent University?
+A: Vision: Promote education with integrity and societal impact.
+
+Q: What is the philosophy of Crescent University?
+A: Provide education access, build character, foster entrepreneurship, and promote loyalty to God and the nation.
+
+Q: What are the objectives of the university?
+A: Equip graduates for sustainable living. | Promote Islamic principles. | Encourage women's education (60:40 female:male). | Emphasize science over arts (60:40).
+
+Q: What does the university logo represent?
+A: A book (education) and a crescent (Islam) signify knowledge guided by divine principles.
+
+Q: What is the university’s residential policy?
+A: All students must reside on campus without exemptions.
+
+Q: What is the motto of the University?
+A: The motto of the University is "Knowledge and Faith," emphasizing academic excellence in a Godly way.
+
+Q: When is the University's Founder's Day celebrated?
+A: Founder's Day is celebrated on the 22nd of March every year.
+
+Q: What is CONAS?
+A: The College of Natural and Applied Sciences (CONAS), established in 2005, includes: Biological Sciences. Chemical Sciences. Mathematical Sciences, Physical Sciences
+
+Q: What is the college color for Final Year Projects in the College of Health Sciences?
+A: Navy Blue.
+
+Q: What is the university’s residential policy for students?
+A: It is compulsory for all students to reside on campus.
+
+Q: What is the faculty profile like?
+A: Highly qualified PhD holders involved in national/international research with published works.
+
+Q: What is the procedure for student registration?
+A: Pay prescribed fees and get bursary clearance. | Get clearance from Admissions Officer. | Get allocated to hostels. | Clear with College office. | Register with HOD. | Submit completed forms. | Register at Health Centre.
+
+Q: What are the matriculation requirements?
+A: Must be officially admitted and registered. | Must take the Matriculation Oath. | No registration after matriculation.
+
+Q: How is the course unit system structured?
+A: Courses follow a semester-based unit system. | 1 course unit = 15 lecture hours or equivalent practical time. | Course numbers (e.g., BCH101) reflect department and level. | 70% NUC CCMAS + 30% CUAB-customized content.
+
+Q: What is the academic session structure?
+A: Two semesters per year (Sept–Jan and Feb–June). | Long vacation (July–Sept) for SIWES/training. | 15-week semesters with breaks and assessments.
+
+Q: What are course workload limits?
+A: 15–17 units per semester (standard). | Add/drop allowed within 3 weeks. | Fewer units allowed for Final Year Non-Graduating students.
+
+Q: What are the exam regulations?
+A: Must attend 70% of classes to write exams. | Exams last 1–3 hours. | Students can only repeat failed courses. | Grades range from A (5 points) to F (0 points). | CGPA determines academic standing.
+
+Q: What is the degree classification system?
+A: First Class: 4.50 – 5.00 CGPA | Second Class Upper: 3.50 – 4.49 | Second Class Lower: 2.40 – 3.49 | Third Class: 1.50 – 2.39 | Pass: 1.00 – 1.49
+
+Q: What are the graduation requirements?
+A: 120 credit units (UTME); 90 units (Direct Entry). | Must pass required courses and final year project (6 units). | Must complete programme within allowed timeframe.
+
+Q: Are there any student support or development activities?
+A: Yes—career counseling, skill training, industrial visits, science fairs, etc.
+
+Q: What 21st-century skills are developed?
+A: Critical thinking, analysis, and interpretation. | Innovation and creativity. | ICT and data analysis. | Research skills and effective communication.
+
+Q: What are the Direct Entry requirements?
+A: Two A-level passes or equivalent in relevant science subjects, or NCE/ND with at least upper credit.
+
+Q: Are transfer candidates accepted?
+A: Yes, if they meet the minimum requirements and submit transcripts and reports with at least 1.5 CGPA.
+
+Q: What is the programme duration?
+A: UTME: 4 years (8 semesters); Direct Entry: 3 years (6 semesters).
+
+Q: What are the graduation requirements?
+A: UTME students: minimum 120 credits. Direct Entry: minimum 90 credits.
+
+Q: What are prohibited during exams?
+A: Unauthorized materials (notes, phones, textbooks). | Communication with other students. | Arriving late (after 30 minutes) or leaving early (within first 30 minutes). | Possessing multiple answer booklets or scripts. | Using programmable calculators.
+
+Q: What counts as examination malpractice?
+A: Possessing exam questions in advance. | Swapping scripts. | Bringing unauthorized materials. | Impersonation. | Assaulting invigilators. | Any action undermining exam integrity.
+
+Q: What are the penalties for exam misconduct?
+A: Noise, non-display of ID (penalty : Reprimand) | Use of notes, impersonation, cheating (penalty : Expulsion) | Assault or script smuggling (penalty : Expulsion) | Refusal to submit script (penalty : Expulsion) | Unauthorized materials (penalty : Expulsion) | Non-submission to search (penalty : Rustication for 1 semester)
+
+Q: How are cases of exam misconduct handled?
+A: Written report by Chief Invigilator, | Investigation by a panel. | Disciplinary Committee reviews. | Penalty conveyed by Registrar. | Right to appeal to Council within 14 days.
+
+Q: Can students transfer from other universities?
+A: Yes, provided they meet the university's requirements and submit transcripts and reports.
+
+Q: How many colleges does the University have and what are they?
+A: There are Six(6) Colleges in the University which are 1. Bola Ajibola College of Law (BACOLAW) | 2. College of Arts, Social and Management Sciences (CASMAS) | 3. College of Environmental Sciences (COES) | 4. College of Information and Communication Technology (CICOT) | 5. College of Natural and Applied Sciences (CONAS) | 6. College of Health Sciences (COHES)
+
+Q: What is the full meaning of BACOLAW
+A: Bola Ajibola College of Law.
+
+Q: What is the full meaning of CASMAS
+A: College of Arts, Social and Management Sciences
+
+Q: What is the full meaning of COES
+A: College of Environmental Sciences
+
+Q: What is the full meaning of CICOT
+A: College of Information and Communication Technology
+
+Q: What is the full meaning of CONAS
+A: College of Natural and Applied Sciences
+
+Q: What is the matriculation requirement?
+A: Proper registration | Taking the matriculation oath | Allotment of matriculation number | Registration closes after matriculation
+
+Q: What are the additional admission procedures?
+A: Submission of original documents | Payment of fees | Possible interview | University reserves the right to accept/reject applicants
+
+Q: What attire is prohibited for all students?
+A: Skimpy, tight, transparent or revealing clothing | Torn jeans, hipstar/fatra/lactra styles | Public display of undergarments| Unkempt hair or beard (for males) | Obscene T-shirts or buttonless shirts | Body piercings and excessive jewellery (especially on males) | Coloured glasses and bathroom slippers (unless medically necessary)
+
+ACADEMIC CALENDAR
+
+Q: When does the academic session begin?
+A: It begins on September with the registration of fresh students.
+
+Q: When do returning students resume?
+A: Returning students resume and register on September 29.
+
+Q: When do first semester lectures begin?
+A: Lectures commence on October 7
+Q: When does the first semester end?
+A: First semester exams begin on February 3, and end on February 14. The semester spans 21 weeks.
+
+Q: When does the second semester begin?
+A: The second semester begins on March 3,
+
+Q: When do second semester lectures end?
+A: Lectures end on June 13, with exams beginning on June 28 and ending on July 11
+
+Q: How many weeks are allocated to lectures and exams in each semester?
+A: First Semester: 15 weeks of lectures, 2 weeks of revision, 2 weeks of exams. | Second Semester: 14 weeks of lectures, 2 weeks of revision, 2 weeks of exams.
+
+SCHOOL FEES STRUCTURE
+
+Q: What is the tuition fee for returning Political Science & I.R. students?
+A: ₦735,000 plus other fees (portal, departmental, parents forum, IMASA).
+
+Q: What is the tuition fee for freshers in Political Science & I.R.?
+A: ₦868,000, plus ₦10,000 (screening form), ₦50,000 (acceptance), and ₦10,000 (parent forum).
+
+Q: What is included in the school fees?
+A: Tuition, accommodation, medical, examination, sports, ID card, and development levy.
+
+Q: Are there additional compulsory payments?
+A: ₦5,000 for department association (at department). | ₦2,000 for IMASA (Student General Association) – First Bank Acct No: 2022508694. | ₦5,000 portal registration fee.
+
+Q: What are the bank details for paying school fees?
+A: Payments can be made to Crescent University through:
+1. UBA – 1007903011 | 2. Zenith – 1010431785 | 3. First Bank – 2012145317 | 4. GTBank – 0032618306 | 5. Lotus – 1000427994 | 6. Jaiz Bank – 0001993958
+
+Q: What is the minimum payment required at the start of 1st semester?
+A: 70% of the total school fees must be paid at the beginning of the 1st semester.
+
+Q: What are the penalties for late payment of tuition?
+A:  A penalty of ₦10,000 per month will be charged for late payment.
+
+Q: Are there private hostel options available?
+A: Yes, at an additional cost of ₦150,000–₦250,000. Contact: Male: Mr. Lawal – 08039629231 | Female: Mrs. Popoola – 08183519027 | Student Affairs: 08030889805
+
+Q: Who can be contacted for further admission inquiries?
+A: Call the Admission Officer at 08030644731 or 08038362771.
+
+ADDITIONAL ACADEMIC EVENTS & POLICIES 
+
+Q: When is Matriculation ceremony?
+A: January
+
+Q: When is the Convocation ceremony?
+A: October 
+
+Q: When do revisions and continuous assessments occur?
+A: First Semester: January | Second Semester: June
+
+Q: What are the semester examination periods?
+A: First Semester Exams: February | Second Semester Exams: June – July
+
+EXTENDED SCHOOL FEES & PAYMENT INFORMATION
+
+Q: What is the complete breakdown of fees for returning Political Science & International Relations students?
+A: ₦735,000 tuition + ₦5,000 portal + ₦5,000 departmental + ₦10,000 parent forum + ₦2,000 IMASA.
+
+Q: What fees do Political Science & I.R. freshers pay in total?
+A: ₦868,000 tuition + ₦10,000 screening form + ₦50,000 acceptance + ₦10,000 parent forum.
+
+Q: Are departmental association fees included in school fees?
+A: No. Students must pay ₦5,000 directly to their departments.
+
+Q: How much is the IMASA fee and where is it paid?
+A: ₦2,000, payable to First Bank, Account Number: 2022508694.
+
+Q: What are the approved university bank accounts for tuition payments?
+A: 1. UBA – 1007903011 | 2. Zenith Bank – 1010431785 | 3. First Bank – 2012145317 | 4. GTBank – 0032618306 | 5. Lotus Bank – 1000427994 | 6. Jaiz Bank – 0001993958
+
+Q: Can students pay fees in installments?
+A: Yes, 70% of fees is required at the start of 1st semester, and 30% at the start of 2nd semester.
+
+ACCOMMODATION INFORMATION 
+
+Q: Is there private hostel accommodation on campus?
+A: Yes. Cost ranges from ₦150,000 to ₦250,000 depending on the type.
+
+Q: Who can students contact for hostel inquiries?
+A: Male Hostel: Mr. Lawal – 08039629231 | Female Hostel: Mrs. Popoola – 08183519027 | Student Affairs: 08030889805
+
+Q: Is private hostel fee included in any course’s tuition?
+A: Yes, it is included in Nursing tuition.
+
+Q: Who should be contacted for further admission inquiries?
+A: Admission Officer: 08030644731 or 08038362771
+
+DEPARTMENT OF ANATOMY
+
+Q: What is the meaning of COHES?
+A: College of Health Sciences
+
+Q: Under which college is the Department of Anatomy?
+A: It is under the College of Health Sciences (COHES).
+
+Q: What other departments are in the College of Health Sciences?
+A: Departments of Anatomy, Department of Nursing, and Department of Physiology.
+
+Q: What is the philosophy of the Anatomy program?
+A: To produce graduates of high academic standing with practical exposure in all aspects of anatomical sciences who can function in medical education, laboratory services, and entrepreneurship.
+
+Q: What are the objectives of the Anatomy program?
+A: 1. Teach Anatomy to various health science students.  2. Use basic laboratory equipment.  3. Demonstrate organ and system functions on living subjects.  4. Identify anatomical features using radiographs and related tools.  5. Promote Anatomy through research and postgraduate studies.
+
+Q: Who are the academic staff in the Department of Anatomy?
+A: Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo; Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire; Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo; Lecturer II: A.A. Oyeleke.
+
+Q: Who are the technical and non-academic staff in the Department of Anatomy?
+A: Technical: Okeniran O.S. (Senior Technologist). Non-academic: Akindele V.O. (Secretary), Adekunle I.A. (Clerical Officer).
+
+Q: What are the UTME admission requirements for Department of Anatomy?
+A: 5 credits in English, Mathematics, Biology, Chemistry, and Physics in not more than two sittings. UTME pass required.
+
+Q: What are the Direct Entry requirements in Department of Anatomy?
+A: NCE/ND with upper credit, two A-level passes in Physics, Chemistry, and Biology/Zoology, or a related first degree.
+
+Q: Are transfer students accepted in Department of Anatomy?
+A: Yes, with minimum CGPA of 1.5, required documentation, and application through the Registrar.
+
+Q: What are the graduation requirements for B.Sc. Anatomy?
+A: 1. 150 credits for UTME, 120 credits for Direct Entry. | 2. Complete all coursework, SIWES, seminars, and projects. | 3. Register 16–25 units per semester.
+
+Q: How is the degree classified?
+A: First Class: 4.50–5.00 | Second Class Upper: 3.50–4.49 | Second Class Lower: 2.50–3.49 | Third Class: 1.40–2.39 | Pass: 1.00–1.49
+
+Q: What are some courses at 100 Level in Anatomy?
+A: BIO 101, CHM 101, GNS 101, LIB 101, CPS 101, PHS 101, MTS 101, including labs and electives in Arabic or French.
+
+Q: What courses are introduced in 200 Level Department of Anatomy?
+A: ANA 201 to ANA 209 covering Gross Anatomy, Histology, Embryology, Biochemistry, Physiology, ICT, and Entrepreneurial Studies.
+
+Q: What are some 300 Level courses Department of Anatomy?
+A: Neuroanatomy, Histology of Special Senses, Human Genetics, Radiologic Anatomy, Cell and Molecular Biology, and SIWES.
+
+Q: What are final year courses in 400 Level Department of Anatomy?
+A: Surface & Prosthetic Anatomy, Anatomical Techniques, Electron Microscopy, Forensic Science, Archaeology, Biometry, and Final Year Project.
+
+Q: Is SIWES included in the program of Department of Anatomy?
+A: Yes, SIWES is included in both 300 Level (SIWES I) and 400 Level (SIWES II).
+
+DEPARTMENT OF ACCOUNTING
+
+Q: What is the focus of the Department of Accounting?
+A: The Department of Accounting focuses on providing students with a sound foundation in accounting principles, practices, and related areas in the business world, preparing them for careers in accounting, auditing, taxation, and financial management.
+
+Q: What are the objectives of the Accounting program?
+A: The objectives are to equip students with theoretical and practical knowledge in accounting, develop analytical and communication skills, instill ethical standards, and prepare graduates for further studies or professional certification.
+
+Q: What are the UTME admission requirements for the Accounting program?
+A: Candidates must have five (5) O’level credits including English Language, Mathematics, Economics, and any two relevant subjects, in not more than two sittings. They must also pass the UTME with appropriate subjects.
+
+Q: What are the Direct Entry requirements for the Accounting program?
+A: Candidates should have at least two A’level passes in Accounting, Economics, or Business Management, or possess ND/NCE/HND in relevant disciplines with at least upper credit.
+
+Q: What are the graduation requirements for Accounting students?
+A: Students must complete a minimum of 150 credit units for a 4-year program and 120 units for Direct Entry, including all compulsory and required courses. They must also have a CGPA of at least 1.00 and complete the Student Industrial Work Experience Scheme (SIWES).
+
+Q: What should Accounting graduates be able to do?
+A: Graduates should demonstrate understanding of accounting principles, apply analytical tools, use ICT in accounting, uphold ethical standards, and be able to work independently or in teams.
+
+Q: What employability skills are acquired in the Accounting program?
+A: Skills include communication, numeracy, ICT, analytical thinking, leadership, ethical judgment, time management, teamwork, and problem-solving.
+
+Q: What 21st-century skills are emphasized in the Accounting program?
+A: The program promotes critical thinking, creativity, collaboration, digital literacy, initiative, flexibility, and productivity.
+
+Q: Who are the academic staff in the Department of Accounting?
+A: The department includes academic staff such as Professors, Senior Lecturers, and Assistant Lecturers with expertise in areas like Financial Accounting, Auditing, and Taxation.
+
+Q: Who are the non-academic staff in the department?
+A: Non-academic staff include administrative officers, secretaries, and support staff who help in the daily running of the department.
+
+100 LEVEL
+Q: What courses are offered in 100 Level Accounting?
+A: Courses include Principles of Economics I & II, Use of English, Introduction to Business, Introduction to Financial Accounting I & II, Business Mathematics, Nigerian Peoples and Culture, and Philosophy and Logic.
+
+200 LEVEL
+Q: What are the core courses at 200 Level Accounting?
+A: Courses include Company Law, Financial Accounting, Business Law, Principles of Management, Cost Accounting, and Business Communication.
+
+300 LEVEL
+Q: What do students study at 300 Level Accounting?
+A: Courses include Advanced Financial Accounting, Taxation, Management Accounting, Auditing, Research Methods, Business Statistics, and Corporate Finance.
+
+Q: Is SIWES included in 300 Level Accounting?
+A: Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level.
+
+400 LEVEL
+Q: What courses are offered in the final year (400 Level) Accounting?
+A: Courses include Advanced Taxation, Auditing and Investigation, Public Sector Accounting, Corporate Reporting, Management Theory, Strategic Management, and a Research Project.
+
+DEPARTMENT OF ARCHITECTURE
+
+Q: What is the college color for Final Year Projects in Architecture?
+A: Ocean Green.
+
+Q: When was the Department of Architecture established?
+A: It was established in September 2011.
+
+Q: What degrees are offered in the Department of Architecture?
+A: B.Sc. and M.Sc. degrees in Architecture.
+
+Q: What is the philosophy of the Architecture programme?
+A: To provide knowledge and skills for designing and constructing human spaces using technological, artistic, and environmental approaches, rooted in cultural and traditional heritage.
+
+Q: What are the objectives of the Architecture programme?
+A: 1. Equip students with environmental, cultural, technological, and economic design knowledge.  2. Offer quality design education with creative design skills.  3. Instill professionalism and ability to manage design processes.  4. Encourage research and community participation.  5. Promote entrepreneurial knowledge and self-reliance.
+
+Q: What are the unique features of the Architecture programme?
+A: 1. Focus on global issues (sustainability, gender, climate, etc.).  2. Emphasis on Nigerian architecture and history.  3. Integration of digital design applications.  4. Preparation for local and international practice.
+
+Q: What employability skills does the Architecture programme provide?
+A: Entrepreneurship for Architects course | Digital drawing and software skills | Independent and creative design thinking. | Communication and presentation skills | Practical experience through workshops and SIWES
+
+Q: What 21st-century skills are emphasized in Architecture?
+A: Digital skills (e.g., Building Information Modelling) | Critical thinking and analysis | Creativity and innovation | Communication and teamwork | Leadership and virtual collaboration
+
+Q: What are the UTME requirements for Architecture?
+A: Five credits including Mathematics, English, Physics, and two others (e.g., Chemistry, Fine Arts). UTME subjects: Mathematics, Physics, and one from Chemistry, Geography, Fine Arts, or Technical Drawing.
+
+Q: What are the Direct Entry requirements?
+A: Two A-levels or IJMB, ND (Upper Credit) for 200 level, or HND (Upper Credit/Distinction) for 300 level.
+
+Q: What is the programme duration for B.Sc. in Architecture?
+A: 8 semesters for UTME; 6 semesters for Direct Entry.
+
+Q: What are the graduation requirements for B.Sc. Architecture?
+A: 120 credits (UTME), 90 or 60 (Direct Entry), and successful completion of all required courses and SIWES.
+
+100 Level:  
+Q: What courses are offered in 100 Level Architecture?  
+A: Communication in English, General Physics, Elementary Mathematics, Freehand Drawing, Graphics Communication, Introduction to Architecture & Environmental Sciences.
+
+200 Level:
+Q: What courses are offered in 200 Level Architecture?  
+A: CAD, Design Studios I & II, Building Components & Methods, Islamic Architecture, Site Planning, Modeling Studio, Surveying.
+
+300 Level:
+Q: What courses are offered in 300 Level Architecture?  
+A: Research Methods, Design Studios III, Structures, Services, Building Information Modelling, Urban Design, SIWES, Entrepreneurship for Architects.
+
+400 Level:  
+Q: What courses are offered in 400 Level Architecture?
+A: Design Studios IV & V, Professional Practice, Behavioral Architecture, Interior Design, Project Planning, Acoustics, Dissertation.
+
+Q: Is SIWES part of the curriculum of the department of Architecture?
+A: Yes, a three-month SIWES is integrated at 300 Level.
+
+DEPARTMENT OF BIOLOGICAL SCIENCES (MICROBIOLOGY)
+
+Q: What is the college color for Final Year Projects in Biological Sciences(Microbiology)?
+A: Coffee Brown.
+
+Q: When was the Department of Biological Science established?
+A: The department was established in 2005.
+
+Q: What degree programme is offered by the Department of Biological Science?
+A: The department offers a B.Sc. degree in Microbiology.
+
+Q: What is the philosophy of the Microbiology programme?
+A: To train graduates who apply microbiological techniques to solve developmental challenges in society.
+
+Q: What are the objectives of the Microbiology programme?
+A: 1. Train students for careers in industry, health, and research. | 2. Prepare students for graduate and professional studies. | 3. Develop entrepreneurial skills in applied microbiology.
+
+Q: What are the unique features of the Microbiology programme?
+A: The programme covers modern microbiology areas such as food, industrial, medical, systematics, environmental, biotechnology, genetic engineering, and entrepreneurship.
+
+Q: What employability opportunities are available to microbiology graduates?
+A: Employment in hospitals, labs, pharmaceutical industries, agriculture, environmental firms, food and dairy industries, breweries, NGOs, and educational institutions.
+
+Q: What skills should a microbiology graduate possess?
+A: Technical, laboratory, analytical, writing, interpersonal, and communication skills, as well as attention to detail and a passion for disease prevention and environmental improvement.
+
+Q: What 21st-century skills are emphasized in the department of biological science (Microbiology)?
+A: Critical thinking, problem solving, analysis, research skills, creativity, adaptability, initiative, and self-direction.
+
+Q: What are the UTME requirements for Microbiology?
+A: Five credits including English, Mathematics, Biology, Chemistry, and Physics. UTME subjects: English, Biology, Chemistry, and one of Mathematics or Physics.
+
+Q: Who are some academic staff in the department of biological science (Microbiology)?
+A: Professors: A.A. Onilude, G.O. Babalola, Senior Lecturers: J.F.O. Sanusi, K.T. Kareem, B.C. Adebayo-Tayo, A.O. Sirajudeen, Lecturers I: R.O. Ishola, A.O. Olanlege, A.O. Sakariyau, Lecturer II: A.O. Adesope, Assistant Lecturer: M. Arowolo
+
+Q: Who are the technical staff in department of biological science (Microbiology)?
+A: Mr. O.I. Oyelami (Lab Technologist), Miss S.M. Abdulganiyy (Assistant Lab Technologist)
+
+100 Level:
+Q: What courses are offered in 100 Level department of biological science (Microbiology)?  
+A: Courses: General Biology, Chemistry, Physics, Mathematics, Computing, and Communication in English
+A: Labs: Biology, Chemistry, Physics Practical
+
+200 Level:
+Q: What courses are offered in 200 Level department of biological science (Microbiology)?  
+A: Courses: General Microbiology, Biochemistry, Inorganic/Organic Chemistry, Cell Biology, Ecology, Biotechnology, Zoology, Biological Techniques
+
+300 Level:
+Q: What courses are offered in 300 Level department of biological science (Microbiology)?  
+A: Courses: Fungi, Immunology, Food Microbiology, Enzymology, Soil Microbiology, Bacterial Diversity, Microbial Ecology, SIWES, and Entrepreneurship
+
+400 Level:
+Q: What courses are offered in 400 Level department of biological science (Microbiology)?
+A: Courses: Epidemiology, Public Health, Pathogenic Microbiology, Petroleum, Environmental, Industrial Microbiology, Microbial Genetics, Virology, and Project Work
+
+DEPARTMENT OF CHEMICAL SCIENCES (BIOCHEMISTRY)
+
+Q: What are the main objectives of the Department of Chemical Sciences?
+A: Promote excellence in chemical sciences, equip students with relevant skills, and support scientific development.
+
+Q: What academic programs are offered by the Department of Chemical Sciences?
+A: Undergraduate (B.Sc.), M.Sc., and Ph.D. programs in various branches of Chemistry.
+
+Q: What facilities are available in the Department of Chemical Sciences?
+A: Modern labs, instrumentation (UV-Vis, FTIR, NMR, GC-MS), smart classrooms, and internet access.
+
+Q: What are the research areas covered by the Department of Chemical Sciences?
+A: Green Chemistry, Coordination Chemistry, Material Science, Medicinal Chemistry, and more.
+
+Q: What achievements or recognitions has the Department of Chemical Sciences received?
+A: Research publications, funding, collaborations, and event hosting.
+
+Q: What is the B.Sc. Biochemistry programme about?
+A: It provides broad-based knowledge on the chemical processes in living organisms, preparing students for careers in health, food, and related industries.
+
+Q: What is the philosophy of the Department of Chemical Sciences (Biochemistry) programme?
+A: It focuses on understanding biochemical processes and how deviations lead to diseases, while promoting application of this knowledge for industrial and societal development.
+
+Q: What are the objectives of the Department of Chemical Sciences (Biochemistry) degree?
+A: Provide foundational biochemical knowledge and practical skills, Train students to solve theoretical and practical problems, Develop transferable skills for both biochemical and non-biochemical jobs, Prepare students for advanced studies in biochemistry, Promote interdisciplinary approaches to life problems, Emphasize biochemistry’s relevance in industrial, environmental, and technological development.
+
+Q: What are the unique features of the Department of Chemical Sciences (Biochemistry) programme?
+A: High-level cognitive development. | Study of tropical flora/fauna for drug development. | Practical lab and safety skills. | Information literacy for research. | Critical thinking and problem-solving skills.
+
+Q: What employability skills does the Department of Chemical Sciences (Biochemistry) provide?
+A: Knowledge of industrial biochemical processes. | Appreciation of biochemistry in life sciences. | Capacity for entrepreneurship in biochemistry-related fields.
+
+Q: What are the admission requirements for the Department of chemical science (biochemistry)?
+A: UTME (100 Level): 5 SSCE credits in English, Maths, Biology, Chemistry, Physics (max. 2 sittings) and a UTME pass. | Direct Entry (200 Level): 5 SSCE credits + 2 A-level or IJMB passes in Biology and Chemistry. | ND/NCE with upper credit in a relevant field. | Transfer: Transcript, confidential report, and minimum CGPA of 1.5.
+
+Q: What is the duration of the Biochemistry programme?
+A: UTME: 4 academic years (8 semesters) | Direct Entry: 3 academic years (6 semesters) | Additional 50% time may be allowed if necessary.
+
+Q: What is the course structure at 100 Level First Semester Department of Chemical Sciences (Biochemistry)?
+A: Communication in English (GST 111) Unit:2 | Elementary Mathematics I (MTH 101) Unit:2 | Intro to Computing Sciences (COS 101) Unit:3 || General Biology I (BIO 101) Unit:2 | General Biology Practical I (BIO 107) Unit:1 | General Chemistry I (CHM 101) Unit:2 | General Chemistry Practical I (CHM 107) Unit:1 | General Physics I (PHY 101) Unit:2 | General Physics Practical I (PHY 107) Unit:1 | Early Muslims' Contributions to Science (CUAB-BCH 113) Unit:2 | Total: 18 Units
+
+Q: What is the 100 Level Second Semester curriculum Department of Chemical Sciences (Biochemistry)?
+A: Nigerian People and Culture(GST 112) Unit:2 | Elementary Mathematics II(MTH 102) Unit:2 | General Biology II(BIO 102) Unit:2 | General Biology Practical II(BIO 108) Unit:1 | General Chemistry II(CHM 102) Unit:2 | General Chemistry Practical II(CHM 108)Unit:1 | General Physics II(PHY 102) Unit:2 | General Physics Practical II(PHY 108) Unit:1 | Total: 13 Units
+
+Q: What courses are offered in 200 Level First Semester Department of Chemical Sciences (Biochemistry)?
+A: Includes Entrepreneurship, General Biochemistry, Statistics, Biotechnology, Organic Chemistry, Microbiology, and practicals. Total: 16 Units
+
+Q: What are the 200 Level Second Semester courses Department of Chemical Sciences (Biochemistry)?
+A: Subjects like Physical Chemistry, Immunology, Endocrinology, Genetics, and Biochemistry II (Total: 14 Units)
+
+Q: What is taught in 300 Level First Semester Department of Chemical Sciences (Biochemistry)?
+A: Enzymology, Lipid Metabolism, Nucleic Acids, Membrane Biochemistry, Inorganic Biochemistry, Industrial Attachment, Toxicology II, Tissue Biochemistry. (Total: 15 Units)
+
+Q: What courses are in 300 Level Second Semester Department of Chemical Sciences (Biochemistry)?
+A: Carbohydrate & Amino Acid Metabolism, Analytical Methods, Bioenergetics, Toxicology I, Pharmaceutical Biochemistry, Peace & Conflict Resolution. (Total: 15 Units)
+
+Q: What is included in the 400 Level First Semester curriculum Department of Chemical Sciences (Biochemistry)?
+A: Advanced Enzymology, Metabolic Regulation, Plant Biochemistry, Bioinformatics, Seminar, and electives like Forensic Biochemistry and Coordination Chemistry. (Total: 14 Units)
+
+Q: What are the 400 Level Second Semester courses Department of Chemical Sciences (Biochemistry)?
+A: Molecular Biochemistry, Biochemical Reasoning, Research Project (6 units), Entrepreneurship, Molecular Immunology, Industrial Biochemistry, Macromolecule Biosynthesis. (Total: 16 Units)
+
+Q: Who are the College of Natural and Applied Sciences (CONAS) staff?
+A: Prof. A.A. Onilude – Dean | Mrs. N. I. Sanusi – College Officer | Miss O. Oloyede – College Clerk
+
+Q: Who are the academic staff in the Department of Chemical Sciences (Biochemistry)?
+A: Prof. O.A. Akinloye (Professor) | Dr. A.B. James	(Reader) | Dr. L.A. Sulaimon (Senior Lecturer) | Dr. M.B. Adekola (Senior Lecturer) | Dr. A.J. Akamo (Senior Lecturer) | Dr. A.O. Oyedeji (Lecturer I) | Dr. O.T. Adewusi (Lecturer I) | Miss M.O. Lawal (Lecturer I)
+
+Q: Who are the non-academic staff in the Department of Chemical Sciences (Biochemistry)?
+A: Technologists: Mr. R.K. Quadri, Mr. Q.O. Sobande | Lab Assistants: Mrs. A.A. Whyte, Mr. I.O. Olaniyan | Secretary: Miss N.Y. Oyabunmi | Office Assistant: Miss M.G. Sodipo
+
+DEPARTMENT OF COMPUTER SCIENCE
+
+Q: When was the Department of Computer Science established?
+A: It was established in 2005.
+
+Q: What is the vision of the Department of Computer Science regarding student training?
+A: To produce graduates equipped with the knowledge and skills to develop, deploy, and maintain solutions for scientific, industrial, and social applications.
+
+Q: What is unique about the curriculum of the department of Computer Science?
+A: It includes professional certification training as part of the B.Sc. program and emphasizes individual seminar presentations and Final Year Projects.
+
+Q: What qualities are students expected to develop through the B.Sc Computer Science program?
+A: Initiative, creativity, originality, flexibility, ingenuity, and foresight.
+
+Q: Who is the Acting HOD of Computer Science and what is his specialization?
+A: Dr. Ibharalu Friday Thomas; specializes in Software Engineering, Distributed Systems, and Mobile Computing.
+
+Q: Name a professor in the department of Computer Science and their areas of expertise.
+A: Prof. Sodiya Adesina Simon specializes in Cybersecurity, Software Engineering, AI Applications, Bio-Informatics, Data Science, and Knowledge-Based Systems.
+
+Q: Who is the Principal Computer Technologist and what are his qualifications?
+A: S.O. Kareem; B.Sc. in Computer Science, CCNP, CCNA, MCP Windows 2000 Professional, MCP Windows Server.
+
+Q: Who is the College Officer and what is their qualification?
+A: A. H. Rifhat; B.Sc. in Agricultural Economics.
+
+Q: What are the major research areas in the Department of Computer Science?
+A: Data Mining and Artificial Intelligence | Database on Medicinal Plants
+
+Q: What laboratories are available for student training in Department of Computer Science?
+A: 1. Computer Software Laboratory – 40 PCs, standard software tools, operating systems, compilers, and statistical packages. | 2. Computer Hardware Laboratory – Hands-on experience with hardware repair, troubleshooting, and assembly.
+
+Q: What is the department of Computer Science focus?
+A: It emphasizes core computing concepts like programming, networking, and emerging technologies with practical exposure.
+
+Q: What is the philosophy of the department of Computer Science program?
+A: To provide high-quality education grounded in theoretical and algorithmic foundations.
+
+Q: What are some specific objectives of the B.Sc. Computer Science?
+A: Awareness and enthusiasm for Computer Science | Broad and practical skills foundation | Problem-solving and tool application | Analytical thinking and teamwork | Communication, ethics, and lifelong learning
+
+Q: What are some unique features of the Computer Science program?
+A: Emphasis on open-source software | Hands-on learning | Focus on formal methods and algorithmic concepts
+
+Q: What employability skills does the Computer Science program promote?
+A: Communication, teamwork, management, critical thinking, technology skills, and leadership.
+
+Q: What 21st-century skills are integrated IN Computer Science?
+A: Creativity, information/media literacy, flexibility, problem-solving, collaboration, innovation, and critical thinking.
+
+Q: What are the UTME admission requirements of Department of Computer Science?
+A: Five SSC credit passes including English, Math, Physics, and other science subjects. | UTME subjects: English, Mathematics, Physics, and Chemistry.
+
+Q: What are the Direct Entry requirements of Department of Computer Science?
+A: Five SSC credits and one of the following: University degree with at least lower credit | HND/ND with upper credit or NCE | Two A-Level passes | IJMB at acceptable grade
+
+Q: What are the requirements to graduate with a B.Sc. in Computer Science?
+A: Pass all core, college, and elective courses | Minimum 120 credit units (UTME), 90 units (Direct Entry) | Minimum CGPA of 1.00 | Must be found worthy in character and complete project, seminar, and SIWES
+
+Q: What is the minimum duration of the degree of Department of Computer Science?
+A: 4 academic sessions for UTME entrants | 3 academic sessions for Direct Entry students
+
+Q: How is the curriculum structured across the four levels in Department of Computer Science?
+A: The curriculum includes courses in mathematics, physics, programming, software engineering, AI, cybersecurity, operating systems, networking, and more—spread across 100 to 400 levels with increasing complexity and practical exposure.
+
+100 Level
+Q: What courses are offered in 100 Level First Semester Computer Science?
+A: GST 111 – Communication in English (2 units) | MTH 101 – Elementary Mathematics I (2 units) | PHY 101 – General Physics I (2 units) | PHY 107 – General Practical Physics I (1 unit) | STA 111 – Descriptive Statistics (3 units) | COS 101 – Introduction to Computing Sciences (3 units) | CUAB-CSC 103 – Islamic Perspective in ICT (2 units) | CUAB-CSC 105 – Use of Library for Computer Science Students (2 units) Total Units: 17
+
+Q: What courses are offered in 100 Level Second Semester in of Department of Computer Science?
+A: GST 112 – Nigerian Peoples and Culture (2 units) | MTH 102 – Elementary Mathematics II (2 units) | PHY 102 – General Physics II (2 units) | PHY 108 – General Practical Physics II (1 unit) | COS 102 – Problem Solving (3 units) | CUAB-CSC 104 – System Analysis and Design (2 units) | CUAB-CSC 106 – Introduction to Algebra (2 units) | CUAB-CSC 108 – Foundation of Sequential Program (2 units) Total Units: 16
+
+200 Level
+Q: What courses are offered in 200 Level First Semester Department of Computer Science?
+A: ENT 211 – Entrepreneurship and Innovation (2 units) | MTH 201 – Mathematical Methods I (2 units) | COS 201 – Computer Programming I (3 units) | CSC 203 – Discrete Structures (2 units) | CSC 299 – SIWES I (3 units) | IFT 211 – Digital Logic Design (2 units) | SEN 201 – Introduction to Software Engineering (2 units)
+Total Units: 16
+
+Q: What courses are offered in 200 Level Second Semester Department of Computer Science?
+A: GST 212 – Philosophy, Logic and Human Existence (2 units) | MTH 202 – Elementary Differential Equations (2 units) | COS 202 – Computer Programming II (3 units) | IFT 212 – Computer Architecture and Organisation (2 units) | CUAB-CSC 204 – Distributed Computing System (2 units) | CUAB-CSC 206 – Software Engineering (2 units) | CUAB-CSC 208 – Introduction to Numerical Analysis (2 units) Total Units: 15
+
+300 Level
+Q: What courses are offered in 300 Level First Semester Department of Computer Science?
+A: CSC 301 – Data Structures (3 units) | CSC 309 – Artificial Intelligence (2 units) | CSC 399 – SIWES II (3 units) | CYB 201 – Introduction to Cybersecurity and Strategy (2 units) | ICT 305 – Data Communication System & Network (3 units) | CUAB-CSC 303 – Computational Science & Numerical Methods (2 units) Total Units: 15
+
+Q: What courses are offered in 300 Level Second Semester Department of Computer Science?
+A: GST 312 – Peace and Conflict Resolution (2 units) | ENT 312 – Venture Creation (2 units) | CSC 308 – Operating Systems (3 units) | CSC 322 – Computer Science Innovation and New Technologies (2 units) | DTS 304 – Data Management I (3 units) | CUAB-CSC 302 – Modelling and Simulation (2 units) | CUAB-CSC 304 – Formal Language & Automata Theory (2 units) Total Units: 16
+
+400 Level
+Q: What courses are offered in 400 Level First Semester Department of Computer Science?
+A: COS 409 – Research Methodology and Technical Report Writing (3 units) | CSC 401 – Algorithms and Complexity Analysis (2 units) | CSC 497 – Final Year Project I (3 units) | INS 401 – Project Management (2 units) | CUAB-CSC 403 – Introduction to Operation Research (2 units) | CUAB-CSC 405 – Human Computer Interface (2 units) | CUAB-CPS 407 – Data Visualization for Data-Driven Decision Making (2 units) Total Units: 16
+
+Q: What courses are offered in 400 Level Second Semester Department of Computer Science?
+A: CSC 402 – Ethics and Legal Issues in Computer Science (2 units) | CSC 498 – Final Year Project II (3 units) | CUAB-CSC 404 – Computer System Performance Evaluation (2 units) (Elective) | CUAB-CSC 406 – Computer Graphics & Visualization (2 units) (Elective) | CUAB-CSC 408 – Compiler Construction (2 units) | CUAB-CSC 410 – Survey of Programming Languages (2 units) | CUAB-CSC 412 – Internet Technology & Web Programming (2 units) Total Units: 15
+
+DEPARTMENT OF ECONOMICS 
+
+Q: When was the Department of Economics with Operations Research established?
+A: The department was established in the 2005/2006 academic session.
+
+Q: What programmes does the Department of Economics with Operations Research offer?
+A: The department offers: (i) B.Sc. in Economics with Operations Research | (ii) M.Sc. in Economics
+
+Q: When did the postgraduate Department of Economics with Operations Research programme begin?
+A: The postgraduate programme began during the 2015/2016 academic session.
+
+Q: What improvements have been recorded in the Department of Economics with Operations Research?
+A: Improved staff-student relationships and curriculum restructuring in line with NUC CCMAS.
+
+Q: Who are some of the academic staff and their specializations in Department of Economics with Operations Research?
+A: Prof. R.O. Kareem – Resource and Development Economics, Entrepreneurship | Dr. A.H. Bakare – Development Economics | Dr. M.A. Isiaka – International, Financial, Tourism & Managerial Economics | Dr. T.S. Adebayo – International & Industrial Economics | Dr. O.T. Afolayan – Human Resource Economics
+
+Q: What is the focus of the Department of Economics with Operations Research programme?
+A: It covers Economic Theories, Mathematics/Econometrics, and Economic Policies to prepare students for roles in economics, administration, and resource management.
+
+Q: What is the philosophy of the Department of Economics with Operations Research programme?
+A: To produce graduates with analytical and critical skills to understand economic problems, formulate policies, and communicate findings effectively.
+
+Q: What are the objectives of the B.Sc. Economics with Operations Research programme?
+A: Provide training in economics principles | Stimulate intellectual engagement with economics | Develop analytical tools for policy and problem-solving | Equip students with transferable skills and readiness for further studies
+
+
+Q: What employability skills should graduates possess in Department of Economics with Operations Research?
+A: Job creation ability | Resource management | Versatility in production settings | Advisory and consultancy skills | Policy interpretation and guidance
+
+Q: What 21st century skills are emphasized in Department of Economics with Operations Research?
+A: Scientific literacy | Analytical research | Innovation and critical thinking | Economic literacy and global awareness | Effective communication and data interpretation
+
+Q: What are unique features of the department Economics with Operations Research?
+A: Courses taught with global relevance | Recognition of diverse economic structures | Emphasis on applications to developing/emerging economies
+
+Q: What are the UTME requirements for the department Economics with Operations Research?
+A: Five SSC credits (including English, Math, and Economics) and UTME subjects: English, Economics, Math, and Geography/Commerce/Govt/Accounts.
+
+Q: What are the Direct Entry requirements for the department Economics with Operations Research?
+A: Two A-level passes in social sciences, upper credit in NCE/ND/IJMB, and SSC credits including English, Math, and Economics.
+
+Q: Can students transfer into the department Economics with Operations Research?
+A: Yes, with minimum CGPA of 1.5 and submission of transcripts and application.
+
+Q: What are the graduation requirements for the department Economics with Operations Research?
+A: 120 units (UTME) or 90 units (Direct Entry) | Pass all compulsory and required courses | Spend minimum of 8/6 semesters (UTME/Direct Entry) | Fulfil all university and faculty requirements
+
+Q: What courses are offered in the B.Sc. Economics with Operations Research?
+A: The curriculum includes courses in microeconomics, macroeconomics, statistics, econometrics, development, operations research, and electives across 100–400 levels.
+
+100 Level
+Q: What courses are offered in 100 Level First Semester department Economics with Operations Research?
+A: GST 111 – Communication Skills in English (2 units) | ECO 101 – Principles of Economics I (2 units) | ECO 103 – Introductory Mathematics I (2 units) | CUAB-ECO 105 – Introduction to Statistics for Economics I (2 units) | CUAB-ECO 107 – Introduction to Finance I (2 units) | CUAB-ECO 109 – Introduction to Financial Accounting for Economists I (2 units) | CUAB-ECO 111 – Introduction to Business Economics I (2 units) | CUAB-ECO 113 – Islamic Economic System (2 units) Total: 16 Units
+
+Q: What courses are offered in 100 Level Second Semester department Economics with Operations Research?
+A: GST 112 – Nigerian Peoples and Culture (2 units) | ECO 102 – Principles of Economics II (2 units) | ECO 104 – Introductory Mathematics II (2 units) | CUAB-ECO 106 – Introduction to Statistics for Economics II (2 units) | CUAB-ECO 108 – Introduction to Finance II (2 units) | CUAB-ECO 110 – Introduction to Financial Accounting for Economists II (2 units) | CUAB-ECO 112 – Introduction to Business Economics II (2 units) | CUAB-ECO 114 – Uses of Library and Study Skills for Economists (2 units) Total: 16 Units
+
+200 Level
+Q: What courses are offered in 200 Level First Semester department Economics with Operations Research?
+A: ENT 211 – Entrepreneurship (2 units) | ECO 201 – Introduction to Microeconomics I (2 units) | ECO 203 – Introduction to Macroeconomics I (2 units) | ECO 205 – Structure of the Nigerian Economy (2 units) | ECO 207 – Mathematics for Economists (2 units) | CUAB-ECO 209 – Labour Economics (2 units) | CUAB-ECO 211 – Tourism Economics (2 units) [Elective] | CUAB-ECO 213 – Urban and Regional Economics (2 units) | CUAB-ECO 215 – Industrial Economics (2 units) [Elective] Total: 16 Units
+
+Q: What courses are offered in 200 Level Second Semester department Economics with Operations Research?
+A: GST 212 – Philosophy, Logic and Human Existence (2 units) | SSC 202 – Introduction to Computer and Its Applications (3 units) | ECO 202 – Introduction to Microeconomics II (2 units) | ECO 204 – Introduction to Macroeconomics II (2 units) | ECO 206 – Statistics for Economists (2 units) | CUAB-ECO 208 – Economics of Development (2 units) | CUAB-ECO 210 – Transport Economics (2 units) [Elective] Total: 15 Units
+
+300 Level
+Q: What courses are offered in 300 Level First Semester department Economics with Operations Research?
+A: ECO 301 – Intermediate Microeconomics I (2 units) | ECO 303 – Intermediate Macroeconomics I (2 units) | ECO 305 – History of Economic Thought (2 units) | ECO 307 – Project Evaluation (3 units) | SSC 301 – Innovation in the Social Sciences (2 units) | CUAB-ECO 309 – Operations Research I (2 units) | CUAB-ECO 311 – Software Application for Economists (2 units) | CUAB-ECO 313 – International Economics (2 units) [Elective] | CUAB-ECO 315 – Public Finance (2 units) [Elective] | CUAB-ECO 317 – Economics of Corruption (2 units) [Elective] Total: 21 Units
+
+Q: What courses are offered in 300 Level Second Semester department Economics with Operations Research?
+A: GST 312 – Peace and Conflict Resolution (2 units) | ENT 312 – Venture Creation (2 units) | ECO 302 – Intermediate Microeconomics II (2 units) | ECO 304 – Intermediate Macroeconomics II (2 units) | ECO 306 – Introductory Econometrics (3 units) | ECO 308 – Public Sector Economics (2 units) | SSC 302 – Research Method I (2 units) | CUAB-ECO 310 – Operations Research II (2 units) Total: 17 Units
+
+400 Level
+Q: What courses are offered in 400 Level First Semester department Economics with Operations Research?
+A: ECO 401 – Advanced Microeconomics I (2 units) | ECO 403 – Advanced Macroeconomics I (2 units) | ECO 405 – Economic Planning (3 units) | ECO 407 – Fiscal Policy and Analysis (3 units) | ECO 499 – Research Project/Original Essay (6 units) | SSC 401 – Research Method II (2 units) Total: 18 Units
+
+Q: What courses are offered in 400 Level Second Semester department Economics with Operations Research?
+A: ECO 402 – Advanced Microeconomics II (2 units) | ECO 404 – Advanced Macroeconomics II (2 units) | ECO 406 – Monetary Theory and Policy (3 units) | CUAB-BCO 408 – Operations Research III (3 units) | CUAB-BCO 410 – Econometrics (2 units) [Elective] | CUAB-BCO 412 – Environment and Sustainable Development (2 units) | CUAB-BCO 414 – Problems and Policies of Development (2 units) [Elective] | CUAB-BCO 416 – Comparative Economic Systems (2 units) [Elective] | CUAB-BCO 418 – Health Economics (2 units) [Elective] | CUAB-BCO 420 – Petroleum and Energy Economics (2 units) Total: 22 Units  (Note: Students are expected to take at least one elective per semester.)
+
+DEPARTMENT OF LAW
+
+Q: What is the College colour for final year students' long essay project?
+A: Black.
+
+Q: What is the University's residential policy in department of law?
+A: On-campus residency is compulsory, except for mature/married students with approved exemption.
+
+Q: What are the goals of BACOLAW graduates?
+A: To be skilled in legal practice, fight corruption, uphold the rule of law, and contribute to national productivity and justice.
+
+Q: How is the BACOLAW curriculum designed?
+A: To comply with NUC and CLE standards, emphasize societal relevance, and apply legal knowledge to real-world political, economic, and social issues.
+
+Q: What is BACOLAW’s philosophy on student development?
+A: "Mens sana in corpore sano" – a sound mind in a sound body.
+
+Q: What support and activities are provided in LL.B?
+A:  Academic and moral mentoring by staff | Participation in debates, moot court, and seminars | Role modeling and open faculty-student engagement
+
+Q10: What are the features of the BACOLAW building?
+A: Located at Erelu Abiola Auditorium with lecture halls, tutorial rooms, common rooms, and a 300-seater auditorium.
+
+Q: What resources are available in the Femi Okunnu Law Library?
+A: Over 3,000 legal texts | E-library access to Law Pavilion, Lexis Nexis, and Legalpedia | Open Monday–Friday (8am–6pm) and Saturday (10am–2pm)
+
+Q: What is the Moot Court and how does it function?
+A: A simulated courtroom experience established in 2012. Students practice advocacy in student law chambers. Judged by real legal professionals.
+
+Q: What is the purpose of the Law Clinic?
+A: Provide legal aid to indigent persons, train students under faculty supervision, and promote human rights, strategic litigation, and social change.
+
+Q: What teaching approach does the Department of Law(LL.B) programme use?
+A: 3 hours lecture + 1 hour tutorial per course | Clinical Legal Education method | Focus on student participation through debates and research | Attachment to courts and legal bodies | Field trips and six-week law office internship
+
+Q: What is the official law student association?
+A: Law Students Association of Nigeria (LAWSAN), CUAB Branch. Membership is compulsory.
+
+Q: What other student organizations exist in Department of Law(LL.B)?
+A: Nigerian Society of International Law (CUAB branch) | Human Rights Club | Alternative Dispute Resolution Club | Moot and Mock Club | Rotaract Club (All operate under the guidance of Staff Advisers.)
+
+Q: What is the dress code for male law students?
+A: White long-sleeve shirt | Black trousers and tie | Black suits for formal events | Black socks and shoes (no sandals, slippers, or trainers)
+
+Q: What is the dress code for female law students?
+A: Simple black gown with white stripe/head covering | Black/white blouse and skirt | Black skirt suit for formal occasions | Black shoes (no sandals or slippers)
+
+Q: What are the college’s official publications?
+A: Crescent University Law Journal (ISSN 2479-065A) | Books: "Introduction to African Comparative Law and Related Issues" and "Customary Law in African Societies" | Law Matters magazine (jointly with Mass Communication Dept.)
+
+Q: Who are the key administrative figures at BACOLAW?
+A: Prof. Momodu Kassim-Momodu (Dean) | Jaleelah Idris (Sub-Dean) | Yunus S. Adesina (Law Librarian) | Department Heads: (Jurisprudence & Int’l Law: Prof. I.F. Akande | Commercial & Property Law: Prof. Peter K. Fogam | Islamic & Customary Law: Dr. Ismail K. Yunus)
+
+Q: What qualifications are needed for admission into the Department of Law(LL.B) programme?
+A: UTME Admission: 5 credits (including English and Literature) + JAMB | Direct Entry: 2 A-Levels + 3 O-Level credits (including English, Lit.) | Others: Second Class Lower from Arts or Social Sciences, or equivalent qualifications deemed acceptable by the Senate
+
+Q: What is the registration process for new students in Department of Law(LL.B)?
+A: 1. Payment and clearance from Bursar | 2. Registration with Admissions and Academic Offices | 3. Course selection with HOD | 4. Submission of forms to Records Office | 5. Health Centre registration
+
+Q: How long is the Department of Law(LL.B) programme?
+A: UTME students: 5 years (10 semesters) | Direct Entry: 4 years (8 semesters)
+
+Q: What are the graduation criteria in Department of Law(LL.B)?
+A: UTME: Minimum 194 earned credit hours | Direct Entry: Minimum 162 earned credit hours | Minimum CGPA: 1.50
+
+Q: How are courses identified IN Department of Law(LL.B)?
+A: LAW: General/Long Essay | LPI: Jurisprudence and International Law | LPB: Private and Commercial Law | ICL: Islamic and Customary Law
+
+Q: What types of courses are available IN Department of Law(LL.B)?
+A: University Required Courses: Mandatory, not classified in degree | Compulsory Courses: Mandatory and used in classification | Elective Courses: Optional, count toward graduation | Audited Courses: Not graded but may be attended
+
+Q: What does the Department of Law(LL.B) curriculum entail?
+A: A structured progression from 100 to 500 levels with both core and elective courses covering: Legal Methods | Nigerian Legal System | Constitutional Law | Criminal Law | Contract, Tort, and Property Law | Jurisprudence, Company Law | Family Law, Human Rights, Islamic Law |Research methodology and a Long Essay (LAW 599)
+
+Q: What practical and interdisciplinary subjects are included in Department of Law(LL.B)?
+A: Philosophy, Psychology, Sociology | Political Science, Entrepreneurial Studies | ICT, Communication, Public Administration | Courtroom attachment, Law office internship | Participation in moot courts, law clinics, and debates
+
+Q: What courses are taken in 100 Level First Semester Department of Law(LL.B) ?
+A: LIB 101: Use of Library (2 units) | LAW 101: Legal Methods I (4 units) | GNS 101: Use of English I (2 units) | GNS 105: Nigerian Peoples and Culture (1 unit) | ENG 107: Literature in English I (3 units) | SOS 101: Introduction to Sociology (3 units) | PIS 101: Introduction to Political Science (3 units) | GNS 103: Philosophy of Islam I (1 unit) | CPS 101: Introduction to Computer (3 units)
+
+Q: What courses are taken in 100 Level Second Semester Department of Law(LL.B)?
+A: LAW 102: Legal Methods II (4 units) | GNS 106: History & Philosophy of Science (2 units) | GNS 102: Logic and Philosophy of Human Existence (1 unit) | ENG 108: Literature in English II (3 units) | PSY 102: Introduction to Psychology (3 units) | GNS 104: Philosophy of Islam II (1 unit) | PIS 102: Nigerian Constitutional Development (3 units)
+
+Q: What courses are taken in 200 Level First Semester Department of Law(LL.B)?
+A: LPI 201: Constitutional Law I (4 units) | ICL 201: Introduction to Islamic Law I (4 units) | LPB 201: Law of Contract I (4 units) | LPI 203: Nigerian Legal System I (4 units) | GNS 205: Intro to Entrepreneurial Studies (1 unit) | GNS 211: Communication in English (1 unit) | Electives (Law + GNS): 5 units
+
+Q: What are the elective options in 200 Level First Semester Department of Law(LL.B)?
+A: LPB 203: Labour Law I | ICL 203: Islamic Law of Transaction I | LPI 205: Administrative Law I
+
+Q: What courses are in 200 Level Second Semester Department of Law(LL.B)?
+A: LPI 202: Constitutional Law II (4 units) | ICL 202: Introduction to Islamic Law II (4 units) | LPB 202: Law of Contract II (4 units) | LPI 204: Nigerian Legal System II (4 units) | FAC 204: Principles of Crop Production (3 units) | GNS 206: Practical Entrepreneurial Skills (1 unit) | GNS 212: Communication in English (2 units) | Electives (Law + GNS): 5 units
+
+Q: What elective GNS courses can be taken in 200 Level Second Semester Department of Law(LL.B)?
+A: GNS 202: French for Beginners II | GNS 204: Arabic for Beginners II
+
+Q: What courses are in 300 Level First Semester Department of Law(LL.B)?
+A: LPI 301: Criminal Law I (4 units) | LPB 301: Law of Torts I (4 units) | LPB 303: Commercial Law I (4 units) | LPI 303: ICT Law I (4 units) | GNS 301: Global Citizenship, Peace & Conflict Resolution (2 units) | Electives (Law + Non-Law): 7 units
+
+Q: What elective law courses are offered in 300 Level First Semester Department of Law(LL.B)?
+A: LPB 305: Family Law and Succession I | LPI 307: Human Rights Law I | LPB 307: ADR I | ICL 301: Islamic Law of Crime and Tort I
+
+Q: What are the non-law electives in 300 Level First Semester Department of Law(LL.B)?
+A: PIS 321: Peace Studies and Conflict Resolution I
+
+Q: What courses are in 300 Level Second Semester Department of Law(LL.B)?
+A: LPI 302: Criminal Law II (4 units) | LPB 302: Law of Torts II (4 units) | LPB 304: Commercial Law II (4 units) | TPT 304: ICT Law II (4 units) | Electives (Law + Non-Law): 7 units
+
+Q: What courses are in 400 Level First Semester Department of Law(LL.B)?
+A: LPI 401: Law of Evidence I (4 units) | LPB 401: Property Law I (4 units) | LPB 403: Equity and Trusts I (4 units) | Elective Law Courses (2): 8 units
+
+Q: What courses are in 400 Level Second Semester Department of Law(LL.B)? 
+A: LPI 402: Law of Evidence II (4 units) | LPB 402: Property Law II (4 units) | LPB 404: Equity and Trusts II (4 units) | LAW 402: Research Methodology (2 units) | Elective Law Courses (2): 8 units
+
+Q: What courses are in 500 Level First Semester Department of Law(LL.B)?
+A: LPI 501: Jurisprudence and Legal Theory I (4 units) | LPB 501: Company Law I (4 units) | Elective Law Courses (2): 8 units | Elective Non-Law Course: 3 units
+
+Q: What are the elective non-law options in 500 Level First Semester Department of Law(LL.B)?
+A: MPIS 209: International Relations | COM 501: Communication Skills I
+
+Q: What courses are in 500 Level Second Semester Department of Law(LL.B)?
+A: LPI 502: Jurisprudence and Legal Theory II (4 units) |LPB 502: Company Law II (4 units) | LAW 599: Long Essay (6 units) | Elective Law Courses (2): 8 units | Elective Non-Law Course: 3 units
+
+Q: What are the elective non-law options in 500 Level Second Semester Department of Law(LL.B)?
+A: PIS 202: Introduction to Public Administration | COM 502: Communication Skills II
+
+DEPARTMENT OF MASS COMMUNICATION 
+
+Q: When did the Department of Mass Communication start its B.Sc. programme?
+A: In 2006.
+
+Q: What is the mission of the Department of Mass Communication?
+A: To produce well-rounded, high-caliber graduates for the media industry using modern technology and international standards.
+
+Q: What are the key sequences offered in the Mass Communication programme?
+A: Journalism, Public Relations and Advertising (PRAD), and Broadcast and Film.
+
+Q: What is the philosophy of the Mass Communication programme?
+A: It centers on the theory and practice of creating, distributing, and earning value in journalism, PR, advertising, broadcasting, and film.
+
+Q: What are some objectives of the B.Sc. Mass Communication programme?
+A: To train professionals, foster respect for deadlines, encourage effective communication, raise journalism standards, and prepare students for postgraduate study.
+
+Q: What makes this Department of Mass Communication programme unique?
+A: It blends academic and industry-oriented training with practical sessions and technological integration.
+
+Q: What employability skills does the Department of Mass Communication programme emphasize?
+A: Skills in media production, content development, social media, fact-checking, desktop publishing, studio operations, and communication ethics.
+
+Q: What 21st-century skills are highlighted in the Department of Mass Communication programme?
+A: Writing, speaking, PR, content development, innovation, digital literacy, teamwork, problem-solving, and community engagement.
+
+Q: What are the graduation requirements in the department of Mass Communication?
+A: UTME students must complete at least 120 units, Direct Entry students at least 90 units, and all compulsory courses must be passed.
+
+Q: How is the class of degree determined in Mass Communication programme?
+A: Based on the student’s Cumulative Grade Point Average (CGPA).
+
+Q: Who are the academic staff of the department of Mass Communication and their areas of specialization?
+A: Prof. A.O. Orebiyi: Community Journalism | Prof. Solomon G. Anaeto: Development Communication | Dr. I. K. Adesina: Print/Online Journalism | Dr. Oluwatoyin Salami: Broadcast Communication | Dr. C.A. Odetoyinbo: Film and Cinematography | Dr. G.O. Okunnu: Digital PR and Advertising | Adebimpe P.O: Strategic Communication | Dr. O.A. Raji: Financial Journalism | Dr. N. Thanny: Development Communication | Mr. Jamiu Folarin: Media and Technology | Ismail B.A.: Broadcast Journalism
+
+Q: Who are the administrative/laboratory staff and their roles in Department of Mass Communication?
+A: Mr. S.A. Ganiyu: Administrative Officer II | Miss A.A. Lawal: Studio Technologist (Broadcast) | Mr. Sulaimon Taiwo: Studio Technologist (Broadcast) | Mr. Ajayi Oladele: Studio Technologist (Print) | Mr. A.E. Howells: Print Media Technician | Mr. Saheed Adeyinka: Printing Press Operator
+
+Q: What courses are offered at the 100 level Department of Mass Communication?
+A: 100level First Semester Courses include Communication in English, Introduction to Human Communication, Foundations of Broadcasting and Film, Introduction to Advertising, Book Publishing, Photojournalism, Grammar for Journalism I.
+
+Q: What courses are offered at the 100 level Department of Mass Communication?
+A: 100level Second Semester Courses include Nigerian Peoples and Culture, Writing for the Media, Principles of PR, News Writing, African Communication Systems, Studio Appreciation, Environmental Journalism, Lifestyle Journalism.
+
+Q: How is the 200 level structured for the Print, PRAD, and Broadcast/Film Majors in Department of Mass Communication?
+A: Each major has distinct courses along with some shared foundational courses across both semesters. Practical, theory-based, and specialization-focused courses are offered.
+
+Q: What are the focus areas at the 300 level for each major in Department of Mass Communication?
+A: Print: Journalism research and management.| PRAD: PR and advertising management and research. | Broadcast/Film: Public affairs broadcasting and film production.
+
+Q: What are the 400 level courses and structure Mass Communication?
+A: First Semester: Core courses in international communication, project work, media attachment, mass media law, message design, fact-checking, brand and event management, PRAD and digital broadcasting specialization.
+
+Q: What are the 400 level courses and structure Mass Communication?
+A: Second Semester: Courses include Communication and Society, media ethics, development communication, community media, specialist journalism, and health communication.
+
+Q: What are students expected to do at the 400 level in terms of specialization in Department of Mass Communication?
+A: Students must select and take one elective course related to their specialization.
+
+DEPARTMENT OF POLITICAL SCIENCE AND INTERNATIONAL STUDIES
+
+Q: When was the Department of Political Science and International Studies established?
+A: It was established in the 2008/09 academic session.
+
+Q: What was the original structure of the Department of Political Science and International Studies?
+A: It was initially part of the Department of Mass Communication and Social Studies.
+
+Q: When did the Department of Political Science and International Studies become independent?
+A: In the 2009/2010 session, with Dr. 'Goke Lalude as the pioneer Acting Head.
+
+Q: When was the International Studies curriculum integrated?
+A: In the 2010/2011 session, the department was renamed and International Studies courses were added.
+
+Q: When did the Department of Political Science and International Studies receive full accreditation?
+A: In 2015, following a reaccreditation exercise by the NUC.
+
+Q: What is the aim(Objective) of the Department of Political Science and International Studies?
+A: To prepare graduates for careers in politics, academia, media, international organizations, and public service.
+
+Q: What are the UTME requirements for the Department of Political Science and International Studies?
+A: Five O'Level credits including English, Mathematics, Government or History, and two other subjects | Not more than two sittings.
+
+Q: What are the Direct Entry requirements for the Department of Political Science and International Studies?
+A: NCE, ND, IJMB, JUPEB, or HND with at least lower credit in relevant fields.
+
+Q: What are the requirements for transfer candidates for the Department of Political Science and International Studies?
+A: Must meet minimum entry requirements. | Provide transcript and confidential report. | Have a CGPA of at least 1.5.
+
+Q: What are the graduation requirements for Department of Political Science and International Studies?
+A: 160 credits for 4-year students, 130 credits for 3-year students. | Minimum of 15 and a maximum of 25 credit units per semester.
+
+100 LEVEL
+Q: What are the core courses in 100 Level First Semester for Department of Political Science and International Studies?
+A: PIS 101: Introduction to Political Science | PIS 103: The Citizen and the State | PIS 105: Ancestors of the Contemporary International System | PIS 107: Structure of International System | SMS 101: Introductory Mathematics for Social Sciences | SOC 101: Principles of Sociology | GNS 101: Use of English I | GNS 103: Philosophy of Islam I | GNS 105: Nigerian People and Culture | LIB 101: Use of Library | CCC 101: Business Solutions Using MS Word (non-credit) | BCO 101: Introduction to Economics I (Required)
+
+Q: What are the core courses in 100 Level Second Semester for Department of Political Science and International Studies?
+A: PIS 102: Nigerian Constitutional Development | PIS 104: Introduction to Democratic Studies | PIS 106: The Nigerian Legal System | PIS 108: Introduction to International Relations | SMS 102: Introductory Maths for Soc. Science II | PSY 102: Introduction to Psychology | SOC 102: Issues and Development in Nigerian Society II | ECO 102: Introductory Economics II (Required) | GNS 102: Logic, Philosophy and Human Existence | GNS: History and Philosophy of Science | GNS: Philosophy of Islam II | CCC 102: Business Solutions Using MS Word II
+
+200 LEVEL
+Q: What are the core courses in 200 Level First Semester for Department of Political Science and International Studies?
+A: PIS 201: Introduction to Political Analysis | PIS 203: Political Ideas | PIS 205: Evolution of Modern International System | PIS 207: International Political Society | SMS 201: Introductory Statistics for Social and Management Sciences | BUS 203: Introduction to Management Theory & Practice | GNS 205: Introduction to Entrepreneurship Studies | CCC 201: MS Office Suite (non-credit) | Electives: GNS 201 (French I) or GNS 203 (Arabic I) | PIS 209: Intro to African Politics (Required) | PIS 211: Intro to Afro-Asian Relations (Required)
+
+Q: What are the core courses in 200 Level Second Semester for Department of Political Science and International Studies?
+A: PIS 202: Statistical Methods in Political Science | PIS 204: Introduction to Comparative Politics | PIS 206: New States in World Politics | PIS 208: International Relations in West Africa | PIS 210: Nigerian Government and Politics | PIS 212: Introduction to Public Administration | GNS 206: Practical Entrepreneurship Studies | GNS 208: Communication Skills | CCC 202: MS Office Suite (Excel) | PIS 214: Foundation of Political Economy | PIS 216: Politics of Globalization | Electives: GNS 201 (French I) or GNS 203 (Arabic I)
+
+300 LEVEL
+Q: What are the core courses in 300 Level First Semester for Department of Political Science and International Studies?
+A: PIS 301: Logic and Methods in Political Inquiry | PIS 303: History of Political Thought | PIS 305: Methodology of Comparative Thought | PIS 307: Concepts in Diplomacy and International Relations | PIS 309: Foreign Politics of the Superpowers | PIS 311: Contemporary Strategic Studies | GNS 301: Peace and Conflict Resolution | CCC 303: CRM I (non-credit) | PIS 313: Comparative Federal System | Electives: PIS 315, 317, or 319
+
+Q: What are the core courses in 300 Level Second Semester for Department of Political Science and International Studies?
+A: PIS 302: Theories of International Relations | PIS 304: African Political Thought | PIS 306: Political Behaviour | PIS 308: International Economic Relations | PIS 310: Theory and Practice of Public Administration | PIS 314: Research Methodology | PIS 316: Problems of Political Philosophy | PIS 318: Field Trip | CCC 304: CRM II | Electives: PIS 320, 322, PIS 312 (Politics of Dev. & Underdevelopment)
+
+400 LEVEL
+Q: What are the core courses in 400 Level First Semester for Department of Political Science and International Studies?
+A: PIS 401: Contemporary Political Analysis | PIS 403: Policy Analysis | PIS 405: Nigerian Foreign Policy I | PIS 407: Third World and Dependency | PIS 409: Development Administration | PIS 411: State and Economy | PIS 413: Politics in Communist Party States PIS 415: International Institutions | PIS 417: Politics of Intergovernmental Relations | CCC 401: Project Management I | Electives: PIS 419 or 421
+
+Q: What are the core courses in 400 Level Second Semester for Department of Political Science and International Studies?
+A: PIS 402: Human Rights | PIS 404: Political Economy | PIS 406: Nigerian Foreign Policy II | PIS 408: The Middle East in World Politics | PIS 498: Research Project | CCC 402: Project Management II | PIS 410: Civil-Military Relations | PIS 412: Foreign Policy of African States | Electives: PIS 414, 416, or 418
+
+DEPARTMENT OF PHYSIOLOGY 
+
+Q: When was the College of Health Sciences established?
+A: Initially created in 2005, expanded in 2011.
+
+Q: What departments are in COHES?
+A: Department of Anatomy | Department of Nursing | Department of Physiology
+
+Q: What facilities are available for practical experiments in Department of Physiology?
+A: Laboratories for Anatomy, Nursing, Pharmacology, and Physiology at the COHES Laboratory Complex.
+
+Q: What degree is offered by the Department of Physiology?
+A: B.Sc. (Hons) Physiology.
+
+Q: What is the philosophy of the Department of Physiology programme?
+A: To train students in theoretical, practical, and applied physiology for problem-solving and entrepreneurship.
+
+Q: What are the objectives of the Department of Physiology programme?
+A: Acquire basic knowledge of physiological principles. | Gain practical skills in experimental physiology. | Learn applied physiology for various health sciences. | Apply physiology knowledge to life situations. | Prepare for further studies. | Adapt to diverse life situations including entrepreneurship.
+
+Q: Who are some of the academic staff in the Department of Physiology?
+A: Dr. Ayodeji .F. Ajayi – Reader (Reproductive Physiology) | Dr. Waidi Adeoye Saka – Senior Lecturer | Dr. Maruf Eyitayo .B. – Senior Lecturer | Dr. Wale Johnson .A. – Lecturer I | Dr. Olufunto .O. Badmus – Lecturer I (Renal Physiology & Neurophysiology) | Mr. Akigbe Roland .E. – Lecturer I (Gastrointestinal Physiology) | Mr. Yusuf Dimeji .I. – Lecturer I (Gastrointestinal Physiology)
+
+Q: What are the general UTME requirements in Department of Physiology?
+A: 5 credits including English, Math, and 3 other relevant subjects. | Not more than 2 sittings; obtained in the last 5 years. | Participate in University Screening Exercise.
+
+Q: What are the Direct Entry requirements in Department of Physiology?
+A: NCE, ND, IJMB, JUPEB, or HND with at least Upper Credit. | Pass University-conducted interview.
+
+Q: What are the specific admission requirements for COHES?
+A: 5 credit passes including English, Math, Biology, Chemistry, and Physics. | Acceptable UTME score or Direct Entry credentials. | CGPA of not less than 1.5 for transfer candidates.
+
+Q: What are the minimum graduation requirements for Physiology students?
+A: Register 16–25 credit units per semester, max 50 per session. | UTME: Minimum of 150 credits; Direct Entry: 120 credits. | Complete all coursework, seminars, projects, and attachments.
+
+Q: What is the classification of degrees by CGPA?
+A: First Class: 4.50 – 5.00 | Second Class Upper: 3.50 – 4.49 | Second Class Lower: 2.40 – 3.49 | Third Class: 1.50 – 2.39 | Pass: 1.00 – 1.49
+
+100 Level
+Q: What are the key courses taken in the first semester of 100 level in Department of Physiology?
+A: BIO 101: General Biology | CHM 101: General Chemistry | CPS 101: Introduction to Computer Science | GNS 101: Use of English | GNS 105: Nigerian Peoples and Culture | LIB 101: Use of Library | GNS 107: Contemporary Health Issues | MTS 101: General Mathematics I | PHS 101: General Physics I | GNS 103: Philosophy of Islam I | CCC 101: Business Solution using MS Word I (non-credit)
+
+Q: Are there practical components in this semester in Department of Physiology?
+A: Yes, for Biology, Chemistry, and Physics (BIO 191, CHM 191, PHS 191).
+
+Q: What major courses are offered in the second semester of 100 level in Department of Physiology?
+A: BIO 102: General Biology II | CHM 102: General Chemistry II | MTS 102: General Mathematics II | PHS 102: General Physics II | GNS 102: Logic, Philosophy and Human Existence | PIS 110: Intro to Political Science (for Basic Sciences) | GNS 104: Philosophy of Islam II | GNS 106: History and Philosophy of Science | CCC 101: MS Word I (continuation)
+
+Q: What practical are included in the second semester of 100 level in Department of Physiology?
+A: Biology, Chemistry, and Physics practical (BIO 192, CHM 192, PHS 192).
+
+200 Level
+Q: What physiology courses are introduced in 200 level first semester Department of Physiology?
+A: PHY 201: Intro to Physiology & Autonomic Nervous System | PHY 203: Cardiovascular System | PHY 291: Practical Physiology I
+
+Q: Which anatomy and biochemistry courses are taken in 200level first semester Department of Physiology?
+A: ANA 203, 205, 207, 213, 215 (Various anatomy topics) | BCH 207, 209, 211 (Chemistry and metabolism courses)
+
+Q: What elective language options are available in 200level first semester Department of Physiology?
+A: GNS 201: French or GNS 203: Arabic for Beginners I.
+
+Q: What key physiology topics are covered in 200level second semester Department of Physiology?
+A: PHY 202: Renal Physiology, Body Fluids & Temp Regulation | PHY 204: Respiratory System | PHY 208: Neuroscience I | PHY 210: Hematology | PHY 292: Practical Physiology II
+
+Q: What supporting science courses are included in 200level second semester Department of Physiology?
+A: ANA 212, 214, 208 (Histology and anatomy) | BCH 204: Protein and Nucleotide Chemistry | CHS 202: Biostatistics | GNS 206: Practical Entrepreneurial Skills | GNS 208: Communication Skill
+
+Q: What language electives are offered this 200level second semester in Department of Physiology?
+A: GNS 202: French II or GNS 204: Arabic II
+
+Q: When is the first Industrial Work Experience in Department of Physiology?
+A: During the long vacation after 200 level.
+
+300 Level
+Q: Which systems are studied in 300level first semester Department of Physiology?
+A: PHY 301: Gastrointestinal Physiology | PHY 303: Endocrinology & Reproduction | PHY 399: Industrial Work Experience I
+
+Q: What are the related supporting courses in 300level first semester Department of Physiology?
+A: ANA 305, 311, 313: Histology, anatomy, embryology | BCH 303, 315, 317: Lipid metabolism, nucleic acids, clinical biochemistry | GNS 301: Global Citizenship | CCC 303: Customer Relationship Management I (non-credit)
+
+Q: What advanced physiology courses are included in 300level second semester Department of Physiology?
+A: PHY 302: Neurophysiology | PHY 304: Electrolyte & Fluid Regulation | PHY 306: Neuroscience II | PHY 308: Enzymology | PHY 310: Laboratory Teaching & Instrumentation | PHA 302: Pharmacology
+
+Q: What biochemistry courses are included in 300level second semester Department of Physiology?
+A: BCH 302, 304: Carbohydrates, amino acids & protein metabolism | CCC 304: CRM II (non-credit)
+
+Q: When is the second Industrial Work Experience?
+A: During the long vacation after 300 level.
+
+Q: What are the core final-year Department of Physiology topics (400level first semester)?
+A: PHY 401: Neuroendocrinology | PHY 403: Environmental Physiology & Metabolism | PHY 405: Methods in Physiology Research | PHY 407: Laboratory Teaching II | PHY 409: Literature Review | PHY 411: Work and Exercise Physiology | PHY 499: Student Industrial Work Experience II
+
+Q: What is the focus in the final semester Department of Physiology topics (400level second semester)?
+A: PHY 402: Special Topics | PHY 404: Cardiopulmonary Physiology | PHY 406: Oral Examination | PHY 408: Toxicology | PHY 410: Physiology Genomics | PHY 498: Research Project
