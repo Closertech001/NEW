@@ -9,8 +9,7 @@ import pkg_resources
 import openai
 
 # Load OpenAI API key from secrets
-openai_api_key = "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"
-openai.api_key = st.secrets.toml["openai_api_key"]
+openai.api_key = st.secrets["openai_api_key"]
 
 # Load SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
