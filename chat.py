@@ -10,7 +10,7 @@ import os
 import openai
 
 # Load OpenAI API key from secrets
-api_key = st.secrets["openai_api_key"]
+api_key = st.secrets["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"]
 
 # Load SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
