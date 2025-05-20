@@ -102,15 +102,6 @@ question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tens
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
-    if st.checkbox("📋 Show Unrecognized Questions"):
-        if os.path.exists("unrecognized_inputs.txt"):
-            with open("unrecognized_inputs.txt", "r", encoding="utf-8") as f:
-                lines = f.readlines()
-                st.write("### 🤔 Logged Unrecognized Inputs:")
-                for line in lines[-20:]:  # Show last 20 for brevity
-                    st.markdown(f"- {line.strip()}")
-        else:
-            st.info("No unrecognized inputs logged yet.")
 
 # Session state for history
 if "chat_history" not in st.session_state:
