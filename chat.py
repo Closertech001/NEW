@@ -3,7 +3,6 @@ from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import torch
 import random
-import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 import openai
