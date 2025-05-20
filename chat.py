@@ -6,18 +6,17 @@ import random
 import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
-import os
 import openai
 
 # Load OpenAI API key from secrets
-api_key = st.secrets["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"]
+openai.api_key = st.secrets["openai_api_key"]
 
 # Load SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviation dictionary
+# Abbreviations dictionary
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -28,11 +27,10 @@ abbreviations = {
     "clg": "college", "sch": "school", "info": "information"
 }
 
-# Normalize and preprocess
 def normalize_text(text):
     text = text.lower()
-    text = re.sub(r'[^a-z0-9\s]', '', text)  # Remove special characters
-    text = re.sub(r'(.)\1{2,}', r'\1', text)  # Fix repeated characters
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
 
 def preprocess_text(text):
@@ -45,12 +43,10 @@ def preprocess_text(text):
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
 
-# Load model
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# Load data
 @st.cache_data
 def load_data():
     qa_pairs = []
@@ -67,7 +63,6 @@ def load_data():
                     question, answer = None, None
     return pd.DataFrame(qa_pairs, columns=["question", "response"])
 
-# Embedding search
 def find_response(user_input, dataset, question_embeddings, model, threshold=0.6):
     processed_input = preprocess_text(user_input)
 
@@ -102,10 +97,9 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.6
         response = random.choice(uncertainty_phrases) + response
     return response
 
-# GPT fallback with conversational memory
 def gpt_response_with_memory(chat_history, current_input):
     messages = [
-        {"role": "system", "content": "You are a helpful assistant for Crescent University. Answer user questions about the university using the past conversation as context."}
+        {"role": "system", "content": "You are a helpful assistant for Crescent University. Use past conversation context to answer clearly and politely."}
     ]
     for chat in chat_history:
         messages.append({"role": chat["role"], "content": chat["content"]})
@@ -121,7 +115,6 @@ def gpt_response_with_memory(chat_history, current_input):
     except Exception as e:
         return "Sorry, there was an error using the smart assistant. Please try again later."
 
-# Streamlit UI setup
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 st.title("🎓 Crescent University Chatbot")
 
@@ -129,30 +122,24 @@ model = load_model()
 dataset = load_data()
 question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tensor=True)
 
-# Session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Sidebar
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
 
-# Show chat history
 for msg in st.session_state.chat_history:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# Chat input
 if prompt := st.chat_input("Ask me anything about Crescent University..."):
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # First try BERT-based response
     bert_response = find_response(prompt, dataset, question_embeddings, model)
 
-    # If uncertain, fallback to GPT
     fallback_phrases = ["i'm sorry", "can you rephrase", "i don't understand"]
     if any(p in bert_response.lower() for p in fallback_phrases):
         final_response = gpt_response_with_memory(st.session_state.chat_history, prompt)
