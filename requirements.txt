@@ -1,4 +1,4 @@
-flask
-sentence-transformers
+streamlit
 torch
 pandas
+sentence-transformers
