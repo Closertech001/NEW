@@ -26,9 +26,37 @@ def load_data():
                     question, answer = None, None
     return pd.DataFrame(qa_pairs, columns=["question", "response"])
 
+from autocorrect import Speller
+
+spell = Speller(lang='en')
+
+# Define abbreviation dictionary
+abbreviations = {
+    "u": "you",
+    "r": "are",
+    "pls": "please",
+    "plz": "please",
+    "tmrw": "tomorrow",
+    "cn": "can",
+    "snd": "send",
+    "msg": "message",
+    "doc": "document",
+    "idk": "I don't know",
+    "d": "the",
+    "abt": "about",
+    "btw": "by the way"
+}
+
+def preprocess_text(text):
+    text = text.lower()
+    words = text.split()
+    words = [abbreviations.get(word, word) for word in words]  # Expand abbreviations
+    words = [spell(word) for word in words]  # Correct spelling
+    return ' '.join(words)
+
 # Response function
 def find_response(user_input, dataset, question_embeddings, model, threshold=0.6):
-    user_input = user_input.strip().lower()
+    user_input = preprocess_text(user_input.strip())
 
     greetings = [
         "hi", "hello", "hey", "hi there", "greetings", "how are you",
