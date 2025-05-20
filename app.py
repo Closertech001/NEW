@@ -40,7 +40,8 @@ def preprocess_text(text):
         suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
-    
+
+
 # Load the model
 @st.cache_resource
 def load_model():
@@ -78,13 +79,6 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.6
     cos_scores = util.pytorch_cos_sim(user_embedding, question_embeddings)[0]
     top_score = torch.max(cos_scores).item()
     top_index = torch.argmax(cos_scores).item()
-
-    if top_score < threshold:
-        log_unrecognized_input(user_input)
-        return random.choice([
-            "I'm sorry, I don't understand your question.",
-            "Can you rephrase your question?"
-        ])
 
     response = dataset.iloc[top_index]['response']
     if random.random() < 0.2:
