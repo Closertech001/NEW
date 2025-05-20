@@ -36,6 +36,7 @@ abbreviations = {
     "plz": "please",
     "tmrw": "tomorrow",
     "cn": "can",
+    "wat": "what",
     "cud": "could",
     "shud": "should",
     "wud": "would",
