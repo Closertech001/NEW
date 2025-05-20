@@ -4,3 +4,4 @@ torch
 pandas
 sentence-transformers
 symspellpy
+openai
