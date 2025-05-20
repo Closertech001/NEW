@@ -15,6 +15,23 @@ abbreviations = {
     "clg": "college", "sch": "school", "info": "information", "d": "the"
 }
 
+# Normalize and preprocess
+def normalize_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9\s]', '', text)  # Remove special characters
+    text = re.sub(r'(.)\1{2,}', r'\1', text)  # Fix repeated characters
+    return text
+
+def preprocess_text(text):
+    text = normalize_text(text)
+    words = text.split()
+    expanded = [abbreviations.get(word, word) for word in words]
+    corrected = []
+    for word in expanded:
+        suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
+        corrected.append(suggestions[0].term if suggestions else word)
+    return ' '.join(corrected)
+
 # Load the model once
 @st.cache_resource
 def load_model():
