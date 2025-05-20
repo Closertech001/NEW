@@ -44,7 +44,7 @@ abbreviations = {
     "idk": "I don't know",
     "d": "the",
     "abt": "about",
-    "btw": "between"
+    "btw": "between",
     "ow": "how"
 }
 
