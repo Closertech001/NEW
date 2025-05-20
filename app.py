@@ -4,6 +4,22 @@ import pandas as pd
 import torch
 import random
 
+# Load SymSpell
+sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
+
+# Abbreviation dictionary
+abbreviations = {
+    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
+    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
+    "wud": "would", "abt": "about", "bcz": "because", "bcoz": "because", "btw": "between",
+    "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
+    "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
+    "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
+    "clg": "college", "sch": "school", "info": "information"
+}
+
 # Load the model once
 @st.cache_resource
 def load_model():
