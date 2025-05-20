@@ -44,7 +44,8 @@ abbreviations = {
     "idk": "I don't know",
     "d": "the",
     "abt": "about",
-    "btw": "by the way"
+    "btw": "between"
+    "ow": "how"
 }
 
 def preprocess_text(text):
