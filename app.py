@@ -21,7 +21,7 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "wassup": "Whatsup", "xup": "Whatsup"
+    "clg": "college", "sch": "school", "info": "information"
 }
 
 # Normalize and preprocess
@@ -70,7 +70,7 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.6
 
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
                  "how are you doing", "how's it going", "can we talk?",
-                 "can we have a conversation?", "okay", "i'm fine", "i am fine", "xup"]
+                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
     if processed_input in greetings:
         return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!",
                               "I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"])
