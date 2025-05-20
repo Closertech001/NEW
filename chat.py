@@ -9,6 +9,8 @@ import pkg_resources
 import os
 import openai
 
+api_key = st.secrets["openai_api_key"]
+
 # Load OpenAI API key from secrets
 openai.api_key = st.secrets["openai_api_key"]
 
