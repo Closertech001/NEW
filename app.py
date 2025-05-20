@@ -46,6 +46,38 @@ def log_unrecognized_input(text):
     with open("unrecognized_inputs.txt", "a", encoding='utf-8') as f:
         f.write(text + "\n")
 
+import os
+
+# --- Admin credentials (you can load from a file or env variable if needed)
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "crescent123"  # Change this to something more secure!
+
+# --- Admin login form in the sidebar
+with st.sidebar:
+    st.markdown("## 🔐 Admin Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    # Save login status in session_state
+    if st.button("Login"):
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            st.session_state["is_admin"] = True
+            st.success("Login successful.")
+        else:
+            st.session_state["is_admin"] = False
+            st.error("Invalid credentials.")
+
+    # Show logs only if logged in as admin
+    if st.session_state.get("is_admin"):
+        st.markdown("### 📋 Unrecognized Questions")
+        if os.path.exists("unrecognized_inputs.txt"):
+            with open("unrecognized_inputs.txt", "r", encoding="utf-8") as f:
+                lines = f.readlines()
+                for line in lines[-20:]:
+                    st.markdown(f"- {line.strip()}")
+        else:
+            st.info("No unrecognized inputs logged yet.")
+
 # Load the model
 @st.cache_resource
 def load_model():
