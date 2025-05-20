@@ -12,7 +12,7 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information"
+    "clg": "college", "sch": "school", "info": "information", "d": "the"
 }
 
 # Load the model once
