@@ -26,10 +26,6 @@ def load_data():
                     question, answer = None, None
     return pd.DataFrame(qa_pairs, columns=["question", "response"])
 
-from autocorrect import Speller
-
-spell = Speller(lang='en')
-
 # Define abbreviation dictionary
 abbreviations = {
     "u": "you",
@@ -64,11 +60,17 @@ abbreviations = {
     "info": "information"
 }
 
+from autocorrect import Speller
+
+spell = Speller(lang='en')
+
 def preprocess_text(text):
     text = text.lower()
     words = text.split()
-    words = [abbreviations.get(word, word) for word in words]  # Expand abbreviations
-    words = [spell(word) for word in words]  # Correct spelling
+    # Expand abbreviations first
+    words = [abbreviations.get(word, word) for word in words]
+    # Then correct spellings
+    words = [spell(word) for word in words]
     return ' '.join(words)
 
 # Response function
