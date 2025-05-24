@@ -92,7 +92,6 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
             "I'm sorry, I don't understand your question.",
             "Can you rephrase your question?"
         ])
-
     response = dataset.iloc[top_index]['answer']
     department = dataset.iloc[top_index].get("department", "Unknown")
 
@@ -102,8 +101,6 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
             "Possibly: ", "It could be: "
         ]
         response = random.choice(uncertainty_phrases) + response
-
-    response += f"\n\n_(Department: {department})_\n_(Confidence: {top_score:.2f})_"
     return response
 
 # Streamlit UI
