@@ -18,9 +18,31 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviation & department maps (same as before)
-abbreviations = {...}  # Keep your dict here
-department_map = {...}  # Keep your dict here
+# Abbreviations for normalization
+abbreviations = {
+    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
+    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
+    "wud": "would", "abt": "about", "bcz": "because", "bcoz": "because", "btw": "between",
+    "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
+    "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
+    "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
+    "clg": "college", "sch": "school", "info": "information"
+}
+
+# Department mapping
+department_map = {
+    "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
+    "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
+    "IFT": "Computer Science", "SEN": "Software Engineering", "ENT": "Entrepreneurship",
+    "CYB": "Cybersecurity", "ICT": "Information and Communication Technology",
+    "DTS": "Data Science", "CUAB-CPS": "Computer Science", "CUAB-ECO": "Economics with Operations Research",
+    "ECO": "Economics with Operations Research", "SSC": "Social Sciences", "CUAB-BCO": "Economics with Operations Research",
+    "LIB": "Library Studies", "LAW": "Law (BACOLAW)", "GNS": "General Studies", "ENG": "English",
+    "SOS": "Sociology", "PIS": "Political Science", "CPS": "Computer Science",
+    "LPI": "Law (BACOLAW)", "ICL": "Law (BACOLAW)", "LPB": "Law (BACOLAW)", "TPT": "Law (BACOLAW)",
+    "FAC": "Agricultural Sciences", "ANA": "Anatomy", "BIO": "Biological Sciences",
+    "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
+}
 
 # Text preprocessing
 def normalize_text(text):
@@ -64,8 +86,8 @@ def compute_question_embeddings(questions: list):
 # Fallback to OpenAI GPT
 def fallback_openai(user_input):
     try:
-        completion = openai.ChatCompletion.create(
-            model="gpt-4",
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
                 {"role": "user", "content": user_input}
