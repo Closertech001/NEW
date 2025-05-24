@@ -133,9 +133,6 @@ if prompt is not None:
 
     with st.chat_message("assistant"):
         st.markdown(response)
-        if department:
-            st.markdown(f"**Department:** {department}")
-        st.markdown(f"**Confidence:** {confidence:.2f}")
 
         if related:
             selected_related = st.selectbox("💡 Related questions you can ask:", [""] + related)
