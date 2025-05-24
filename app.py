@@ -49,7 +49,7 @@ def load_model():
 # Load Q&A data
 @st.cache_resource
 def load_data():
-    with open("qa_dataset_with_departments.json", "r", encoding="utf-8") as f:
+    with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
     df = pd.DataFrame(qa_pairs)
     return df
