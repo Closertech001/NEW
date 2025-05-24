@@ -1,3 +1,4 @@
+
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -7,6 +8,7 @@ import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 import os
+import json
 
 # Load SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -27,8 +29,8 @@ abbreviations = {
 # Normalize and preprocess
 def normalize_text(text):
     text = text.lower()
-    text = re.sub(r'[^a-z0-9\s]', '', text)  # Remove special characters
-    text = re.sub(r'(.)\1{2,}', r'\1', text)  # Fix repeated characters
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
 
 def preprocess_text(text):
@@ -46,22 +48,17 @@ def preprocess_text(text):
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# ====== Load Q&A Dataset ======
+# Load Q&A Dataset
 @st.cache_resource
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
-    questions = [item["question"] for item in qa_pairs]
-    answers = [item["answer"] for item in qa_pairs]
-    embeddings = model.encode(questions, convert_to_tensor=True)
-    return qa_pairs, questions, answers, embeddings
+    df = pd.DataFrame(qa_pairs)
+    return df
 
-qa_pairs, questions, answers, question_embeddings = load_data()
-
-# Response function
+# Find best match response
 def find_response(user_input, dataset, question_embeddings, model, threshold=0.6):
-    user_input = user_input.strip().lower()
-
+    user_input = preprocess_text(user_input)
     greetings = [
         "hi", "hello", "hey", "hi there", "greetings", "how are you",
         "how are you doing", "how's it going", "can we talk?",
@@ -84,7 +81,7 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.6
             "Can you rephrase your question?"
         ])
 
-    response = dataset.iloc[top_index]['response']
+    response = dataset.iloc[top_index]['answer']
     if random.random() < 0.2:
         uncertainty_phrases = [
             "I think ", "Maybe this helps: ", "Here's what I found: ",
@@ -106,24 +103,21 @@ question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tens
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Optional clear button
+# Sidebar clear button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
 
-# Render existing chat messages
+# Chat interface
 for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Input from user
 if prompt := st.chat_input("Ask me anything about Crescent University..."):
-    # Show user's message
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Get bot response
     response = find_response(prompt, dataset, question_embeddings, model)
     with st.chat_message("assistant"):
         st.markdown(response)
