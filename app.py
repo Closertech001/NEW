@@ -22,40 +22,40 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "d": "the"
+    "clg": "college", "sch": "school", "info": "information"
 }
 
-# Text normalization
+# Normalize and preprocess
+
 def normalize_text(text):
-    text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
-    text = re.sub(r'(.)\1{2,}', r'\1', text)
+    text = re.sub(r'([^a-zA-Z0-9\s])', '', text)  # Remove symbols
+    text = re.sub(r'(.)\1{2,}', r'\1', text)  # Fix repeated chars
     return text
 
 def preprocess_text(text):
     text = normalize_text(text)
     words = text.split()
-    expanded = [abbreviations.get(word.lower(), word) for word in words]
+    expanded = [abbreviations.get(word, word) for word in words]
     corrected = []
     for word in expanded:
         suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
 
-# Load model
+# Load the model
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# Load Q&A data
+# Load dataset
 @st.cache_resource
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
-    df = pd.DataFrame(qa_pairs)
-    return df
+    return pd.DataFrame(qa_pairs)
 
 # Find best match response
-def find_response(user_input, dataset, question_embeddings, model, threshold=0.4):
+def find_response(user_input, dataset, question_embeddings, model, threshold=0.4, top_k=3):
     original_input = user_input
     user_input = preprocess_text(user_input)
 
@@ -65,10 +65,13 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
         "can we have a conversation?", "okay", "i'm fine", "i am fine"
     ]
     if any(user_input.lower().startswith(greet) for greet in greetings):
-        return random.choice([
-            "Hello!", "Hi there!", "Hey!", "Greetings!",
-            "I'm doing well, thank you!", "Sure pal", "Okay"
-        ])
+        return {
+            "response": random.choice([
+                "Hello!", "Hi there!", "Hey!", "Greetings!",
+                "I'm doing well, thank you!", "Sure pal", "Okay"
+            ]),
+            "related": []
+        }
 
     # Direct course code match
     code_match = re.search(r"\b([A-Z]{2,}-?\d{3})\b", original_input.upper())
@@ -79,19 +82,25 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
             response = exact_match.iloc[0]['answer']
             department = exact_match.iloc[0].get("department", "Unknown")
             response += f"\n\n_(Department: {department})_"
-            return response
+            return {"response": response, "related": []}
 
     # Semantic match
     user_embedding = model.encode(user_input, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, question_embeddings)[0]
-    top_score = torch.max(cos_scores).item()
-    top_index = torch.argmax(cos_scores).item()
+    top_results = torch.topk(cos_scores, k=top_k + 1)
+
+    top_score = top_results.values[0].item()
+    top_index = top_results.indices[0].item()
 
     if top_score < threshold:
-        return random.choice([
-            "I'm sorry, I don't understand your question.",
-            "Can you rephrase your question?"
-        ])
+        return {
+            "response": random.choice([
+                "I'm sorry, I don't understand your question.",
+                "Can you rephrase your question?"
+            ]),
+            "related": []
+        }
+
     response = dataset.iloc[top_index]['answer']
     department = dataset.iloc[top_index].get("department", "Unknown")
 
@@ -101,41 +110,73 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
             "Possibly: ", "It could be: "
         ]
         response = random.choice(uncertainty_phrases) + response
-    return response
+
+    response += f"\n\n_(Department: {department})_\n_(Confidence: {top_score:.2f})_"
+
+    related = []
+    for i in range(1, top_k + 1):
+        idx = top_results.indices[i].item()
+        related.append(dataset.iloc[idx]['question'])
+
+    return {"response": response, "related": related}
 
 # Streamlit UI
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 st.title("🎓 Crescent University Chatbot")
 
-# Load resources
 model = load_model()
 dataset = load_data()
 question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tensor=True)
 
-# Chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Sidebar: clear chat
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
 
-# Display previous chat
-for message in st.session_state.chat_history:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+chat_input = st.session_state.pop("chat_input_prefill", "")
+prompt = st.chat_input("Ask me anything about Crescent University...", value=chat_input)
 
-# Chat input
-user_input = st.chat_input("Ask me anything about Crescent University...")
-if user_input:
+if prompt:
     with st.chat_message("user"):
-        st.markdown(user_input)
-    st.session_state.chat_history.append({"role": "user", "content": user_input})
+        st.markdown(prompt)
+    st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    response = find_response(user_input, dataset, question_embeddings, model)
+    result = find_response(prompt, dataset, question_embeddings, model)
+    response = result["response"]
+    related = result["related"]
 
     with st.chat_message("assistant"):
         st.markdown(response)
-        
+
+        if related:
+            st.markdown("#### 🤔 Related questions you might ask:")
+
+            # Dropdown
+            selected_related = st.selectbox("Choose a related question:", [""] + related, key="related_dropdown")
+            if selected_related:
+                st.session_state.chat_input_prefill = selected_related
+                st.experimental_rerun()
+
+            # Horizontal button-style
+            st.markdown("##### Or tap a suggestion:")
+            cols = st.columns(len(related))
+            for i, q in enumerate(related):
+                with cols[i]:
+                    if st.button(q, key=f"related_card_{i}"):
+                        st.session_state.chat_input_prefill = q
+                        st.experimental_rerun()
+
+        st.radio("Was this helpful?", ["👍", "👎"], horizontal=True, key=prompt)
+
     st.session_state.chat_history.append({"role": "assistant", "content": response})
+
+# Replay chat history
+for message in st.session_state.chat_history:
+    if message["role"] == "user":
+        with st.chat_message("user"):
+            st.markdown(message["content"])
+    else:
+        with st.chat_message("assistant"):
+            st.markdown(message["content"])
