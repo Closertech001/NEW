@@ -39,7 +39,6 @@ department_map = {
     "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
 }
 
-# Utility functions
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
@@ -59,7 +58,6 @@ def extract_prefix(code):
     match = re.match(r"([A-Z\-]+)", code)
     return match.group(1) if match else None
 
-# Load model and data
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
@@ -89,8 +87,7 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
     related_questions = [dataset.iloc[i]["question"] for i in top_indices[1:]]
-    
-    # Department inference
+
     match = re.search(r"What course is ([A-Z\-0-9]+)", question)
     department = None
     if match:
@@ -104,37 +101,30 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
 
     return response, department, top_score, related_questions
 
-# Streamlit UI setup
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 st.title("🎓 Crescent University Chatbot")
 
-# Load model and data
 model = load_model()
 dataset = load_data()
 question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tensor=True)
 
-# Session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Sidebar clear chat
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
 
-# Prefill input if related question was clicked
 if "prefill_question" in st.session_state:
     prompt = st.session_state.pop("prefill_question")
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
-# Display chat history
 for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Process new input
-if prompt:
+if prompt is not None:
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
