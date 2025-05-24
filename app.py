@@ -94,7 +94,7 @@ def fallback_openai(user_input):
             ],
             temperature=0.3
         )
-        return completion.choices[0].message["content"].strip()
+        return response.choices[0].message["content"].strip()
     except Exception as e:
         return "Sorry, I couldn't reach the server. Try again later."
 
@@ -147,20 +147,22 @@ question_embeddings = compute_question_embeddings(question_list)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-with st.sidebar:
-    if st.button("🧹 Clear Chat"):
-        st.session_state.chat_history = []
-
 if "prefill_question" in st.session_state:
     prompt = st.session_state.pop("prefill_question")
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
+with st.sidebar:
+    if st.button("🧹 Clear Chat"):
+        st.session_state.chat_history = []
+
+# Display chat history
 for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt is not None:
+# Process new user prompt
+if prompt is not None and prompt.strip() != "":
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
@@ -171,33 +173,29 @@ if prompt is not None:
         st.markdown(response)
         if department:
             st.info(f"📘 Department: **{department}**")
-        if related:
-            selected_related = st.selectbox("💡 Related questions you can ask:", [""] + random.sample(related, k=min(3, len(related))))
-            if selected_related:
-                st.session_state.prefill_question = selected_related
-                st.experimental_rerun()
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response})
-
-    if len(st.session_state.chat_history) > 50:
-        st.session_state.chat_history = st.session_state.chat_history[-50:]
-
-selected_related = st.selectbox("💡 Related questions you can ask:", [""] + subset_related)
-
-if selected_related and selected_related != "":
-    with st.chat_message("user"):
-        st.markdown(selected_related)
-    st.session_state.chat_history.append({"role": "user", "content": selected_related})
-
-    response, department, confidence, related = find_response(selected_related, dataset, question_embeddings, model)
-
-    with st.chat_message("assistant"):
-        st.markdown(response)
-        if department:
-            st.info(f"📘 Department: **{department}**")
+        # Related questions dropdown & immediate response
         if related:
             subset_related = random.sample(related, k=min(3, len(related)))
-            st.selectbox("💡 Related questions you can ask:", [""] + subset_related, key=f"related_{random.randint(0,9999)}")
+            selected_related = st.selectbox("💡 Related questions you can ask:", [""] + subset_related)
+
+            if selected_related and selected_related != "":
+                with st.chat_message("user"):
+                    st.markdown(selected_related)
+                st.session_state.chat_history.append({"role": "user", "content": selected_related})
+
+                # Get answer for selected related question
+                response2, department2, confidence2, related2 = find_response(selected_related, dataset, question_embeddings)
+
+                with st.chat_message("assistant"):
+                    st.markdown(response2)
+                    if department2:
+                        st.info(f"📘 Department: **{department2}**")
+
+                st.session_state.chat_history.append({"role": "assistant", "content": response2})
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
 
+    # Keep chat history size manageable
+    if len(st.session_state.chat_history) > 50:
+        st.session_state.chat_history = st.session_state.chat_history[-50:]
