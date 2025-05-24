@@ -181,3 +181,23 @@ if prompt is not None:
 
     if len(st.session_state.chat_history) > 50:
         st.session_state.chat_history = st.session_state.chat_history[-50:]
+
+selected_related = st.selectbox("💡 Related questions you can ask:", [""] + subset_related)
+
+if selected_related and selected_related != "":
+    with st.chat_message("user"):
+        st.markdown(selected_related)
+    st.session_state.chat_history.append({"role": "user", "content": selected_related})
+
+    response, department, confidence, related = find_response(selected_related, dataset, question_embeddings, model)
+
+    with st.chat_message("assistant"):
+        st.markdown(response)
+        if department:
+            st.info(f"📘 Department: **{department}**")
+        if related:
+            subset_related = random.sample(related, k=min(3, len(related)))
+            st.selectbox("💡 Related questions you can ask:", [""] + subset_related, key=f"related_{random.randint(0,9999)}")
+
+    st.session_state.chat_history.append({"role": "assistant", "content": response})
+
