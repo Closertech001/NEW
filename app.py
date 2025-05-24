@@ -140,8 +140,5 @@ if user_input:
 
     with st.chat_message("assistant"):
         st.markdown(response)
-        feedback = st.radio("Was this helpful?", ["👍", "👎"], horizontal=True, key=user_input)
-        if feedback == "👎":
-            st.info("Thanks for the feedback! We'll use this to improve.")
-
+        
     st.session_state.chat_history.append({"role": "assistant", "content": response})
