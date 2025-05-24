@@ -86,7 +86,7 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
 
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
-    related_questions = [dataset.iloc[i]["question"] for i in top_indices[1:]]
+    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
 
     match = re.search(r"What course is ([A-Z\-0-9]+)", question)
     department = None
