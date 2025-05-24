@@ -44,6 +44,7 @@ department_map = {
     "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
 }
 
+# Text preprocessing
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
@@ -59,25 +60,30 @@ def preprocess_text(text):
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
 
+# Extract department
 def extract_prefix(code):
     match = re.match(r"([A-Z\-]+)", code)
     return match.group(1) if match else None
 
+# Load model
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
+# Load dataset
 @st.cache_resource
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
     return pd.DataFrame(qa_pairs)
 
+# Compute embeddings (no model param!)
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
+# Fallback to OpenAI GPT
 def fallback_openai(user_input):
     try:
         response = openai.ChatCompletion.create(
@@ -89,9 +95,10 @@ def fallback_openai(user_input):
             temperature=0.3
         )
         return response.choices[0].message["content"].strip()
-    except Exception as e:
+    except Exception:
         return "Sorry, I couldn't reach the server. Try again later."
 
+# Find response
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input = preprocess_text(user_input)
@@ -128,16 +135,16 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
     return response, department, top_score, related_questions
 
-# --- Streamlit UI ---
-st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓", layout="wide")
+# Helper: autocorrect detection
+def autocorrect_input(user_input):
+    corrected = preprocess_text(user_input)
+    if corrected.lower() != user_input.lower():
+        return corrected
+    return None
 
-# Sidebar styling and content
-with st.sidebar:
-    st.markdown("<h2 style='color: #2E86C1;'>🎓 Crescent University Chatbot</h2>", unsafe_allow_html=True)
-    st.write("Ask me anything about Crescent University.")
-    if st.button("🧹 Clear Chat History"):
-        st.session_state.chat_history = []
-        st.experimental_rerun()
+# --- Streamlit UI ---
+st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
+st.title("🎓 Crescent University Chatbot")
 
 model = load_model()
 dataset = load_data()
@@ -152,60 +159,43 @@ if "prefill_question" in st.session_state:
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
-# Show chat history with colored bubbles
-def render_message(role, content):
-    if role == "user":
-        st.markdown(
-            f"""
-            <div style='background-color:#D1E8FF; padding:10px; border-radius:10px; max-width:70%; margin-bottom:8px;'>
-                <strong>You:</strong><br>{content}
-            </div>
-            """, unsafe_allow_html=True)
-    else:  # assistant
-        st.markdown(
-            f"""
-            <div style='background-color:#F0F0F0; padding:10px; border-radius:10px; max-width:70%; margin-bottom:8px;'>
-                <strong>Assistant:</strong><br>{content}
-            </div>
-            """, unsafe_allow_html=True)
+if prompt:
+    corrected = autocorrect_input(prompt)
+    if corrected:
+        st.info(f"Did you mean: **{corrected}**?")
+        accept = st.checkbox("Use corrected question", value=True)
+        final_question = corrected if accept else prompt
+    else:
+        final_question = prompt
 
-# Display previous messages
-for message in st.session_state.chat_history:
-    render_message(message["role"], message["content"])
+    with st.chat_message("user"):
+        st.markdown(final_question)
+    st.session_state.chat_history.append({"role": "user", "content": final_question})
 
-# Process new user input
-if prompt is not None and prompt.strip() != "":
-    st.session_state.chat_history.append({"role": "user", "content": prompt})
-    render_message("user", prompt)
-
-    response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
+    response, department, confidence, related = find_response(final_question, dataset, question_embeddings)
 
     response_text = response
-    if department:
-        response_text += f"<br><em>📘 Department: <strong>{department}</strong></em>"
+    if department is not None:
+        response_text += f"<br><em>📘 Department: <strong>{str(department)}</strong></em>"
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response_text})
-    render_message("assistant", response_text)
-
-    # Show related questions as buttons
-    if related:
-        st.markdown("<hr><b>💡 Related questions you might want to ask:</b>", unsafe_allow_html=True)
-
-        # Limit number of related questions shown
-        related_subset = random.sample(related, k=min(3, len(related)))
-
-        cols = st.columns(len(related_subset))
-        for i, rq in enumerate(related_subset):
-            if cols[i].button(rq):
-                # When clicked, add question and response to chat history and rerun
-                st.session_state.chat_history.append({"role": "user", "content": rq})
-                resp2, dep2, conf2, rel2 = find_response(rq, dataset, question_embeddings)
-                resp2_text = resp2
-                if dep2:
-                    resp2_text += f"<br><em>📘 Department: <strong>{dep2}</strong></em>"
-                st.session_state.chat_history.append({"role": "assistant", "content": resp2_text})
+    with st.chat_message("assistant"):
+        st.markdown(response_text, unsafe_allow_html=True)
+        if related:
+            selected_related = st.selectbox(
+                "💡 Related questions you can ask:",
+                [""] + random.sample(related, k=min(3, len(related))),
+                key="related_questions"
+            )
+            if selected_related:
+                st.session_state.prefill_question = selected_related
                 st.experimental_rerun()
 
-# Keep chat history manageable
-if len(st.session_state.chat_history) > 50:
-    st.session_state.chat_history = st.session_state.chat_history[-50:]
+    st.session_state.chat_history.append({"role": "assistant", "content": response_text})
+
+    if len(st.session_state.chat_history) > 50:
+        st.session_state.chat_history = st.session_state.chat_history[-50:]
+
+# Render chat history
+for message in st.session_state.chat_history:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"], unsafe_allow_html=True)
