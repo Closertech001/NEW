@@ -46,22 +46,17 @@ def preprocess_text(text):
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# Load and parse dataset
-@st.cache_data
+# ====== Load Q&A Dataset ======
+@st.cache_resource
 def load_data():
-    qa_pairs = []
-    with open("UNIVERSITY DATASET.txt", 'r', encoding='utf-8') as file:
-        question, answer = None, None
-        for line in file:
-            line = line.strip()
-            if line.startswith("Q:"):
-                question = line[2:].strip()
-            elif line.startswith("A:"):
-                answer = line[2:].strip()
-                if question and answer:
-                    qa_pairs.append((question, answer))
-                    question, answer = None, None
-    return pd.DataFrame(qa_pairs, columns=["question", "response"])
+    with open("qa_dataset.json", "r", encoding="utf-8") as f:
+        qa_pairs = json.load(f)
+    questions = [item["question"] for item in qa_pairs]
+    answers = [item["answer"] for item in qa_pairs]
+    embeddings = model.encode(questions, convert_to_tensor=True)
+    return qa_pairs, questions, answers, embeddings
+
+qa_pairs, questions, answers, question_embeddings = load_data()
 
 # Response function
 def find_response(user_input, dataset, question_embeddings, model, threshold=0.6):
