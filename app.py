@@ -68,6 +68,10 @@ def load_data():
         qa_pairs = json.load(f)
     return pd.DataFrame(qa_pairs)
 
+@st.cache_resource
+def compute_embeddings(model, dataset):
+    return model.encode(dataset['question'].tolist(), convert_to_tensor=True)
+
 def find_response(user_input, dataset, question_embeddings, model, threshold=0.4):
     user_input = preprocess_text(user_input)
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you"]
@@ -87,13 +91,12 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
 
-    # Fix here: convert tensor indices to int before iloc
     related_questions = []
     for i in top_indices[1:]:
         idx = i.item() if hasattr(i, "item") else int(i)
         related_questions.append(dataset.iloc[idx]["question"])
 
-    match = re.search(r"What course is ([A-Z\-0-9]+)", question)
+    match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
     department = None
     if match:
         code = match.group(1)
@@ -106,31 +109,13 @@ def find_response(user_input, dataset, question_embeddings, model, threshold=0.4
 
     return response, department, top_score, related_questions
 
-    # Safely convert top_indices to ints before indexing
-    related_questions = []
-    for i in top_indices[1:]:
-        idx = i.item() if hasattr(i, "item") else int(i)
-        related_questions.append(dataset.iloc[idx]["question"])
-
-    match = re.search(r"What course is ([A-Z\-0-9]+)", question)
-    department = None
-    if match:
-        code = match.group(1)
-        prefix = extract_prefix(code)
-        department = department_map.get(prefix, "Unknown")
-
-    if random.random() < 0.2:
-        uncertainty = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "])
-        response = uncertainty + response
-
-    return response, department, top_score, related_questions
-
+# Streamlit UI
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 st.title("🎓 Crescent University Chatbot")
 
 model = load_model()
 dataset = load_data()
-question_embeddings = model.encode(dataset['question'].tolist(), convert_to_tensor=True)
+question_embeddings = compute_embeddings(model, dataset)
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -144,10 +129,12 @@ if "prefill_question" in st.session_state:
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
+# Display chat history
 for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# Process user input
 if prompt is not None:
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -157,11 +144,17 @@ if prompt is not None:
 
     with st.chat_message("assistant"):
         st.markdown(response)
-
+        if department:
+            st.info(f"📘 Department: **{department}**")
         if related:
-            selected_related = st.selectbox("💡 Related questions you can ask:", [""] + related)
+            subset_related = random.sample(related, k=min(3, len(related)))
+            selected_related = st.selectbox("💡 Related questions you can ask:", [""] + subset_related)
             if selected_related:
                 st.session_state.prefill_question = selected_related
                 st.experimental_rerun()
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
+
+    # Limit history to last 50 messages
+    if len(st.session_state.chat_history) > 50:
+        st.session_state.chat_history = st.session_state.chat_history[-50:]
