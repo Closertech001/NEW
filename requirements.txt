@@ -1,9 +1,7 @@
-streamlit>=1.30.0
-sentence-transformers>=2.2.2
-torch>=1.10.0
-symspellpy>=6.7.7
-pandas>=1.3.0
-numpy>=1.21.0
-scikit-learn>=1.0.2
-openai>=1.0.0
-autocorrect>=2.6.1
+streamlit
+sentence-transformers
+torch
+pandas
+symspellpy
+openai
+python-dotenv
