@@ -11,7 +11,7 @@ import openai
 import os
 
 # Set your API key (or load from environment)
-openai.api_key = os.getenv("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")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
