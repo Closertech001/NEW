@@ -28,10 +28,10 @@ abbreviations = {
 
 # Normalize and preprocess
 def normalize_text(text):
-    text = text.lower()
-    text = re.sub(r'[^a-z0-9\s]', '', text)
-    text = re.sub(r'(.)\1{2,}', r'\1', text)
-    return text
+    # Preserve uppercase acronyms like GNS, GST, PHY etc.
+    text = re.sub(r'([^a-zA-Z0-9\s])', '', text)  # Remove symbols
+    text = re.sub(r'(.)\1{2,}', r'\1', text)  # Fix repeated chars
+    return text  # Avoid forcing lowercasing
 
 def preprocess_text(text):
     text = normalize_text(text)
@@ -57,7 +57,7 @@ def load_data():
     return df
 
 # Find best match response
-def find_response(user_input, dataset, question_embeddings, model, threshold=0.6):
+def find_response(user_input, dataset, question_embeddings, model, threshold=0.4):
     user_input = preprocess_text(user_input)
     greetings = [
         "hi", "hello", "hey", "hi there", "greetings", "how are you",
