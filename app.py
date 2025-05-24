@@ -15,6 +15,73 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
+# Load your dataset
+input_file = "qa_dataset.json"  # Replace with your actual filename
+output_file = "qa_dataset_with_departments.json"
+
+# Department mapping
+department_map = {
+    "GST": "General Studies",
+    "MTH": "Mathematics",
+    "PHY": "Physics",
+    "STA": "Statistics",
+    "COS": "Computer Science",
+    "CUAB-CSC": "Computer Science",
+    "CSC": "Computer Science",
+    "IFT": "Computer Science",
+    "SEN": "Software Engineering",
+    "ENT": "Entrepreneurship",
+    "CYB": "Cybersecurity",
+    "ICT": "Information and Communication Technology",
+    "DTS": "Data Science",
+    "CUAB-CPS": "Computer Science",
+    "CUAB-ECO": "Economics with Operations Research",
+    "ECO": "Economics with Operations Research",
+    "SSC": "Social Sciences",
+    "CUAB-BCO": "Economics with Operations Research",
+    "LIB": "Library Studies",
+    "LAW": "Law (BACOLAW)",
+    "GNS": "General Studies",
+    "ENG": "English",
+    "SOS": "Sociology",
+    "PIS": "Political Science",
+    "CPS": "Computer Science",
+    "LPI": "Law (BACOLAW)",
+    "ICL": "Law (BACOLAW)",
+    "LPB": "Law (BACOLAW)",
+    "TPT": "Law (BACOLAW)",
+    "FAC": "Agricultural Sciences",
+    "ANA": "Anatomy",
+    "BIO": "Biological Sciences",
+    "CHM": "Chemical Sciences",
+    "CUAB-BCH": "Biochemistry",
+    "CUAB": "Crescent University - General"
+}
+
+def extract_prefix(code):
+    match = re.match(r"([A-Z\-]+)", code)
+    return match.group(1) if match else None
+
+def main():
+    with open(input_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    for entry in data:
+        match = re.search(r"What course is ([A-Z\-0-9]+)", entry.get("question", ""))
+        if match:
+            code = match.group(1)
+            prefix = extract_prefix(code)
+            department = department_map.get(prefix, "Unknown")
+            entry["department"] = department
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+    print(f"Updated dataset saved to {output_file}")
+
+if __name__ == "__main__":
+    main()
+
 # Abbreviation dictionary
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
