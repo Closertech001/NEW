@@ -9,6 +9,7 @@ import pkg_resources
 import json
 import openai
 import os
+import sys
 
 # Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -18,12 +19,31 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
+# Abbreviations mapping
 abbreviations = {
-    # your abbreviations dict here...
+    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
+    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
+    "wud": "would", "abt": "about", "bcz": "because", "bcoz": "because", "btw": "between",
+    "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
+    "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
+    "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
+    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
+    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
 }
 
+# Department mapping
 department_map = {
-    # your department map here...
+    "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
+    "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
+    "IFT": "Computer Science", "SEN": "Software Engineering", "ENT": "Entrepreneurship",
+    "CYB": "Cybersecurity", "ICT": "Information and Communication Technology",
+    "DTS": "Data Science", "CUAB-CPS": "Computer Science", "CUAB-ECO": "Economics with Operations Research",
+    "ECO": "Economics with Operations Research", "SSC": "Social Sciences", "CUAB-BCO": "Economics with Operations Research",
+    "LIB": "Library Studies", "LAW": "Law (BACOLAW)", "GNS": "General Studies", "ENG": "English",
+    "SOS": "Sociology", "PIS": "Political Science", "CPS": "Computer Science",
+    "LPI": "Law (BACOLAW)", "ICL": "Law (BACOLAW)", "LPB": "Law (BACOLAW)", "TPT": "Law (BACOLAW)",
+    "FAC": "Agricultural Sciences", "ANA": "Anatomy", "BIO": "Biological Sciences",
+    "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
 }
 
 def normalize_text(text):
@@ -92,6 +112,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
              "how are you doing", "how's it going", "can we talk?",
              "can we have a conversation?", "okay", "i'm fine", "i am fine"]
+    # case insensitive greeting check
     if user_input_clean.lower() in greetings:
         return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
@@ -130,6 +151,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 
+# CSS styles for chat bubbles and sidebar button
 st.markdown("""
 <style>
     .chat-message-user {
@@ -160,21 +182,25 @@ st.markdown("""
 
 st.title("🎓 Crescent University Chatbot")
 
+# Load model and data
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
+# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
+# Sidebar clear chat button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
+        sys.exit()
 
 # Show chat messages
 for message in st.session_state.chat_history:
@@ -189,24 +215,21 @@ if prompt:
     # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Case-insensitive exact match check
+    # Case-insensitive exact match in dataset
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
         st.session_state.related_questions = []
     else:
         answer, department, score, related = find_response(prompt, dataset, question_embeddings)
-        if related:
-            st.session_state.related_questions = related
-            # Add assistant answer to history and rerun immediately
-            st.session_state.chat_history.append({"role": "assistant", "content": answer})
-            st.experimental_rerun()  # <-- Immediate rerun to show related questions
-        else:
-            st.session_state.related_questions = []
+        st.session_state.related_questions = related if related else []
 
-    # Add assistant response to chat history (if no related questions or rerun didn't happen)
+    # Add assistant response to chat history
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
+
+    # Rerun once and exit to avoid multiple rerun error
     st.experimental_rerun()
+    sys.exit()
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -214,10 +237,10 @@ if st.session_state.related_questions:
     cols = st.columns(len(st.session_state.related_questions))
     for i, rq in enumerate(st.session_state.related_questions):
         if cols[i].button(rq, key=f"related_{i}"):
-            # Append clicked related question as user message
+            # Append related question as user message
             st.session_state.chat_history.append({"role": "user", "content": rq})
 
-            # Find answer for the clicked related question
+            # Get answer for related question
             ans_row = dataset[dataset['question'] == rq]
             if not ans_row.empty:
                 ans = ans_row.iloc[0]['answer']
@@ -225,5 +248,9 @@ if st.session_state.related_questions:
                 ans = fallback_openai(rq)
 
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
+
+            # Clear related questions after click
             st.session_state.related_questions = []
+
             st.experimental_rerun()
+            sys.exit()
