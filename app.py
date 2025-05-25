@@ -161,14 +161,20 @@ st.markdown("""
         padding: 12px;
         border-radius: 12px;
         margin-bottom: 10px;
-        font-weight: 600;
+        font-weight: 550;
+        align-self: flex-end;
+        background-color: #d1eaff;
+        color: #000;
     }
     .chat-message-assistant {
         background-color: #e2e3e5;
         padding: 12px;
         border-radius: 12px;
         margin-bottom: 10px;
-        font-weight: 500;
+        font-weight: 600;
+        align-self: flex-end;
+        background-color: #d1eaff;
+        color: #000;
     }
     .sidebar .stButton>button {
         background-color: #4caf50;
