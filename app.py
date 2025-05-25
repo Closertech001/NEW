@@ -280,18 +280,20 @@ if prompt is not None:
     if department:
         response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
 
+    # Display assistant response
     with st.chat_message("assistant"):
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
-
-        if related:
-            selected_related = st.selectbox(
-                "💡 Related questions you can ask:",
-                [""] + random.sample(related, k=min(3, len(related))),
-                key=f"related_{len(st.session_state.chat_history)}"
-            )
-            if selected_related:
-                st.session_state.prefill_question = selected_related
-                st.experimental_rerun()
+    
+    # Related questions outside the chat message container
+    if related:
+        selected_related = st.selectbox(
+            "💡 Related questions you can ask:",
+            [""] + random.sample(related, k=min(3, len(related))),
+            key=f"related_{len(st.session_state.chat_history)}"
+        )
+        if selected_related:
+            st.session_state.prefill_question = selected_related
+            st.experimental_rerun()
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
 
