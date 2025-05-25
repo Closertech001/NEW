@@ -48,7 +48,7 @@ department_map = {
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
-    return text.lower()
+    return text
 
 def preprocess_text(text):
     text = normalize_text(text)
@@ -111,7 +111,8 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
              "how are you doing", "how's it going", "can we talk?",
              "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    if user_input_clean in greetings:
+    # case insensitive greeting check
+    if user_input_clean.lower() in greetings:
         return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
@@ -148,6 +149,8 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
+
+# CSS styles for chat bubbles and sidebar button
 st.markdown("""
 <style>
     .chat-message-user {
@@ -178,78 +181,75 @@ st.markdown("""
 
 st.title("🎓 Crescent University Chatbot")
 
+# Load model and data
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
+# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
+# Sidebar clear chat button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
 
-# Display chat history with styling
+# Show chat messages
 for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
+# Chat input from user
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
-    with st.chat_message("user"):
-        st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
+    # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Check for exact question match ignoring case
+    # Case-insensitive check if question is exactly in dataset
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
-        match_row = matched_row.iloc[0]
-        response = match_row['answer']
-        department = None
-        confidence = 1.0
-        related = []
-
-        match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", match_row["question"])
-        if match:
-            code = match.group(1)
-            prefix = extract_prefix(code)
-            department = department_map.get(prefix, "Unknown")
+        answer = matched_row.iloc[0]['answer']
+        department = None  # Could add department detection here if needed
+        related = []  # Could add related questions if you want
     else:
-        response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
+        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
 
-    response_md = response
-    if department:
-        response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
+    # Add assistant response to chat history
+    st.session_state.chat_history.append({"role": "assistant", "content": answer})
 
-    with st.chat_message("assistant"):
-        st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
+    # Update related questions in session state
+    if related:
+        st.session_state.related_questions = related
+    else:
+        st.session_state.related_questions = []
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response_md})
+    # Rerun to display messages immediately
+    st.experimental_rerun()
 
-    # Save related questions for buttons
-    st.session_state.related_questions = related
-
-# Show related questions horizontally as buttons
+# Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
-    st.markdown("💡 **Related questions you can ask:**")
-    cols = st.columns(len(st.session_state.related_questions))  # horizontal buttons
-    for i, question in enumerate(st.session_state.related_questions):
-        if cols[i].button(question, key=f"related_{i}"):
-            # Add related question as user message
-            st.session_state.chat_history.append({"role": "user", "content": question})
-            ans, dept, conf, new_related = find_response(question, dataset, question_embeddings)
-            ans_md = ans
-            if dept:
-                ans_md += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
-            # Add assistant response
-            st.session_state.chat_history.append({"role": "assistant", "content": ans_md})
-            st.session_state.related_questions = new_related
+    st.markdown("### Related Questions:")
+    cols = st.columns(len(st.session_state.related_questions))
+    for i, rq in enumerate(st.session_state.related_questions):
+        if cols[i].button(rq, key=f"related_{i}"):
+            # Append user question
+            st.session_state.chat_history.append({"role": "user", "content": rq})
+            # Find answer for the related question
+            ans_row = dataset[dataset['question'] == rq]
+            if not ans_row.empty:
+                ans = ans_row.iloc[0]['answer']
+            else:
+                ans = fallback_openai(rq)
+            st.session_state.chat_history.append({"role": "assistant", "content": ans})
+            # Update related questions for the new answer (optional)
+            # Here you could call find_response again or reset related questions
+            st.session_state.related_questions = []
             st.experimental_rerun()
