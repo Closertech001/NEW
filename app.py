@@ -18,7 +18,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping - keys are lowercased for consistency
+# Abbreviations mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -26,12 +26,9 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level", "csc": "Computer Science",
-    "eco": "Economics with Operations Research", "phy": "Physics", "stat": "Statistics"
+    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
+    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
 }
-
-# Lowercase all abbreviation keys for safe lookup
-abbreviations = {k.lower(): v for k, v in abbreviations.items()}
 
 # Department mapping
 department_map = {
@@ -51,7 +48,7 @@ department_map = {
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
-    return text
+    return text.lower()  # make lowercase for case insensitivity
 
 def preprocess_text(text):
     text = normalize_text(text)
@@ -109,17 +106,13 @@ def fallback_openai(user_input, context_qa=None):
 
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
-    user_input_clean = preprocess_text(user_input).lower()
+    user_input_clean = preprocess_text(user_input)
 
-    greetings = ["hi", "HI", "hello", "hey", "hi there", "greetings", "how are you",
-                 "how are you doing", "how's it going", "can we talk?",
-                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-
+    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
+             "how are you doing", "how's it going", "can we talk?",
+             "can we have a conversation?", "okay", "i'm fine", "i am fine"]
     if user_input_clean in greetings:
-        return random.choice([
-            "Hello!", "Hi there!", "Hey!", "Greetings!",
-            "I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"
-        ]), None, 1.0, []
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -179,6 +172,7 @@ st.markdown("""
         background-color: #4caf50;
         color: white;
         font-weight: bold;
+        margin-bottom: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -196,10 +190,14 @@ if "chat_history" not in st.session_state:
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
+if "related_answer" not in st.session_state:
+    st.session_state.related_answer = ""
+
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
+        st.session_state.related_answer = ""
         st.experimental_rerun()
 
 # Display chat history
@@ -215,9 +213,8 @@ if prompt:
         st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    prompt_clean = preprocess_text(prompt).lower()
-    if prompt_clean in [q.lower() for q in question_list]:
-        match_row = dataset[dataset['question'].str.lower() == prompt_clean].iloc[0]
+    if prompt.lower() in map(str.lower, dataset['question'].values):
+        match_row = dataset[dataset['question'].str.lower() == prompt.lower()].iloc[0]
         response = match_row['answer']
         department = None
         confidence = 1.0
@@ -231,13 +228,27 @@ if prompt:
     else:
         response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response})
-    st.session_state.related_questions = related
+    response_md = response
+    if department:
+        response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
 
     with st.chat_message("assistant"):
-        st.markdown(f'<div class="chat-message-assistant">{response}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
+    st.session_state.chat_history.append({"role": "assistant", "content": response})
+    st.session_state.related_questions = related
+    st.session_state.related_answer = ""
+
+# Show related questions as vertical buttons
 if st.session_state.related_questions:
-    st.markdown("**Related Questions:**")
+    st.markdown("### 💡 Related Questions:")
     for q in st.session_state.related_questions:
-        st.write("- " + q)
+        if st.button(q, key=f"related_{q}"):
+            # Show answer immediately below the clicked question
+            matched_row = dataset[dataset['question'] == q]
+            if not matched_row.empty:
+                answer = matched_row.iloc[0]['answer']
+                st.session_state.related_answer = f"**Answer:** {answer}"
+
+    if st.session_state.related_answer:
+        st.markdown(st.session_state.related_answer)
