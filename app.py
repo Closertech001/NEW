@@ -108,9 +108,11 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
 
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you"]
-    if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!"]), None, 1.0, []
+    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
+             "how are you doing", "how's it going", "can we talk?",
+             "can we have a conversation?", "okay", "i'm fine", "i am fine"]
+    if processed_input in greetings:
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"])
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
