@@ -5,3 +5,7 @@ pandas
 symspellpy
 openai
 python-dotenv
+faiss-cpu
+numpy
+openai
+pkg_resources
