@@ -10,7 +10,7 @@ import json
 import openai
 import os
 
-# Set OpenAI API key
+# Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell for spell correction
@@ -30,7 +30,7 @@ abbreviations = {
     "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
 }
 
-# Department code to full name mapping
+# Department mapping
 department_map = {
     "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
     "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
@@ -155,6 +155,8 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 550;
+        align-self: flex-end;
+        background-color: #d1eaff;
         color: #000;
     }
     .chat-message-assistant {
@@ -163,7 +165,14 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 600;
+        align-self: flex-start;
+        background-color: #f1f3f5;
         color: #000;
+    }
+    .sidebar .stButton>button {
+        background-color: #4caf50;
+        color: white;
+        font-weight: bold;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -178,8 +187,10 @@ question_embeddings = compute_question_embeddings(question_list)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+# --- Input prompt logic ---
 if "prefill_question" in st.session_state:
-    prompt = st.session_state.pop("prefill_question")
+    prompt = st.session_state.prefill_question
+    del st.session_state.prefill_question
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
@@ -187,17 +198,19 @@ with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
 
-# Display chat history
+# Show chat history
 for message in st.session_state.chat_history:
+    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
-        role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
-if prompt is not None:
-    with st.chat_message("user"):
-        st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
-    st.session_state.chat_history.append({"role": "user", "content": prompt})
+# If there's a prompt (typed or from related question button)
+if prompt:
+    # Avoid duplicate last user messages on rerun
+    if not st.session_state.chat_history or st.session_state.chat_history[-1]["content"] != prompt:
+        st.session_state.chat_history.append({"role": "user", "content": prompt})
 
+    # Check for exact question match first
     if prompt in dataset['question'].values:
         match_row = dataset[dataset['question'] == prompt].iloc[0]
         response = match_row['answer']
@@ -217,18 +230,23 @@ if prompt is not None:
     if department:
         response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
 
+    # Add assistant response to chat history
+    st.session_state.chat_history.append({"role": "assistant", "content": response_md})
+
+    # Display the assistant response (last message)
     with st.chat_message("assistant"):
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
+        # Show related questions as buttons
         if related:
             st.markdown("💡 **Related questions you can ask:**")
-            cols = st.columns(len(related[:4]))  # Show max 4 buttons
+            cols = st.columns(min(len(related), 4))  # max 4 buttons
+
             for i, q in enumerate(related[:4]):
                 if cols[i].button(q, key=f"related_{len(st.session_state.chat_history)}_{i}"):
                     st.session_state.prefill_question = q
                     st.experimental_rerun()
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response})
-
-    if len(st.session_state.chat_history) > 50:
-        st.session_state.chat_history = st.session_state.chat_history[-50:]
+# Limit chat history size to last 50 messages
+if len(st.session_state.chat_history) > 50:
+    st.session_state.chat_history = st.session_state.chat_history[-50:]
