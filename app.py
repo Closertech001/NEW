@@ -63,7 +63,7 @@ def preprocess_text(text):
 
 # Extract department prefix from question code
 def extract_prefix(code):
-    match = re.match(r"([A-Z\-]+)", code)
+    match = re.search(r"\b([A-Z]{2,}(?:-[A-Z]{2,})*-\d{3,})\b", question)
     return match.group(1) if match else None
 
 # Load SentenceTransformer model
