@@ -2,15 +2,15 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import torch
+import random
 import re
+from symspellpy.symspellpy import SymSpell, Verbosity
+import pkg_resources
 import json
 import openai
 import os
-import random
-from symspellpy.symspellpy import SymSpell, Verbosity
-import pkg_resources
 
-# OpenAI API Key
+# Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell for spell correction
@@ -64,7 +64,6 @@ def extract_prefix(code):
     match = re.match(r"([A-Z\-]+)", code)
     return match.group(1) if match else None
 
-# Cached resources and data loading
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
@@ -76,11 +75,9 @@ def load_data():
     return pd.DataFrame(qa_pairs)
 
 @st.cache_data
-def compute_embeddings(questions):
+def compute_question_embeddings(questions: list):
     model = load_model()
-    # preprocess questions before embedding for consistency
-    questions_preprocessed = [preprocess_text(q) for q in questions]
-    return model.encode(questions_preprocessed, convert_to_tensor=True)
+    return model.encode(questions, convert_to_tensor=True)
 
 def fallback_openai(user_input, context_qa=None):
     system_prompt = (
@@ -88,11 +85,13 @@ def fallback_openai(user_input, context_qa=None):
         "If you don't know an answer, politely say so and refer to university resources."
     )
     messages = [{"role": "system", "content": system_prompt}]
+    
     if context_qa:
         context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
         user_message = context_text + "Answer this question: " + user_input
     else:
         user_message = user_input
+        
     messages.append({"role": "user", "content": user_message})
 
     try:
@@ -107,8 +106,12 @@ def fallback_openai(user_input, context_qa=None):
 
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
-    # preprocess user input for embedding
     user_input_clean = preprocess_text(user_input)
+
+    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you"]
+    if user_input_clean.lower() in greetings:
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!"]), None, 1.0, []
+
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
     top_scores, top_indices = torch.topk(cos_scores, k=5)
@@ -136,50 +139,49 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
         department = department_map.get(prefix, "Unknown")
 
     if random.random() < 0.2:
-        response = random.choice(["I think ", "Maybe: ", "Possibly: "]) + response
+        uncertainty = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "])
+        response = uncertainty + response
 
     return response, department, top_score, related_questions
 
-
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
-
-# Custom CSS styling for chat
 st.markdown("""
 <style>
-.chat-message-user {
-    background-color: #d1eaff;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    font-weight: 550;
-    color: #000;
-    max-width: 70%;
-    align-self: flex-end;
-}
-.chat-message-assistant {
-    background-color: #e2e3e5;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #000;
-    max-width: 70%;
-    align-self: flex-start;
-}
-.sidebar .stButton>button {
-    background-color: #4caf50;
-    color: white;
-    font-weight: bold;
-}
+    .chat-message-user {
+        background-color: #cce5ff;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        font-weight: 550;
+        align-self: flex-end;
+        background-color: #d1eaff;
+        color: #000;
+    }
+    .chat-message-assistant {
+        background-color: #e2e3e5;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        align-self: flex-start;
+        background-color: #f0f0f0;
+        color: #000;
+    }
+    .sidebar .stButton>button {
+        background-color: #4caf50;
+        color: white;
+        font-weight: bold;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🎓 Crescent University Chatbot")
 
+model = load_model()
 dataset = load_data()
-questions = dataset['question'].tolist()
-embeddings = compute_embeddings(questions)
+question_list = dataset['question'].tolist()
+question_embeddings = compute_question_embeddings(question_list)
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -187,48 +189,64 @@ if "chat_history" not in st.session_state:
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
-# Display chat messages with styles
-for msg in st.session_state.chat_history:
-    role_class = "chat-message-user" if msg["role"] == "user" else "chat-message-assistant"
-    with st.chat_message(msg["role"]):
-        st.markdown(f'<div class="{role_class}">{msg["content"].replace("\n", "<br>")}</div>', unsafe_allow_html=True)
+if "rerun_flag" not in st.session_state:
+    st.session_state.rerun_flag = False
 
-# User input box
+# Sidebar - Clear chat button
+with st.sidebar:
+    if st.button("🧹 Clear Chat"):
+        st.session_state.chat_history = []
+        st.session_state.related_questions = []
+        st.experimental_rerun()
+
+# Display chat history
+for message in st.session_state.chat_history:
+    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
+    with st.chat_message(message["role"]):
+        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
+
+# User input
 user_input = st.chat_input("Ask me anything about Crescent University...")
 
 if user_input:
-    # Add user message
+    # Append user question
     st.session_state.chat_history.append({"role": "user", "content": user_input})
 
-    # Find bot response
-    response, department, confidence, related_questions = find_response(user_input, dataset, embeddings)
+    # Find response
+    response, department, confidence, related_questions = find_response(user_input, dataset, question_embeddings)
 
     # Append department info if available
     if department:
-        response += f"\n\n📘 Department: **{department}**"
+        response += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
 
-    # Add bot message
-    st.session_state.chat_history.append({"role": "bot", "content": response})
-
-    # Update related questions for new question
+    st.session_state.chat_history.append({"role": "assistant", "content": response})
     st.session_state.related_questions = related_questions
 
-    st.experimental_rerun()
+    st.session_state.rerun_flag = True
 
-# Show related questions buttons below last bot message if any
+# Show related questions as buttons under the chat
 if st.session_state.related_questions:
-    st.markdown("### 💡 Related questions you can ask:")
+    st.markdown("💡 **Related questions you can ask:**")
     cols = st.columns(min(4, len(st.session_state.related_questions)))
     for i, question in enumerate(st.session_state.related_questions[:4]):
         if cols[i].button(question, key=f"related_{i}"):
-            # Add related question as new user message
+            # Append related question as user input
             st.session_state.chat_history.append({"role": "user", "content": question})
-            ans, dept, conf, new_related = find_response(question, dataset, embeddings)
+
+            # Get answer for related question
+            ans, dept, conf, new_related = find_response(question, dataset, question_embeddings)
             if dept:
-                ans += f"\n\n📘 Department: **{dept}**"
-            st.session_state.chat_history.append({"role": "bot", "content": ans})
+                ans += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
 
-            # Update related questions for next turn
+            st.session_state.chat_history.append({"role": "assistant", "content": ans})
             st.session_state.related_questions = new_related
+            st.session_state.rerun_flag = True
 
-            st.experimental_rerun()
+# Trigger rerun at the end of the script if flagged
+if st.session_state.rerun_flag:
+    st.session_state.rerun_flag = False
+    st.experimental_rerun()
+
+# Limit chat history to last 50 messages
+if len(st.session_state.chat_history) > 50:
+    st.session_state.chat_history = st.session_state.chat_history[-50:]
