@@ -18,31 +18,12 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping
 abbreviations = {
-    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
-    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
-    "wud": "would", "abt": "about", "bcz": "because", "bcoz": "because", "btw": "between",
-    "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
-    "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
-    "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
-    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
+    # your abbreviations dict here...
 }
 
-# Department mapping
 department_map = {
-    "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
-    "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
-    "IFT": "Computer Science", "SEN": "Software Engineering", "ENT": "Entrepreneurship",
-    "CYB": "Cybersecurity", "ICT": "Information and Communication Technology",
-    "DTS": "Data Science", "CUAB-CPS": "Computer Science", "CUAB-ECO": "Economics with Operations Research",
-    "ECO": "Economics with Operations Research", "SSC": "Social Sciences", "CUAB-BCO": "Economics with Operations Research",
-    "LIB": "Library Studies", "LAW": "Law (BACOLAW)", "GNS": "General Studies", "ENG": "English",
-    "SOS": "Sociology", "PIS": "Political Science", "CPS": "Computer Science",
-    "LPI": "Law (BACOLAW)", "ICL": "Law (BACOLAW)", "LPB": "Law (BACOLAW)", "TPT": "Law (BACOLAW)",
-    "FAC": "Agricultural Sciences", "ANA": "Anatomy", "BIO": "Biological Sciences",
-    "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
+    # your department map here...
 }
 
 def normalize_text(text):
@@ -149,7 +130,6 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 
-# CSS styles for chat bubbles and sidebar button
 st.markdown("""
 <style>
     .chat-message-user {
@@ -180,19 +160,16 @@ st.markdown("""
 
 st.title("🎓 Crescent University Chatbot")
 
-# Load model and data
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
-# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
-# Sidebar clear chat button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
@@ -205,33 +182,22 @@ for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
-# Chat input from user
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
-    # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Case-insensitive check if question is exactly in dataset
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
-        department = None
-        related = []
     else:
-        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
+        answer, _, _, related = find_response(prompt, dataset, question_embeddings)
+        if related:
+            st.session_state.related_questions = related
+        else:
+            st.session_state.related_questions = []
 
-    # Add assistant response to chat history
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
-
-    # Update related questions in session state
-    if related:
-        st.session_state.related_questions = related
-    else:
-        st.session_state.related_questions = []
-
-    # Rerun to display messages immediately
-    st.experimental_rerun()
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -239,15 +205,12 @@ if st.session_state.related_questions:
     cols = st.columns(len(st.session_state.related_questions))
     for i, rq in enumerate(st.session_state.related_questions):
         if cols[i].button(rq, key=f"related_{i}"):
-            # Append user question
             st.session_state.chat_history.append({"role": "user", "content": rq})
-            # Find answer for the related question
             ans_row = dataset[dataset['question'] == rq]
             if not ans_row.empty:
                 ans = ans_row.iloc[0]['answer']
             else:
                 ans = fallback_openai(rq)
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
-            # Clear related questions after clicking
             st.session_state.related_questions = []
             st.experimental_rerun()
