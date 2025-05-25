@@ -74,7 +74,7 @@
   },
   {
     "question": "What is CONAS?",
-    "answer": "The College of Natural and Applied Sciences (CONAS), established in 2005, includes: Biological Sciences. Chemical Sciences. Mathematical Sciences, Physical Sciences",
+    "answer": "The College of Natural and Applied Sciences (CONAS), established in 2005, includes: Department of Biological Sciences. Chemical Sciences. Mathematical Sciences, Physical Sciences",
     "department": "",
     "level": "",
     "semester": "",
@@ -86,7 +86,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What is the faculty profile like?",
@@ -262,7 +262,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "BACOLAW"
   },
   {
     "question": "What is the full meaning of CASMAS",
@@ -270,7 +270,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What is the full meaning of COES",
@@ -278,7 +278,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "What is the full meaning of CICOT",
@@ -286,7 +286,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CICOT"
   },
   {
     "question": "What is the full meaning of CONAS",
@@ -294,7 +294,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What is the matriculation requirement?",
@@ -379,7 +379,7 @@
   {
     "question": "What is the tuition fee for returning Political Science & I.R. students?",
     "answer": "735,000 plus other fees (portal, departmental, parents forum, IMASA).",
-    "department": "",
+    "department": "Political Science & I.R.",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -387,7 +387,7 @@
   {
     "question": "What is the tuition fee for freshers in Political Science & I.R.?",
     "answer": "868,000, plus 10,000 (screening form), 50,000 (acceptance), and 10,000 (parent forum).",
-    "department": "",
+    "department": "Political Science & I.R.",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -587,7 +587,7 @@
   {
     "question": "Who are the academic staff in the Department of Anatomy?",
     "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -595,7 +595,7 @@
   {
     "question": "Who are the technical and non-academic staff in the Department of Anatomy?",
     "answer": "Technical: Okeniran O.S. (Senior Technologist) | Non-academic: Akindele V.O. (Secretary), Adekunle I.A. (Clerical Officer).",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -603,7 +603,7 @@
   {
     "question": "What are the UTME admission requirements for Department of Anatomy?",
     "answer": "5 credits in English, Mathematics, Biology, Chemistry, and Physics in not more than two sittings. UTME pass required.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -611,7 +611,7 @@
   {
     "question": "What are the Direct Entry requirements in Department of Anatomy?",
     "answer": "NCE/ND with upper credit, two A-level passes in Physics, Chemistry, and Biology/Zoology, or a related first degree.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -619,7 +619,7 @@
   {
     "question": "Are transfer students accepted in Department of Anatomy?",
     "answer": "Yes, with minimum CGPA of 1.5, required documentation, and application through the Registrar.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -627,7 +627,7 @@
   {
     "question": "What are the graduation requirements for B.Sc. Anatomy?",
     "answer": "1. 150 credits for UTME, 120 credits for Direct Entry. | 2. Complete all coursework, SIWES, seminars, and projects. | 3. Register 16-25 units per semester.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -635,7 +635,7 @@
   {
     "question": "What are some courses at 100 Level in Anatomy?",
     "answer": "BIO 101, CHM 101, GNS 101, LIB 101, CPS 101, PHS 101, MTS 101, including labs and electives in Arabic or French.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "100",
     "semester": "",
     "faculty": ""
@@ -643,7 +643,7 @@
   {
     "question": "What courses are introduced in 200 Level Department of Anatomy?",
     "answer": "ANA 201 to ANA 209 covering Gross Anatomy, Histology, Embryology, Biochemistry, Physiology, ICT, and Entrepreneurial Studies.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "200",
     "semester": "",
     "faculty": ""
@@ -651,7 +651,7 @@
   {
     "question": "What are some 300 Level courses Department of Anatomy?",
     "answer": "Neuroanatomy, Histology of Special Senses, Human Genetics, Radiologic Anatomy, Cell and Molecular Biology, and SIWES.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "300",
     "semester": "",
     "faculty": ""
@@ -659,7 +659,7 @@
   {
     "question": "What are final year courses in 400 Level Department of Anatomy?",
     "answer": "Surface & Prosthetic Anatomy, Anatomical Techniques, Electron Microscopy, Forensic Science, Archaeology, Biometry, and Final Year Project.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "400",
     "semester": "",
     "faculty": ""
@@ -667,7 +667,7 @@
   {
     "question": "Is SIWES included in the program of Department of Anatomy?",
     "answer": "Yes, SIWES is included in both 300 Level (SIWES I) and 400 Level (SIWES II).",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -795,7 +795,7 @@
   {
     "question": "What is the college color for Final Year Projects in Architecture?",
     "answer": "Ocean Green.",
-    "department": "",
+    "department": "Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -803,7 +803,7 @@
   {
     "question": "When was the Department of Architecture established?",
     "answer": "It was established in September 2011.",
-    "department": "",
+    "department": "Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -811,7 +811,7 @@
   {
     "question": "What degrees are offered in the Department of Architecture?",
     "answer": "B.Sc. and M.Sc. degrees in Architecture.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -819,7 +819,7 @@
   {
     "question": "What is the philosophy of the Architecture programme?",
     "answer": "To provide knowledge and skills for designing and constructing human spaces using technological, artistic, and environmental approaches, rooted in cultural and traditional heritage.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -827,7 +827,7 @@
   {
     "question": "What are the objectives of the Architecture programme?",
     "answer": "1. Equip students with environmental, cultural, technological, and economic design knowledge.  2. Offer quality design education with creative design skills.  3. Instill professionalism and ability to manage design processes.  4. Encourage research and community participation.  5. Promote entrepreneurial knowledge and self-reliance.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -835,7 +835,7 @@
   {
     "question": "What are the unique features of the Architecture programme?",
     "answer": "1. Focus on global issues (sustainability, gender, climate, etc.).  2. Emphasis on Nigerian architecture and history.  3. Integration of digital design applications.  4. Preparation for local and international practice.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -843,7 +843,7 @@
   {
     "question": "What employability skills does the Architecture programme provide?",
     "answer": "Entrepreneurship for Architects course | Digital drawing and software skills | Independent and creative design thinking. | Communication and presentation skills | Practical experience through workshops and SIWES",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -851,7 +851,7 @@
   {
     "question": "What 21st-century skills are emphasized in Architecture?",
     "answer": "Digital skills (e.g., Building Information Modelling) | Critical thinking and analysis | Creativity and innovation | Communication and teamwork | Leadership and virtual collaboration",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -859,7 +859,7 @@
   {
     "question": "What are the UTME requirements for Architecture?",
     "answer": "Five credits including Mathematics, English, Physics, and two others (e.g., Chemistry, Fine Arts). UTME subjects: Mathematics, Physics, and one from Chemistry, Geography, Fine Arts, or Technical Drawing.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -867,7 +867,7 @@
   {
     "question": "What are the Direct Entry requirements?",
     "answer": "Two A-levels or IJMB, ND (Upper Credit) for 200 level, or HND (Upper Credit/Distinction) for 300 level.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -875,7 +875,7 @@
   {
     "question": "What is the programme duration for B.Sc. in Architecture?",
     "answer": "8 semesters for UTME; 6 semesters for Direct Entry.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -883,7 +883,7 @@
   {
     "question": "What are the graduation requirements for B.Sc. Architecture?",
     "answer": "120 credits (UTME), 90 or 60 (Direct Entry), and successful completion of all required courses and SIWES.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "",
     "semester": "",
     "faculty": ""
@@ -891,7 +891,7 @@
   {
     "question": "What courses are offered in 100 Level Architecture?",
     "answer": "Communication in English, General Physics, Elementary Mathematics, Freehand Drawing, Graphics Communication, Introduction to Architecture & Environmental Sciences.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "100",
     "semester": "",
     "faculty": ""
@@ -899,7 +899,7 @@
   {
     "question": "What courses are offered in 200 Level Architecture?",
     "answer": "CAD, Design Studios I & II, Building Components & Methods, Islamic Architecture, Site Planning, Modeling Studio, Surveying.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "200",
     "semester": "",
     "faculty": ""
@@ -907,7 +907,7 @@
   {
     "question": "What courses are offered in 300 Level Architecture?",
     "answer": "Research Methods, Design Studios III, Structures, Services, Building Information Modelling, Urban Design, SIWES, Entrepreneurship for Architects.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "300",
     "semester": "",
     "faculty": ""
@@ -915,7 +915,7 @@
   {
     "question": "What courses are offered in 400 Level Architecture?",
     "answer": "Design Studios IV & V, Professional Practice, Behavioral Architecture, Interior Design, Project Planning, Acoustics, Dissertation.",
-    "department": "",
+    "department": "Department of Architecture",
     "level": "400",
     "semester": "",
     "faculty": ""
@@ -923,8 +923,8 @@
   {
     "question": "Is SIWES part of the curriculum of the department of Architecture?",
     "answer": "Yes, a three-month SIWES is integrated at 300 Level.",
-    "department": "",
-    "level": "",
+    "department": "Department of Architecture",
+    "level": "300",
     "semester": "",
     "faculty": ""
   },
@@ -934,23 +934,23 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "When was the Department of Biological Science established?",
     "answer": "The department was established in 2005.",
-    "department": "",
+    "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What degree programme is offered by the Department of Biological Science?",
     "answer": "The department offers a B.Sc. degree in Microbiology.",
-    "department": "",
+    "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What is the philosophy of the Microbiology programme?",
@@ -958,7 +958,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the objectives of the Microbiology programme?",
@@ -966,7 +966,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the unique features of the Microbiology programme?",
@@ -974,7 +974,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What employability opportunities are available to microbiology graduates?",
@@ -982,7 +982,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What skills should a microbiology graduate possess?",
@@ -990,7 +990,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What 21st-century skills are emphasized in the department of biological science (Microbiology)?",
@@ -998,7 +998,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the UTME requirements for Microbiology?",
@@ -1006,7 +1006,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who are some academic staff in the department of biological science (Microbiology)?",
@@ -1014,7 +1014,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who are the technical staff in department of biological science (Microbiology)?",
@@ -1022,7 +1022,7 @@
     "department": "Microbiology",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 100 Level department of biological science (Microbiology)?",
@@ -1030,7 +1030,7 @@
     "department": "Microbiology",
     "level": "100",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What Lab praticals that are offered in 100 Level department of biological science (Microbiology)?",
@@ -1038,7 +1038,7 @@
     "department": "Microbiology",
     "level": "100",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 200 Level department of biological science (Microbiology)?",
@@ -1046,7 +1046,7 @@
     "department": "Microbiology",
     "level": "200",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 300 Level department of biological science (Microbiology)?",
@@ -1054,7 +1054,7 @@
     "department": "Microbiology",
     "level": "300",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 400 Level department of biological science (Microbiology)?",
@@ -1062,47 +1062,47 @@
     "department": "Microbiology",
     "level": "400",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the main objectives of the Department of Chemical Sciences?",
     "answer": "Promote excellence in chemical sciences, equip students with relevant skills, and support scientific development.",
-    "department": "",
+    "department": "Department of Chemical Sciences(Biochemistry)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What academic programs are offered by the Department of Chemical Sciences?",
     "answer": "Undergraduate (B.Sc.), M.Sc., and Ph.D. programs in various branches of Chemistry.",
-    "department": "",
+    "department": "Department of Chemical Sciences(Biochemistry)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What facilities are available in the Department of Chemical Sciences?",
     "answer": "Modern labs, instrumentation (UV-Vis, FTIR, NMR, GC-MS), smart classrooms, and internet access.",
-    "department": "",
+    "department": "Department of Chemical Sciences(Biochemistry)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What are the research areas covered by the Department of Chemical Sciences?",
     "answer": "Green Chemistry, Coordination Chemistry, Material Science, Medicinal Chemistry, and more.",
-    "department": "",
+    "department": "Department of Chemical Sciences(Biochemistry)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What achievements or recognitions has the Department of Chemical Sciences received?",
     "answer": "Research publications, funding, collaborations, and event hosting.",
-    "department": "",
+    "department": "Department of Chemical Sciences(Biochemistry)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What is the B.Sc. Biochemistry programme about?",
@@ -1110,7 +1110,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the philosophy of the Department of Chemical Sciences (Biochemistry) programme?",
@@ -1118,7 +1118,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the objectives of the Department of Chemical Sciences (Biochemistry) degree?",
@@ -1126,7 +1126,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the unique features of the Department of Chemical Sciences (Biochemistry) programme?",
@@ -1134,7 +1134,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What employability skills does the Department of Chemical Sciences (Biochemistry) provide?",
@@ -1142,7 +1142,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the admission requirements for the Department of chemical science (biochemistry)?",
@@ -1150,7 +1150,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the duration of the Biochemistry programme?",
@@ -1158,7 +1158,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the course structure at 100 Level First Semester Department of Chemical Sciences (Biochemistry)?",
@@ -1166,7 +1166,7 @@
     "department": "Biochemistry",
     "level": "100",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the 100 Level Second Semester curriculum Department of Chemical Sciences (Biochemistry)?",
@@ -1174,7 +1174,7 @@
     "department": "Biochemistry",
     "level": "100",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 200 Level First Semester Department of Chemical Sciences (Biochemistry)?",
@@ -1182,7 +1182,7 @@
     "department": "Biochemistry",
     "level": "200",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the 200 Level Second Semester courses Department of Chemical Sciences (Biochemistry)?",
@@ -1190,7 +1190,7 @@
     "department": "Biochemistry",
     "level": "200",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is taught in 300 Level First Semester Department of Chemical Sciences (Biochemistry)?",
@@ -1198,7 +1198,7 @@
     "department": "Biochemistry",
     "level": "300",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are in 300 Level Second Semester Department of Chemical Sciences (Biochemistry)?",
@@ -1206,7 +1206,7 @@
     "department": "Biochemistry",
     "level": "300",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is included in the 400 Level First Semester curriculum Department of Chemical Sciences (Biochemistry)?",
@@ -1214,7 +1214,7 @@
     "department": "Biochemistry",
     "level": "400",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the 400 Level Second Semester courses Department of Chemical Sciences (Biochemistry)?",
@@ -1222,7 +1222,7 @@
     "department": "Biochemistry",
     "level": "400",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who are the College of Natural and Applied Sciences (CONAS) staff?",
@@ -1230,7 +1230,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "Who are the academic staff in the Department of Chemical Sciences (Biochemistry)?",
@@ -1238,7 +1238,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who are the non-academic staff in the Department of Chemical Sciences (Biochemistry)?",
@@ -1246,7 +1246,7 @@
     "department": "Biochemistry",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "When was the Department of Computer Science established?",
@@ -1254,7 +1254,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the vision of the Department of Computer Science regarding student training?",
@@ -1262,7 +1262,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is unique about the curriculum of the department of Computer Science?",
@@ -1270,7 +1270,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What qualities are students expected to develop through the B.Sc Computer Science program?",
@@ -1278,7 +1278,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who is the Acting HOD of Computer Science and what is his specialization?",
@@ -1286,7 +1286,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Name a professor in the department of Computer Science and their areas of expertise.",
@@ -1294,7 +1294,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "Who is the Principal Computer Technologist and what are his qualifications?",
@@ -1302,15 +1302,15 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
-    "question": "Who is the College Officer and what is their qualification?",
+    "question": "Who is the College Officer for the Department of Computer Science and what is their qualification?",
     "answer": "A. H. Rifhat; B.Sc. in Agricultural Economics.",
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CONAS"
   },
   {
     "question": "What are the major research areas in the Department of Computer Science?",
@@ -1318,7 +1318,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What laboratories are available for student training in Department of Computer Science?",
@@ -1326,7 +1326,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the department of Computer Science focus?",
@@ -1334,7 +1334,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the philosophy of the department of Computer Science program?",
@@ -1342,7 +1342,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are some specific objectives of the B.Sc. Computer Science?",
@@ -1350,7 +1350,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are some unique features of the Computer Science program?",
@@ -1358,7 +1358,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What employability skills does the Computer Science program promote?",
@@ -1366,7 +1366,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What 21st-century skills are integrated IN Computer Science?",
@@ -1374,7 +1374,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the UTME admission requirements of Department of Computer Science?",
@@ -1382,7 +1382,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the Direct Entry requirements of Department of Computer Science?",
@@ -1390,7 +1390,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What are the requirements to graduate with a B.Sc. in Computer Science?",
@@ -1398,7 +1398,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What is the minimum duration of the degree of Department of Computer Science?",
@@ -1406,7 +1406,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "How is the curriculum structured across the four levels in Department of Computer Science?",
@@ -1414,7 +1414,7 @@
     "department": "Computer Science",
     "level": "",
     "semester": "",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 100 Level First Semester Computer Science?",
@@ -1422,7 +1422,7 @@
     "department": "Computer Science",
     "level": "100",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 100 Level Second Semester in of Department of Computer Science?",
@@ -1430,7 +1430,7 @@
     "department": "Computer Science",
     "level": "100",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 200 Level First Semester Department of Computer Science?",
@@ -1438,7 +1438,7 @@
     "department": "Computer Science",
     "level": "200",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 200 Level Second Semester Department of Computer Science?",
@@ -1446,7 +1446,7 @@
     "department": "Computer Science",
     "level": "200",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 300 Level First Semester Department of Computer Science?",
@@ -1454,7 +1454,7 @@
     "department": "Computer Science",
     "level": "300",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 300 Level Second Semester Department of Computer Science?",
@@ -1462,7 +1462,7 @@
     "department": "Computer Science",
     "level": "300",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 400 Level First Semester Department of Computer Science?",
@@ -1470,7 +1470,7 @@
     "department": "Computer Science",
     "level": "400",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "What courses are offered in 400 Level Second Semester Department of Computer Science?",
@@ -1478,7 +1478,7 @@
     "department": "Computer Science",
     "level": "400",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "CONAS"
   },
   {
     "question": "When was the Department of Economics with Operations Research established?",
@@ -1675,34 +1675,34 @@
   {
     "question": "What is the College colour for final year students' long essay project?",
     "answer": "Black.",
-    "department": "",
+    "department": "department of law (LL.B)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "BACOLAW"
   },
   {
     "question": "What is the University's residential policy in department of law (LL.B)?",
     "answer": "On-campus residency is compulsory, except for mature/married students with approved exemption.",
-    "department": "",
+    "department": "department of law (LL.B)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "BACOLAW"
   },
   {
     "question": "What are the goals of BACOLAW graduates?",
     "answer": "To be skilled in legal practice, fight corruption, uphold the rule of law, and contribute to national productivity and justice.",
-    "department": "",
+    "department": "department of law (LL.B)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "BACOLAW"
   },
   {
     "question": "How is the BACOLAW curriculum designed?",
     "answer": "To comply with NUC and CLE standards, emphasize societal relevance, and apply legal knowledge to real-world political, economic, and social issues.",
-    "department": "",
+    "department": "Department of law (LL.B)",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "BACOLAW"
   },
   {
     "question": "What is BACOLAW philosophy on student development?",
@@ -2155,146 +2155,146 @@
   {
     "question": "When was the Department of Political Science and International Studies established?",
     "answer": "It was established in the 2008/2009 academic session.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What was the original structure of the Department of Political Science and International Studies?",
     "answer": "It was initially part of the Department of Mass Communication and Social Studies.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "When did the Department of Political Science and International Studies become independent?",
     "answer": "In the 2009/2010 session, with Dr. 'Goke Lalude as the pioneer Acting Head.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "When was the International Studies curriculum integrated?",
     "answer": "In the 2010/2011 session, the department was renamed and International Studies courses were added.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "When did the Department of Political Science and International Studies receive full accreditation?",
     "answer": "In 2015, following a reaccreditation exercise by the NUC.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What is the aim(Objective) of the Department of Political Science and International Studies?",
     "answer": "To prepare graduates for careers in politics, academia, media, international organizations, and public service.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the UTME requirements for the Department of Political Science and International Studies?",
     "answer": "Five O'Level credits including English, Mathematics, Government or History, and two other subjects | Not more than two sittings.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the Direct Entry requirements for the Department of Political Science and International Studies?",
     "answer": "NCE, ND, IJMB, JUPEB, or HND with at least lower credit in relevant fields.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the requirements for transfer candidates for the Department of Political Science and International Studies?",
     "answer": "Must meet minimum entry requirements. | Provide transcript and confidential report. | Have a CGPA of at least 1.5.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the graduation requirements for Department of Political Science and International Studies?",
     "answer": "160 credits for 4-year students, 130 credits for 3-year students. | Minimum of 15 and a maximum of 25 credit units per semester.",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 100 Level First Semester for Department of Political Science and International Studies?",
     "answer": "PIS 101: Introduction to Political Science | PIS 103: The Citizen and the State | PIS 105: Ancestors of the Contemporary International System | PIS 107: Structure of International System | SMS 101: Introductory Mathematics for Social Sciences | SOC 101: Principles of Sociology | GNS 101: Use of English I | GNS 103: Philosophy of Islam I | GNS 105: Nigerian People and Culture | LIB 101: Use of Library | CCC 101: Business Solutions Using MS Word (non-credit) | BCO 101: Introduction to Economics I (Required)",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "100",
     "semester": "First",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 100 Level Second Semester for Department of Political Science and International Studies?",
     "answer": "PIS 102: Nigerian Constitutional Development | PIS 104: Introduction to Democratic Studies | PIS 106: The Nigerian Legal System | PIS 108: Introduction to International Relations | SMS 102: Introductory Maths for Soc. Science II | PSY 102: Introduction to Psychology | SOC 102: Issues and Development in Nigerian Society II | ECO 102: Introductory Economics II (Required) | GNS 102: Logic, Philosophy and Human Existence | GNS: History and Philosophy of Science | GNS: Philosophy of Islam II | CCC 102: Business Solutions Using MS Word II",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "100",
     "semester": "Second",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 200 Level First Semester for Department of Political Science and International Studies?",
     "answer": "PIS 201: Introduction to Political Analysis | PIS 203: Political Ideas | PIS 205: Evolution of Modern International System | PIS 207: International Political Society | SMS 201: Introductory Statistics for Social and Management Sciences | BUS 203: Introduction to Management Theory & Practice | GNS 205: Introduction to Entrepreneurship Studies | CCC 201: MS Office Suite (non-credit) | Electives: GNS 201 (French I) or GNS 203 (Arabic I) | PIS 209: Intro to African Politics (Required) | PIS 211: Intro to Afro-Asian Relations (Required)",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "200",
     "semester": "First",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 200 Level Second Semester for Department of Political Science and International Studies?",
     "answer": "PIS 202: Statistical Methods in Political Science | PIS 204: Introduction to Comparative Politics | PIS 206: New States in World Politics | PIS 208: International Relations in West Africa | PIS 210: Nigerian Government and Politics | PIS 212: Introduction to Public Administration | GNS 206: Practical Entrepreneurship Studies | GNS 208: Communication Skills | CCC 202: MS Office Suite (Excel) | PIS 214: Foundation of Political Economy | PIS 216: Politics of Globalization | Electives: GNS 201 (French I) or GNS 203 (Arabic I)",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "200",
     "semester": "Second",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 300 Level First Semester for Department of Political Science and International Studies?",
     "answer": "PIS 301: Logic and Methods in Political Inquiry | PIS 303: History of Political Thought | PIS 305: Methodology of Comparative Thought | PIS 307: Concepts in Diplomacy and International Relations | PIS 309: Foreign Politics of the Superpowers | PIS 311: Contemporary Strategic Studies | GNS 301: Peace and Conflict Resolution | CCC 303: CRM I (non-credit) | PIS 313: Comparative Federal System | Electives: PIS 315, 317, or 319",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "300",
     "semester": "First",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 300 Level Second Semester for Department of Political Science and International Studies?",
     "answer": "PIS 302: Theories of International Relations | PIS 304: African Political Thought | PIS 306: Political Behaviour | PIS 308: International Economic Relations | PIS 310: Theory and Practice of Public Administration | PIS 314: Research Methodology | PIS 316: Problems of Political Philosophy | PIS 318: Field Trip | CCC 304: CRM II | Electives: PIS 320, 322, PIS 312 (Politics of Dev. & Underdevelopment)",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "300",
     "semester": "Second",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 400 Level First Semester for Department of Political Science and International Studies?",
     "answer": "PIS 401: Contemporary Political Analysis | PIS 403: Policy Analysis | PIS 405: Nigerian Foreign Policy I | PIS 407: Third World and Dependency | PIS 409: Development Administration | PIS 411: State and Economy | PIS 413: Politics in Communist Party States PIS 415: International Institutions | PIS 417: Politics of Intergovernmental Relations | CCC 401: Project Management I | Electives: PIS 419 or 421",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "400",
     "semester": "First",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "What are the core courses in 400 Level Second Semester for Department of Political Science and International Studies?",
     "answer": "PIS 402: Human Rights | PIS 404: Political Economy | PIS 406: Nigerian Foreign Policy II | PIS 408: The Middle East in World Politics | PIS 498: Research Project | CCC 402: Project Management II | PIS 410: Civil-Military Relations | PIS 412: Foreign Policy of African States | Electives: PIS 414, 416, or 418",
-    "department": "",
+    "department": "Department of Political Science and International Studies",
     "level": "400",
     "semester": "Second",
-    "faculty": ""
+    "faculty": "CASMAS"
   },
   {
     "question": "When was the College of Health Sciences established?",
@@ -2302,7 +2302,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What departments are in COHES?",
@@ -2310,7 +2310,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What facilities are available for practical experiments in Department of Physiology?",
@@ -2318,7 +2318,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What degree is offered by the Department of Physiology?",
@@ -2326,7 +2326,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What is the philosophy of the Department of Physiology programme?",
@@ -2334,7 +2334,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the objectives of the Department of Physiology programme?",
@@ -2342,7 +2342,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "Who are some of the academic staff in the Department of Physiology?",
@@ -2350,7 +2350,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the general UTME requirements in Department of Physiology?",
@@ -2358,7 +2358,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the Direct Entry requirements in Department of Physiology?",
@@ -2366,7 +2366,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the specific admission requirements for COHES?",
@@ -2374,7 +2374,7 @@
     "department": "",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are the minimum graduation requirements for Physiology students?",
@@ -2382,7 +2382,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the key courses taken in the first semester of 100 level in Department of Physiology?",
@@ -2390,15 +2390,15 @@
     "department": "Physiology",
     "level": "100",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "Are there practical components in 100level first semester in Department of Physiology?",
     "answer": "Yes, for Biology, Chemistry, and Physics (BIO 191, CHM 191, PHS 191).",
     "department": "Physiology",
-    "level": "",
+    "level": "100",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What major courses are offered in the second semester of 100 level in Department of Physiology?",
@@ -2406,7 +2406,7 @@
     "department": "Physiology",
     "level": "100",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What practical are included in the second semester of 100 level in Department of Physiology?",
@@ -2414,7 +2414,7 @@
     "department": "Physiology",
     "level": "100",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What physiology courses are introduced in 200 level first semester Department of Physiology?",
@@ -2422,55 +2422,55 @@
     "department": "Physiology",
     "level": "200",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "Which anatomy and biochemistry courses are taken in 200level first semester Department of Physiology?",
     "answer": "ANA 203, 205, 207, 213, 215 (Various anatomy topics) | BCH 207, 209, 211 (Chemistry and metabolism courses)",
-    "department": "Biochemistry",
-    "level": "",
+    "department": "Physiology",
+    "level": "200",
     "semester": "First",
-    "faculty": "CNS"
+    "faculty": "COHES"
   },
   {
     "question": "What elective language options are available in 200level first semester Department of Physiology?",
     "answer": "GNS 201: French or GNS 203: Arabic for Beginners I.",
     "department": "Physiology",
-    "level": "",
+    "level": "200",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What courses that are offered in 200level second semester Department of Physiology?",
     "answer": "PHY 202: Renal Physiology, Body Fluids & Temp Regulation | PHY 204: Respiratory System | PHY 208: Neuroscience I | PHY 210: Hematology | PHY 292: Practical Physiology II | ANA 212, 214, 208 (Histology and anatomy) | BCH 204: Protein and Nucleotide Chemistry | CHS 202: Biostatistics | GNS 206: Practical Entrepreneurial Skills | GNS 208: Communication Skill | GNS 202: French II or GNS 204: Arabic II",
     "department": "Physiology",
-    "level": "",
+    "level": "200",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What key physiology course are covered in 200level second semester Department of Physiology?",
     "answer": "PHY 202: Renal Physiology, Body Fluids & Temp Regulation | PHY 204: Respiratory System | PHY 208: Neuroscience I | PHY 210: Hematology | PHY 292: Practical Physiology II",
     "department": "Physiology",
-    "level": "",
+    "level": "200",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What supporting science courses are included in 200level second semester Department of Physiology?",
     "answer": "ANA 212, 214, 208 (Histology and anatomy) | BCH 204: Protein and Nucleotide Chemistry | CHS 202: Biostatistics | GNS 206: Practical Entrepreneurial Skills | GNS 208: Communication Skill",
     "department": "Physiology",
-    "level": "",
+    "level": "200",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What language electives are offered this 200level second semester in Department of Physiology?",
     "answer": "GNS 202: French II or GNS 204: Arabic II",
     "department": "Physiology",
-    "level": "",
+    "level": "200",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "When is the first Industrial Work Experience in Department of Physiology?",
@@ -2478,63 +2478,63 @@
     "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What courses that are offered in 300level first semester Department of Physiology?",
     "answer": "PHY 301: Gastrointestinal Physiology | PHY 303: Endocrinology & Reproduction | PHY 399: Industrial Work Experience I | ANA 305, 311, 313: Histology, anatomy, embryology | BCH 303, 315, 317: Lipid metabolism, nucleic acids, clinical biochemistry | GNS 301: Global Citizenship | CCC 303: Customer Relationship Management I (non-credit)",
     "department": "Physiology",
-    "level": "",
+    "level": "300",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "Which systems are studied in 300level first semester Department of Physiology?",
     "answer": "PHY 301: Gastrointestinal Physiology | PHY 303: Endocrinology & Reproduction | PHY 399: Industrial Work Experience I",
     "department": "Physiology",
-    "level": "",
+    "level": "300",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the related supporting courses in 300level first semester Department of Physiology?",
     "answer": "ANA 305, 311, 313: Histology, anatomy, embryology | BCH 303, 315, 317: Lipid metabolism, nucleic acids, clinical biochemistry | GNS 301: Global Citizenship | CCC 303: Customer Relationship Management I (non-credit)",
     "department": "Physiology",
-    "level": "",
+    "level": "300",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What courses that are offered in 300level second semester Department of Physiology?",
     "answer": "PHY 302: Neurophysiology | PHY 304: Electrolyte & Fluid Regulation | PHY 306: Neuroscience II | PHY 308: Enzymology | PHY 310: Laboratory Teaching & Instrumentation | PHA 302: Pharmacology | BCH 302, 304: Carbohydrates, amino acids & protein metabolism | CCC 304: CRM II (non-credit)",
     "department": "Physiology",
-    "level": "",
+    "level": "300",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What advanced physiology courses are included in 300level second semester Department of Physiology?",
     "answer": "PHY 302: Neurophysiology | PHY 304: Electrolyte & Fluid Regulation | PHY 306: Neuroscience II | PHY 308: Enzymology | PHY 310: Laboratory Teaching & Instrumentation | PHA 302: Pharmacology",
     "department": "Physiology",
-    "level": "",
+    "level": "300",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What biochemistry courses are included in 300level second semester Department of Physiology?",
     "answer": "BCH 302, 304: Carbohydrates, amino acids & protein metabolism | CCC 304: CRM II (non-credit)",
-    "department": "Biochemistry",
-    "level": "",
+    "department": "Physiology",
+    "level": "300",
     "semester": "Second",
-    "faculty": "CNS"
+    "faculty": "COHES"
   },
   {
     "question": "When is the second Industrial Work Experience?",
     "answer": "During the long vacation after 300 level.",
-    "department": "",
+    "department": "Physiology",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What courses that are offered in 400level first semester Department of Physiology?",
@@ -2542,7 +2542,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What are the core final-year Department of Physiology courses (400level first semester)?",
@@ -2550,7 +2550,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "First",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What courses that are offered in 400level second semester Department of Physiology?",
@@ -2558,7 +2558,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What is the focus in the final semester Department of Physiology topics (400level second semester)?",
@@ -2566,7 +2566,7 @@
     "department": "Physiology",
     "level": "",
     "semester": "Second",
-    "faculty": "COHS"
+    "faculty": "COHES"
   },
   {
     "question": "What course is GST 111 and how many units is it?",
