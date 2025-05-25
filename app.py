@@ -1,3 +1,4 @@
+# Crescent University Chatbot (Refined)
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -9,6 +10,7 @@ import pkg_resources
 import json
 import openai
 import os
+from difflib import get_close_matches
 
 # Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -18,7 +20,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping
+# Abbreviations mapping (lowercase values)
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -26,8 +28,9 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
-    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
+    "clg": "college", "sch": "school", "info": "information", "l": "level",
+    "csc": "computer science", "eco": "economics with operations research",
+    "phy": "physics", "stat": "statistics"
 }
 
 # Department mapping
@@ -61,7 +64,7 @@ def preprocess_text(text):
     return ' '.join(corrected)
 
 def extract_prefix(code):
-    match = re.match(r"([A-Z\-]+)", code)
+    match = re.match(r"^([A-Z]+(?:-[A-Z]+)?)", code)
     return match.group(1) if match else None
 
 @st.cache_resource
@@ -72,12 +75,20 @@ def load_model():
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
-    return pd.DataFrame(qa_pairs)
+    df = pd.DataFrame(qa_pairs)
+    df['normalized_question'] = df['question'].apply(preprocess_text)
+    return df
 
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
+
+def is_greeting(text):
+    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
+                 "how are you doing", "how's it going", "can we talk?",
+                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
+    return bool(get_close_matches(text.lower(), greetings, n=1, cutoff=0.85))
 
 def fallback_openai(user_input, context_qa=None):
     system_prompt = (
@@ -85,13 +96,16 @@ def fallback_openai(user_input, context_qa=None):
         "If you don't know an answer, politely say so and refer to university resources."
     )
     messages = [{"role": "system", "content": system_prompt}]
-    
+
     if context_qa:
-        context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
-        user_message = context_text + "Answer this question: " + user_input
+        user_message = (
+            f"You are answering based on university data.\n"
+            f"Context:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
+            f"Now answer this user query:\n{user_input}"
+        )
     else:
         user_message = user_input
-        
+
     messages.append({"role": "user", "content": user_message})
 
     try:
@@ -101,19 +115,16 @@ def fallback_openai(user_input, context_qa=None):
             temperature=0.3
         )
         return response.choices[0].message["content"].strip()
-    except Exception:
+    except Exception as e:
+        print(f"OpenAI Error: {e}")
         return "Sorry, I couldn't reach the server. Try again later."
 
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
 
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
-             "how are you doing", "how's it going", "can we talk?",
-             "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    # case insensitive greeting check
-    if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
+    if is_greeting(user_input_clean):
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!", "I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -142,15 +153,13 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
         department = department_map.get(prefix, "Unknown")
 
     if random.random() < 0.2:
-        uncertainty = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "])
-        response = uncertainty + response
+        response = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "]) + response
 
     return response, department, top_score, related_questions
 
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
-# CSS styles for chat bubbles and sidebar button
 st.markdown("""
 <style>
     .chat-message-user {
@@ -179,14 +188,12 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Title with emoji (safe to display here)
 st.title("🎓 Crescent University Chatbot")
 
 # Load model and data
-model = load_model()
 dataset = load_data()
-question_list = dataset['question'].tolist()
-question_embeddings = compute_question_embeddings(question_list)
+model = load_model()
+question_embeddings = compute_question_embeddings(dataset['normalized_question'].tolist())
 
 # Initialize session state
 if "chat_history" not in st.session_state:
@@ -200,7 +207,6 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
-        raise st.script_runner.RerunException(st.script_requests.RerunData())
 
 # Show chat messages
 for message in st.session_state.chat_history:
@@ -212,11 +218,11 @@ for message in st.session_state.chat_history:
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
-    # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Case-insensitive exact match check
-    matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
+    normalized_prompt = preprocess_text(prompt)
+    matched_row = dataset[dataset['normalized_question'] == normalized_prompt]
+
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
         department = None
@@ -224,10 +230,13 @@ if prompt:
     else:
         answer, department, score, related = find_response(prompt, dataset, question_embeddings)
 
-    # Add assistant response to chat history
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
-
-    # Store related questions to session state
     st.session_state.related_questions = related
 
     st.experimental_rerun()
+
+# Show related questions (optional UI improvement)
+if st.session_state.related_questions:
+    with st.expander("🤝 Related Questions"):
+        for q in st.session_state.related_questions:
+            st.markdown(f"- {q}")
