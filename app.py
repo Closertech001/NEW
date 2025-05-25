@@ -230,8 +230,8 @@ if prompt is not None:
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
             if related:
-        st.markdown("💡 **Related questions you can ask:**")
-        cols = st.columns(len(related))
+                st.markdown("💡 **Related questions you can ask:**")
+                cols = st.columns(len(related))
         
         for i, q in enumerate(related[:4]):  # Limit to 4 buttons
             if cols[i].button(q, key=f"related_{len(st.session_state.chat_history)}_{i}"):
