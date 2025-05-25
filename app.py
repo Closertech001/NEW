@@ -26,7 +26,8 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level"
+    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
+    "ECO": "Economics with Operations Research", "PHY": "Physics", "STA": "Statistics"
 }
 
 # Department mapping
