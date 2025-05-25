@@ -230,11 +230,14 @@ if prompt is not None:
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
         if related:
-            selected_related = st.selectbox(
-                "💡 Related questions you can ask:",
-                [""] + random.sample(related, k=min(3, len(related))),
-                key=f"related_{len(st.session_state.chat_history)}"
-            )
+        st.markdown("💡 **Related questions you can ask:**")
+        cols = st.columns(len(related))
+        
+        for i, q in enumerate(related[:4]):  # Limit to 4 buttons
+            if cols[i].button(q, key=f"related_{len(st.session_state.chat_history)}_{i}"):
+                st.session_state.prefill_question = q
+                st.experimental_rerun()
+
             if selected_related:
                 st.session_state.prefill_question = selected_related
                 st.experimental_rerun()
