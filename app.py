@@ -24,7 +24,7 @@ abbreviations = {
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
     "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
-    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
+    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second"
 }
 
 department_map = {
