@@ -18,7 +18,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping
+# Abbreviations mapping - keys are lowercased for consistency
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -26,9 +26,12 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
-    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
+    "clg": "college", "sch": "school", "info": "information", "l": "level", "csc": "Computer Science",
+    "eco": "Economics with Operations Research", "phy": "Physics", "stat": "Statistics"
 }
+
+# Lowercase all abbreviation keys for safe lookup
+abbreviations = {k.lower(): v for k, v in abbreviations.items()}
 
 # Department mapping
 department_map = {
@@ -106,13 +109,17 @@ def fallback_openai(user_input, context_qa=None):
 
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
-    user_input_clean = preprocess_text(user_input)
+    user_input_clean = preprocess_text(user_input).lower()
 
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
-             "how are you doing", "how's it going", "can we talk?",
-             "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    if processed_input in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"])
+                 "how are you doing", "how's it going", "can we talk?",
+                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
+
+    if user_input_clean in greetings:
+        return random.choice([
+            "Hello!", "Hi there!", "Hey!", "Greetings!",
+            "I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"
+        ]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -208,8 +215,9 @@ if prompt:
         st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    if prompt in dataset['question'].values:
-        match_row = dataset[dataset['question'] == prompt].iloc[0]
+    prompt_clean = preprocess_text(prompt).lower()
+    if prompt_clean in [q.lower() for q in question_list]:
+        match_row = dataset[dataset['question'].str.lower() == prompt_clean].iloc[0]
         response = match_row['answer']
         department = None
         confidence = 1.0
@@ -223,38 +231,13 @@ if prompt:
     else:
         response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
 
-    response_md = response
-    if department:
-        response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
-
-    with st.chat_message("assistant"):
-        st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
-
     st.session_state.chat_history.append({"role": "assistant", "content": response})
-
-    # Save related questions for buttons
     st.session_state.related_questions = related
 
-# Show related questions as buttons
+    with st.chat_message("assistant"):
+        st.markdown(f'<div class="chat-message-assistant">{response}</div>', unsafe_allow_html=True)
+
 if st.session_state.related_questions:
-    st.markdown("💡 **Related questions you can ask:**")
-    cols = st.columns(min(4, len(st.session_state.related_questions)))
-    for i, question in enumerate(st.session_state.related_questions[:4]):
-        if cols[i].button(question, key=f"related_{i}"):
-            # Append question to chat history as user message
-            st.session_state.chat_history.append({"role": "user", "content": question})
-
-            # Get answer for the related question
-            ans, dept, conf, new_related = find_response(question, dataset, question_embeddings)
-            ans_md = ans
-            if dept:
-                ans_md += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
-
-            # Append assistant response to chat history
-            st.session_state.chat_history.append({"role": "assistant", "content": ans})
-
-            # Update related questions to new set
-            st.session_state.related_questions = new_related
-
-            # Streamlit will rerun automatically, no need to call experimental_rerun()
-
+    st.markdown("**Related Questions:**")
+    for q in st.session_state.related_questions:
+        st.write("- " + q)
