@@ -111,7 +111,6 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
              "how are you doing", "how's it going", "can we talk?",
              "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    # case insensitive greeting check
     if user_input_clean.lower() in greetings:
         return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
@@ -199,7 +198,6 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
-        return  # <--- IMPORTANT: Add return immediately after rerun
 
 # Show chat messages
 for message in st.session_state.chat_history:
@@ -218,8 +216,8 @@ if prompt:
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
-        department = None  # Could add department detection here if needed
-        related = []  # Could add related questions if you want
+        department = None
+        related = []
     else:
         answer, department, score, related = find_response(prompt, dataset, question_embeddings)
 
@@ -234,7 +232,6 @@ if prompt:
 
     # Rerun to display messages immediately
     st.experimental_rerun()
-    return  # <--- IMPORTANT: Add return immediately after rerun
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -251,7 +248,6 @@ if st.session_state.related_questions:
             else:
                 ans = fallback_openai(rq)
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
-            # Reset related questions after click
+            # Clear related questions after clicking
             st.session_state.related_questions = []
             st.experimental_rerun()
-            return  # <--- IMPORTANT: Add return immediately after rerun
