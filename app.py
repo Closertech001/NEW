@@ -48,7 +48,7 @@ department_map = {
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
-    return text.lower()  # make lowercase for case insensitivity
+    return text.lower()
 
 def preprocess_text(text):
     text = normalize_text(text)
@@ -172,7 +172,6 @@ st.markdown("""
         background-color: #4caf50;
         color: white;
         font-weight: bold;
-        margin-bottom: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -190,17 +189,13 @@ if "chat_history" not in st.session_state:
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
-if "related_answer" not in st.session_state:
-    st.session_state.related_answer = ""
-
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
-        st.session_state.related_answer = ""
         st.experimental_rerun()
 
-# Display chat history
+# Display chat history with styling
 for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
@@ -213,8 +208,10 @@ if prompt:
         st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    if prompt.lower() in map(str.lower, dataset['question'].values):
-        match_row = dataset[dataset['question'].str.lower() == prompt.lower()].iloc[0]
+    # Check for exact question match ignoring case
+    matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
+    if not matched_row.empty:
+        match_row = matched_row.iloc[0]
         response = match_row['answer']
         department = None
         confidence = 1.0
@@ -235,20 +232,24 @@ if prompt:
     with st.chat_message("assistant"):
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response})
+    st.session_state.chat_history.append({"role": "assistant", "content": response_md})
+
+    # Save related questions for buttons
     st.session_state.related_questions = related
-    st.session_state.related_answer = ""
 
-# Show related questions as vertical buttons
+# Show related questions horizontally as buttons
 if st.session_state.related_questions:
-    st.markdown("### 💡 Related Questions:")
-    for q in st.session_state.related_questions:
-        if st.button(q, key=f"related_{q}"):
-            # Show answer immediately below the clicked question
-            matched_row = dataset[dataset['question'] == q]
-            if not matched_row.empty:
-                answer = matched_row.iloc[0]['answer']
-                st.session_state.related_answer = f"**Answer:** {answer}"
-
-    if st.session_state.related_answer:
-        st.markdown(st.session_state.related_answer)
+    st.markdown("💡 **Related questions you can ask:**")
+    cols = st.columns(len(st.session_state.related_questions))  # horizontal buttons
+    for i, question in enumerate(st.session_state.related_questions):
+        if cols[i].button(question, key=f"related_{i}"):
+            # Add related question as user message
+            st.session_state.chat_history.append({"role": "user", "content": question})
+            ans, dept, conf, new_related = find_response(question, dataset, question_embeddings)
+            ans_md = ans
+            if dept:
+                ans_md += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
+            # Add assistant response
+            st.session_state.chat_history.append({"role": "assistant", "content": ans_md})
+            st.session_state.related_questions = new_related
+            st.experimental_rerun()
