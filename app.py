@@ -10,7 +10,7 @@ import json
 import openai
 import os
 
-# Set your OpenAI API key from environment variable
+# Set OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell for spell correction
@@ -30,7 +30,7 @@ abbreviations = {
     "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
 }
 
-# Department mapping
+# Department code to full name mapping
 department_map = {
     "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
     "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
@@ -146,6 +146,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
+
 st.markdown("""
 <style>
     .chat-message-user {
@@ -154,8 +155,6 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 550;
-        align-self: flex-end;
-        background-color: #d1eaff;
         color: #000;
     }
     .chat-message-assistant {
@@ -164,14 +163,7 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 600;
-        align-self: flex-end;
-        background-color: #d1eaff;
         color: #000;
-    }
-    .sidebar .stButton>button {
-        background-color: #4caf50;
-        color: white;
-        font-weight: bold;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -197,8 +189,8 @@ with st.sidebar:
 
 # Display chat history
 for message in st.session_state.chat_history:
-    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
+        role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
 if prompt is not None:
@@ -206,7 +198,6 @@ if prompt is not None:
         st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # 🟢 Updated logic: check if prompt is in dataset directly
     if prompt in dataset['question'].values:
         match_row = dataset[dataset['question'] == prompt].iloc[0]
         response = match_row['answer']
@@ -231,16 +222,11 @@ if prompt is not None:
 
         if related:
             st.markdown("💡 **Related questions you can ask:**")
-            cols = st.columns(len(related))
-        
-        for i, q in enumerate(related[:4]):  # Limit to 4 buttons
-            if cols[i].button(q, key=f"related_{len(st.session_state.chat_history)}_{i}"):
-                st.session_state.prefill_question = q
-                st.experimental_rerun()
-
-            if selected_related:
-                st.session_state.prefill_question = selected_related
-                st.experimental_rerun()
+            cols = st.columns(len(related[:4]))  # Show max 4 buttons
+            for i, q in enumerate(related[:4]):
+                if cols[i].button(q, key=f"related_{len(st.session_state.chat_history)}_{i}"):
+                    st.session_state.prefill_question = q
+                    st.experimental_rerun()
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
 
