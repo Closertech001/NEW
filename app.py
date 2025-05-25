@@ -199,6 +199,7 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
+        return  # <--- IMPORTANT: Add return immediately after rerun
 
 # Show chat messages
 for message in st.session_state.chat_history:
@@ -233,6 +234,7 @@ if prompt:
 
     # Rerun to display messages immediately
     st.experimental_rerun()
+    return  # <--- IMPORTANT: Add return immediately after rerun
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -249,7 +251,7 @@ if st.session_state.related_questions:
             else:
                 ans = fallback_openai(rq)
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
-            # Update related questions for the new answer (optional)
-            # Here you could call find_response again or reset related questions
+            # Reset related questions after click
             st.session_state.related_questions = []
             st.experimental_rerun()
+            return  # <--- IMPORTANT: Add return immediately after rerun
