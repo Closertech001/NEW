@@ -161,7 +161,7 @@ st.markdown("""
         padding: 12px;
         border-radius: 12px;
         margin-bottom: 10px;
-        font-weight: 600;
+        font-weight: 500;
         align-self: flex-end;
         background-color: #d1eaff;
         color: #000;
@@ -171,12 +171,12 @@ st.markdown("""
         padding: 12px;
         border-radius: 12px;
         margin-bottom: 10px;
-        font-weight: 500;
+        font-weight: 600;
         align-self: flex-start;
         background-color: #e2e2e2;
-        color: #333;
+        color: #000;
     }
-    .sidebar .stButton>button {
+    st.sidebar.stbutton> Clear Chat {
         background-color: #4caf50;
         color: white;
         font-weight: bold;
