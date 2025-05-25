@@ -70,6 +70,28 @@ def load_data():
         qa_pairs = json.load(f)
     return pd.DataFrame(qa_pairs)
 
+rag_data = []
+    for entry in raw_data:
+        question = entry.get("question", "").strip()
+        answer = entry.get("answer", "").strip()
+        department = entry.get("department", "").strip()
+        level = entry.get("level", "").strip()
+        semester = entry.get("semester", "").strip()
+        faculty = entry.get("faculty", "").strip()
+
+        if question and answer:
+            combined_text = f"Q: {question}\nA: {answer}"
+            rag_data.append({
+                "text": combined_text,
+                "question": question,
+                "answer": answer,
+                "department": department,
+                "level": level,
+                "semester": semester,
+                "faculty": faculty
+            })
+    return pd.DataFrame(rag_data)
+
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
