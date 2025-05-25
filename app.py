@@ -10,15 +10,15 @@ import json
 import openai
 import os
 
-# Set your API key (or load from environment)
+# Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Load SymSpell
+# Load SymSpell for spell correction
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations for normalization
+# Abbreviations mapping for normalization
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -44,12 +44,13 @@ department_map = {
     "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
 }
 
-# Text preprocessing
+# Normalize text by removing special chars and repeated letters
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
 
+# Preprocess input: normalize, expand abbreviations, autocorrect
 def preprocess_text(text):
     text = normalize_text(text)
     words = text.split()
@@ -60,53 +61,65 @@ def preprocess_text(text):
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
 
-# Extract department
+# Extract department prefix from course code
 def extract_prefix(code):
     match = re.match(r"([A-Z\-]+)", code)
     return match.group(1) if match else None
 
-# Load model
+# Load embedding model (cached for performance)
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# Load dataset
+# Load your Q&A dataset (assumed to be a list of dicts with keys: question, answer)
 @st.cache_resource
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
     return pd.DataFrame(qa_pairs)
 
-# Compute embeddings (no model param!)
+# Compute embeddings for questions once (cached)
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# Fallback to OpenAI GPT
-def fallback_openai(user_input):
+# GPT fallback with context from a Q&A pair for better responses
+def fallback_openai(user_input, context_qa=None):
+    system_prompt = (
+        "You are a helpful assistant specialized in Crescent University information. "
+        "If you don't know an answer, politely say so and refer to university resources."
+    )
+    messages = [{"role": "system", "content": system_prompt}]
+    
+    if context_qa:
+        context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
+        user_message = context_text + "Answer this question: " + user_input
+    else:
+        user_message = user_input
+        
+    messages.append({"role": "user", "content": user_message})
+
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
-                {"role": "user", "content": user_input}
-            ],
+            messages=messages,
             temperature=0.3
         )
         return response.choices[0].message["content"].strip()
     except Exception:
         return "Sorry, I couldn't reach the server. Try again later."
 
-# Find response
+# Find best response given user input and dataset
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
-    user_input = preprocess_text(user_input)
+    user_input_clean = preprocess_text(user_input)
+
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you"]
-    if user_input.lower() in greetings:
+    if user_input_clean.lower() in greetings:
         return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!"]), None, 1.0, []
 
-    user_embedding = model.encode(user_input, convert_to_tensor=True)
+    user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
     top_scores, top_indices = torch.topk(cos_scores, k=5)
 
@@ -114,7 +127,11 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     top_index = top_indices[0].item()
 
     if top_score < threshold:
-        gpt_reply = fallback_openai(user_input)
+        context_qa = {
+            "question": dataset.iloc[top_index]["question"],
+            "answer": dataset.iloc[top_index]["answer"]
+        }
+        gpt_reply = fallback_openai(user_input, context_qa)
         return gpt_reply, None, top_score, []
 
     response = dataset.iloc[top_index]["answer"]
@@ -135,15 +152,32 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
     return response, department, top_score, related_questions
 
-# Helper: autocorrect detection
-def autocorrect_input(user_input):
-    corrected = preprocess_text(user_input)
-    if corrected.lower() != user_input.lower():
-        return corrected
-    return None
-
-# --- Streamlit UI ---
+# --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
+st.markdown("""
+<style>
+    .chat-message-user {
+        background-color: #cce5ff;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    .chat-message-assistant {
+        background-color: #e2e3e5;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+    .sidebar .stButton>button {
+        background-color: #4caf50;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🎓 Crescent University Chatbot")
 
 model = load_model()
@@ -159,43 +193,42 @@ if "prefill_question" in st.session_state:
 else:
     prompt = st.chat_input("Ask me anything about Crescent University...")
 
-if prompt:
-    corrected = autocorrect_input(prompt)
-    if corrected:
-        st.info(f"Did you mean: **{corrected}**?")
-        accept = st.checkbox("Use corrected question", value=True)
-        final_question = corrected if accept else prompt
-    else:
-        final_question = prompt
+with st.sidebar:
+    if st.button("🧹 Clear Chat"):
+        st.session_state.chat_history = []
 
+# Display chat history
+for message in st.session_state.chat_history:
+    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
+    with st.chat_message(message["role"]):
+        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
+
+if prompt is not None:
     with st.chat_message("user"):
-        st.markdown(final_question)
-    st.session_state.chat_history.append({"role": "user", "content": final_question})
+        st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
+    st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    response, department, confidence, related = find_response(final_question, dataset, question_embeddings)
+    response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
 
-    response_text = response
-    if department is not None:
-        response_text += f"<br><em>📘 Department: <strong>{str(department)}</strong></em>"
+    response_md = response
+    if department:
+        response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
 
     with st.chat_message("assistant"):
-        st.markdown(response_text, unsafe_allow_html=True)
+        st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
+
         if related:
             selected_related = st.selectbox(
                 "💡 Related questions you can ask:",
                 [""] + random.sample(related, k=min(3, len(related))),
-                key="related_questions"
+                key=f"related_{len(st.session_state.chat_history)}"
             )
             if selected_related:
                 st.session_state.prefill_question = selected_related
                 st.experimental_rerun()
 
-    st.session_state.chat_history.append({"role": "assistant", "content": response_text})
+    st.session_state.chat_history.append({"role": "assistant", "content": response})
 
+    # Limit chat history size
     if len(st.session_state.chat_history) > 50:
         st.session_state.chat_history = st.session_state.chat_history[-50:]
-
-# Render chat history
-for message in st.session_state.chat_history:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"], unsafe_allow_html=True)
