@@ -111,7 +111,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input).lower()
 
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
+    greetings = ["hi", "HI", "hello", "hey", "hi there", "greetings", "how are you",
                  "how are you doing", "how's it going", "can we talk?",
                  "can we have a conversation?", "okay", "i'm fine", "i am fine"]
 
