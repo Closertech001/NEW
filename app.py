@@ -182,22 +182,31 @@ for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
+# Chat input from user
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
+    # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
+    # Case-insensitive exact match check
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
+        st.session_state.related_questions = []
     else:
-        answer, _, _, related = find_response(prompt, dataset, question_embeddings)
+        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
         if related:
             st.session_state.related_questions = related
+            # Add assistant answer to history and rerun immediately
+            st.session_state.chat_history.append({"role": "assistant", "content": answer})
+            st.experimental_rerun()  # <-- Immediate rerun to show related questions
         else:
             st.session_state.related_questions = []
 
+    # Add assistant response to chat history (if no related questions or rerun didn't happen)
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
+    st.experimental_rerun()
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -205,12 +214,16 @@ if st.session_state.related_questions:
     cols = st.columns(len(st.session_state.related_questions))
     for i, rq in enumerate(st.session_state.related_questions):
         if cols[i].button(rq, key=f"related_{i}"):
+            # Append clicked related question as user message
             st.session_state.chat_history.append({"role": "user", "content": rq})
+
+            # Find answer for the clicked related question
             ans_row = dataset[dataset['question'] == rq]
             if not ans_row.empty:
                 ans = ans_row.iloc[0]['answer']
             else:
                 ans = fallback_openai(rq)
+
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
             st.session_state.related_questions = []
             st.experimental_rerun()
