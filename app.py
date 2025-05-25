@@ -18,7 +18,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping for normalization
+# Abbreviations mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -45,13 +45,11 @@ department_map = {
     "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
 }
 
-# Normalize text by removing special chars and repeated letters
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
 
-# Preprocess input: normalize, expand abbreviations, autocorrect
 def preprocess_text(text):
     text = normalize_text(text)
     words = text.split()
@@ -62,30 +60,25 @@ def preprocess_text(text):
         corrected.append(suggestions[0].term if suggestions else word)
     return ' '.join(corrected)
 
-# Extract department prefix from course code
 def extract_prefix(code):
     match = re.match(r"([A-Z\-]+)", code)
     return match.group(1) if match else None
 
-# Load embedding model (cached for performance)
 @st.cache_resource
 def load_model():
     return SentenceTransformer('all-MiniLM-L6-v2')
 
-# Load your Q&A dataset (assumed to be a list of dicts with keys: question, answer)
 @st.cache_resource
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         qa_pairs = json.load(f)
     return pd.DataFrame(qa_pairs)
 
-# Compute embeddings for questions once (cached)
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# GPT fallback with context from a Q&A pair for better responses
 def fallback_openai(user_input, context_qa=None):
     system_prompt = (
         "You are a helpful assistant specialized in Crescent University information. "
@@ -111,7 +104,6 @@ def fallback_openai(user_input, context_qa=None):
     except Exception:
         return "Sorry, I couldn't reach the server. Try again later."
 
-# Find best response given user input and dataset
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
@@ -137,7 +129,6 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
-
     related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
 
     match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
@@ -215,7 +206,21 @@ if prompt is not None:
         st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
+    # 🟢 Updated logic: check if prompt is in dataset directly
+    if prompt in dataset['question'].values:
+        match_row = dataset[dataset['question'] == prompt].iloc[0]
+        response = match_row['answer']
+        department = None
+        confidence = 1.0
+        related = []
+
+        match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", match_row["question"])
+        if match:
+            code = match.group(1)
+            prefix = extract_prefix(code)
+            department = department_map.get(prefix, "Unknown")
+    else:
+        response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
 
     response_md = response
     if department:
@@ -236,6 +241,5 @@ if prompt is not None:
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
 
-    # Limit chat history size
     if len(st.session_state.chat_history) > 50:
         st.session_state.chat_history = st.session_state.chat_history[-50:]
