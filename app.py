@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -10,7 +11,7 @@ import json
 import openai
 import os
 
-# Set your OpenAI API key from environment variable
+# Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell for spell correction
@@ -18,7 +19,6 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -26,11 +26,9 @@ abbreviations = {
     "asap": "as soon as possible", "idk": "i don't know", "imo": "in my opinion",
     "msg": "message", "doc": "document", "d": "the", "yr": "year", "sem": "semester",
     "dept": "department", "admsn": "admission", "cresnt": "crescent", "uni": "university",
-    "clg": "college", "sch": "school", "info": "information", "l": "level", "CSC": "Computer Science",
-    "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
+    "clg": "college", "sch": "school", "info": "information", "l": "level"
 }
 
-# Department mapping
 department_map = {
     "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
     "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
@@ -85,13 +83,13 @@ def fallback_openai(user_input, context_qa=None):
         "If you don't know an answer, politely say so and refer to university resources."
     )
     messages = [{"role": "system", "content": system_prompt}]
-
+    
     if context_qa:
         context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
         user_message = context_text + "Answer this question: " + user_input
     else:
         user_message = user_input
-
+        
     messages.append({"role": "user", "content": user_message})
 
     try:
@@ -108,11 +106,9 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
 
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
-                 "how are you doing", "how's it going", "can we talk?",
-                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
+    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you"]
     if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!"]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -140,14 +136,12 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
         prefix = extract_prefix(code)
         department = department_map.get(prefix, "Unknown")
 
-    if random.random() < 0.2:
-        uncertainty = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "])
-        response = uncertainty + response
-
     return response, department, top_score, related_questions
 
 # --- Streamlit UI setup ---
-st.set_page_config(page_title="\ud83c\udf93 Crescent University Chatbot", page_icon="\ud83c\udf93")
+st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
+
+st.title("🎓 Crescent University Chatbot")
 
 st.markdown("""
 <style>
@@ -172,47 +166,47 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("\ud83c\udf93 Crescent University Chatbot")
-
+# Load model and data
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
+# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
-if "trigger_rerun" not in st.session_state:
-    st.session_state.trigger_rerun = False
 
+# Sidebar clear chat button
 with st.sidebar:
-    if st.button("\ud83e\ude79 Clear Chat"):
+    if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
-        st.session_state.trigger_rerun = True
 
+# Show chat messages
 for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
+# Chat input
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
+
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
-        department = None
         related = []
     else:
-        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
+        answer, _, _, related = find_response(prompt, dataset, question_embeddings)
 
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
     st.session_state.related_questions = related
-    st.session_state.trigger_rerun = True
 
+# Show related questions
 if st.session_state.related_questions:
     st.markdown("### Related Questions:")
     cols = st.columns(len(st.session_state.related_questions))
@@ -226,9 +220,3 @@ if st.session_state.related_questions:
                 ans = fallback_openai(rq)
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
             st.session_state.related_questions = []
-            st.session_state.trigger_rerun = True
-
-# Safe rerun at end
-if st.session_state.trigger_rerun:
-    st.session_state.trigger_rerun = False
-    st.experimental_rerun()
