@@ -9,7 +9,6 @@ import pkg_resources
 import json
 import openai
 import os
-import sys
 
 # Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -200,7 +199,7 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
-        sys.exit()
+        raise st.script_runner.RerunException(st.script_requests.RerunData())
 
 # Show chat messages
 for message in st.session_state.chat_history:
@@ -215,21 +214,23 @@ if prompt:
     # Add user message to chat history
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Case-insensitive exact match in dataset
+    # Case-insensitive exact match check
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
-        st.session_state.related_questions = []
+        department = None
+        related = []
     else:
         answer, department, score, related = find_response(prompt, dataset, question_embeddings)
-        st.session_state.related_questions = related if related else []
 
     # Add assistant response to chat history
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
 
-    # Rerun once and exit to avoid multiple rerun error
+    # Update related questions in session state
+    st.session_state.related_questions = related
+
     st.experimental_rerun()
-    sys.exit()
+    raise st.script_runner.RerunException(st.script_requests.RerunData())
 
 # Show related questions horizontally as buttons, if any
 if st.session_state.related_questions:
@@ -237,20 +238,14 @@ if st.session_state.related_questions:
     cols = st.columns(len(st.session_state.related_questions))
     for i, rq in enumerate(st.session_state.related_questions):
         if cols[i].button(rq, key=f"related_{i}"):
-            # Append related question as user message
+            # Append related question as user input
             st.session_state.chat_history.append({"role": "user", "content": rq})
-
-            # Get answer for related question
             ans_row = dataset[dataset['question'] == rq]
             if not ans_row.empty:
                 ans = ans_row.iloc[0]['answer']
             else:
                 ans = fallback_openai(rq)
-
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
-
-            # Clear related questions after click
             st.session_state.related_questions = []
-
             st.experimental_rerun()
-            sys.exit()
+            raise st.script_runner.RerunException(st.script_requests.RerunData())
