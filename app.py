@@ -229,7 +229,7 @@ if prompt is not None:
     with st.chat_message("assistant"):
         st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
-        if related:
+            if related:
         st.markdown("💡 **Related questions you can ask:**")
         cols = st.columns(len(related))
         
