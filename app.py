@@ -162,6 +162,9 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 600;
+        align-self: flex-end;
+        background-color: #d1eaff;
+        color: #000;
     }
     .chat-message-assistant {
         background-color: #e2e3e5;
@@ -169,13 +172,76 @@ st.markdown("""
         border-radius: 12px;
         margin-bottom: 10px;
         font-weight: 500;
+        align-self: flex-start;
+        background-color: #e2e2e2;
+        color: #333;
     }
     .sidebar .stButton>button {
         background-color: #4caf50;
         color: white;
         font-weight: bold;
     }
-</style>
+    body {
+      background: #f5f7fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #3a7bd5;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    #chat {
+      flex-grow: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .bubble {
+      max-width: 70%;
+      margin: 0.3rem 0;
+      padding: 0.7rem;
+      border-radius: 15px;
+      line-height: 1.4;
+    }
+    #input-area {
+      display: flex;
+      padding: 1rem;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+    input {
+      flex-grow: 1;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+    }
+    button {
+      margin-left: 0.5rem;
+      background-color: #3a7bd5;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #336cc9;
+    }
+    .typing {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
 """, unsafe_allow_html=True)
 
 st.title("🎓 Crescent University Chatbot")
