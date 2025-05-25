@@ -155,7 +155,6 @@ st.markdown("""
         margin-bottom: 10px;
         font-weight: 550;
         align-self: flex-end;
-        background-color: #d1eaff;
         color: #000;
     }
     .chat-message-assistant {
@@ -165,7 +164,6 @@ st.markdown("""
         margin-bottom: 10px;
         font-weight: 600;
         align-self: flex-start;
-        background-color: #f0f0f0;
         color: #000;
     }
     .sidebar .stButton>button {
@@ -189,10 +187,6 @@ if "chat_history" not in st.session_state:
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
-if "rerun_flag" not in st.session_state:
-    st.session_state.rerun_flag = False
-
-# Sidebar - Clear chat button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
@@ -205,48 +199,60 @@ for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
-# User input
-user_input = st.chat_input("Ask me anything about Crescent University...")
+prompt = st.chat_input("Ask me anything about Crescent University...")
 
-if user_input:
-    # Append user question
-    st.session_state.chat_history.append({"role": "user", "content": user_input})
+if prompt:
+    with st.chat_message("user"):
+        st.markdown(f'<div class="chat-message-user">{prompt}</div>', unsafe_allow_html=True)
+    st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-    # Find response
-    response, department, confidence, related_questions = find_response(user_input, dataset, question_embeddings)
+    if prompt in dataset['question'].values:
+        match_row = dataset[dataset['question'] == prompt].iloc[0]
+        response = match_row['answer']
+        department = None
+        confidence = 1.0
+        related = []
 
-    # Append department info if available
+        match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", match_row["question"])
+        if match:
+            code = match.group(1)
+            prefix = extract_prefix(code)
+            department = department_map.get(prefix, "Unknown")
+    else:
+        response, department, confidence, related = find_response(prompt, dataset, question_embeddings)
+
+    response_md = response
     if department:
-        response += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
+        response_md += f"\n\n<em>📘 Department: <strong>{department}</strong></em>"
+
+    with st.chat_message("assistant"):
+        st.markdown(f'<div class="chat-message-assistant">{response_md}</div>', unsafe_allow_html=True)
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
-    st.session_state.related_questions = related_questions
 
-    st.session_state.rerun_flag = True
+    # Save related questions for buttons
+    st.session_state.related_questions = related
 
-# Show related questions as buttons under the chat
+# Show related questions as buttons
 if st.session_state.related_questions:
     st.markdown("💡 **Related questions you can ask:**")
     cols = st.columns(min(4, len(st.session_state.related_questions)))
     for i, question in enumerate(st.session_state.related_questions[:4]):
         if cols[i].button(question, key=f"related_{i}"):
-            # Append related question as user input
+            # Append question to chat history as user message
             st.session_state.chat_history.append({"role": "user", "content": question})
 
-            # Get answer for related question
+            # Get answer for the related question
             ans, dept, conf, new_related = find_response(question, dataset, question_embeddings)
+            ans_md = ans
             if dept:
-                ans += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
+                ans_md += f"\n\n<em>📘 Department: <strong>{dept}</strong></em>"
 
+            # Append assistant response to chat history
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
+
+            # Update related questions to new set
             st.session_state.related_questions = new_related
-            st.session_state.rerun_flag = True
 
-# Trigger rerun at the end of the script if flagged
-if st.session_state.rerun_flag:
-    st.session_state.rerun_flag = False
-    st.experimental_rerun()
+            # Streamlit will rerun automatically, no need to call experimental_rerun()
 
-# Limit chat history to last 50 messages
-if len(st.session_state.chat_history) > 50:
-    st.session_state.chat_history = st.session_state.chat_history[-50:]
