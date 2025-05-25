@@ -10,6 +10,7 @@ import json
 import openai
 import os
 
+# Set your OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load SymSpell for spell correction
@@ -17,6 +18,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
+# Abbreviations mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -28,6 +30,7 @@ abbreviations = {
     "ECO": "Economics with Operations Research", "PHY": "Physics", "STAT": "Statistics"
 }
 
+# Department mapping
 department_map = {
     "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
     "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
@@ -109,7 +112,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
              "how are you doing", "how's it going", "can we talk?",
              "can we have a conversation?", "okay", "i'm fine", "i am fine"]
     if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!", "I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -146,68 +149,62 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 # --- Streamlit UI setup ---
 st.set_page_config(page_title="🎓 Crescent University Chatbot", page_icon="🎓")
 
+# CSS styles
 st.markdown("""
 <style>
-    .chat-message-user {
-        background-color: #cce5ff;
-        padding: 12px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-        font-weight: 550;
-        align-self: flex-end;
-        color: #000;
-    }
-    .chat-message-assistant {
-        background-color: #e2e3e5;
-        padding: 12px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-        font-weight: 600;
-        align-self: flex-start;
-        color: #000;
-    }
-    .sidebar .stButton>button {
-        background-color: #4caf50;
-        color: white;
-        font-weight: bold;
-    }
+.chat-message-user {
+    background-color: #cce5ff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-weight: 550;
+    align-self: flex-end;
+    color: #000;
+}
+.chat-message-assistant {
+    background-color: #e2e3e5;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    align-self: flex-start;
+    color: #000;
+}
+.sidebar .stButton>button {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+}
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🎓 Crescent University Chatbot")
 
-# Load model and data
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
-# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
 
-# Sidebar clear chat button
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.experimental_rerun()
-        st.stop()
 
-# Show chat messages
 for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
         st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
 
-# Chat input from user
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
-
     matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
     if not matched_row.empty:
         answer = matched_row.iloc[0]['answer']
@@ -219,21 +216,20 @@ if prompt:
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
     st.session_state.related_questions = related
     st.experimental_rerun()
-    st.stop()
 
-# Show related questions horizontally as buttons
 if st.session_state.related_questions:
     st.markdown("### Related Questions:")
     cols = st.columns(len(st.session_state.related_questions))
     for i, rq in enumerate(st.session_state.related_questions):
         if cols[i].button(rq, key=f"related_{i}"):
             st.session_state.chat_history.append({"role": "user", "content": rq})
-            ans_row = dataset[dataset['question'] == rq]
-            if not ans_row.empty:
-                ans = ans_row.iloc[0]['answer']
-            else:
+            ans = None
+            if dataset is not None and 'question' in dataset.columns:
+                ans_row = dataset[dataset['question'].str.lower() == rq.lower()]
+                if not ans_row.empty:
+                    ans = ans_row.iloc[0]['answer']
+            if not ans:
                 ans = fallback_openai(rq)
             st.session_state.chat_history.append({"role": "assistant", "content": ans})
             st.session_state.related_questions = []
             st.experimental_rerun()
-            st.stop()
