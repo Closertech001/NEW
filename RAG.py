@@ -277,6 +277,9 @@ else:
 
 # Then, when handling user prompt input:
 
+# --- Chat Input ---
+prompt = st.chat_input("Ask me anything about Crescent University...")
+
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
