@@ -162,7 +162,7 @@ st.markdown("""
     max-width: 50%;
     font-weight: 550;
     color: #000;
-    text-align: left;
+    text-align: right;
     word-wrap: break-word;
 }
 .chat-message-assistant {
@@ -173,7 +173,7 @@ st.markdown("""
     margin-right: auto;
     max-width: 50%;
     font-weight: 600;
-    text-align: right;
+    text-align: left;
     color: #000;
 }
 .department-label {
