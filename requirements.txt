@@ -1,6 +1,7 @@
 streamlit
 sentence-transformers
 torch==2.1.2
+transformers==4.37.2
 pandas
 openai
 python-dotenv
