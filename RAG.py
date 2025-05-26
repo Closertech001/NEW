@@ -187,12 +187,6 @@ if "related_questions" not in st.session_state:
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
-if st.button("🧹 Clear Chat"):
-    st.session_state.chat_history = []
-    st.session_state.related_questions = []
-    st.session_state.last_department = None
-    st.rerun()
-
 # --- Title and Styles ---
 st.markdown("""
 <style>
@@ -241,6 +235,12 @@ st.title("🎓 Crescent University Chatbot")
 # Inside your main script, after loading dataset:
 
 with st.sidebar:
+    if st.button("🧹 Clear Chat"):
+    st.session_state.chat_history = []
+    st.session_state.related_questions = []
+    st.session_state.last_department = None
+    st.rerun()
+    
     st.header("Filter Questions")
     faculty_options = sorted(dataset['faculty'].dropna().unique())
     department_options = sorted(dataset['department'].dropna().unique())
