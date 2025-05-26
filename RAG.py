@@ -267,10 +267,17 @@ if prompt:
     st.rerun()
 
 # --- Related Suggestions ---
+import hashlib  # Add this import at the top if not already present
+
+def get_unique_key(text):
+    return hashlib.md5(text.encode()).hexdigest()
+
+# --- Related Suggestions ---
 if st.session_state.related_questions:
     st.markdown("#### 💡 You might also ask:")
     for q in st.session_state.related_questions:
-        if st.button(q, key=q, use_container_width=True):
+        unique_key = get_unique_key(q)
+        if st.button(q, key=f"related_{unique_key}", use_container_width=True):
             st.session_state.chat_history.append({"role": "user", "content": q})
             answer, department, score, related = find_response(q, dataset, question_embeddings)
             st.session_state.chat_history.append({"role": "assistant", "content": answer})
