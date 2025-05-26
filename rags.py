@@ -154,40 +154,42 @@ st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 st.markdown("""
 <style>
 .chat-message-user, .chat-message-assistant {
-    background-color: #e6f2ff;
-    padding: 12px 12px;
+    padding: 12px;
     margin: 6px 6px 6px 0;
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 0.9rem;
-    cursor: pointer;
+    max-width: 75%;
+    word-wrap: break-word;
 }
 .chat-message-user {
     background-color: #d6eaff;
-    padding: 12px;
-    border-radius: 15px;
-    margin-bottom: 10px;
     margin-left: auto;
-    max-width: 75%;
+    margin-bottom: 10px;
     font-weight: 550;
     color: #000;
     text-align: right;
 }
 .chat-message-assistant {
     background-color: #f5f5f5;
-    padding: 12px;
-    border-radius: 15px;
-    margin-bottom: 10px;
     margin-right: auto;
-    max-width: 75%;
+    margin-bottom: 10px;
     font-weight: 600;
     color: #000;
+    text-align: left;
 }
 .department-label {
     font-size: 0.85em;
-    color: #666;
+    color: #444; /* Improved contrast */
     margin-top: -10px;
     margin-bottom: 10px;
+}
+@media (max-width: 600px) {
+    .chat-message-user,
+    .chat-message-assistant {
+        max-width: 90%;
+        font-size: 0.85rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
