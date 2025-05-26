@@ -160,7 +160,7 @@ st.markdown("""
     margin-bottom: 10px;
     margin-left: auto;
     max-width: 40%;
-    font-weight: 550;
+    font-weight: 600;
     color: #000;
     text-align: right;
     word-wrap: break-word;
