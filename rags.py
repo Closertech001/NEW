@@ -1,3 +1,4 @@
+# --- imports ---
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -10,7 +11,7 @@ import json
 import openai
 import os
 import hashlib
-import uuid  # ✅ Added for unique key generation
+import uuid
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -103,17 +104,20 @@ def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# --- OpenAI fallback ---
-def fallback_openai(user_input, context_qa=None):
+# --- Multi-Context OpenAI fallback ---
+def fallback_openai(user_input, context_qas=None):
     system_prompt = (
         "You are a helpful assistant specialized in Crescent University information. "
-        "If you don't know an answer, politely say so and refer to university resources."
+        "Use the context below to answer the user's question. "
+        "If the answer is not found, say so and suggest checking official sources."
     )
     messages = [{"role": "system", "content": system_prompt}]
 
-    if context_qa:
-        context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
-        user_message = context_text + "Answer this question: " + user_input
+    if context_qas:
+        context_text = "\n".join(
+            [f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas]
+        )
+        user_message = f"{context_text}\n\nUser Question: {user_input}"
     else:
         user_message = user_input
 
@@ -134,9 +138,6 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
 
-    if embeddings is None or len(dataset) == 0:
-        return "No matching data found for your filters.", None, 0.0, []
-
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
                  "how are you doing", "how's it going", "can we talk?",
                  "can we have a conversation?", "okay", "i'm fine", "i am fine"]
@@ -153,11 +154,13 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     top_index = top_indices[0].item()
 
     if top_score < threshold:
-        context_qa = {
-            "question": dataset.iloc[top_index]["question"],
-            "answer": dataset.iloc[top_index]["answer"]
-        }
-        gpt_reply = fallback_openai(user_input, context_qa)
+        context_qas = [
+            {
+                "question": dataset.iloc[i.item()]["question"],
+                "answer": dataset.iloc[i.item()]["answer"]
+            } for i in top_indices[:3]
+        ]
+        gpt_reply = fallback_openai(user_input, context_qas)
         return gpt_reply, None, top_score, []
 
     response = dataset.iloc[top_index]["answer"]
