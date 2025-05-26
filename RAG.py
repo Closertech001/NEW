@@ -187,14 +187,6 @@ if "related_questions" not in st.session_state:
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
-# --- Sidebar ---
-with st.sidebar:
-    if st.button("🧹 Clear Chat"):
-        st.session_state.chat_history = []
-        st.session_state.related_questions = []
-        st.session_state.last_department = None
-        st.rerun()
-
 # --- Title and Styles ---
 st.markdown("""
 <style>
@@ -240,41 +232,66 @@ st.markdown("""
 
 st.title("🎓 Crescent University Chatbot")
 
-# --- Chat Render ---
-for message in st.session_state.chat_history:
-    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
-    with st.chat_message(message["role"]):
-        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
-        if message["role"] == "assistant" and st.session_state.last_department:
-            st.markdown(f'<div class="department-label">Department: {st.session_state.last_department}</div>', unsafe_allow_html=True)
+# Inside your main script, after loading dataset:
 
-# --- Input ---
-prompt = st.chat_input("Ask me anything about Crescent University...")
+with st.sidebar:
+    st.header("Filter Questions")
+    faculty_options = sorted(dataset['faculty'].dropna().unique())
+    department_options = sorted(dataset['department'].dropna().unique())
+    level_options = sorted(dataset['level'].dropna().unique())
+    semester_options = sorted(dataset['semester'].dropna().unique())
+
+    selected_faculty = st.multiselect("Faculty", faculty_options)
+    selected_department = st.multiselect("Department", department_options)
+    selected_level = st.multiselect("Level", level_options)
+    selected_semester = st.multiselect("Semester", semester_options)
+
+    if st.button("🧹 Clear Chat"):
+        st.session_state.chat_history = []
+        st.session_state.related_questions = []
+        st.session_state.last_department = None
+        st.rerun()
+
+def apply_filters(df, faculty, department, level, semester):
+    filtered_df = df.copy()
+    if faculty:
+        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
+    if department:
+        filtered_df = filtered_df[filtered_df['department'].isin(department)]
+    if level:
+        filtered_df = filtered_df[filtered_df['level'].isin(level)]
+    if semester:
+        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
+    return filtered_df
+
+filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
+
+if filtered_dataset.empty:
+    st.warning("No questions found with the selected filters. Please adjust filters.")
+    question_embeddings = None
+else:
+    question_list = filtered_dataset['question'].tolist()
+    question_embeddings = compute_question_embeddings(question_list)
+
+# Then, when handling user prompt input:
 
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
-    matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
-    if not matched_row.empty:
-        answer = matched_row.iloc[0]['answer']
+
+    if filtered_dataset.empty or question_embeddings is None:
+        answer = "Sorry, no matching data for the current filter selection."
         department = None
         related = []
     else:
-        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
+        matched_row = filtered_dataset[filtered_dataset['question'].str.lower() == prompt.lower()]
+        if not matched_row.empty:
+            answer = matched_row.iloc[0]['answer']
+            department = None
+            related = []
+        else:
+            answer, department, score, related = find_response(prompt, filtered_dataset, question_embeddings)
 
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
     st.session_state.related_questions = related
     st.session_state.last_department = department
     st.rerun()
-
-# --- Related Suggestions with truly unique keys ---
-if st.session_state.related_questions:
-    st.markdown("#### 💡 You might also ask:")
-    for q in st.session_state.related_questions:
-        unique_key = f"{uuid.uuid4().hex}"  # ✅ unique every render
-        if st.button(q, key=f"related_{unique_key}", use_container_width=True):
-            st.session_state.chat_history.append({"role": "user", "content": q})
-            answer, department, score, related = find_response(q, dataset, question_embeddings)
-            st.session_state.chat_history.append({"role": "assistant", "content": answer})
-            st.session_state.related_questions = related
-            st.session_state.last_department = department
-            st.rerun()
