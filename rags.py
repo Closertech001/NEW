@@ -159,9 +159,10 @@ st.markdown("""
     border-radius: 15px;
     margin-bottom: 10px;
     margin-left: auto;
-    max-width: 75%;
+    max-width: 50%;
     font-weight: 550;
     color: #000;
+    text-align: left;
     word-wrap: break-word;
 }
 .chat-message-assistant {
@@ -170,8 +171,9 @@ st.markdown("""
     border-radius: 15px;
     margin-bottom: 10px;
     margin-right: auto;
-    max-width: 75%;
+    max-width: 50%;
     font-weight: 600;
+    text-align: right;
     color: #000;
 }
 .department-label {
