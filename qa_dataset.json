@@ -1,4 +1,3 @@
-
 [
   {
     "question": "What is the history of Crescent University?",
@@ -2568,7 +2567,6 @@
     "semester": "Second",
     "faculty": "COHES"
   },
-  [
   {
     "question": "What course is BIO 101 and what is it about?",
     "answer": "BIO 101, introductory biology course, units not specified.",
@@ -5433,5 +5431,4 @@
     "semester": "Second",
     "faculty": "BACOLAW"
   }
-]
 ]
