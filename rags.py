@@ -156,7 +156,7 @@ st.markdown("""
 .chat-message-user {
     background-color: #d6eaff;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 10px;
     margin-left: auto;
     max-width: 40%;
@@ -168,10 +168,10 @@ st.markdown("""
 .chat-message-assistant {
     background-color: #f5f5f5;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 10px;
     margin-right: auto;
-    max-width: 50%;
+    max-width: 45%;
     font-weight: 600;
     text-align: left;
     color: #000;
