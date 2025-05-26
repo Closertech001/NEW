@@ -2,6 +2,9 @@ streamlit
 sentence-transformers
 torch
 pandas
-symspellpy
 openai
 python-dotenv
+symspellpy
+scikit-learn
+textblob
+numpy
