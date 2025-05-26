@@ -139,7 +139,9 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
                  "how are you doing", "how's it going", "can we talk?",
                  "can we have a conversation?", "okay", "i'm fine", "i am fine"]
     if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", "Sure pal", "Okay", "I'm fine, thank you"]), None, 1.0, []
+        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", 
+                              "Sure pal", "I'm fine, thank you", "Hi! How can I help you?", 
+                              "Hello! Ask me anything about Crescent University."]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
