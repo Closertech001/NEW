@@ -154,14 +154,13 @@ st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 st.markdown("""
 <style>
 .chat-message-user, .chat-message-assistant {
-        background-color: #d6eaff;
-        padding: 12px;
-        border-radius: 15px;
-        margin-bottom: 10px;
-        margin-left: auto;
-        max-width: 75%;
-        font-weight: 550;
-        color: #000;
+    background-color: #e6f2ff;
+    padding: 12px 12px;
+    margin: 6px 6px 6px 0;
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 .chat-message-user {
     background-color: #d6eaff;
