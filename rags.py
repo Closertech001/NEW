@@ -166,12 +166,14 @@ st.markdown("""
 }
 .chat-message-assistant {
     background-color: #f5f5f5;
-    margin-right: auto;
+    padding: 12px;
+    border-radius: 15px;
     margin-bottom: 10px;
+    margin-right: auto;
+    max-width: 75%;
     font-weight: 600;
     color: #000;
-    text-align: left;
-    word-wrap: break-word;
+
 }
 .department-label {
     font-size: 0.85em;
