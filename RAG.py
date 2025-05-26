@@ -234,8 +234,9 @@ st.title("🎓 Crescent University Chatbot")
 
 # Inside your main script, after loading dataset:
 
+# Inside your main script, after loading dataset:
+
 with st.sidebar:
-    
     st.header("Filter Questions")
     faculty_options = sorted(dataset['faculty'].dropna().unique())
     department_options = sorted(dataset['department'].dropna().unique())
@@ -246,12 +247,12 @@ with st.sidebar:
     selected_department = st.multiselect("Department", department_options)
     selected_level = st.multiselect("Level", level_options)
     selected_semester = st.multiselect("Semester", semester_options)
-    
+
     if st.button("🧹 Clear Chat"):
-    st.session_state.chat_history = []
-    st.session_state.related_questions = []
-    st.session_state.last_department = None
-    st.rerun()
+        st.session_state.chat_history = []
+        st.session_state.related_questions = []
+        st.session_state.last_department = None
+        st.rerun()
 
 def apply_filters(df, faculty, department, level, semester):
     filtered_df = df.copy()
@@ -275,9 +276,6 @@ else:
     question_embeddings = compute_question_embeddings(question_list)
 
 # Then, when handling user prompt input:
-
-# --- Chat Input ---
-prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
