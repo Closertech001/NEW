@@ -155,11 +155,13 @@ st.markdown("""
 <style>
 .chat-message-user {
     background-color: #d6eaff;
-    margin-left: auto;
+    padding: 12px;
+    border-radius: 15px;
     margin-bottom: 10px;
+    margin-left: auto;
+    max-width: 75%;
     font-weight: 550;
     color: #000;
-    text-align: right;
     word-wrap: break-word;
 }
 .chat-message-assistant {
