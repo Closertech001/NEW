@@ -8,4 +8,4 @@ python-dotenv
 symspellpy
 scikit-learn
 textblob
-numpy
+numpy<2
