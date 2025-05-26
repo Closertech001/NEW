@@ -11,7 +11,7 @@ import json
 import openai
 import os
 import hashlib
-import uuid  # for unique keys
+import uuid  # ✅ Added for unique key generation
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -172,52 +172,13 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
     return response, department, top_score, related_questions
 
-# --- Apply filters ---
-def apply_filters(df, faculty, department, level, semester):
-    filtered_df = df.copy()
-    if faculty:
-        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
-    if department:
-        filtered_df = filtered_df[filtered_df['department'].isin(department)]
-    if level:
-        filtered_df = filtered_df[filtered_df['level'].isin(level)]
-    if semester:
-        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
-    return filtered_df
-
 # --- Streamlit UI ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
 model = load_model()
 dataset = load_data()
-
-# --- Sidebar Filters ---
-with st.sidebar:
-    st.header("Filter Questions")
-    faculty_options = sorted(dataset['faculty'].dropna().unique())
-    department_options = sorted(dataset['department'].dropna().unique())
-    level_options = sorted(dataset['level'].dropna().unique())
-    semester_options = sorted(dataset['semester'].dropna().unique())
-
-    selected_faculty = st.multiselect("Faculty", faculty_options)
-    selected_department = st.multiselect("Department", department_options)
-    selected_level = st.multiselect("Level", level_options)
-    selected_semester = st.multiselect("Semester", semester_options)
-
-    if st.button("🧹 Clear Chat"):
-        st.session_state.chat_history = []
-        st.session_state.related_questions = []
-        st.session_state.last_department = None
-        st.experimental_rerun()
-
-filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
-
-if filtered_dataset.empty:
-    st.warning("No questions found for the selected filters. Please adjust your filter selection.")
-    question_embeddings = None
-else:
-    question_list = filtered_dataset['question'].tolist()
-    question_embeddings = compute_question_embeddings(question_list)
+question_list = dataset['question'].tolist()
+question_embeddings = compute_question_embeddings(question_list)
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -226,40 +187,94 @@ if "related_questions" not in st.session_state:
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
+# --- Sidebar ---
+with st.sidebar:
+    if st.button("🧹 Clear Chat"):
+        st.session_state.chat_history = []
+        st.session_state.related_questions = []
+        st.session_state.last_department = None
+        st.rerun()
+
+# --- Title and Styles ---
+st.markdown("""
+<style>
+    html, body, .stApp { font-family: 'Open Sans', sans-serif; }
+    h1, h2, h3, h4, h5 { font-family: 'Merriweather', serif; color: #004080; }
+    .chat-message-user {
+        background-color: #d6eaff;
+        padding: 12px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        max-width: 75%;
+        font-weight: 550;
+        color: #000;
+    }
+    .chat-message-assistant {
+        background-color: #f5f5f5;
+        padding: 12px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        margin-right: auto;
+        max-width: 75%;
+        font-weight: 600;
+        color: #000;
+    }
+    .related-question {
+        background-color: #e6f2ff;
+        padding: 8px 12px;
+        margin: 6px 6px 6px 0;
+        display: inline-block;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    .department-label {
+        font-family: 'Merriweather', serif;
+        font-size: 0.85rem;
+        color: #004080;
+        font-style: italic;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🎓 Crescent University Chatbot")
 
-prompt = st.text_input("Ask me anything about Crescent University:")
+# --- Chat Render ---
+for message in st.session_state.chat_history:
+    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
+    with st.chat_message(message["role"]):
+        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
+        if message["role"] == "assistant" and st.session_state.last_department:
+            st.markdown(f'<div class="department-label">Department: {st.session_state.last_department}</div>', unsafe_allow_html=True)
+
+# --- Input ---
+prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
     st.session_state.chat_history.append({"role": "user", "content": prompt})
-
-    if filtered_dataset.empty or question_embeddings is None:
-        answer = "Sorry, no matching data for the current filter selection."
+    matched_row = dataset[dataset['question'].str.lower() == prompt.lower()]
+    if not matched_row.empty:
+        answer = matched_row.iloc[0]['answer']
         department = None
         related = []
     else:
-        matched_rows = filtered_dataset[filtered_dataset['question'].str.lower() == prompt.lower()]
-        if not matched_rows.empty:
-            answer = matched_rows.iloc[0]['answer']
-            department = None
-            related = []
-        else:
-            answer, department, score, related = find_response(prompt, filtered_dataset, question_embeddings)
+        answer, department, score, related = find_response(prompt, dataset, question_embeddings)
 
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
     st.session_state.related_questions = related
     st.session_state.last_department = department
-    st.experimental_rerun()
+    st.rerun()
 
-# Display chat messages
-for chat in st.session_state.chat_history:
-    if chat["role"] == "user":
-        st.markdown(f"**You:** {chat['content']}")
-    else:
-        st.markdown(f"**Bot:** {chat['content']}")
-
-# Show related questions if any
+# --- Related Suggestions with truly unique keys ---
 if st.session_state.related_questions:
-    st.markdown("### Related Questions:")
-    for i, rq in enumerate(st.session_state.related_questions):
-        st.write(f"- {rq}")
+    st.markdown("#### 💡 You might also ask:")
+    for q in st.session_state.related_questions:
+        unique_key = f"{uuid.uuid4().hex}"  # ✅ unique every render
+        if st.button(q, key=f"related_{unique_key}", use_container_width=True):
+            st.session_state.chat_history.append({"role": "user", "content": q})
+            answer, department, score, related = find_response(q, dataset, question_embeddings)
+            st.session_state.chat_history.append({"role": "assistant", "content": answer})
+            st.session_state.related_questions = related
+            st.session_state.last_department = department
+            st.rerun()
