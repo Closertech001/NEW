@@ -2540,7 +2540,7 @@
     "question": "What courses that are offered in 400level first semester Department of Physiology?",
     "answer": "PHY 401: Neuroendocrinology | PHY 403: Environmental Physiology & Metabolism | PHY 405: Methods in Physiology Research | PHY 407: Laboratory Teaching II | PHY 409: Literature Review | PHY 411: Work and Exercise Physiology | PHY 499: Student Industrial Work Experience II | ",
     "department": "Physiology",
-    "level": "",
+    "level": "400",
     "semester": "First",
     "faculty": "COHES"
   },
@@ -2548,7 +2548,7 @@
     "question": "What are the core final-year Department of Physiology courses (400level first semester)?",
     "answer": "PHY 401: Neuroendocrinology | PHY 403: Environmental Physiology & Metabolism | PHY 405: Methods in Physiology Research | PHY 407: Laboratory Teaching II | PHY 409: Literature Review | PHY 411: Work and Exercise Physiology | PHY 499: Student Industrial Work Experience II",
     "department": "Physiology",
-    "level": "",
+    "level": "400",
     "semester": "First",
     "faculty": "COHES"
   },
@@ -2556,7 +2556,7 @@
     "question": "What courses that are offered in 400level second semester Department of Physiology?",
     "answer": "PHY 402: Special Topics | PHY 404: Cardiopulmonary Physiology | PHY 406: Oral Examination | PHY 408: Toxicology | PHY 410: Physiology Genomics | PHY 498: Research Project",
     "department": "Physiology",
-    "level": "",
+    "level": "400",
     "semester": "Second",
     "faculty": "COHES"
   },
@@ -2564,465 +2564,1914 @@
     "question": "What is the focus in the final semester Department of Physiology topics (400level second semester)?",
     "answer": "PHY 402: Special Topics | PHY 404: Cardiopulmonary Physiology | PHY 406: Oral Examination | PHY 408: Toxicology | PHY 410: Physiology Genomics | PHY 498: Research Project",
     "department": "Physiology",
-    "level": "",
+    "level": "400",
     "semester": "Second",
     "faculty": "COHES"
+  },
+  [
+  {
+    "question": "What course is BIO 101 and what is it about?",
+    "answer": "BIO 101, introductory biology course, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CHM 101 and what is it about?",
+    "answer": "CHM 101, introductory chemistry course, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is GNS 101 and what is it about?",
+    "answer": "GNS 101, general studies course, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is LIB 101 and what is it about?",
+    "answer": "LIB 101, library skills and use, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CPS 101 and what is it about?",
+    "answer": "CPS 101, computer science basics, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHS 101 and what is it about?",
+    "answer": "PHS 101, introductory physics course, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is MTS 101 and what is it about?",
+    "answer": "MTS 101, mathematics course, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What electives are offered at 100 Level in Anatomy?",
+    "answer": "Electives in Arabic or French languages, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 201 and what does it cover?",
+    "answer": "ANA 201, Gross Anatomy, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 202 and what does it cover?",
+    "answer": "ANA 202, Histology, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 203 and what does it cover?",
+    "answer": "ANA 203, Embryology, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 204 and what does it cover?",
+    "answer": "ANA 204, Biochemistry, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 205 and what does it cover?",
+    "answer": "ANA 205, Physiology, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 206 and what does it cover?",
+    "answer": "ANA 206, ICT, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ANA 207 and what does it cover?",
+    "answer": "ANA 207, Entrepreneurial Studies, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Neuroanatomy and what does it cover?",
+    "answer": "Neuroanatomy, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Histology of Special Senses and what does it cover?",
+    "answer": "Histology of Special Senses, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Human Genetics and what does it cover?",
+    "answer": "Human Genetics, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Radiologic Anatomy and what does it cover?",
+    "answer": "Radiologic Anatomy, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Cell and Molecular Biology and what does it cover?",
+    "answer": "Cell and Molecular Biology, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is SIWES and what does it cover?",
+    "answer": "SIWES (Student Industrial Work Experience Scheme), units not specified.",
+    "department": "Department of Anatomy",
+    "level": "300",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Surface & Prosthetic Anatomy and what does it cover?",
+    "answer": "Surface & Prosthetic Anatomy, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Anatomical Techniques and what does it cover?",
+    "answer": "Anatomical Techniques, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Electron Microscopy and what does it cover?",
+    "answer": "Electron Microscopy, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Forensic Science and what does it cover?",
+    "answer": "Forensic Science, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Archaeology and what does it cover?",
+    "answer": "Archaeology, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biometry and what does it cover?",
+    "answer": "Biometry, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Final Year Project and how many units is it?",
+    "answer": "Final Year Project, units not specified.",
+    "department": "Department of Anatomy",
+    "level": "400",
+    "semester": "First/Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Entrepreneurship and how many units is it?",
+    "answer": "Entrepreneurship, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is General Biochemistry and how many units is it?",
+    "answer": "General Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Statistics and how many units is it?",
+    "answer": "Statistics, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biotechnology and how many units is it?",
+    "answer": "Biotechnology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Organic Chemistry and how many units is it?",
+    "answer": "Organic Chemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Microbiology and how many units is it?",
+    "answer": "Microbiology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Physical Chemistry and how many units is it?",
+    "answer": "Physical Chemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Immunology and how many units is it?",
+    "answer": "Immunology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Endocrinology and how many units is it?",
+    "answer": "Endocrinology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Genetics and how many units is it?",
+    "answer": "Genetics, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biochemistry II and how many units is it?",
+    "answer": "Biochemistry II, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Enzymology and how many units is it?",
+    "answer": "Enzymology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Lipid Metabolism and how many units is it?",
+    "answer": "Lipid Metabolism, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Nucleic Acids and how many units is it?",
+    "answer": "Nucleic Acids, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Membrane Biochemistry and how many units is it?",
+    "answer": "Membrane Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Inorganic Biochemistry and how many units is it?",
+    "answer": "Inorganic Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Industrial Attachment and how many units is it?",
+    "answer": "Industrial Attachment, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Toxicology II and how many units is it?",
+    "answer": "Toxicology II, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Tissue Biochemistry and how many units is it?",
+    "answer": "Tissue Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Carbohydrate & Amino Acid Metabolism and how many units is it?",
+    "answer": "Carbohydrate & Amino Acid Metabolism, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Analytical Methods and how many units is it?",
+    "answer": "Analytical Methods, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Bioenergetics and how many units is it?",
+    "answer": "Bioenergetics, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Toxicology I and how many units is it?",
+    "answer": "Toxicology I, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Pharmaceutical Biochemistry and how many units is it?",
+    "answer": "Pharmaceutical Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Peace & Conflict Resolution and how many units is it?",
+    "answer": "Peace & Conflict Resolution, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Advanced Enzymology and how many units is it?",
+    "answer": "Advanced Enzymology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Metabolic Regulation and how many units is it?",
+    "answer": "Metabolic Regulation, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Plant Biochemistry and how many units is it?",
+    "answer": "Plant Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Bioinformatics and how many units is it?",
+    "answer": "Bioinformatics, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Seminar and how many units is it?",
+    "answer": "Seminar, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Forensic Biochemistry and how many units is it?",
+    "answer": "Forensic Biochemistry (elective), units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Coordination Chemistry and how many units is it?",
+    "answer": "Coordination Chemistry (elective), units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Molecular Biochemistry and how many units is it?",
+    "answer": "Molecular Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biochemical Reasoning and how many units is it?",
+    "answer": "Biochemical Reasoning, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Research Project and how many units is it?",
+    "answer": "Research Project, 6 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Entrepreneurship and how many units is it?",
+    "answer": "Entrepreneurship, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Molecular Immunology and how many units is it?",
+    "answer": "Molecular Immunology, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Industrial Biochemistry and how many units is it?",
+    "answer": "Industrial Biochemistry, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Macromolecule Biosynthesis and how many units is it?",
+    "answer": "Macromolecule Biosynthesis, units not specified in original data.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is General Biology in Microbiology?",
+    "answer": "General Biology is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Chemistry in Microbiology?",
+    "answer": "Chemistry is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Physics in Microbiology?",
+    "answer": "Physics is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Mathematics in Microbiology?",
+    "answer": "Mathematics is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Computing in Microbiology?",
+    "answer": "Computing is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Communication in English in Microbiology?",
+    "answer": "Communication in English is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biology Practical in Microbiology?",
+    "answer": "Biology Practical is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Chemistry Practical in Microbiology?",
+    "answer": "Chemistry Practical is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Physics Practical in Microbiology?",
+    "answer": "Physics Practical is offered in 100 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "100",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is General Microbiology in Microbiology?",
+    "answer": "General Microbiology is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biochemistry in Microbiology?",
+    "answer": "Biochemistry is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Inorganic/Organic Chemistry in Microbiology?",
+    "answer": "Inorganic/Organic Chemistry is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Cell Biology in Microbiology?",
+    "answer": "Cell Biology is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Ecology in Microbiology?",
+    "answer": "Ecology is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biotechnology in Microbiology?",
+    "answer": "Biotechnology is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Zoology in Microbiology?",
+    "answer": "Zoology is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Biological Techniques in Microbiology?",
+    "answer": "Biological Techniques is offered in 200 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "200",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Fungi in Microbiology?",
+    "answer": "Fungi is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Immunology in Microbiology?",
+    "answer": "Immunology is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Food Microbiology in Microbiology?",
+    "answer": "Food Microbiology is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Enzymology in Microbiology?",
+    "answer": "Enzymology is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Soil Microbiology in Microbiology?",
+    "answer": "Soil Microbiology is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Bacterial Diversity in Microbiology?",
+    "answer": "Bacterial Diversity is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Microbial Ecology in Microbiology?",
+    "answer": "Microbial Ecology is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "Is SIWES included in 300 Level Microbiology?",
+    "answer": "Yes, SIWES is part of the 300 Level curriculum in Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Entrepreneurship in Microbiology?",
+    "answer": "Entrepreneurship is offered in 300 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "300",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+
+  {
+    "question": "What course is Epidemiology in Microbiology?",
+    "answer": "Epidemiology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Public Health in Microbiology?",
+    "answer": "Public Health is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Pathogenic Microbiology in Microbiology?",
+    "answer": "Pathogenic Microbiology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Petroleum Microbiology in Microbiology?",
+    "answer": "Petroleum Microbiology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Environmental Microbiology in Microbiology?",
+    "answer": "Environmental Microbiology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Industrial Microbiology in Microbiology?",
+    "answer": "Industrial Microbiology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Microbial Genetics in Microbiology?",
+    "answer": "Microbial Genetics is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Virology in Microbiology?",
+    "answer": "Virology is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Project Work in Microbiology?",
+    "answer": "Project Work is offered in 400 Level Microbiology.",
+    "department": "Department of Biological Sciences (Microbiology)",
+    "level": "400",
+    "semester": "",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is Communication in English in Architecture?",
+    "answer": "Communication in English is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is General Physics in Architecture?",
+    "answer": "General Physics is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Elementary Mathematics in Architecture?",
+    "answer": "Elementary Mathematics is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Freehand Drawing in Architecture?",
+    "answer": "Freehand Drawing is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Graphics Communication in Architecture?",
+    "answer": "Graphics Communication is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Introduction to Architecture & Environmental Sciences in Architecture?",
+    "answer": "Introduction to Architecture & Environmental Sciences is offered in 100 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "100",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is CAD in Architecture?",
+    "answer": "CAD is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Design Studios I in Architecture?",
+    "answer": "Design Studios I is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Design Studios II in Architecture?",
+    "answer": "Design Studios II is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Building Components & Methods in Architecture?",
+    "answer": "Building Components & Methods is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Islamic Architecture in Architecture?",
+    "answer": "Islamic Architecture is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Site Planning in Architecture?",
+    "answer": "Site Planning is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Modeling Studio in Architecture?",
+    "answer": "Modeling Studio is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Surveying in Architecture?",
+    "answer": "Surveying is offered in 200 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "200",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Research Methods in Architecture?",
+    "answer": "Research Methods is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Design Studios III in Architecture?",
+    "answer": "Design Studios III is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Structures in Architecture?",
+    "answer": "Structures is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Services in Architecture?",
+    "answer": "Services is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Building Information Modelling in Architecture?",
+    "answer": "Building Information Modelling is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Urban Design in Architecture?",
+    "answer": "Urban Design is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "Is SIWES included in 300 Level Architecture?",
+    "answer": "Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level in Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Entrepreneurship for Architects in Architecture?",
+    "answer": "Entrepreneurship for Architects is offered in 300 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "300",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Design Studios IV in Architecture?",
+    "answer": "Design Studios IV is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Design Studios V in Architecture?",
+    "answer": "Design Studios V is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Professional Practice in Architecture?",
+    "answer": "Professional Practice is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Behavioral Architecture in Architecture?",
+    "answer": "Behavioral Architecture is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Interior Design in Architecture?",
+    "answer": "Interior Design is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Project Planning in Architecture?",
+    "answer": "Project Planning is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Acoustics in Architecture?",
+    "answer": "Acoustics is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Dissertation in Architecture?",
+    "answer": "Dissertation is offered in 400 Level Architecture.",
+    "department": "Department of Architecture",
+    "level": "400",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What course is Principles of Economics I in Accounting?",
+    "answer": "Principles of Economics I is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Principles of Economics II in Accounting?",
+    "answer": "Principles of Economics II is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Use of English in Accounting?",
+    "answer": "Use of English is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Introduction to Business in Accounting?",
+    "answer": "Introduction to Business is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Introduction to Financial Accounting I in Accounting?",
+    "answer": "Introduction to Financial Accounting I is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Introduction to Financial Accounting II in Accounting?",
+    "answer": "Introduction to Financial Accounting II is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Business Mathematics in Accounting?",
+    "answer": "Business Mathematics is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Nigerian Peoples and Culture in Accounting?",
+    "answer": "Nigerian Peoples and Culture is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Philosophy and Logic in Accounting?",
+    "answer": "Philosophy and Logic is offered in 100 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "100",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Company Law in Accounting?",
+    "answer": "Company Law is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Financial Accounting in Accounting?",
+    "answer": "Financial Accounting is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Business Law in Accounting?",
+    "answer": "Business Law is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Principles of Management in Accounting?",
+    "answer": "Principles of Management is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Cost Accounting in Accounting?",
+    "answer": "Cost Accounting is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Business Communication in Accounting?",
+    "answer": "Business Communication is offered in 200 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "200",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Advanced Financial Accounting in Accounting?",
+    "answer": "Advanced Financial Accounting is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Taxation in Accounting?",
+    "answer": "Taxation is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Management Accounting in Accounting?",
+    "answer": "Management Accounting is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Auditing in Accounting?",
+    "answer": "Auditing is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Research Methods in Accounting?",
+    "answer": "Research Methods is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Business Statistics in Accounting?",
+    "answer": "Business Statistics is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Corporate Finance in Accounting?",
+    "answer": "Corporate Finance is offered in 300 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "Is SIWES included in 300 Level Accounting?",
+    "answer": "Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level.",
+    "department": "Department of Accounting",
+    "level": "300",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Advanced Taxation in Accounting?",
+    "answer": "Advanced Taxation is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Auditing and Investigation in Accounting?",
+    "answer": "Auditing and Investigation is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Public Sector Accounting in Accounting?",
+    "answer": "Public Sector Accounting is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Corporate Reporting in Accounting?",
+    "answer": "Corporate Reporting is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Management Theory in Accounting?",
+    "answer": "Management Theory is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Strategic Management in Accounting?",
+    "answer": "Strategic Management is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is Research Project in Accounting?",
+    "answer": "Research Project is offered in 400 Level Accounting.",
+    "department": "Department of Accounting",
+    "level": "400",
+    "semester": "",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is GST 111 and how many units is it?",
+    "answer": "Communication in English for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is MTH 101 and how many units is it?",
+    "answer": "Elementary Mathematics I for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is COS 101 and how many units is it?",
+    "answer": "Intro to Computing Sciences for Biochemistry, 3 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is BIO 101 and how many units is it?",
+    "answer": "General Biology I for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is BIO 107 and how many units is it?",
+    "answer": "General Biology Practical I for Biochemistry, 1 unit.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CHM 101 and how many units is it?",
+    "answer": "General Chemistry I for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CHM 107 and how many units is it?",
+    "answer": "General Chemistry Practical I for Biochemistry, 1 unit.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 101 and how many units is it?",
+    "answer": "General Physics I for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 107 and how many units is it?",
+    "answer": "General Physics Practical I for Biochemistry, 1 unit.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CUAB-BCH 113 and how many units is it?",
+    "answer": "Early Muslims' Contributions to Science, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is GST 112 and how many units is it?",
+    "answer": "Nigerian People and Culture for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is MTH 102 and how many units is it?",
+    "answer": "Elementary Mathematics II for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is BIO 102 and how many units is it?",
+    "answer": "General Biology II for Biochemistry, 2 units.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is BIO 108 and how many units is it?",
+    "answer": "General Biology Practical II, 1 unit for Biochemistry.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CHM 102 and how many units is it?",
+    "answer": "General Chemistry II, 2 units for Biochemistry.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is CHM 108 and how many units is it?",
+    "answer": "General Chemistry Practical II for Biochemistry, 1 unit.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 102 and how many units is it?",
+    "answer": "General Physics II, 2 units for Biochemistry.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 108 and how many units is it?",
+    "answer": "General Physics Practical II for Biochemistry, 1 unit.",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is GST 111 and how many units is it?",
     "answer": "Communication in English, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is MTH 101 and how many units is it?",
     "answer": "Elementary Mathematics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is PHY 101 and how many units is it?",
     "answer": "General Physics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is PHY 107 and how many units is it?",
     "answer": "General Practical Physics I, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is STA 111 and how many units is it?",
     "answer": "Descriptive Statistics, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is COS 101 and how many units is it?",
     "answer": "Introduction to Computing Sciences, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 103 and how many units is it?",
     "answer": "Islamic Perspective in ICT, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 105 and how many units is it?",
     "answer": "Use of Library for Computer Science Students, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is GST 112 and how many units is it?",
     "answer": "Nigerian Peoples and Culture, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is MTH 102 and how many units is it?",
     "answer": "Elementary Mathematics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is PHY 102 and how many units is it?",
     "answer": "General Physics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is PHY 108 and how many units is it?",
     "answer": "General Practical Physics II, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is COS 102 and how many units is it?",
     "answer": "Problem Solving, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 104 and how many units is it?",
     "answer": "System Analysis and Design, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 106 and how many units is it?",
     "answer": "Introduction to Algebra, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 108 and how many units is it?",
     "answer": "Foundation of Sequential Program, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is ENT 211 and how many units is it?",
     "answer": "Entrepreneurship and Innovation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is MTH 201 and how many units is it?",
     "answer": "Mathematical Methods I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is COS 201 and how many units is it?",
     "answer": "Computer Programming I, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 203 and how many units is it?",
     "answer": "Discrete Structures, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 299 and how many units is it?",
     "answer": "SIWES I, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is IFT 211 and how many units is it?",
     "answer": "Digital Logic Design, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is SEN 201 and how many units is it?",
     "answer": "Introduction to Software Engineering, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is GST 212 and how many units is it?",
     "answer": "Philosophy, Logic and Human Existence, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is MTH 202 and how many units is it?",
     "answer": "Elementary Differential Equations, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is COS 202 and how many units is it?",
     "answer": "Computer Programming II, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is IFT 212 and how many units is it?",
     "answer": "Computer Architecture and Organisation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 204 and how many units is it?",
     "answer": "Distributed Computing System, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 206 and how many units is it?",
     "answer": "Software Engineering, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 208 and how many units is it?",
     "answer": "Introduction to Numerical Analysis, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 301 and how many units is it?",
     "answer": "Data Structures, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 309 and how many units is it?",
     "answer": "Artificial Intelligence, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 399 and how many units is it?",
     "answer": "SIWES II, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CYB 201 and how many units is it?",
     "answer": "Introduction to Cybersecurity and Strategy, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is ICT 305 and how many units is it?",
     "answer": "Data Communication System & Network, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 303 and how many units is it?",
     "answer": "Computational Science & Numerical Methods, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is GST 312 and how many units is it?",
     "answer": "Peace and Conflict Resolution, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is ENT 312 and how many units is it?",
     "answer": "Venture Creation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 308 and how many units is it?",
     "answer": "Operating Systems, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 322 and how many units is it?",
     "answer": "Computer Science Innovation and New Technologies, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is DTS 304 and how many units is it?",
     "answer": "Data Management I, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 302 and how many units is it?",
     "answer": "Modelling and Simulation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 304 and how many units is it?",
     "answer": "Formal Language & Automata Theory, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is COS 409 and how many units is it?",
     "answer": "Research Methodology and Technical Report Writing, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 401 and how many units is it?",
     "answer": "Algorithms and Complexity Analysis, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 497 and how many units is it?",
     "answer": "Final Year Project I, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is INS 401 and how many units is it?",
     "answer": "Project Management, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 403 and how many units is it?",
     "answer": "Introduction to Operation Research, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 405 and how many units is it?",
     "answer": "Human Computer Interface, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CPS 407 and how many units is it?",
     "answer": "Data Visualization for Data-Driven Decision Making, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 402 and how many units is it?",
     "answer": "Ethics and Legal Issues in Computer Science, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CSC 498 and how many units is it?",
     "answer": "Final Year Project II, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 404 and how many units is it?",
     "answer": "Computer System Performance Evaluation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 406 and how many units is it?",
     "answer": "Computer Graphics & Visualization, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 408 and how many units is it?",
     "answer": "Compiler Construction, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 410 and how many units is it?",
     "answer": "Survey of Programming Languages, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is CUAB-CSC 412 and how many units is it?",
     "answer": "Internet Technology & Web Programming, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
   },
   {
     "question": "What course is ACROSS 100 and how many units is it?",
@@ -3035,850 +4484,850 @@
   {
     "question": "What course is GST 111 and how many units is it?",
     "answer": "Communication Skills in English, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 101 and how many units is it?",
     "answer": "Principles of Economics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 103 and how many units is it?",
     "answer": "Introductory Mathematics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 105 and how many units is it?",
     "answer": "Introduction to Statistics for Economics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 107 and how many units is it?",
     "answer": "Introduction to Finance I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 109 and how many units is it?",
     "answer": "Introduction to Financial Accounting for Economists I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 111 and how many units is it?",
     "answer": "Introduction to Business Economics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 113 and how many units is it?",
     "answer": "Islamic Economic System, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is GST 112 and how many units is it?",
     "answer": "Nigerian Peoples and Culture, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 102 and how many units is it?",
     "answer": "Principles of Economics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 104 and how many units is it?",
     "answer": "Introductory Mathematics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 106 and how many units is it?",
     "answer": "Introduction to Statistics for Economics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 108 and how many units is it?",
     "answer": "Introduction to Finance II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 110 and how many units is it?",
     "answer": "Introduction to Financial Accounting for Economists II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 112 and how many units is it?",
     "answer": "Introduction to Business Economics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 114 and how many units is it?",
     "answer": "Uses of Library and Study Skills for Economists, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ENT 211 and how many units is it?",
     "answer": "Entrepreneurship, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 201 and how many units is it?",
     "answer": "Introduction to Microeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 203 and how many units is it?",
     "answer": "Introduction to Macroeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 205 and how many units is it?",
     "answer": "Structure of the Nigerian Economy, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 207 and how many units is it?",
     "answer": "Mathematics for Economists, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 209 and how many units is it?",
     "answer": "Labour Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 211 and how many units is it?",
     "answer": "Tourism Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 213 and how many units is it?",
     "answer": "Urban and Regional Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 215 and how many units is it?",
     "answer": "Industrial Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is GST 212 and how many units is it?",
     "answer": "Philosophy, Logic and Human Existence, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is SSC 202 and how many units is it?",
     "answer": "Introduction to Computer and Its Applications, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 202 and how many units is it?",
     "answer": "Introduction to Microeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 204 and how many units is it?",
     "answer": "Introduction to Macroeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 206 and how many units is it?",
     "answer": "Statistics for Economists, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 208 and how many units is it?",
     "answer": "Economics of Development, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 210 and how many units is it?",
     "answer": "Transport Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 301 and how many units is it?",
     "answer": "Intermediate Microeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 303 and how many units is it?",
     "answer": "Intermediate Macroeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 305 and how many units is it?",
     "answer": "History of Economic Thought, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 307 and how many units is it?",
     "answer": "Project Evaluation, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is SSC 301 and how many units is it?",
     "answer": "Innovation in the Social Sciences, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 309 and how many units is it?",
     "answer": "Operations Research I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 311 and how many units is it?",
     "answer": "Software Application for Economists, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 313 and how many units is it?",
     "answer": "International Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 315 and how many units is it?",
     "answer": "Public Finance, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 317 and how many units is it?",
     "answer": "Economics of Corruption, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is GST 312 and how many units is it?",
     "answer": "Peace and Conflict Resolution, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ENT 312 and how many units is it?",
     "answer": "Venture Creation, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 302 and how many units is it?",
     "answer": "Intermediate Microeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 304 and how many units is it?",
     "answer": "Intermediate Macroeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 306 and how many units is it?",
     "answer": "Introductory Econometrics, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 308 and how many units is it?",
     "answer": "Public Sector Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is SSC 302 and how many units is it?",
     "answer": "Research Method I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-ECO 310 and how many units is it?",
     "answer": "Operations Research II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 401 and how many units is it?",
     "answer": "Advanced Microeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 403 and how many units is it?",
     "answer": "Advanced Macroeconomics I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 405 and how many units is it?",
     "answer": "Economic Planning, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 407 and how many units is it?",
     "answer": "Fiscal Policy and Analysis, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 499 and how many units is it?",
     "answer": "Research Project/Original Essay, 6 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is SSC 401 and how many units is it?",
     "answer": "Research Method II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 402 and how many units is it?",
     "answer": "Advanced Microeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 404 and how many units is it?",
     "answer": "Advanced Macroeconomics II, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is ECO 406 and how many units is it?",
     "answer": "Monetary Theory and Policy, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 408 and how many units is it?",
     "answer": "Operations Research III, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 410 and how many units is it?",
     "answer": "Econometrics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 412 and how many units is it?",
     "answer": "Environment and Sustainable Development, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 414 and how many units is it?",
     "answer": "Problems and Policies of Development, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 416 and how many units is it?",
     "answer": "Comparative Economic Systems, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 418 and how many units is it?",
     "answer": "Health Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is CUAB-BCO 420 and how many units is it?",
     "answer": "Petroleum and Energy Economics, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is LIB 101 and how many units is it?",
     "answer": "Use of Library, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LAW 101 and how many units is it?",
     "answer": "Legal Methods I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 101 and how many units is it?",
     "answer": "Use of English I, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 105 and how many units is it?",
     "answer": "Nigerian Peoples and Culture, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is ENG 107 and how many units is it?",
     "answer": "Literature in English I, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is SOS 101 and how many units is it?",
     "answer": "Introduction to Sociology, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is PIS 101 and how many units is it?",
     "answer": "Introduction to Political Science, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 103 and how many units is it?",
     "answer": "Philosophy of Islam I, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is CPS 101 and how many units is it?",
     "answer": "Introduction to Computer, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LAW 102 and how many units is it?",
     "answer": "Legal Methods II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 106 and how many units is it?",
     "answer": "History & Philosophy of Science, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 102 and how many units is it?",
     "answer": "Logic and Philosophy of Human Existence, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is ENG 108 and how many units is it?",
     "answer": "Literature in English II, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is PSY 102 and how many units is it?",
     "answer": "Introduction to Psychology, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 104 and how many units is it?",
     "answer": "Philosophy of Islam II, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is PIS 102 and how many units is it?",
     "answer": "Nigerian Constitutional Development, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 201 and how many units is it?",
     "answer": "Constitutional Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is ICL 201 and how many units is it?",
     "answer": "Introduction to Islamic Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 201 and how many units is it?",
     "answer": "Law of Contract I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 203 and how many units is it?",
     "answer": "Nigerian Legal System I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 205 and how many units is it?",
     "answer": "Intro to Entrepreneurial Studies, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 211 and how many units is it?",
     "answer": "Communication in English, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 202 and how many units is it?",
     "answer": "Constitutional Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is ICL 202 and how many units is it?",
     "answer": "Introduction to Islamic Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 202 and how many units is it?",
     "answer": "Law of Contract II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 204 and how many units is it?",
     "answer": "Nigerian Legal System II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is FAC 204 and how many units is it?",
     "answer": "Principles of Crop Production, 3 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 206 and how many units is it?",
     "answer": "Practical Entrepreneurial Skills, 1 unit.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 212 and how many units is it?",
     "answer": "Communication in English, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 301 and how many units is it?",
     "answer": "Criminal Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 301 and how many units is it?",
     "answer": "Law of Torts I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 303 and how many units is it?",
     "answer": "Commercial Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 303 and how many units is it?",
     "answer": "ICT Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 301 and how many units is it?",
     "answer": "Global Citizenship, Peace & Conflict Resolution, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 302 and how many units is it?",
     "answer": "Criminal Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 302 and how many units is it?",
     "answer": "Law of Torts II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 304 and how many units is it?",
     "answer": "Commercial Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Law",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "Law"
   },
   {
     "question": "What course is TPT 304 and how many units is it?",
     "answer": "ICT Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 401 and how many units is it?",
     "answer": "Law of Evidence I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 401 and how many units is it?",
     "answer": "Property Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "400",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 403 and how many units is it?",
@@ -3891,74 +5340,74 @@
   {
     "question": "What course is LPI 402 and how many units is it?",
     "answer": "Law of Evidence II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 402 and how many units is it?",
     "answer": "Property Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Law",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 404 and how many units is it?",
     "answer": "Equity and Trusts II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LAW 402 and how many units is it?",
     "answer": "Research Methodology, 2 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 501 and how many units is it?",
     "answer": "Jurisprudence and Legal Theory I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 501 and how many units is it?",
     "answer": "Company Law I, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPI 502 and how many units is it?",
     "answer": "Jurisprudence and Legal Theory II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LPB 502 and how many units is it?",
     "answer": "Company Law II, 4 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "department": "Department of Law(LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is LAW 599 and how many units is it?",
     "answer": "Long Essay, 6 units.",
-    "department": "Deparment of law (LL.B)",
+    "department": "Department of Law(LL.B)",
     "level": "500",
-    "semester": "",
-    "faculty": ""
+    "semester": "Second",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is PIS 413 and how many units is it?",
@@ -3970,18 +5419,19 @@
   },
   {
     "question": "What course is GNS 201 and how many units is it?",
-    "answer": "French or GNS, 203 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "answer": "French for Beginners I.",
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": "BACOLAW"
   },
   {
     "question": "What course is GNS 202 and how many units is it?",
-    "answer": "French II or GNS, 204 units.",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
+    "answer": "French for Beginners II, .",
+    "department": "Department of Law(LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "BACOLAW"
   }
+]
 ]
