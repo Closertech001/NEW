@@ -173,11 +173,10 @@ st.markdown("""
     max-width: 75%;
     font-weight: 600;
     color: #000;
-
 }
 .department-label {
     font-size: 0.85em;
-    color: #444; /* Improved contrast */
+    color: #444;
     margin-top: -10px;
     margin-bottom: 10px;
 }
