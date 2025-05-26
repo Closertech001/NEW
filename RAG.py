@@ -274,8 +274,9 @@ def get_unique_key(text):
 # --- Related Suggestions ---
 if st.session_state.related_questions:
     st.markdown("#### 💡 You might also ask:")
-    for q in st.session_state.related_questions:
-        unique_key = get_unique_key(q)
+    for idx, q in enumerate(st.session_state.related_questions):
+        # Combine index and question to create a truly unique key
+        unique_key = hashlib.md5(f"{idx}_{q}".encode()).hexdigest()
         if st.button(q, key=f"related_{unique_key}", use_container_width=True):
             st.session_state.chat_history.append({"role": "user", "content": q})
             answer, department, score, related = find_response(q, dataset, question_embeddings)
