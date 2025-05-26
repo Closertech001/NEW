@@ -280,7 +280,8 @@ else:
 # --- Chat Input ---
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
-if prompt:
+if prompt is not None:
+    # proceed to process the prompt
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
     if filtered_dataset.empty or question_embeddings is None:
