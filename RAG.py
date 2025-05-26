@@ -11,6 +11,7 @@ import json
 import openai
 import os
 import hashlib
+import uuid  # ✅ Added for unique key generation
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -174,13 +175,11 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 # --- Streamlit UI ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
-# --- Load once ---
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
-# --- Session state ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "related_questions" not in st.session_state:
@@ -196,7 +195,7 @@ with st.sidebar:
         st.session_state.last_department = None
         st.rerun()
 
-# --- Main Title and Styles ---
+# --- Title and Styles ---
 st.markdown("""
 <style>
     html, body, .stApp { font-family: 'Open Sans', sans-serif; }
@@ -241,7 +240,7 @@ st.markdown("""
 
 st.title("🎓 Crescent University Chatbot")
 
-# --- Render Chat History ---
+# --- Chat Render ---
 for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
@@ -249,7 +248,7 @@ for message in st.session_state.chat_history:
         if message["role"] == "assistant" and st.session_state.last_department:
             st.markdown(f'<div class="department-label">Department: {st.session_state.last_department}</div>', unsafe_allow_html=True)
 
-# --- Chat Input ---
+# --- Input ---
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
@@ -267,16 +266,11 @@ if prompt:
     st.session_state.last_department = department
     st.rerun()
 
-# --- Related Suggestions ---
-def get_unique_key(text):
-    return hashlib.md5(text.encode()).hexdigest()
-
-# --- Related Suggestions ---
+# --- Related Suggestions with truly unique keys ---
 if st.session_state.related_questions:
     st.markdown("#### 💡 You might also ask:")
-    for idx, q in enumerate(st.session_state.related_questions):
-        # Combine index and question to create a truly unique key
-        unique_key = hashlib.md5(f"{idx}_{q}".encode()).hexdigest()
+    for q in st.session_state.related_questions:
+        unique_key = f"{uuid.uuid4().hex}"  # ✅ unique every render
         if st.button(q, key=f"related_{unique_key}", use_container_width=True):
             st.session_state.chat_history.append({"role": "user", "content": q})
             answer, department, score, related = find_response(q, dataset, question_embeddings)
