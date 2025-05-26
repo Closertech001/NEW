@@ -104,20 +104,19 @@ def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# --- Multi-Context OpenAI fallback ---
+# --- Multi-Context GPT Fallback ---
 def fallback_openai(user_input, context_qas=None):
     system_prompt = (
-        "You are a helpful assistant specialized in Crescent University information. "
-        "Use the context below to answer the user's question. "
-        "If the answer is not found, say so and suggest checking official sources."
+        "You are a helpful assistant specialized in Crescent University. "
+        "Use the context below to answer the user's question as accurately as possible. "
+        "If unsure, encourage the user to contact the university registrar."
     )
     messages = [{"role": "system", "content": system_prompt}]
 
     if context_qas:
-        context_text = "\n".join(
-            [f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas]
-        )
-        user_message = f"{context_text}\n\nUser Question: {user_input}"
+        context_text = "\n".join([f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas])
+        user_message = f"Here is some context:
+{context_text}\n\nAnswer this question: {user_input}"
     else:
         user_message = user_input
 
@@ -133,10 +132,13 @@ def fallback_openai(user_input, context_qas=None):
     except Exception:
         return "Sorry, I couldn't reach the server. Try again later."
 
-# --- Response Finder ---
+# --- Response Finder with Multi-Context RAG ---
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
+
+    if embeddings is None or len(dataset) == 0:
+        return "No matching data found for your filters.", None, 0.0, []
 
     greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
                  "how are you doing", "how's it going", "can we talk?",
@@ -153,6 +155,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     top_score = top_scores[0].item()
     top_index = top_indices[0].item()
 
+    # Pass multiple QAs to GPT fallback if score is low
     if top_score < threshold:
         context_qas = [
             {
@@ -160,7 +163,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
                 "answer": dataset.iloc[i.item()]["answer"]
             } for i in top_indices[:3]
         ]
-        gpt_reply = fallback_openai(user_input, context_qas)
+        gpt_reply = fallback_openai(user_input, context_qas=context_qas)
         return gpt_reply, None, top_score, []
 
     response = dataset.iloc[top_index]["answer"]
