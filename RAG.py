@@ -187,6 +187,12 @@ if "related_questions" not in st.session_state:
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
+if st.button("🧹 Clear Chat"):
+    st.session_state.chat_history = []
+    st.session_state.related_questions = []
+    st.session_state.last_department = None
+    st.rerun()
+
 # --- Title and Styles ---
 st.markdown("""
 <style>
@@ -245,12 +251,6 @@ with st.sidebar:
     selected_department = st.multiselect("Department", department_options)
     selected_level = st.multiselect("Level", level_options)
     selected_semester = st.multiselect("Semester", semester_options)
-
-    if st.button("🧹 Clear Chat"):
-        st.session_state.chat_history = []
-        st.session_state.related_questions = []
-        st.session_state.last_department = None
-        st.rerun()
 
 def apply_filters(df, faculty, department, level, semester):
     filtered_df = df.copy()
