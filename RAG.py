@@ -10,6 +10,7 @@ import pkg_resources
 import json
 import openai
 import os
+import hashlib
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -267,8 +268,6 @@ if prompt:
     st.rerun()
 
 # --- Related Suggestions ---
-import hashlib  # Add this import at the top if not already present
-
 def get_unique_key(text):
     return hashlib.md5(text.encode()).hexdigest()
 
