@@ -153,15 +153,6 @@ def apply_filters(df, faculty, department, level, semester):
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 st.markdown("""
 <style>
-.chat-message-user, .chat-message-assistant {
-    padding: 12px;
-    margin: 6px 6px 6px 0;
-    display: inline-block;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    max-width: 75%;
-    word-wrap: break-word;
-}
 .chat-message-user {
     background-color: #d6eaff;
     margin-left: auto;
@@ -169,6 +160,7 @@ st.markdown("""
     font-weight: 550;
     color: #000;
     text-align: right;
+    word-wrap: break-word;
 }
 .chat-message-assistant {
     background-color: #f5f5f5;
@@ -177,19 +169,13 @@ st.markdown("""
     font-weight: 600;
     color: #000;
     text-align: left;
+    word-wrap: break-word;
 }
 .department-label {
     font-size: 0.85em;
     color: #444; /* Improved contrast */
     margin-top: -10px;
     margin-bottom: 10px;
-}
-@media (max-width: 600px) {
-    .chat-message-user,
-    .chat-message-assistant {
-        max-width: 90%;
-        font-size: 0.85rem;
-    }
 }
 </style>
 """, unsafe_allow_html=True)
