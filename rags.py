@@ -164,11 +164,25 @@ st.markdown("""
         color: #000;
 }
 .chat-message-user {
-    background-color: #DCF8C6;
+    background-color: #d6eaff;
+    padding: 12px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    max-width: 75%;
+    font-weight: 550;
+    color: #000;
     text-align: right;
 }
 .chat-message-assistant {
-    background-color: #F1F0F0;
+    background-color: #f5f5f5;
+    padding: 12px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    max-width: 75%;
+    font-weight: 600;
+    color: #000;
 }
 .department-label {
     font-size: 0.85em;
