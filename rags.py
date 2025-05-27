@@ -131,50 +131,72 @@ def fallback_openai(user_input, context_qas=None):
         return "Sorry, I couldn't reach the server. Try again later."
 
 # --- Response Finder with Multi-Context RAG ---
-def find_response(user_input, dataset, embeddings, threshold=0.6):
-    model = load_model()
-    user_input_clean = preprocess_text(user_input)
+import time
+import logging
+from openai.error import OpenAIError, APIConnectionError, RateLimitError, InvalidRequestError, AuthenticationError
 
-    if embeddings is None or len(dataset) == 0:
-        return "No matching data found for your filters.", None, 0.0, []
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)  # You can adjust level to DEBUG for more verbosity
 
-    user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
-    cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
-    top_scores, top_indices = torch.topk(cos_scores, k=5)
+def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5):
+    system_prompt = (
+        "You are a helpful assistant specialized in Crescent University. "
+        "Use the context below to answer the user's question as accurately as possible. "
+        "If unsure, encourage the user to contact the university registrar."
+    )
+    messages = [{"role": "system", "content": system_prompt}]
 
-    top_score = top_scores[0].item()
-    top_index = top_indices[0].item()
+    if context_qas:
+        context_text = "\n".join([f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas])
+        user_message = f"Here is some context:\n{context_text}\n\nAnswer this question: {user_input}"
+    else:
+        user_message = user_input
 
-    print(f"DEBUG: User input: {user_input}")
-    print(f"DEBUG: Top matched question: {dataset.iloc[top_index]['question']}")
-    print(f"DEBUG: Similarity score: {top_score}")
+    messages.append({"role": "user", "content": user_message})
 
-    if top_score < threshold:
-        # Use GPT fallback with top 3 context questions
-        context_qas = [
-            {
-                "question": dataset.iloc[i.item()]["question"],
-                "answer": dataset.iloc[i.item()]["answer"]
-            } for i in top_indices[:3]
-        ]
-        gpt_reply = fallback_openai(user_input, context_qas=context_qas)
-        return gpt_reply, None, top_score, []
+    for attempt in range(max_retries):
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=messages,
+                temperature=0.3,
+                timeout=15
+            )
+            return response.choices[0].message["content"].strip()
 
-    response = dataset.iloc[top_index]["answer"]
-    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
+        except RateLimitError as e:
+            logger.warning(f"OpenAI API rate limit hit: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+                continue
+            return ("Sorry, the service is currently overloaded. "
+                    "Please try again after a short while.")
 
-    return response, None, top_score, related_questions
+        except APIConnectionError as e:
+            logger.warning(f"OpenAI API connection error: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+                continue
+            return ("Sorry, there was a network problem connecting to the AI service. "
+                    "Please check your internet connection and try again.")
 
-    # Pass multiple QAs to GPT fallback if score is low
-    if top_score < threshold:
-        context_qas = [
-            {
-                "question": dataset.iloc[i.item()]["question"],
-                "answer": dataset.iloc[i.item()]["answer"]
-            } for i in top_indices[:3]
-        ]
-        gpt_reply = fallback_openai(user_input, context_qas=context_qas)
-        return gpt_reply, None, top_score, []
+        except AuthenticationError as e:
+            logger.error(f"OpenAI API authentication error: {e}")
+            return ("Authentication failed. Please check the API key configuration.")
+
+        except InvalidRequestError as e:
+            logger.error(f"OpenAI API invalid request: {e}")
+            return ("Sorry, your request was invalid. Please try rephrasing your question.")
+
+        except OpenAIError as e:
+            logger.error(f"OpenAI API error: {e}")
+            return ("Sorry, the AI service encountered an error. Please try again later.")
+
+        except Exception as e:
+            logger.error(f"Unexpected error in OpenAI call: {e}")
+            return ("Sorry, something went wrong on our side. Please try again later.")
+
+    return "Sorry, I couldn't get a response from the server at this time."
 
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
