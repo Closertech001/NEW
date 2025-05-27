@@ -131,20 +131,12 @@ def fallback_openai(user_input, context_qas=None):
         return "Sorry, I couldn't reach the server. Try again later."
 
 # --- Response Finder with Multi-Context RAG ---
-def find_response(user_input, dataset, embeddings, threshold=0.4):
+def find_response(user_input, dataset, embeddings, threshold=0.6):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
 
     if embeddings is None or len(dataset) == 0:
         return "No matching data found for your filters.", None, 0.0, []
-
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
-                 "how are you doing", "how's it going", "can we talk?",
-                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", 
-                              "Sure pal", "I'm fine, thank you", "Hi! How can I help you?", 
-                              "Hello! Ask me anything about Crescent University."]), None, 1.0, []
 
     user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
@@ -152,6 +144,26 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 
     top_score = top_scores[0].item()
     top_index = top_indices[0].item()
+
+    print(f"DEBUG: User input: {user_input}")
+    print(f"DEBUG: Top matched question: {dataset.iloc[top_index]['question']}")
+    print(f"DEBUG: Similarity score: {top_score}")
+
+    if top_score < threshold:
+        # Use GPT fallback with top 3 context questions
+        context_qas = [
+            {
+                "question": dataset.iloc[i.item()]["question"],
+                "answer": dataset.iloc[i.item()]["answer"]
+            } for i in top_indices[:3]
+        ]
+        gpt_reply = fallback_openai(user_input, context_qas=context_qas)
+        return gpt_reply, None, top_score, []
+
+    response = dataset.iloc[top_index]["answer"]
+    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
+
+    return response, None, top_score, related_questions
 
     # Pass multiple QAs to GPT fallback if score is low
     if top_score < threshold:
