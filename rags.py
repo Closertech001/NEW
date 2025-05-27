@@ -10,7 +10,6 @@ import pkg_resources
 import json
 import openai
 import os
-import hashlib
 import uuid
 
 # --- API Key Setup ---
@@ -115,8 +114,7 @@ def fallback_openai(user_input, context_qas=None):
 
     if context_qas:
         context_text = "\n".join([f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas])
-        user_message = f"Here is some context:
-{context_text}\n\nAnswer this question: {user_input}"
+        user_message = f"Here is some context:\n{context_text}\n\nAnswer this question: {user_input}"
     else:
         user_message = user_input
 
@@ -183,25 +181,19 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     return response, department, top_score, related_questions
 
 # --- Streamlit UI ---
+
+# Initialize session state variables
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+if "related_questions" not in st.session_state:
+    st.session_state.related_questions = []
+if "last_department" not in st.session_state:
+    st.session_state.last_department = None
+
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
 model = load_model()
 dataset = load_data()
-question_list = dataset['question'].tolist()
-question_embeddings = compute_question_embeddings(question_list)
-
-# --- Apply filters ---
-def apply_filters(df, faculty, department, level, semester):
-    filtered_df = df.copy()
-    if faculty:
-        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
-    if department:
-        filtered_df = filtered_df[filtered_df['department'].isin(department)]
-    if level:
-        filtered_df = filtered_df[filtered_df['level'].isin(level)]
-    if semester:
-        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
-    return filtered_df
 
 # --- Sidebar Filters ---
 with st.sidebar:
@@ -216,6 +208,18 @@ with st.sidebar:
     selected_level = st.multiselect("Level", level_options)
     selected_semester = st.multiselect("Semester", semester_options)
 
+def apply_filters(df, faculty, department, level, semester):
+    filtered_df = df.copy()
+    if faculty:
+        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
+    if department:
+        filtered_df = filtered_df[filtered_df['department'].isin(department)]
+    if level:
+        filtered_df = filtered_df[filtered_df['level'].isin(level)]
+    if semester:
+        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
+    return filtered_df
+
 filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
 
 if filtered_dataset.empty:
@@ -225,13 +229,13 @@ else:
     question_list = filtered_dataset['question'].tolist()
     question_embeddings = compute_question_embeddings(question_list)
 
-# --- Sidebar ---
+# --- Sidebar Clear Chat Button ---
 with st.sidebar:
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.session_state.last_department = None
-        st.rerun()
+        st.experimental_rerun()  # use this instead of st.rerun()
 
 # --- Title and Styles ---
 st.markdown("""
@@ -302,7 +306,7 @@ if prompt:
     st.session_state.chat_history.append({"role": "assistant", "content": answer})
     st.session_state.related_questions = related
     st.session_state.last_department = department
-    st.rerun()
+    st.experimental_rerun()
 
 # --- Related Suggestions ---
 if st.session_state.related_questions:
@@ -315,4 +319,4 @@ if st.session_state.related_questions:
             st.session_state.chat_history.append({"role": "assistant", "content": answer})
             st.session_state.related_questions = related
             st.session_state.last_department = department
-            st.rerun()
+            st.experimental_rerun()
