@@ -324,4 +324,5 @@ if st.session_state.related_questions:
             st.session_state.related_questions = related
             st.session_state.last_department = department
             st.experimental_rerun()
-            return
+            raise st.script_runner.StopException
+
