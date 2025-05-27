@@ -13,13 +13,10 @@ import os
 import uuid
 import time
 import logging
-from openai._exceptions import (
-    OpenAIError,
-    APIConnectionError,
-    RateLimitError,
-    InvalidRequestError,
-    AuthenticationError
-)
+
+# --- OpenAI Error Handling Setup ---
+import openai.error as openai_error
+
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -111,7 +108,7 @@ def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# --- GPT Fallback with Robust Handling ---
+# --- Multi-Context GPT Fallback ---
 def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5):
     system_prompt = (
         "You are a helpful assistant specialized in Crescent University. "
@@ -138,53 +135,31 @@ def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5
             )
             return response.choices[0].message["content"].strip()
 
-        except RateLimitError as e:
-            time.sleep(retry_delay)
-        except APIConnectionError:
-            time.sleep(retry_delay)
-        except AuthenticationError:
-            return "Authentication failed. Please check the API key configuration."
-        except InvalidRequestError:
-            return "Invalid request. Please try rephrasing your question."
-        except OpenAIError:
-            return "AI service error. Please try again later."
-        except Exception:
-            return "Unexpected error. Please try again later."
+        except openai_error.RateLimitError as e:
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+                continue
+            return "Sorry, the service is currently overloaded. Please try again later."
 
-    return "Sorry, I couldn't get a response from the server at this time."
+        except openai_error.APIConnectionError as e:
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+                continue
+            return "Sorry, network issue occurred. Please try again."
 
-# --- Find Best Response ---
-def find_response(user_input, dataset, question_embeddings, top_k=5):
-    if question_embeddings is None or dataset.empty:
-        return "Sorry, I couldn't find any information matching your query.", None, 0, []
+        except openai_error.AuthenticationError as e:
+            return "Authentication failed. Please check API key."
 
-    model = load_model()
-    processed_input = preprocess_text(user_input)
-    input_embedding = model.encode(processed_input, convert_to_tensor=True)
+        except openai_error.InvalidRequestError as e:
+            return "Invalid request. Please rephrase your question."
 
-    similarities = util.pytorch_cos_sim(input_embedding, question_embeddings)[0]
-    top_indices = torch.topk(similarities, k=top_k).indices
-    top_score = similarities[top_indices[0]].item()
+        except openai_error.OpenAIError as e:
+            return "An error occurred with the AI service. Try again later."
 
-    top_context_qas = []
-    for i in top_indices:
-        top_context_qas.append({
-            "question": dataset.iloc[i]["question"],
-            "answer": dataset.iloc[i]["answer"]
-        })
+        except Exception as e:
+            return "Unexpected error occurred. Please try again later."
 
-    response = fallback_openai(user_input, top_context_qas)
-    question = dataset.iloc[top_indices[0]]["question"]
-    related_questions = [dataset.iloc[i]["question"] for i in top_indices[1:]]
-
-    match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
-    department = None
-    if match:
-        code = match.group(1)
-        prefix = extract_prefix(code)
-        department = department_map.get(prefix, "Unknown")
-
-    return response, department, top_score, related_questions
+    return "Could not connect to the AI server."
 
 # --- Streamlit App ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
