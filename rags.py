@@ -130,51 +130,30 @@ def fallback_openai(user_input, context_qa=None):
         return "Sorry, I couldn't reach the server. Try again later."
 
 # --- Response Finder ---
-def find_response(user_input, dataset, embeddings, threshold=0.4):
-    model = load_model()
-    user_input_clean = preprocess_text(user_input)
+def fallback_openai(user_input, dataset, context_qa=None, max_context=10):
+    system_prompt = (
+        "You are a helpful assistant specialized in Crescent University information. "
+        "Use the provided Q&A examples to answer the question. If you are unsure, say so and refer the user to official sources."
+    )
+    messages = [{"role": "system", "content": system_prompt}]
 
-    if embeddings is None or len(dataset) == 0:
-        return "No matching data found for your filters.", None, 0.0, []
+    # 🧠 Dynamic context from random sample or top similar entries
+    context_examples = dataset.sample(n=min(max_context, len(dataset))).to_dict("records")
+    context_text = "\n".join([f"Q: {row['question']}\nA: {row['answer']}" for row in context_examples])
 
-    greetings = ["hi", "hello", "hey", "hi there", "greetings", "how are you",
-                 "how are you doing", "how's it going", "can we talk?",
-                 "can we have a conversation?", "okay", "i'm fine", "i am fine"]
-    if user_input_clean.lower() in greetings:
-        return random.choice(["Hello!", "Hi there!", "Hey!", "Greetings!","I'm doing well, thank you!", 
-                              "Sure pal", "I'm fine, thank you", "Hi! How can I help you?", 
-                              "Hello! Ask me anything about Crescent University."]), None, 1.0, []
+    messages.append({"role": "user", "content": f"Here is some university information:\n{context_text}"})
+    messages.append({"role": "user", "content": f"Answer this question: {user_input}"})
 
-    user_embedding = model.encode(user_input_clean, convert_to_tensor=True)
-    cos_scores = util.pytorch_cos_sim(user_embedding, embeddings)[0]
-    top_scores, top_indices = torch.topk(cos_scores, k=5)
-
-    top_score = top_scores[0].item()
-    top_index = top_indices[0].item()
-
-    if top_score < threshold:
-        context_qa = {
-            "question": dataset.iloc[top_index]["question"],
-            "answer": dataset.iloc[top_index]["answer"]
-        }
-        gpt_reply = fallback_openai(user_input, context_qa)
-        return gpt_reply, None, top_score, []
-
-    response = dataset.iloc[top_index]["answer"]
-    question = dataset.iloc[top_index]["question"]
-    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
-
-    match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
-    department = None
-    if match:
-        code = match.group(1)
-        prefix = extract_prefix(code)
-        department = department_map.get(prefix, "Unknown")
-
-    if random.random() < 0.2:
-        response = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "]) + response
-
-    return response, department, top_score, related_questions
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",  # Or use "gpt-3.5-turbo" if you're not on GPT-4
+            messages=messages,
+            temperature=0.3
+        )
+        return response.choices[0].message["content"].strip()
+    except Exception as e:
+        print("OpenAI Error:", e)
+        return "Sorry, I couldn't reach the server. Try again later."
 
 # --- Streamlit UI ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
