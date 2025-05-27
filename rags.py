@@ -1,4 +1,3 @@
-
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -90,6 +89,26 @@ def load_data():
 
     return pd.DataFrame(rag_data)
 
+# Build a map from course titles to course info (code, department)
+def build_title_map(dataset):
+    title_map = {}
+    for _, row in dataset.iterrows():
+        question = row['question'].lower()
+        # Try to find course code like MTH101 or MTH-101
+        match = re.search(r"([A-Z]{2,}-?\d{3,})", row['question'])
+        if match:
+            code = match.group(1)
+            prefix = extract_prefix(code)
+            department = department_map.get(prefix, "Unknown")
+            # Use question text (or a shortened version) as key, lowercase for matching
+            key = question
+            title_map[key] = {
+                "code": code,
+                "department": department,
+                "answer": row['answer']
+            }
+    return title_map
+
 @st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
@@ -124,6 +143,17 @@ def fallback_openai(user_input, dataset, max_context=10):
 def find_response(user_input, dataset, embeddings, threshold=0.4):
     model = load_model()
     user_input_clean = preprocess_text(user_input)
+
+    # Check if user asks specifically about a course and department
+    if "which course is" in user_input_clean.lower() and "department" in user_input_clean.lower():
+        for title, info in title_map.items():
+            if title in user_input_clean.lower():
+                return (
+                    f"The course titled '{title.title()}' is {info['code']}, and it is offered by the {info['department']} department.",
+                    info["department"],
+                    1.0,
+                    []
+                )
 
     if embeddings is None or len(dataset) == 0:
         return "No matching data found for your filters.", None, 0.0, []
@@ -180,8 +210,11 @@ if "related_questions" not in st.session_state:
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
-model = load_model()
 dataset = load_data()
+model = load_model()
+
+title_map = build_title_map(dataset)
+
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
@@ -201,113 +234,44 @@ def apply_filters(df, faculty, department, level, semester):
 # --- Sidebar Filters ---
 with st.sidebar:
     st.header("Filter Questions")
-    faculty_options = sorted(dataset['faculty'].dropna().unique())
-    department_options = sorted(dataset['department'].dropna().unique())
-    level_options = sorted(dataset['level'].dropna().unique())
-    semester_options = sorted(dataset['semester'].dropna().unique())
+faculties = sorted(dataset['faculty'].dropna().unique().tolist())
+departments = sorted(dataset['department'].dropna().unique().tolist())
+levels = sorted(dataset['level'].dropna().unique().tolist())
+semesters = sorted(dataset['semester'].dropna().unique().tolist())
 
-    selected_faculty = st.multiselect("Faculty", faculty_options)
-    selected_department = st.multiselect("Department", department_options)
-    selected_level = st.multiselect("Level", level_options)
-    selected_semester = st.multiselect("Semester", semester_options)
+selected_faculty = st.multiselect("Faculty", faculties)
+selected_department = st.multiselect("Department", departments)
+selected_level = st.multiselect("Level", levels)
+selected_semester = st.multiselect("Semester", semesters)
 
 filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
+filtered_questions = filtered_dataset['question'].tolist()
+filtered_embeddings = compute_question_embeddings(filtered_questions) if filtered_questions else None
 
-if filtered_dataset.empty:
-    st.warning("No questions found for the selected filters. Please adjust your filter selection.")
-    question_embeddings = None
-else:
-    question_list = filtered_dataset['question'].tolist()
-    question_embeddings = compute_question_embeddings(question_list)
-
-# --- Sidebar ---
-with st.sidebar:
-    if st.button("🧹 Clear Chat"):
-        st.session_state.chat_history = []
-        st.session_state.related_questions = []
-        st.session_state.last_department = None
-        st.rerun()
-
-# --- Title and Styles ---
-st.markdown("""
-<style>
-    html, body, .stApp { font-family: 'Open Sans', sans-serif; }
-    h1, h2, h3, h4, h5 { font-family: 'Merriweather', serif; color: #004080; }
-    .chat-message-user {
-        background-color: #d6eaff;
-        padding: 12px;
-        border-radius: 15px;
-        margin-bottom: 10px;
-        margin-left: auto;
-        max-width: 75%;
-        font-weight: 550;
-        color: #000;
-    }
-    .chat-message-assistant {
-        background-color: #f5f5f5;
-        padding: 12px;
-        border-radius: 15px;
-        margin-bottom: 10px;
-        margin-right: auto;
-        max-width: 75%;
-        font-weight: 600;
-        color: #000;
-    }
-    .related-question {
-        background-color: #e6f2ff;
-        padding: 8px 12px;
-        margin: 6px 6px 6px 0;
-        display: inline-block;
-        border-radius: 10px;
-        font-size: 0.9rem;
-        cursor: pointer;
-    }
-    .department-label {
-        font-family: 'Merriweather', serif;
-        font-size: 0.85rem;
-        color: #004080;
-        font-style: italic;
-    }
-</style>
-""", unsafe_allow_html=True)
-
+if st.button("Clear Chat"):
+    st.session_state.chat_history.clear()
+    st.session_state.related_questions.clear()
+    st.session_state.last_department = None
+    st.experimental_rerun()
+--- Main Chat UI ---
 st.title("🎓 Crescent University Chatbot")
+user_input = st.text_input("Ask me anything about Crescent University...")
 
-# --- Chat Render ---
-for message in st.session_state.chat_history:
-    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
-    with st.chat_message(message["role"]):
-        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
-        if message["role"] == "assistant" and st.session_state.last_department:
-            st.markdown(f'<div class="department-label">Department: {st.session_state.last_department}</div>', unsafe_allow_html=True)
+if user_input:
+answer, department, confidence, related_qs = find_response(user_input, filtered_dataset if selected_faculty or selected_department or selected_level or selected_semester else dataset, filtered_embeddings if filtered_embeddings is not None else question_embeddings)
 
-# --- Input ---
-prompt = st.chat_input("Ask me anything about Crescent University...")
+st.session_state.chat_history.append({"user": user_input, "bot": answer})
+st.session_state.related_questions = related_qs
+st.session_state.last_department = department
 
-if prompt:
-    st.session_state.chat_history.append({"role": "user", "content": prompt})
-    matched_row = filtered_dataset[filtered_dataset['question'].str.lower() == prompt.lower()]
-    if not matched_row.empty:
-        answer = matched_row.iloc[0]['answer']
-        department = None
-        related = []
-    else:
-        answer, department, score, related = find_response(prompt, filtered_dataset, question_embeddings)
+--- Display Chat History ---
+for chat in st.session_state.chat_history:
+st.markdown(f"You: {chat['user']}")
+st.markdown(f"Bot: {chat['bot']}")
 
-    st.session_state.chat_history.append({"role": "assistant", "content": answer})
-    st.session_state.related_questions = related
-    st.session_state.last_department = department
-    st.rerun()
-
-# --- Related Suggestions ---
+--- Display related questions ---
 if st.session_state.related_questions:
-    st.markdown("#### 💡 You might also ask:")
-    for q in st.session_state.related_questions:
-        unique_key = f"{uuid.uuid4().hex}"
-        if st.button(q, key=f"related_{unique_key}", use_container_width=True):
-            st.session_state.chat_history.append({"role": "user", "content": q})
-            answer, department, score, related = find_response(q, filtered_dataset, question_embeddings)
-            st.session_state.chat_history.append({"role": "assistant", "content": answer})
-            st.session_state.related_questions = related
-            st.session_state.last_department = department
-            st.rerun()
+st.markdown("---")
+st.markdown("Related Questions:")
+for q in st.session_state.related_questions:
+st.markdown(f"- {q}")
