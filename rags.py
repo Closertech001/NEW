@@ -11,6 +11,9 @@ import json
 import openai
 import os
 import uuid
+import time
+import logging
+from openai.error import OpenAIError, APIConnectionError, RateLimitError, InvalidRequestError, AuthenticationError
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -103,41 +106,7 @@ def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# --- Multi-Context GPT Fallback ---
-def fallback_openai(user_input, context_qas=None):
-    system_prompt = (
-        "You are a helpful assistant specialized in Crescent University. "
-        "Use the context below to answer the user's question as accurately as possible. "
-        "If unsure, encourage the user to contact the university registrar."
-    )
-    messages = [{"role": "system", "content": system_prompt}]
-
-    if context_qas:
-        context_text = "\n".join([f"Q: {qa['question']}\nA: {qa['answer']}" for qa in context_qas])
-        user_message = f"Here is some context:\n{context_text}\n\nAnswer this question: {user_input}"
-    else:
-        user_message = user_input
-
-    messages.append({"role": "user", "content": user_message})
-
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            temperature=0.3
-        )
-        return response.choices[0].message["content"].strip()
-    except Exception:
-        return "Sorry, I couldn't reach the server. Try again later."
-
-# --- Response Finder with Multi-Context RAG ---
-import time
-import logging
-from openai.error import OpenAIError, APIConnectionError, RateLimitError, InvalidRequestError, AuthenticationError
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)  # You can adjust level to DEBUG for more verbosity
-
+# --- GPT Fallback with Robust Handling ---
 def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5):
     system_prompt = (
         "You are a helpful assistant specialized in Crescent University. "
@@ -165,42 +134,43 @@ def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5
             return response.choices[0].message["content"].strip()
 
         except RateLimitError as e:
-            logger.warning(f"OpenAI API rate limit hit: {e}")
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
-                continue
-            return ("Sorry, the service is currently overloaded. "
-                    "Please try again after a short while.")
-
-        except APIConnectionError as e:
-            logger.warning(f"OpenAI API connection error: {e}")
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
-                continue
-            return ("Sorry, there was a network problem connecting to the AI service. "
-                    "Please check your internet connection and try again.")
-
-        except AuthenticationError as e:
-            logger.error(f"OpenAI API authentication error: {e}")
-            return ("Authentication failed. Please check the API key configuration.")
-
-        except InvalidRequestError as e:
-            logger.error(f"OpenAI API invalid request: {e}")
-            return ("Sorry, your request was invalid. Please try rephrasing your question.")
-
-        except OpenAIError as e:
-            logger.error(f"OpenAI API error: {e}")
-            return ("Sorry, the AI service encountered an error. Please try again later.")
-
-        except Exception as e:
-            logger.error(f"Unexpected error in OpenAI call: {e}")
-            return ("Sorry, something went wrong on our side. Please try again later.")
+            time.sleep(retry_delay)
+        except APIConnectionError:
+            time.sleep(retry_delay)
+        except AuthenticationError:
+            return "Authentication failed. Please check the API key configuration."
+        except InvalidRequestError:
+            return "Invalid request. Please try rephrasing your question."
+        except OpenAIError:
+            return "AI service error. Please try again later."
+        except Exception:
+            return "Unexpected error. Please try again later."
 
     return "Sorry, I couldn't get a response from the server at this time."
 
-    response = dataset.iloc[top_index]["answer"]
-    question = dataset.iloc[top_index]["question"]
-    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
+# --- Find Best Response ---
+def find_response(user_input, dataset, question_embeddings, top_k=5):
+    if question_embeddings is None or dataset.empty:
+        return "Sorry, I couldn't find any information matching your query.", None, 0, []
+
+    model = load_model()
+    processed_input = preprocess_text(user_input)
+    input_embedding = model.encode(processed_input, convert_to_tensor=True)
+
+    similarities = util.pytorch_cos_sim(input_embedding, question_embeddings)[0]
+    top_indices = torch.topk(similarities, k=top_k).indices
+    top_score = similarities[top_indices[0]].item()
+
+    top_context_qas = []
+    for i in top_indices:
+        top_context_qas.append({
+            "question": dataset.iloc[i]["question"],
+            "answer": dataset.iloc[i]["answer"]
+        })
+
+    response = fallback_openai(user_input, top_context_qas)
+    question = dataset.iloc[top_indices[0]]["question"]
+    related_questions = [dataset.iloc[i]["question"] for i in top_indices[1:]]
 
     match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
     department = None
@@ -209,20 +179,16 @@ def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5
         prefix = extract_prefix(code)
         department = department_map.get(prefix, "Unknown")
 
-    if random.random() < 0.2:
-        response = random.choice(["I think ", "Maybe: ", "Possibly: ", "Here's what I found: "]) + response
-
     return response, department, top_score, related_questions
 
-# --- Streamlit UI ---
+# --- Streamlit App ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
-
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
-# --- Apply filters ---
+# --- Sidebar Filters ---
 def apply_filters(df, faculty, department, level, semester):
     filtered_df = df.copy()
     if faculty:
@@ -235,7 +201,6 @@ def apply_filters(df, faculty, department, level, semester):
         filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
     return filtered_df
 
-# --- Sidebar Filters ---
 with st.sidebar:
     st.header("Filter Questions")
     faculty_options = sorted(dataset['faculty'].dropna().unique())
@@ -257,49 +222,38 @@ else:
     question_list = filtered_dataset['question'].tolist()
     question_embeddings = compute_question_embeddings(question_list)
 
-# --- Sidebar Clear Chat Button ---
 with st.sidebar:
-    if st.button("🧹 Clear Chat"):
+    if st.button("\U0001F9F9 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.session_state.last_department = None
         st.experimental_rerun()
-        raise st.script_runner.StopException
 
-# --- Initialize Session State ---
+# --- Session State Init ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
-
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
-# --- Main Chat Interface ---
-st.title("🎓 Crescent University Chatbot")
-
+# --- Chat Interface ---
+st.title("\U0001F393 Crescent University Chatbot")
 user_input = st.text_input("Ask me anything about Crescent University:")
 
 if user_input:
     response, department, score, related_questions = find_response(user_input, filtered_dataset, question_embeddings)
-
-    # Append chat history
     st.session_state.chat_history.append({"user": user_input, "bot": response})
     st.session_state.related_questions = related_questions
     st.session_state.last_department = department
 
-# --- Display chat history ---
 for chat in st.session_state.chat_history:
     st.markdown(f"**You:** {chat['user']}")
     st.markdown(f"**Bot:** {chat['bot']}")
 
-# --- Display related questions ---
 if st.session_state.related_questions:
     st.markdown("### Related questions:")
     for rq in st.session_state.related_questions:
         if st.button(f"❓ {rq}"):
-            # When related question clicked, update input box and rerun
             st.session_state.chat_history.append({"user": rq, "bot": ""})
             st.experimental_rerun()
-            raise st.script_runner.StopException
