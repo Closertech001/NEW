@@ -10,6 +10,7 @@ import pkg_resources
 import json
 import openai
 import os
+import hashlib
 import uuid
 
 # --- API Key Setup ---
@@ -181,19 +182,25 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     return response, department, top_score, related_questions
 
 # --- Streamlit UI ---
-
-# Initialize session state variables
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
-if "related_questions" not in st.session_state:
-    st.session_state.related_questions = []
-if "last_department" not in st.session_state:
-    st.session_state.last_department = None
-
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
 model = load_model()
 dataset = load_data()
+question_list = dataset['question'].tolist()
+question_embeddings = compute_question_embeddings(question_list)
+
+# --- Apply filters ---
+def apply_filters(df, faculty, department, level, semester):
+    filtered_df = df.copy()
+    if faculty:
+        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
+    if department:
+        filtered_df = filtered_df[filtered_df['department'].isin(department)]
+    if level:
+        filtered_df = filtered_df[filtered_df['level'].isin(level)]
+    if semester:
+        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
+    return filtered_df
 
 # --- Sidebar Filters ---
 with st.sidebar:
@@ -207,18 +214,6 @@ with st.sidebar:
     selected_department = st.multiselect("Department", department_options)
     selected_level = st.multiselect("Level", level_options)
     selected_semester = st.multiselect("Semester", semester_options)
-
-def apply_filters(df, faculty, department, level, semester):
-    filtered_df = df.copy()
-    if faculty:
-        filtered_df = filtered_df[filtered_df['faculty'].isin(faculty)]
-    if department:
-        filtered_df = filtered_df[filtered_df['department'].isin(department)]
-    if level:
-        filtered_df = filtered_df[filtered_df['level'].isin(level)]
-    if semester:
-        filtered_df = filtered_df[filtered_df['semester'].isin(semester)]
-    return filtered_df
 
 filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
 
@@ -235,7 +230,8 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.session_state.last_department = None
-        st.experimental_rerun()  # use this instead of st.rerun()
+        st.experimental_rerun()
+        return
 
 # --- Title and Styles ---
 st.markdown("""
@@ -283,14 +279,21 @@ st.markdown("""
 st.title("🎓 Crescent University Chatbot")
 
 # --- Chat Render ---
-for message in st.session_state.chat_history:
-    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
-    with st.chat_message(message["role"]):
-        st.markdown(f'<div class="{role_class}">{message["content"]}</div>', unsafe_allow_html=True)
-        if message["role"] == "assistant" and st.session_state.last_department:
-            st.markdown(f'<div class="department-label">Department: {st.session_state.last_department}</div>', unsafe_allow_html=True)
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+if "related_questions" not in st.session_state:
+    st.session_state.related_questions = []
+if "last_department" not in st.session_state:
+    st.session_state.last_department = None
 
-# --- Input ---
+for chat in st.session_state.chat_history:
+    if chat["role"] == "user":
+        st.markdown(f"<div class='chat-message-user'>{chat['content']}</div>", unsafe_allow_html=True)
+    else:
+        dept_label = f"<div class='department-label'>Dept: {st.session_state.last_department}</div>" if st.session_state.last_department else ""
+        st.markdown(f"<div class='chat-message-assistant'>{chat['content']}</div>{dept_label}", unsafe_allow_html=True)
+
+# --- Chat Input Handling ---
 prompt = st.chat_input("Ask me anything about Crescent University...")
 
 if prompt:
@@ -307,6 +310,7 @@ if prompt:
     st.session_state.related_questions = related
     st.session_state.last_department = department
     st.experimental_rerun()
+    return
 
 # --- Related Suggestions ---
 if st.session_state.related_questions:
@@ -320,3 +324,4 @@ if st.session_state.related_questions:
             st.session_state.related_questions = related
             st.session_state.last_department = department
             st.experimental_rerun()
+            return
