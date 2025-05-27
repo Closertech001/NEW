@@ -170,6 +170,16 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
 # --- Streamlit UI ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
 
+# --- Initialize session state ---
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+if "related_questions" not in st.session_state:
+    st.session_state.related_questions = []
+
+if "last_department" not in st.session_state:
+    st.session_state.last_department = None
+
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
