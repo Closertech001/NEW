@@ -234,25 +234,26 @@ def apply_filters(df, faculty, department, level, semester):
 # --- Sidebar Filters ---
 with st.sidebar:
     st.header("Filter Questions")
-faculties = sorted(dataset['faculty'].dropna().unique().tolist())
-departments = sorted(dataset['department'].dropna().unique().tolist())
-levels = sorted(dataset['level'].dropna().unique().tolist())
-semesters = sorted(dataset['semester'].dropna().unique().tolist())
 
-selected_faculty = st.multiselect("Faculty", faculties)
-selected_department = st.multiselect("Department", departments)
-selected_level = st.multiselect("Level", levels)
-selected_semester = st.multiselect("Semester", semesters)
+    faculties = sorted(dataset['faculty'].dropna().unique().tolist())
+    departments = sorted(dataset['department'].dropna().unique().tolist())
+    levels = sorted(dataset['level'].dropna().unique().tolist())
+    semesters = sorted(dataset['semester'].dropna().unique().tolist())
+
+    selected_faculty = st.multiselect("Faculty", faculties)
+    selected_department = st.multiselect("Department", departments)
+    selected_level = st.multiselect("Level", levels)
+    selected_semester = st.multiselect("Semester", semesters)
+
+    if st.button("Clear Chat"):
+        st.session_state.chat_history.clear()
+        st.session_state.related_questions.clear()
+        st.session_state.last_department = None
+        st.experimental_rerun()
 
 filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
 filtered_questions = filtered_dataset['question'].tolist()
 filtered_embeddings = compute_question_embeddings(filtered_questions) if filtered_questions else None
-
-if st.button("Clear Chat"):
-    st.session_state.chat_history.clear()
-    st.session_state.related_questions.clear()
-    st.session_state.last_department = None
-    st.experimental_rerun()
 
 # --- Main Chat UI ---
 st.title("🎓 Crescent University Chatbot")
@@ -261,7 +262,7 @@ user_input = st.text_input("Ask me anything about Crescent University...")
 if user_input:
     answer, department, confidence, related_qs = find_response(
         user_input,
-        filtered_dataset if selected_faculty or selected_department or selected_level or selected_semester else dataset,
+        filtered_dataset if (selected_faculty or selected_department or selected_level or selected_semester) else dataset,
         filtered_embeddings if filtered_embeddings is not None else question_embeddings
     )
 
@@ -274,9 +275,9 @@ for chat in st.session_state.chat_history:
     st.markdown(f"You: {chat['user']}")
     st.markdown(f"Bot: {chat['bot']}")
 
-# --- Display related questions ---
+# --- Display Related Questions ---
 if st.session_state.related_questions:
     st.markdown("---")
     st.markdown("Related Questions:")
     for q in st.session_state.related_questions:
-        st.markdown(f"- {q}")
+        st.write(f"- {q}")
