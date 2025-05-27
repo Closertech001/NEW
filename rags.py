@@ -13,7 +13,7 @@ import os
 import uuid
 import time
 import logging
-from openai.error import OpenAIError, APIConnectionError, RateLimitError, InvalidRequestError, AuthenticationError
+from openai import OpenAIError, APIConnectionError, RateLimitError, InvalidRequestError, AuthenticationError
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
