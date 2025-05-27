@@ -253,25 +253,30 @@ if st.button("Clear Chat"):
     st.session_state.related_questions.clear()
     st.session_state.last_department = None
     st.experimental_rerun()
---- Main Chat UI ---
+
+# --- Main Chat UI ---
 st.title("🎓 Crescent University Chatbot")
 user_input = st.text_input("Ask me anything about Crescent University...")
 
 if user_input:
-answer, department, confidence, related_qs = find_response(user_input, filtered_dataset if selected_faculty or selected_department or selected_level or selected_semester else dataset, filtered_embeddings if filtered_embeddings is not None else question_embeddings)
+    answer, department, confidence, related_qs = find_response(
+        user_input,
+        filtered_dataset if selected_faculty or selected_department or selected_level or selected_semester else dataset,
+        filtered_embeddings if filtered_embeddings is not None else question_embeddings
+    )
 
-st.session_state.chat_history.append({"user": user_input, "bot": answer})
-st.session_state.related_questions = related_qs
-st.session_state.last_department = department
+    st.session_state.chat_history.append({"user": user_input, "bot": answer})
+    st.session_state.related_questions = related_qs
+    st.session_state.last_department = department
 
---- Display Chat History ---
+# --- Display Chat History ---
 for chat in st.session_state.chat_history:
-st.markdown(f"You: {chat['user']}")
-st.markdown(f"Bot: {chat['bot']}")
+    st.markdown(f"You: {chat['user']}")
+    st.markdown(f"Bot: {chat['bot']}")
 
---- Display related questions ---
+# --- Display related questions ---
 if st.session_state.related_questions:
-st.markdown("---")
-st.markdown("Related Questions:")
-for q in st.session_state.related_questions:
-st.markdown(f"- {q}")
+    st.markdown("---")
+    st.markdown("Related Questions:")
+    for q in st.session_state.related_questions:
+        st.markdown(f"- {q}")
