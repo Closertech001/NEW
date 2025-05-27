@@ -1,4 +1,4 @@
-# --- imports ---
+# --- Imports ---
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -10,22 +10,22 @@ import pkg_resources
 import json
 import openai
 import os
-import uuid
-import time
 import logging
-
-# --- OpenAI Error Handling Setup ---
-import openai.error as openai_error
+import time
 
 # --- API Key Setup ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# --- Logging Setup ---
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # --- SymSpell Setup ---
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# --- Abbreviations and Department Mapping ---
+# --- Abbreviations & Department Mapping ---
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -108,7 +108,9 @@ def compute_question_embeddings(questions: list):
     model = load_model()
     return model.encode(questions, convert_to_tensor=True)
 
-# --- Multi-Context GPT Fallback ---
+# --- Fallback GPT Function ---
+from openai.error import OpenAIError
+
 def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5):
     system_prompt = (
         "You are a helpful assistant specialized in Crescent University. "
@@ -135,40 +137,58 @@ def fallback_openai(user_input, context_qas=None, max_retries=2, retry_delay=1.5
             )
             return response.choices[0].message["content"].strip()
 
-        except openai_error.RateLimitError as e:
+        except OpenAIError as e:
+            logger.warning(f"OpenAI API error: {e}")
             if attempt < max_retries - 1:
                 time.sleep(retry_delay)
                 continue
-            return "Sorry, the service is currently overloaded. Please try again later."
-
-        except openai_error.APIConnectionError as e:
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
-                continue
-            return "Sorry, network issue occurred. Please try again."
-
-        except openai_error.AuthenticationError as e:
-            return "Authentication failed. Please check API key."
-
-        except openai_error.InvalidRequestError as e:
-            return "Invalid request. Please rephrase your question."
-
-        except openai_error.OpenAIError as e:
-            return "An error occurred with the AI service. Try again later."
+            return "Sorry, the AI service is currently unavailable. Please try again later."
 
         except Exception as e:
-            return "Unexpected error occurred. Please try again later."
+            logger.error(f"Unexpected error: {e}")
+            return "An unexpected error occurred. Please try again later."
 
-    return "Could not connect to the AI server."
+    return "Sorry, I couldn't get a response from the server at this time."
 
-# --- Streamlit App ---
+# --- Response Finder ---
+def find_response(user_input, dataset, embeddings):
+    if embeddings is None or len(dataset) == 0:
+        return "No data available.", None, 0.0, []
+
+    preprocessed_input = preprocess_text(user_input)
+    input_embedding = load_model().encode(preprocessed_input, convert_to_tensor=True)
+
+    similarities = util.pytorch_cos_sim(input_embedding, embeddings)[0]
+    top_indices = torch.topk(similarities, k=min(5, len(similarities))).indices
+    top_score = similarities[top_indices[0]].item()
+
+    top_index = top_indices[0].item()
+    response = dataset.iloc[top_index]["answer"]
+    question = dataset.iloc[top_index]["question"]
+    related_questions = [dataset.iloc[i.item()]["question"] for i in top_indices[1:]]
+
+    match = re.search(r"\b([A-Z]{2,}-?\d{3,})\b", question)
+    department = None
+    if match:
+        code = match.group(1)
+        prefix = extract_prefix(code)
+        department = department_map.get(prefix, "Unknown")
+
+    if top_score < 0.6:
+        context_qas = [dataset.iloc[i.item()] for i in top_indices]
+        response = fallback_openai(user_input, context_qas)
+
+    return response, department, top_score, related_questions
+
+# --- Streamlit UI ---
 st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
+
 model = load_model()
 dataset = load_data()
 question_list = dataset['question'].tolist()
 question_embeddings = compute_question_embeddings(question_list)
 
-# --- Sidebar Filters ---
+# --- Filters ---
 def apply_filters(df, faculty, department, level, semester):
     filtered_df = df.copy()
     if faculty:
@@ -193,32 +213,33 @@ with st.sidebar:
     selected_level = st.multiselect("Level", level_options)
     selected_semester = st.multiselect("Semester", semester_options)
 
-filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
-
-if filtered_dataset.empty:
-    st.warning("No questions found for the selected filters. Please adjust your filter selection.")
-    question_embeddings = None
-else:
-    question_list = filtered_dataset['question'].tolist()
-    question_embeddings = compute_question_embeddings(question_list)
-
-with st.sidebar:
-    if st.button("\U0001F9F9 Clear Chat"):
+    if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.session_state.related_questions = []
         st.session_state.last_department = None
         st.experimental_rerun()
 
-# --- Session State Init ---
+filtered_dataset = apply_filters(dataset, selected_faculty, selected_department, selected_level, selected_semester)
+
+if filtered_dataset.empty:
+    st.warning("No questions found for the selected filters.")
+    question_embeddings = None
+else:
+    question_list = filtered_dataset['question'].tolist()
+    question_embeddings = compute_question_embeddings(question_list)
+
+# --- Session State ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
+
 if "related_questions" not in st.session_state:
     st.session_state.related_questions = []
+
 if "last_department" not in st.session_state:
     st.session_state.last_department = None
 
-# --- Chat Interface ---
-st.title("\U0001F393 Crescent University Chatbot")
+# --- Main Chat ---
+st.title("🎓 Crescent University Chatbot")
 user_input = st.text_input("Ask me anything about Crescent University:")
 
 if user_input:
@@ -227,10 +248,12 @@ if user_input:
     st.session_state.related_questions = related_questions
     st.session_state.last_department = department
 
+# --- Display Chat ---
 for chat in st.session_state.chat_history:
     st.markdown(f"**You:** {chat['user']}")
     st.markdown(f"**Bot:** {chat['bot']}")
 
+# --- Related Questions ---
 if st.session_state.related_questions:
     st.markdown("### Related questions:")
     for rq in st.session_state.related_questions:
