@@ -53,7 +53,27 @@ def gpt_fallback(user_input):
     )
     return response.choices[0].message['content'].strip()
 
-# Streamlit UI with chat history
+def render_message(message, is_user=True):
+    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
+    align = "right" if is_user else "left"
+    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
+    return f"""
+    <div style="
+        background-color: {bg_color};
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+        margin: {margin};
+        text-align: left;
+        float: {align};
+        clear: both;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    ">
+        {message}
+    </div>
+    """
+
 st.title("Crescent University Chatbot")
 st.markdown("Ask me anything about Crescent University 🧠")
 
@@ -67,15 +87,15 @@ if user_input:
         response = find_response(user_input, data, question_embeddings)
         if not response:
             response = gpt_fallback(user_input)
-        # Append user message and bot response to chat history
-        st.session_state.history.append({"user": user_input, "bot": response})
+        st.session_state.history.append({
+            "user": user_input,
+            "bot": response
+        })
 
-# Display chat history
 for chat in st.session_state.history:
-    st.markdown(f"**You:** {chat['user']}")
-    st.markdown(f"**Bot:** {chat['bot']}")
+    st.markdown(render_message(chat["user"], is_user=True), unsafe_allow_html=True)
+    st.markdown(render_message(chat["bot"], is_user=False), unsafe_allow_html=True)
 
-# Example prompts for user
 st.markdown("---")
 st.markdown("**Examples:**")
 st.markdown("- What is the vision of Crescent University?")
