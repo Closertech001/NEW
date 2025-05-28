@@ -160,6 +160,14 @@
     "faculty": ""
   },
   {
+    "question": "What are the graduation requirements?",
+    "answer": "UTME students: minimum 120 credits. Direct Entry: minimum 90 credits.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
     "question": "Are there any student support or development activities?",
     "answer": "Yes, career counseling, skill training, industrial visits, science fairs, etc.",
     "department": "",
@@ -184,6 +192,14 @@
     "faculty": ""
   },
   {
+    "question": "What are the Direct Entry requirements?",
+    "answer": "Two A-levels or IJMB, ND (Upper Credit) for 200 level, or HND (Upper Credit/Distinction) for 300 level. Offered in departments: Department of Architecture.",
+    "department": "Department of Architecture",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
     "question": "Are transfer candidates accepted?",
     "answer": "Yes, if they meet the minimum requirements and submit transcripts and reports with at least 1.5 CGPA.",
     "department": "",
@@ -194,14 +210,6 @@
   {
     "question": "What is the programme duration?",
     "answer": "UTME: 4 years (8 semesters); Direct Entry: 3 years (6 semesters).",
-    "department": "",
-    "level": "",
-    "semester": "",
-    "faculty": ""
-  },
-  {
-    "question": "What are the graduation requirements?",
-    "answer": "UTME students: minimum 120 credits. Direct Entry: minimum 90 credits.",
     "department": "",
     "level": "",
     "semester": "",
@@ -777,8 +785,8 @@
   },
   {
     "question": "Is SIWES included in 300 Level Accounting?",
-    "answer": "Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level.",
-    "department": "Accounting",
+    "answer": "Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level. Offered in departments: Accounting, Department of Accounting.",
+    "department": "Accounting, Department of Accounting",
     "level": "300",
     "semester": "",
     "faculty": "CASMAS"
@@ -858,14 +866,6 @@
   {
     "question": "What are the UTME requirements for Architecture?",
     "answer": "Five credits including Mathematics, English, Physics, and two others (e.g., Chemistry, Fine Arts). UTME subjects: Mathematics, Physics, and one from Chemistry, Geography, Fine Arts, or Technical Drawing.",
-    "department": "Department of Architecture",
-    "level": "",
-    "semester": "",
-    "faculty": ""
-  },
-  {
-    "question": "What are the Direct Entry requirements?",
-    "answer": "Two A-levels or IJMB, ND (Upper Credit) for 200 level, or HND (Upper Credit/Distinction) for 300 level.",
     "department": "Department of Architecture",
     "level": "",
     "semester": "",
@@ -2097,7 +2097,7 @@
   },
   {
     "question": "What courses are offered at the 100 level Department of Mass Communication?",
-    "answer": "100level First Semester Courses include Communication in English, Introduction to Human Communication, Foundations of Broadcasting and Film, Introduction to Advertising, Book Publishing, Photojournalism, Grammar for Journalism I.",
+    "answer": "100level First Semester Courses include Communication in English, Introduction to Human Communication, Foundations of Broadcasting and Film, Introduction to Advertising, Book Publishing, Photojournalism, Grammar for Journalism I. Offered in departments: Mass Communication.",
     "department": "Mass Communication",
     "level": "100",
     "semester": "",
@@ -2105,7 +2105,7 @@
   },
   {
     "question": "What courses are offered at the 100 level Department of Mass Communication?",
-    "answer": "100level Second Semester Courses include Nigerian Peoples and Culture, Writing for the Media, Principles of PR, News Writing, African Communication Systems, Studio Appreciation, Environmental Journalism, Lifestyle Journalism.",
+    "answer": "100level Second Semester Courses include Nigerian Peoples and Culture, Writing for the Media, Principles of PR, News Writing, African Communication Systems, Studio Appreciation, Environmental Journalism, Lifestyle Journalism. Offered in departments: Mass Communication.",
     "department": "Mass Communication",
     "level": "100",
     "semester": "",
@@ -2129,7 +2129,7 @@
   },
   {
     "question": "What are the 400 level courses and structure Mass Communication?",
-    "answer": "First Semester: Core courses in international communication, project work, media attachment, mass media law, message design, fact-checking, brand and event management, PRAD and digital broadcasting specialization.",
+    "answer": "First Semester: Core courses in international communication, project work, media attachment, mass media law, message design, fact-checking, brand and event management, PRAD and digital broadcasting specialization. Offered in departments: Mass Communication.",
     "department": "Mass Communication",
     "level": "400",
     "semester": "",
@@ -2137,7 +2137,7 @@
   },
   {
     "question": "What are the 400 level courses and structure Mass Communication?",
-    "answer": "Second Semester: Courses include Communication and Society, media ethics, development communication, community media, specialist journalism, and health communication.",
+    "answer": "Second Semester: Courses include Communication and Society, media ethics, development communication, community media, specialist journalism, and health communication. Offered in departments: Mass Communication.",
     "department": "Mass Communication",
     "level": "400",
     "semester": "",
@@ -2793,10 +2793,10 @@
   },
   {
     "question": "What course is Entrepreneurship and how many units is it?",
-    "answer": "Entrepreneurship, units not specified in original data.",
+    "answer": "Entrepreneurship, units not specified in original data. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
-    "level": "200",
-    "semester": "First",
+    "level": "200, 400",
+    "semester": "First, Second",
     "faculty": "CONAS"
   },
   {
@@ -2839,7 +2839,6 @@
     "semester": "First",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Physical Chemistry and how many units is it?",
     "answer": "Physical Chemistry, units not specified in original data.",
@@ -2880,7 +2879,6 @@
     "semester": "Second",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Enzymology and how many units is it?",
     "answer": "Enzymology, units not specified in original data.",
@@ -2945,7 +2943,6 @@
     "semester": "First",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Carbohydrate & Amino Acid Metabolism and how many units is it?",
     "answer": "Carbohydrate & Amino Acid Metabolism, units not specified in original data.",
@@ -2994,7 +2991,6 @@
     "semester": "Second",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Advanced Enzymology and how many units is it?",
     "answer": "Advanced Enzymology, units not specified in original data.",
@@ -3051,7 +3047,6 @@
     "semester": "First",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Molecular Biochemistry and how many units is it?",
     "answer": "Molecular Biochemistry, units not specified in original data.",
@@ -3071,14 +3066,6 @@
   {
     "question": "What course is Research Project and how many units is it?",
     "answer": "Research Project, 6 units.",
-    "department": "Department of Chemical Sciences (Biochemistry)",
-    "level": "400",
-    "semester": "Second",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is Entrepreneurship and how many units is it?",
-    "answer": "Entrepreneurship, units not specified in original data.",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "400",
     "semester": "Second",
@@ -3180,7 +3167,6 @@
     "semester": "",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is General Microbiology in Microbiology?",
     "answer": "General Microbiology is offered in 200 Level Microbiology.",
@@ -3245,7 +3231,6 @@
     "semester": "",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Fungi in Microbiology?",
     "answer": "Fungi is offered in 300 Level Microbiology.",
@@ -3318,7 +3303,6 @@
     "semester": "",
     "faculty": "CONAS"
   },
-
   {
     "question": "What course is Epidemiology in Microbiology?",
     "answer": "Epidemiology is offered in 400 Level Microbiology.",
@@ -3808,14 +3792,6 @@
     "faculty": "CASMAS"
   },
   {
-    "question": "Is SIWES included in 300 Level Accounting?",
-    "answer": "Yes, the Student Industrial Work Experience Scheme (SIWES) is taken at this level.",
-    "department": "Department of Accounting",
-    "level": "300",
-    "semester": "",
-    "faculty": "CASMAS"
-  },
-  {
     "question": "What course is Advanced Taxation in Accounting?",
     "answer": "Advanced Taxation is offered in 400 Level Accounting.",
     "department": "Department of Accounting",
@@ -3873,7 +3849,31 @@
   },
   {
     "question": "What course is GST 111 and how many units is it?",
-    "answer": "Communication in English for Biochemistry, 2 units.",
+    "answer": "Communication in English for Biochemistry, 2 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is GST 111 and how many units is it?",
+    "answer": "Communication in English, 2 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is GST 111 and how many units is it?",
+    "answer": "Communication Skills in English, 2 units. Offered in departments: Economics.",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What course is MTH 101 and how many units is it?",
+    "answer": "Elementary Mathematics I for Biochemistry, 2 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "100",
     "semester": "First",
@@ -3881,7 +3881,15 @@
   },
   {
     "question": "What course is MTH 101 and how many units is it?",
-    "answer": "Elementary Mathematics I for Biochemistry, 2 units.",
+    "answer": "Elementary Mathematics I, 2 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is COS 101 and how many units is it?",
+    "answer": "Intro to Computing Sciences for Biochemistry, 3 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "100",
     "semester": "First",
@@ -3889,8 +3897,8 @@
   },
   {
     "question": "What course is COS 101 and how many units is it?",
-    "answer": "Intro to Computing Sciences for Biochemistry, 3 units.",
-    "department": "Department of Chemical Sciences (Biochemistry)",
+    "answer": "Introduction to Computing Sciences, 3 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
     "level": "100",
     "semester": "First",
     "faculty": "CONAS"
@@ -3929,7 +3937,23 @@
   },
   {
     "question": "What course is PHY 101 and how many units is it?",
-    "answer": "General Physics I for Biochemistry, 2 units.",
+    "answer": "General Physics I for Biochemistry, 2 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 101 and how many units is it?",
+    "answer": "General Physics I, 2 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 107 and how many units is it?",
+    "answer": "General Physics Practical I for Biochemistry, 1 unit. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "100",
     "semester": "First",
@@ -3937,8 +3961,8 @@
   },
   {
     "question": "What course is PHY 107 and how many units is it?",
-    "answer": "General Physics Practical I for Biochemistry, 1 unit.",
-    "department": "Department of Chemical Sciences (Biochemistry)",
+    "answer": "General Practical Physics I, 1 unit. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
     "level": "100",
     "semester": "First",
     "faculty": "CONAS"
@@ -3953,7 +3977,23 @@
   },
   {
     "question": "What course is GST 112 and how many units is it?",
-    "answer": "Nigerian People and Culture for Biochemistry, 2 units.",
+    "answer": "Nigerian People and Culture for Biochemistry, 2 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is GST 112 and how many units is it?",
+    "answer": "Nigerian Peoples and Culture, 2 units. Offered in departments: Department of Computer Science, Economics.",
+    "department": "Department of Computer Science, Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS, CONAS"
+  },
+  {
+    "question": "What course is MTH 102 and how many units is it?",
+    "answer": "Elementary Mathematics II for Biochemistry, 2 units. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "100",
     "semester": "Second",
@@ -3961,8 +4001,8 @@
   },
   {
     "question": "What course is MTH 102 and how many units is it?",
-    "answer": "Elementary Mathematics II for Biochemistry, 2 units.",
-    "department": "Department of Chemical Sciences (Biochemistry)",
+    "answer": "Elementary Mathematics II, 2 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
     "level": "100",
     "semester": "Second",
     "faculty": "CONAS"
@@ -4001,7 +4041,23 @@
   },
   {
     "question": "What course is PHY 102 and how many units is it?",
-    "answer": "General Physics II, 2 units for Biochemistry.",
+    "answer": "General Physics II, 2 units for Biochemistry. Offered in departments: Department of Chemical Sciences (Biochemistry).",
+    "department": "Department of Chemical Sciences (Biochemistry)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 102 and how many units is it?",
+    "answer": "General Physics II, 2 units. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What course is PHY 108 and how many units is it?",
+    "answer": "General Physics Practical II for Biochemistry, 1 unit. Offered in departments: Department of Chemical Sciences (Biochemistry).",
     "department": "Department of Chemical Sciences (Biochemistry)",
     "level": "100",
     "semester": "Second",
@@ -4009,55 +4065,15 @@
   },
   {
     "question": "What course is PHY 108 and how many units is it?",
-    "answer": "General Physics Practical II for Biochemistry, 1 unit.",
-    "department": "Department of Chemical Sciences (Biochemistry)",
+    "answer": "General Practical Physics II, 1 unit. Offered in departments: Department of Computer Science.",
+    "department": "Department of Computer Science",
     "level": "100",
     "semester": "Second",
     "faculty": "CONAS"
   },
   {
-    "question": "What course is GST 111 and how many units is it?",
-    "answer": "Communication in English, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is MTH 101 and how many units is it?",
-    "answer": "Elementary Mathematics I, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is PHY 101 and how many units is it?",
-    "answer": "General Physics I, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is PHY 107 and how many units is it?",
-    "answer": "General Practical Physics I, 1 unit.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
     "question": "What course is STA 111 and how many units is it?",
     "answer": "Descriptive Statistics, 3 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is COS 101 and how many units is it?",
-    "answer": "Introduction to Computing Sciences, 3 units.",
     "department": "Department of Computer Science",
     "level": "100",
     "semester": "First",
@@ -4077,38 +4093,6 @@
     "department": "Department of Computer Science",
     "level": "100",
     "semester": "First",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is GST 112 and how many units is it?",
-    "answer": "Nigerian Peoples and Culture, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "Second",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is MTH 102 and how many units is it?",
-    "answer": "Elementary Mathematics II, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "Second",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is PHY 102 and how many units is it?",
-    "answer": "General Physics II, 2 units.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "Second",
-    "faculty": "CONAS"
-  },
-  {
-    "question": "What course is PHY 108 and how many units is it?",
-    "answer": "General Practical Physics II, 1 unit.",
-    "department": "Department of Computer Science",
-    "level": "100",
-    "semester": "Second",
     "faculty": "CONAS"
   },
   {
@@ -4145,11 +4129,19 @@
   },
   {
     "question": "What course is ENT 211 and how many units is it?",
-    "answer": "Entrepreneurship and Innovation, 2 units.",
+    "answer": "Entrepreneurship and Innovation, 2 units. Offered in departments: Department of Computer Science.",
     "department": "Department of Computer Science",
     "level": "200",
     "semester": "First",
     "faculty": "CONAS"
+  },
+  {
+    "question": "What course is ENT 211 and how many units is it?",
+    "answer": "Entrepreneurship, 2 units. Offered in departments: Economics.",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
   },
   {
     "question": "What course is MTH 201 and how many units is it?",
@@ -4201,11 +4193,11 @@
   },
   {
     "question": "What course is GST 212 and how many units is it?",
-    "answer": "Philosophy, Logic and Human Existence, 2 units.",
-    "department": "Department of Computer Science",
+    "answer": "Philosophy, Logic and Human Existence, 2 units. Offered in departments: Department of Computer Science, Economics.",
+    "department": "Department of Computer Science, Economics",
     "level": "200",
     "semester": "Second",
-    "faculty": "CONAS"
+    "faculty": "CASMAS, CONAS"
   },
   {
     "question": "What course is MTH 202 and how many units is it?",
@@ -4305,19 +4297,19 @@
   },
   {
     "question": "What course is GST 312 and how many units is it?",
-    "answer": "Peace and Conflict Resolution, 2 units.",
-    "department": "Department of Computer Science",
+    "answer": "Peace and Conflict Resolution, 2 units. Offered in departments: Department of Computer Science, Economics.",
+    "department": "Department of Computer Science, Economics",
     "level": "300",
     "semester": "Second",
-    "faculty": "CONAS"
+    "faculty": "CASMAS, CONAS"
   },
   {
     "question": "What course is ENT 312 and how many units is it?",
-    "answer": "Venture Creation, 2 units.",
-    "department": "Department of Computer Science",
+    "answer": "Venture Creation, 2 units. Offered in departments: Department of Computer Science, Economics.",
+    "department": "Department of Computer Science, Economics",
     "level": "300",
     "semester": "Second",
-    "faculty": "CONAS"
+    "faculty": "CASMAS, CONAS"
   },
   {
     "question": "What course is CSC 308 and how many units is it?",
@@ -4480,14 +4472,6 @@
     "faculty": ""
   },
   {
-    "question": "What course is GST 111 and how many units is it?",
-    "answer": "Communication Skills in English, 2 units.",
-    "department": "Economics",
-    "level": "100",
-    "semester": "First",
-    "faculty": "CASMAS"
-  },
-  {
     "question": "What course is ECO 101 and how many units is it?",
     "answer": "Principles of Economics I, 2 units.",
     "department": "Economics",
@@ -4544,14 +4528,6 @@
     "faculty": "CASMAS"
   },
   {
-    "question": "What course is GST 112 and how many units is it?",
-    "answer": "Nigerian Peoples and Culture, 2 units.",
-    "department": "Economics",
-    "level": "100",
-    "semester": "Second",
-    "faculty": "CASMAS"
-  },
-  {
     "question": "What course is ECO 102 and how many units is it?",
     "answer": "Principles of Economics II, 2 units.",
     "department": "Economics",
@@ -4605,14 +4581,6 @@
     "department": "Economics",
     "level": "100",
     "semester": "Second",
-    "faculty": "CASMAS"
-  },
-  {
-    "question": "What course is ENT 211 and how many units is it?",
-    "answer": "Entrepreneurship, 2 units.",
-    "department": "Economics",
-    "level": "200",
-    "semester": "First",
     "faculty": "CASMAS"
   },
   {
@@ -4677,14 +4645,6 @@
     "department": "Economics",
     "level": "200",
     "semester": "First",
-    "faculty": "CASMAS"
-  },
-  {
-    "question": "What course is GST 212 and how many units is it?",
-    "answer": "Philosophy, Logic and Human Existence, 2 units.",
-    "department": "Economics",
-    "level": "200",
-    "semester": "Second",
     "faculty": "CASMAS"
   },
   {
@@ -4813,22 +4773,6 @@
     "department": "Economics",
     "level": "300",
     "semester": "First",
-    "faculty": "CASMAS"
-  },
-  {
-    "question": "What course is GST 312 and how many units is it?",
-    "answer": "Peace and Conflict Resolution, 2 units.",
-    "department": "Economics",
-    "level": "300",
-    "semester": "Second",
-    "faculty": "CASMAS"
-  },
-  {
-    "question": "What course is ENT 312 and how many units is it?",
-    "answer": "Venture Creation, 2 units.",
-    "department": "Economics",
-    "level": "300",
-    "semester": "Second",
     "faculty": "CASMAS"
   },
   {
@@ -5431,9 +5375,9 @@
     "semester": "Second",
     "faculty": "BACOLAW"
   },
-    {
+  {
     "question": "What are the courses introduced in 100 level first semester Anatomy?",
-    "answer": "General Biology I (BIO 101) Unit:3",
+    "answer": "General Biology I (BIO 101) Unit:3 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "100",
     "semester": "First",
@@ -5441,7 +5385,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Anatomy?",
-    "answer": "General Biology Practical I (BIO 191)",
+    "answer": "General Biology Practical I (BIO 191) Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "100",
     "semester": "First",
@@ -5449,7 +5393,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level second semester Anatomy?",
-    "answer": "General Biology Practical II (BIO 192) Unit:1",
+    "answer": "General Biology Practical II (BIO 192) Unit:1 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "100",
     "semester": "Second",
@@ -5457,7 +5401,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level second semester Anatomy?",
-    "answer": "General Biology II (BIO 101) Unit:3",
+    "answer": "General Biology II (BIO 101) Unit:3 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "100",
     "semester": "Second",
@@ -5465,7 +5409,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Anatomy?",
-    "answer": "Introductory Anatomy (ANA 201) Unit:2",
+    "answer": "Introductory Anatomy (ANA 201) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "First",
@@ -5473,7 +5417,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Anatomy?",
-    "answer": "Gross Anatomy of Upper Limb (ANA 203) Unit:2",
+    "answer": "Gross Anatomy of Upper Limb (ANA 203) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "First",
@@ -5481,7 +5425,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Anatomy?",
-    "answer": "Gross Anatomy of lower Limb (ANA 205) Unit:2",
+    "answer": "Gross Anatomy of lower Limb (ANA 205) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "First",
@@ -5489,7 +5433,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Anatomy?",
-    "answer": "Histology of Basic Tissues (ANA 207) Unit:2",
+    "answer": "Histology of Basic Tissues (ANA 207) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "First",
@@ -5497,7 +5441,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Anatomy?",
-    "answer": "General Embryology (ANA 209) Unit:2",
+    "answer": "General Embryology (ANA 209) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "First",
@@ -5505,7 +5449,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Anatomy?",
-    "answer": "Gross Anatomy of Thorax (ANA 202) Unit:2",
+    "answer": "Gross Anatomy of Thorax (ANA 202) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "Second",
@@ -5513,7 +5457,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Anatomy?",
-    "answer": "Gross Anatomy of Pelvic and Perineum (ANA 204) Unit:2",
+    "answer": "Gross Anatomy of Pelvic and Perineum (ANA 204) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "Second",
@@ -5521,7 +5465,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Anatomy?",
-    "answer": "Systematics Histology (Organology) (ANA 206) Unit:2",
+    "answer": "Systematics Histology (Organology) (ANA 206) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "Second",
@@ -5529,7 +5473,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Anatomy?",
-    "answer": "Systemic Embryology (Organogenesis) (ANA 208) Unit:2",
+    "answer": "Systemic Embryology (Organogenesis) (ANA 208) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "200",
     "semester": "Second",
@@ -5537,7 +5481,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Anatomy?",
-    "answer": "Gross Anatomy of Head andNeck (ANA 301) Unit:2",
+    "answer": "Gross Anatomy of Head andNeck (ANA 301) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "First",
@@ -5545,7 +5489,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Anatomy?",
-    "answer": "Neuroanatomy (ANA 303) Unit:2",
+    "answer": "Neuroanatomy (ANA 303) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "First",
@@ -5553,7 +5497,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Anatomy?",
-    "answer": "Histology of Special Senses & Neurohistology (ANA 305) Unit:2",
+    "answer": "Histology of Special Senses & Neurohistology (ANA 305) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "First",
@@ -5561,7 +5505,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Anatomy?",
-    "answer": "Radiologic Anatomy andTechniques (ANA 302) Unit:2",
+    "answer": "Radiologic Anatomy andTechniques (ANA 302) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "Second",
@@ -5569,7 +5513,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Anatomy?",
-    "answer": "Histochemistry and Cytochemistry (ANA 304) Unit:3",
+    "answer": "Histochemistry and Cytochemistry (ANA 304) Unit:3 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "Second",
@@ -5577,7 +5521,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Anatomy?",
-    "answer": "Cell and Molecular Biology (ANA 306) Unit:2",
+    "answer": "Cell and Molecular Biology (ANA 306) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "300",
     "semester": "Second",
@@ -5585,7 +5529,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Anatomy?",
-    "answer": "Surface &Prosthetic Anatomy (ANA 401) Unit:2",
+    "answer": "Surface &Prosthetic Anatomy (ANA 401) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "First",
@@ -5593,7 +5537,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Anatomy?",
-    "answer": "Anatomical and Museum Techniques (ANA 403) Unit:4",
+    "answer": "Anatomical and Museum Techniques (ANA 403) Unit:4 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "First",
@@ -5601,7 +5545,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Anatomy?",
-    "answer": "Introduction to Electron Microscopy (ANA 405) Unit:2",
+    "answer": "Introduction to Electron Microscopy (ANA 405) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "First",
@@ -5609,7 +5553,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Anatomy?",
-    "answer": "Skeletal Biology and Anthropology (ANA 407) Unit:2",
+    "answer": "Skeletal Biology and Anthropology (ANA 407) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "First",
@@ -5617,7 +5561,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Electron Microscopic Technique and Ultrastructure (ANA 402) Unit:4",
+    "answer": "Electron Microscopic Technique and Ultrastructure (ANA 402) Unit:4 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5625,7 +5569,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Introduction to Histopathology (ANA 404) Unit:2",
+    "answer": "Introduction to Histopathology (ANA 404) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5633,7 +5577,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Introduction to Forensic Science (ANA 406) Unit:2",
+    "answer": "Introduction to Forensic Science (ANA 406) Unit:2 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5641,7 +5585,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Introduction to Archaeology (ANA 408) Unit:3",
+    "answer": "Introduction to Archaeology (ANA 408) Unit:3 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5649,7 +5593,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Final Year Project (ANA 498) Unit:6",
+    "answer": "Final Year Project (ANA 498) Unit:6 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5657,7 +5601,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Health Physics and Reactors (PHS 422) Unit:3",
+    "answer": "Health Physics and Reactors (PHS 422) Unit:3 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5665,7 +5609,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Anatomy?",
-    "answer": "Total Units:20",
+    "answer": "Total Units:20 Offered in departments: Anatomy.",
     "department": "Anatomy",
     "level": "400",
     "semester": "Second",
@@ -5689,7 +5633,7 @@
   },
   {
     "question": "What courses are offered in 100level first semester Accounting?",
-    "answer": "Communication in English Language (GST 111) Unit:2",
+    "answer": "Communication in English Language (GST 111) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "First",
@@ -5697,7 +5641,7 @@
   },
   {
     "question": "What courses are offered in 100level first semester Accounting?",
-    "answer": "Principles of Management (AMS 101) Unit:2",
+    "answer": "Principles of Management (AMS 101) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "First",
@@ -5705,7 +5649,7 @@
   },
   {
     "question": "What courses are offered in 100level first semester Accounting?",
-    "answer": "Introduction to Computing (AMS 103) Unit:2",
+    "answer": "Introduction to Computing (AMS 103) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "First",
@@ -5713,7 +5657,7 @@
   },
   {
     "question": "What courses are offered in 100level second semester Accounting?",
-    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2",
+    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "First",
@@ -5721,7 +5665,7 @@
   },
   {
     "question": "What courses are offered in 100level second semester Accounting?",
-    "answer": "Basic Mathematics (AMS 102) Unit:2",
+    "answer": "Basic Mathematics (AMS 102) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "Second",
@@ -5729,7 +5673,7 @@
   },
   {
     "question": "What courses are offered in 100level second semester Accounting?",
-    "answer": "Principles of Project Management (AMS 104) Unit:2",
+    "answer": "Principles of Project Management (AMS 104) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "Second",
@@ -5737,7 +5681,7 @@
   },
   {
     "question": "What courses are offered in 100level second semester Accounting?",
-    "answer": "Introduction to Financial Accounting II (ACC 102) Unit:3",
+    "answer": "Introduction to Financial Accounting II (ACC 102) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "Second",
@@ -5745,7 +5689,7 @@
   },
   {
     "question": "What courses are offered in 100level second semester Accounting?",
-    "answer": "Basic Psychology for Accounting",
+    "answer": "Basic Psychology for Accounting Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "100",
     "semester": "Second",
@@ -5753,7 +5697,7 @@
   },
   {
     "question": "What courses are offered in 200level first semester Accounting?",
-    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2",
+    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "First",
@@ -5761,7 +5705,7 @@
   },
   {
     "question": "What courses are offered in 200level first semester Accounting?",
-    "answer": "Financial Accounting I (ACC 201) Unit:3",
+    "answer": "Financial Accounting I (ACC 201) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "First",
@@ -5769,7 +5713,7 @@
   },
   {
     "question": "What courses are offered in 200level first semester Accounting?",
-    "answer": "Corporate Governance & Accounting Ethics (ACC 203) Unit:3",
+    "answer": "Corporate Governance & Accounting Ethics (ACC 203) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "First",
@@ -5777,7 +5721,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Philosophy, Logic, and Human Existence (GST 212) Unit:2",
+    "answer": "Philosophy, Logic, and Human Existence (GST 212) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5785,7 +5729,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Financial Accounting II (ACC 202) Unit:3",
+    "answer": "Financial Accounting II (ACC 202) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5793,7 +5737,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Cost Accounting (ACC 204) Unit:3",
+    "answer": "Cost Accounting (ACC 204) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5801,7 +5745,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Accounting Laboratory (ACC 206) Unit:3",
+    "answer": "Accounting Laboratory (ACC 206) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5809,7 +5753,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Accounting Theory (CUAB-ACC 208) Unit:2",
+    "answer": "Accounting Theory (CUAB-ACC 208) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5817,7 +5761,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Business Policy and Strategic Management (CUAB-ACC 212) Unit:2",
+    "answer": "Business Policy and Strategic Management (CUAB-ACC 212) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5825,7 +5769,7 @@
   },
   {
     "question": "What courses are offered in 200level second semester Accounting?",
-    "answer": "Total Units:15",
+    "answer": "Total Units:15 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "200",
     "semester": "Second",
@@ -5833,7 +5777,7 @@
   },
   {
     "question": "What courses are offered in 300level first semester Accounting?",
-    "answer": "Financial Reporting I (ACC 301) Unit:3",
+    "answer": "Financial Reporting I (ACC 301) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "First",
@@ -5841,7 +5785,7 @@
   },
   {
     "question": "What courses are offered in 300level first semester Accounting?",
-    "answer": "Management Accounting (ACC 303) Unit:3",
+    "answer": "Management Accounting (ACC 303) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "First",
@@ -5849,7 +5793,7 @@
   },
   {
     "question": "What courses are offered in 300level first semester Accounting?",
-    "answer": "Taxation I (ACC 305) Unit:3",
+    "answer": "Taxation I (ACC 305) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "First",
@@ -5857,7 +5801,7 @@
   },
   {
     "question": "What courses are offered in 300level first semester Accounting?",
-    "answer": "Auditing and Assurance I (ACC 307) Unit:3",
+    "answer": "Auditing and Assurance I (ACC 307) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "First",
@@ -5865,7 +5809,7 @@
   },
   {
     "question": "What courses are offered in 300level second semester Accounting?",
-    "answer": "Peace and Conflict Resolution (GST 312) Unit:2",
+    "answer": "Peace and Conflict Resolution (GST 312) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "Second",
@@ -5873,7 +5817,7 @@
   },
   {
     "question": "What courses are offered in 300level second semester Accounting?",
-    "answer": "Venture Creation (ENT 312) Unit:2",
+    "answer": "Venture Creation (ENT 312) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "Second",
@@ -5881,7 +5825,7 @@
   },
   {
     "question": "What courses are offered in 300level second semester Accounting?",
-    "answer": "Financial Reporting I (ACC 302) Unit:3",
+    "answer": "Financial Reporting I (ACC 302) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "Second",
@@ -5889,7 +5833,7 @@
   },
   {
     "question": "What courses are offered in 300level second semester Accounting?",
-    "answer": "Taxation II (ACC 306) Unit:3",
+    "answer": "Taxation II (ACC 306) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "300",
     "semester": "Second",
@@ -5897,7 +5841,7 @@
   },
   {
     "question": "What courses are offered in 400level first semester Accounting?",
-    "answer": "Advanced Financial Reporting (ACC 401) Unit:3",
+    "answer": "Advanced Financial Reporting (ACC 401) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "First",
@@ -5905,7 +5849,7 @@
   },
   {
     "question": "What courses are offered in 400level first semester Accounting?",
-    "answer": "Auditing and Assurance II",
+    "answer": "Auditing and Assurance II Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "First",
@@ -5913,7 +5857,7 @@
   },
   {
     "question": "What courses are offered in 400level second semester Accounting?",
-    "answer": "Corporate Reporting (ACC 402) Unit:3",
+    "answer": "Corporate Reporting (ACC 402) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "Second",
@@ -5921,7 +5865,7 @@
   },
   {
     "question": "What courses are offered in 400level second semester Accounting?",
-    "answer": "Financial Management (ACC 404) Unit:3",
+    "answer": "Financial Management (ACC 404) Unit:3 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "Second",
@@ -5929,7 +5873,7 @@
   },
   {
     "question": "What courses are offered in 400level second semester Accounting?",
-    "answer": "Project (ACC 490) Unit:6",
+    "answer": "Project (ACC 490) Unit:6 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "Second",
@@ -5937,7 +5881,7 @@
   },
   {
     "question": "What courses are offered in 400level second semester Accounting?",
-    "answer": "Environmental Accounting (CUAB-ACC 406) Unit:2",
+    "answer": "Environmental Accounting (CUAB-ACC 406) Unit:2 Offered in departments: Accounting.",
     "department": "Accounting",
     "level": "400",
     "semester": "Second",
@@ -5977,7 +5921,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Architecture?",
-    "answer": "Communication in English (GST 111) Unit:2",
+    "answer": "Communication in English (GST 111) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "First",
@@ -5985,7 +5929,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Architecture?",
-    "answer": "Elementary Mathematics I (MTH 101) Unit:2",
+    "answer": "Elementary Mathematics I (MTH 101) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "First",
@@ -5993,7 +5937,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Architecture?",
-    "answer": "Elementary Mathematics III (MTH 102) Unit:2",
+    "answer": "Elementary Mathematics III (MTH 102) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "First",
@@ -6001,7 +5945,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Architecture?",
-    "answer": "General Physics  (Mechanics) I (PHY 101) Unit:2",
+    "answer": "General Physics  (Mechanics) I (PHY 101) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "First",
@@ -6009,7 +5953,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level first semester Architecture?",
-    "answer": "Graphics Communication I (FAA 103) Unit:2",
+    "answer": "Graphics Communication I (FAA 103) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "First",
@@ -6017,7 +5961,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level second semester Architecture?",
-    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2",
+    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "Second",
@@ -6025,7 +5969,7 @@
   },
   {
     "question": "What are the courses introduced in 100 level second semester Architecture?",
-    "answer": "Graphics Communication II",
+    "answer": "Graphics Communication II Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "100",
     "semester": "Second",
@@ -6033,7 +5977,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Architecture?",
-    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2",
+    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "First",
@@ -6041,7 +5985,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Architecture?",
-    "answer": "Introduction to Computer-Aided Design (FAA 221) Unit:2",
+    "answer": "Introduction to Computer-Aided Design (FAA 221) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "First",
@@ -6049,7 +5993,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level first semester Architecture?",
-    "answer": "Architectural Design Studio I (ARC 201) Unit:2",
+    "answer": "Architectural Design Studio I (ARC 201) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "First",
@@ -6057,7 +6001,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Philosophy, Logic and Human Existence (GST 212) Unit:2",
+    "answer": "Philosophy, Logic and Human Existence (GST 212) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6065,7 +6009,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Architectural Design Studio II (ARC 202) Unit:2",
+    "answer": "Architectural Design Studio II (ARC 202) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6073,7 +6017,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Building Components and Methods II (ARC 204) Unit:2",
+    "answer": "Building Components and Methods II (ARC 204) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6081,7 +6025,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Building materials workshop practice and safety (ARC 206) Unit:2",
+    "answer": "Building materials workshop practice and safety (ARC 206) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6089,7 +6033,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Building Structures I (ARC 208) Unit:2",
+    "answer": "Building Structures I (ARC 208) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6097,7 +6041,7 @@
   },
   {
     "question": "What are the courses introduced in 200 level second semester Architecture?",
-    "answer": "Islamic Architecture (CUAB-ARC210) Unit:2",
+    "answer": "Islamic Architecture (CUAB-ARC210) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "200",
     "semester": "Second",
@@ -6105,7 +6049,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Architecture?",
-    "answer": "Research Methods (FAA 313) Unit:2",
+    "answer": "Research Methods (FAA 313) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "First",
@@ -6113,7 +6057,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Architecture?",
-    "answer": "Architectural Design Studio III (ARC 301) Unit:2",
+    "answer": "Architectural Design Studio III (ARC 301) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "First",
@@ -6121,7 +6065,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level first semester Architecture?",
-    "answer": "Building Components and Methods IlI (ARC 303) Unit:2",
+    "answer": "Building Components and Methods IlI (ARC 303) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "First",
@@ -6129,7 +6073,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Architecture?",
-    "answer": "Peace and Conflict Resolutions (GST 312) Unit:2",
+    "answer": "Peace and Conflict Resolutions (GST 312) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "Second",
@@ -6137,7 +6081,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Architecture?",
-    "answer": "Venture Creation (ENT 312) Unit:2",
+    "answer": "Venture Creation (ENT 312) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "Second",
@@ -6145,7 +6089,7 @@
   },
   {
     "question": "What are the courses introduced in 300 level second semester Architecture?",
-    "answer": "Students' Industrial Work Experience Scheme (SIWES) (ARC 302) Unit: 6",
+    "answer": "Students' Industrial Work Experience Scheme (SIWES) (ARC 302) Unit: 6 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "300",
     "semester": "Second",
@@ -6153,7 +6097,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Architecture?",
-    "answer": "Architectural Design Studio IV (ARC 401) Unit:2",
+    "answer": "Architectural Design Studio IV (ARC 401) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "First",
@@ -6161,7 +6105,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Architecture?",
-    "answer": "Building Components and Methods IV (ARC 403) Unit:2",
+    "answer": "Building Components and Methods IV (ARC 403) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "First",
@@ -6169,7 +6113,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level first semester Architecture?",
-    "answer": "Building Services II (ARC 405) Unit:2",
+    "answer": "Building Services II (ARC 405) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "First",
@@ -6177,7 +6121,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Professional Practice (FAA 484) Unit:2",
+    "answer": "Professional Practice (FAA 484) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6185,7 +6129,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Architectural Design Studio V(ARC 402) Unit:4",
+    "answer": "Architectural Design Studio V(ARC 402) Unit:4 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6193,7 +6137,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Research Project/Dissertation (ARC 406) Unit:2",
+    "answer": "Research Project/Dissertation (ARC 406) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6201,7 +6145,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Building Contract and Arbitration (CUAB-ARC 410) Unit:2",
+    "answer": "Building Contract and Arbitration (CUAB-ARC 410) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6209,7 +6153,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Acoustics and Noise Control (CUAB-ARC 412) Unit:2",
+    "answer": "Acoustics and Noise Control (CUAB-ARC 412) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6217,7 +6161,7 @@
   },
   {
     "question": "What are the courses introduced in 400 level second semester Architecture?",
-    "answer": "Project Planning and Control (CUAB-ARC 416) Unit:2",
+    "answer": "Project Planning and Control (CUAB-ARC 416) Unit:2 Offered in departments: Architecture.",
     "department": "Architecture",
     "level": "400",
     "semester": "Second",
@@ -6254,5 +6198,2973 @@
     "level": "",
     "semester": "",
     "faculty": "COES"
+  },
+  {
+    "question": "What is the course BIO 101 in 100 Level Department of Anatomy?",
+    "answer": "BIO 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHM 101 in 100 Level Department of Anatomy?",
+    "answer": "CHM 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 101 in 100 Level Department of Anatomy?",
+    "answer": "GNS 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course LIB 101 in 100 Level Department of Anatomy?",
+    "answer": "LIB 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CPS 101 in 100 Level Department of Anatomy?",
+    "answer": "CPS 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHS 101 in 100 Level Department of Anatomy?",
+    "answer": "PHS 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course MTS 101 in 100 Level Department of Anatomy?",
+    "answer": "MTS 101",
+    "department": "Department of Anatomy",
+    "level": "100",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course ANA 201 in 200 Level Department of Anatomy?",
+    "answer": "ANA 201",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course ANA 209 in 200 Level Department of Anatomy?",
+    "answer": "ANA 209",
+    "department": "Department of Anatomy",
+    "level": "200",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GST 111 in 100 Level Biochemistry?",
+    "answer": "GST 111",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 101 in 100 Level Biochemistry?",
+    "answer": "MTH 101",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 101 in 100 Level Biochemistry?",
+    "answer": "COS 101",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course BIO 101 in 100 Level Biochemistry?",
+    "answer": "BIO 101",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course BIO 107 in 100 Level Biochemistry?",
+    "answer": "BIO 107",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CHM 101 in 100 Level Biochemistry?",
+    "answer": "CHM 101",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CHM 107 in 100 Level Biochemistry?",
+    "answer": "CHM 107",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 101 in 100 Level Biochemistry?",
+    "answer": "PHY 101",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 107 in 100 Level Biochemistry?",
+    "answer": "PHY 107",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course BCH 113 in 100 Level Biochemistry?",
+    "answer": "BCH 113",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 112 in 100 Level Biochemistry?",
+    "answer": "GST 112",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 102 in 100 Level Biochemistry?",
+    "answer": "MTH 102",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course BIO 102 in 100 Level Biochemistry?",
+    "answer": "BIO 102",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course BIO 108 in 100 Level Biochemistry?",
+    "answer": "BIO 108",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CHM 102 in 100 Level Biochemistry?",
+    "answer": "CHM 102",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CHM 108 in 100 Level Biochemistry?",
+    "answer": "CHM 108",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 102 in 100 Level Biochemistry?",
+    "answer": "PHY 102",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 108 in 100 Level Biochemistry?",
+    "answer": "PHY 108",
+    "department": "Biochemistry",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 111 in 100 Level Computer Science?",
+    "answer": "GST 111",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 101 in 100 Level Computer Science?",
+    "answer": "MTH 101",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 101 in 100 Level Computer Science?",
+    "answer": "PHY 101",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 107 in 100 Level Computer Science?",
+    "answer": "PHY 107",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course STA 111 in 100 Level Computer Science?",
+    "answer": "STA 111",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 101 in 100 Level Computer Science?",
+    "answer": "COS 101",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 103 in 100 Level Computer Science?",
+    "answer": "CSC 103",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 105 in 100 Level Computer Science?",
+    "answer": "CSC 105",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 112 in 100 Level Computer Science?",
+    "answer": "GST 112",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 102 in 100 Level Computer Science?",
+    "answer": "MTH 102",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 102 in 100 Level Computer Science?",
+    "answer": "PHY 102",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course PHY 108 in 100 Level Computer Science?",
+    "answer": "PHY 108",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 102 in 100 Level Computer Science?",
+    "answer": "COS 102",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 104 in 100 Level Computer Science?",
+    "answer": "CSC 104",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 106 in 100 Level Computer Science?",
+    "answer": "CSC 106",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 108 in 100 Level Computer Science?",
+    "answer": "CSC 108",
+    "department": "Computer Science",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course ENT 211 in 200 Level Computer Science?",
+    "answer": "ENT 211",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 201 in 200 Level Computer Science?",
+    "answer": "MTH 201",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 201 in 200 Level Computer Science?",
+    "answer": "COS 201",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 203 in 200 Level Computer Science?",
+    "answer": "CSC 203",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 299 in 200 Level Computer Science?",
+    "answer": "CSC 299",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course IFT 211 in 200 Level Computer Science?",
+    "answer": "IFT 211",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course SEN 201 in 200 Level Computer Science?",
+    "answer": "SEN 201",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 212 in 200 Level Computer Science?",
+    "answer": "GST 212",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course MTH 202 in 200 Level Computer Science?",
+    "answer": "MTH 202",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 202 in 200 Level Computer Science?",
+    "answer": "COS 202",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course IFT 212 in 200 Level Computer Science?",
+    "answer": "IFT 212",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 204 in 200 Level Computer Science?",
+    "answer": "CSC 204",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 206 in 200 Level Computer Science?",
+    "answer": "CSC 206",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 208 in 200 Level Computer Science?",
+    "answer": "CSC 208",
+    "department": "Computer Science",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 301 in 300 Level Computer Science?",
+    "answer": "CSC 301",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 309 in 300 Level Computer Science?",
+    "answer": "CSC 309",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 399 in 300 Level Computer Science?",
+    "answer": "CSC 399",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CYB 201 in 300 Level Computer Science?",
+    "answer": "CYB 201",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course ICT 305 in 300 Level Computer Science?",
+    "answer": "ICT 305",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 303 in 300 Level Computer Science?",
+    "answer": "CSC 303",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 312 in 300 Level Computer Science?",
+    "answer": "GST 312",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course ENT 312 in 300 Level Computer Science?",
+    "answer": "ENT 312",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 308 in 300 Level Computer Science?",
+    "answer": "CSC 308",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 322 in 300 Level Computer Science?",
+    "answer": "CSC 322",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course DTS 304 in 300 Level Computer Science?",
+    "answer": "DTS 304",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 302 in 300 Level Computer Science?",
+    "answer": "CSC 302",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 304 in 300 Level Computer Science?",
+    "answer": "CSC 304",
+    "department": "Computer Science",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course COS 409 in 400 Level Computer Science?",
+    "answer": "COS 409",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 401 in 400 Level Computer Science?",
+    "answer": "CSC 401",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 497 in 400 Level Computer Science?",
+    "answer": "CSC 497",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course INS 401 in 400 Level Computer Science?",
+    "answer": "INS 401",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 403 in 400 Level Computer Science?",
+    "answer": "CSC 403",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 405 in 400 Level Computer Science?",
+    "answer": "CSC 405",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CPS 407 in 400 Level Computer Science?",
+    "answer": "CPS 407",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 402 in 400 Level Computer Science?",
+    "answer": "CSC 402",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 498 in 400 Level Computer Science?",
+    "answer": "CSC 498",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 404 in 400 Level Computer Science?",
+    "answer": "CSC 404",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 406 in 400 Level Computer Science?",
+    "answer": "CSC 406",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 408 in 400 Level Computer Science?",
+    "answer": "CSC 408",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 410 in 400 Level Computer Science?",
+    "answer": "CSC 410",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course CSC 412 in 400 Level Computer Science?",
+    "answer": "CSC 412",
+    "department": "Computer Science",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CONAS"
+  },
+  {
+    "question": "What is the course GST 111 in 100 Level Economics?",
+    "answer": "GST 111",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 101 in 100 Level Economics?",
+    "answer": "ECO 101",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 103 in 100 Level Economics?",
+    "answer": "ECO 103",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 105 in 100 Level Economics?",
+    "answer": "ECO 105",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 107 in 100 Level Economics?",
+    "answer": "ECO 107",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 109 in 100 Level Economics?",
+    "answer": "ECO 109",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 111 in 100 Level Economics?",
+    "answer": "ECO 111",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 113 in 100 Level Economics?",
+    "answer": "ECO 113",
+    "department": "Economics",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GST 112 in 100 Level Economics?",
+    "answer": "GST 112",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 102 in 100 Level Economics?",
+    "answer": "ECO 102",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 104 in 100 Level Economics?",
+    "answer": "ECO 104",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 106 in 100 Level Economics?",
+    "answer": "ECO 106",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 108 in 100 Level Economics?",
+    "answer": "ECO 108",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 110 in 100 Level Economics?",
+    "answer": "ECO 110",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 112 in 100 Level Economics?",
+    "answer": "ECO 112",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 114 in 100 Level Economics?",
+    "answer": "ECO 114",
+    "department": "Economics",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ENT 211 in 200 Level Economics?",
+    "answer": "ENT 211",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 201 in 200 Level Economics?",
+    "answer": "ECO 201",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 203 in 200 Level Economics?",
+    "answer": "ECO 203",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 205 in 200 Level Economics?",
+    "answer": "ECO 205",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 207 in 200 Level Economics?",
+    "answer": "ECO 207",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 209 in 200 Level Economics?",
+    "answer": "ECO 209",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 211 in 200 Level Economics?",
+    "answer": "ECO 211",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 213 in 200 Level Economics?",
+    "answer": "ECO 213",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 215 in 200 Level Economics?",
+    "answer": "ECO 215",
+    "department": "Economics",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GST 212 in 200 Level Economics?",
+    "answer": "GST 212",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SSC 202 in 200 Level Economics?",
+    "answer": "SSC 202",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 202 in 200 Level Economics?",
+    "answer": "ECO 202",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 204 in 200 Level Economics?",
+    "answer": "ECO 204",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 206 in 200 Level Economics?",
+    "answer": "ECO 206",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 208 in 200 Level Economics?",
+    "answer": "ECO 208",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 210 in 200 Level Economics?",
+    "answer": "ECO 210",
+    "department": "Economics",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 301 in 300 Level Economics?",
+    "answer": "ECO 301",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 303 in 300 Level Economics?",
+    "answer": "ECO 303",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 305 in 300 Level Economics?",
+    "answer": "ECO 305",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 307 in 300 Level Economics?",
+    "answer": "ECO 307",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SSC 301 in 300 Level Economics?",
+    "answer": "SSC 301",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 309 in 300 Level Economics?",
+    "answer": "ECO 309",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 311 in 300 Level Economics?",
+    "answer": "ECO 311",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 313 in 300 Level Economics?",
+    "answer": "ECO 313",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 315 in 300 Level Economics?",
+    "answer": "ECO 315",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 317 in 300 Level Economics?",
+    "answer": "ECO 317",
+    "department": "Economics",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GST 312 in 300 Level Economics?",
+    "answer": "GST 312",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ENT 312 in 300 Level Economics?",
+    "answer": "ENT 312",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 302 in 300 Level Economics?",
+    "answer": "ECO 302",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 304 in 300 Level Economics?",
+    "answer": "ECO 304",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 306 in 300 Level Economics?",
+    "answer": "ECO 306",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 308 in 300 Level Economics?",
+    "answer": "ECO 308",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SSC 302 in 300 Level Economics?",
+    "answer": "SSC 302",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 310 in 300 Level Economics?",
+    "answer": "ECO 310",
+    "department": "Economics",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 401 in 400 Level Economics?",
+    "answer": "ECO 401",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 403 in 400 Level Economics?",
+    "answer": "ECO 403",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 405 in 400 Level Economics?",
+    "answer": "ECO 405",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 407 in 400 Level Economics?",
+    "answer": "ECO 407",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 499 in 400 Level Economics?",
+    "answer": "ECO 499",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SSC 401 in 400 Level Economics?",
+    "answer": "SSC 401",
+    "department": "Economics",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 402 in 400 Level Economics?",
+    "answer": "ECO 402",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 404 in 400 Level Economics?",
+    "answer": "ECO 404",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 406 in 400 Level Economics?",
+    "answer": "ECO 406",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 408 in 400 Level Economics?",
+    "answer": "BCO 408",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 410 in 400 Level Economics?",
+    "answer": "BCO 410",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 412 in 400 Level Economics?",
+    "answer": "BCO 412",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 414 in 400 Level Economics?",
+    "answer": "BCO 414",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 416 in 400 Level Economics?",
+    "answer": "BCO 416",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 418 in 400 Level Economics?",
+    "answer": "BCO 418",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 420 in 400 Level Economics?",
+    "answer": "BCO 420",
+    "department": "Economics",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course LIB 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "LIB 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LAW 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "LAW 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 105 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 105",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ENG 107 in 100 Level Deparment of law (LL.B)?",
+    "answer": "ENG 107",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course SOS 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "SOS 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course PIS 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "PIS 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 103 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 103",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course CPS 101 in 100 Level Deparment of law (LL.B)?",
+    "answer": "CPS 101",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LAW 102 in 100 Level Deparment of law (LL.B)?",
+    "answer": "LAW 102",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 106 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 106",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 102 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 102",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ENG 108 in 100 Level Deparment of law (LL.B)?",
+    "answer": "ENG 108",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course PSY 102 in 100 Level Deparment of law (LL.B)?",
+    "answer": "PSY 102",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 104 in 100 Level Deparment of law (LL.B)?",
+    "answer": "GNS 104",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course PIS 102 in 100 Level Deparment of law (LL.B)?",
+    "answer": "PIS 102",
+    "department": "Deparment of law (LL.B)",
+    "level": "100",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 201 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPI 201",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ICL 201 in 200 Level Deparment of law (LL.B)?",
+    "answer": "ICL 201",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 201 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPB 201",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 203 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPI 203",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 205 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 205",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 211 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 211",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 203 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPB 203",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ICL 203 in 200 Level Deparment of law (LL.B)?",
+    "answer": "ICL 203",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 205 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPI 205",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 202 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPI 202",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ICL 202 in 200 Level Deparment of law (LL.B)?",
+    "answer": "ICL 202",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 202 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPB 202",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 204 in 200 Level Deparment of law (LL.B)?",
+    "answer": "LPI 204",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course FAC 204 in 200 Level Deparment of law (LL.B)?",
+    "answer": "FAC 204",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 206 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 206",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 212 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 212",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 202 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 202",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 204 in 200 Level Deparment of law (LL.B)?",
+    "answer": "GNS 204",
+    "department": "Deparment of law (LL.B)",
+    "level": "200",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 301 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPI 301",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 301 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 301",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 303 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 303",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 303 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPI 303",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course GNS 301 in 300 Level Deparment of law (LL.B)?",
+    "answer": "GNS 301",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 305 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 305",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 307 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPI 307",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 307 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 307",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course ICL 301 in 300 Level Deparment of law (LL.B)?",
+    "answer": "ICL 301",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 302 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPI 302",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 302 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 302",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 304 in 300 Level Deparment of law (LL.B)?",
+    "answer": "LPB 304",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course TPT 304 in 300 Level Deparment of law (LL.B)?",
+    "answer": "TPT 304",
+    "department": "Deparment of law (LL.B)",
+    "level": "300",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 401 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPI 401",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 401 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPB 401",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 403 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPB 403",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 402 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPI 402",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 402 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPB 402",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 404 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LPB 404",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LAW 402 in 400 Level Deparment of law (LL.B)?",
+    "answer": "LAW 402",
+    "department": "Deparment of law (LL.B)",
+    "level": "400",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 501 in 500 Level Deparment of law (LL.B)?",
+    "answer": "LPI 501",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 501 in 500 Level Deparment of law (LL.B)?",
+    "answer": "LPB 501",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course MPIS 209 in 500 Level Deparment of law (LL.B)?",
+    "answer": "MPIS 209",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course COM 501 in 500 Level Deparment of law (LL.B)?",
+    "answer": "COM 501",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "First",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPI 502 in 500 Level Deparment of law (LL.B)?",
+    "answer": "LPI 502",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LPB 502 in 500 Level Deparment of law (LL.B)?",
+    "answer": "LPB 502",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course LAW 599 in 500 Level Deparment of law (LL.B)?",
+    "answer": "LAW 599",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course PIS 202 in 500 Level Deparment of law (LL.B)?",
+    "answer": "PIS 202",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course COM 502 in 500 Level Deparment of law (LL.B)?",
+    "answer": "COM 502",
+    "department": "Deparment of law (LL.B)",
+    "level": "500",
+    "semester": "Second",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course PIS 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 103 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 103",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 105 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 105",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 107 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 107",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SMS 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "SMS 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SOC 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "SOC 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "GNS 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 103 in 100 Level Department of Political Science and International Studies?",
+    "answer": "GNS 103",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 105 in 100 Level Department of Political Science and International Studies?",
+    "answer": "GNS 105",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course LIB 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "LIB 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "CCC 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BCO 101 in 100 Level Department of Political Science and International Studies?",
+    "answer": "BCO 101",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 104 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 104",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 106 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 106",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 108 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PIS 108",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SMS 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "SMS 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PSY 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "PSY 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SOC 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "SOC 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course ECO 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "ECO 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "GNS 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 102 in 100 Level Department of Political Science and International Studies?",
+    "answer": "CCC 102",
+    "department": "Department of Political Science and International Studies",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 201 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 201",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 203 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 203",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 205 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 205",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 207 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 207",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course SMS 201 in 200 Level Department of Political Science and International Studies?",
+    "answer": "SMS 201",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BUS 203 in 200 Level Department of Political Science and International Studies?",
+    "answer": "BUS 203",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 205 in 200 Level Department of Political Science and International Studies?",
+    "answer": "GNS 205",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 201 in 200 Level Department of Political Science and International Studies?",
+    "answer": "CCC 201",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 201 in 200 Level Department of Political Science and International Studies?",
+    "answer": "GNS 201 Offered in departments: Department of Political Science and International Studies.",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First, Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 203 in 200 Level Department of Political Science and International Studies?",
+    "answer": "GNS 203 Offered in departments: Department of Political Science and International Studies.",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First, Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 209 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 209",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 211 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 211",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 202 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 202",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 204 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 204",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 206 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 206",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 208 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 208",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 210 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 210",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 212 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 212",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 206 in 200 Level Department of Political Science and International Studies?",
+    "answer": "GNS 206",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 208 in 200 Level Department of Political Science and International Studies?",
+    "answer": "GNS 208",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 202 in 200 Level Department of Political Science and International Studies?",
+    "answer": "CCC 202",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 214 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 214",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 216 in 200 Level Department of Political Science and International Studies?",
+    "answer": "PIS 216",
+    "department": "Department of Political Science and International Studies",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 301 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 301",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 303 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 303",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 305 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 305",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 307 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 307",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 309 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 309",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 311 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 311",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course GNS 301 in 300 Level Department of Political Science and International Studies?",
+    "answer": "GNS 301",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 303 in 300 Level Department of Political Science and International Studies?",
+    "answer": "CCC 303",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 313 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 313",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 315 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 315",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 302 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 302",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 304 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 304",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 306 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 306",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 308 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 308",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 310 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 310",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 314 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 314",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 316 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 316",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 318 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 318",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 304 in 300 Level Department of Political Science and International Studies?",
+    "answer": "CCC 304",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 320 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 320",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 312 in 300 Level Department of Political Science and International Studies?",
+    "answer": "PIS 312",
+    "department": "Department of Political Science and International Studies",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 401 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 401",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 403 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 403",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 405 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 405",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 407 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 407",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 409 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 409",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 411 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 411",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 413 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 413",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 415 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 415",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 417 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 417",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 401 in 400 Level Department of Political Science and International Studies?",
+    "answer": "CCC 401",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 419 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 419",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "First",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 402 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 402",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 404 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 404",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 406 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 406",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 408 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 408",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 498 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 498",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course CCC 402 in 400 Level Department of Political Science and International Studies?",
+    "answer": "CCC 402",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 410 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 410",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 412 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 412",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course PIS 414 in 400 Level Department of Political Science and International Studies?",
+    "answer": "PIS 414",
+    "department": "Department of Political Science and International Studies",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "CASMAS"
+  },
+  {
+    "question": "What is the course BIO 101 in 100 Level Physiology?",
+    "answer": "BIO 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHM 101 in 100 Level Physiology?",
+    "answer": "CHM 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CPS 101 in 100 Level Physiology?",
+    "answer": "CPS 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 101 in 100 Level Physiology?",
+    "answer": "GNS 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 105 in 100 Level Physiology?",
+    "answer": "GNS 105",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course LIB 101 in 100 Level Physiology?",
+    "answer": "LIB 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 107 in 100 Level Physiology?",
+    "answer": "GNS 107",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course MTS 101 in 100 Level Physiology?",
+    "answer": "MTS 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHS 101 in 100 Level Physiology?",
+    "answer": "PHS 101",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 103 in 100 Level Physiology?",
+    "answer": "GNS 103",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CCC 101 in 100 Level Physiology?",
+    "answer": "CCC 101 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First, Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BIO 191 in 100 Level Physiology?",
+    "answer": "BIO 191",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHM 191 in 100 Level Physiology?",
+    "answer": "CHM 191",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHS 191 in 100 Level Physiology?",
+    "answer": "PHS 191",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BIO 102 in 100 Level Physiology?",
+    "answer": "BIO 102",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHM 102 in 100 Level Physiology?",
+    "answer": "CHM 102",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course MTS 102 in 100 Level Physiology?",
+    "answer": "MTS 102",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHS 102 in 100 Level Physiology?",
+    "answer": "PHS 102",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 102 in 100 Level Physiology?",
+    "answer": "GNS 102",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PIS 110 in 100 Level Physiology?",
+    "answer": "PIS 110",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 104 in 100 Level Physiology?",
+    "answer": "GNS 104",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 106 in 100 Level Physiology?",
+    "answer": "GNS 106",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BIO 192 in 100 Level Physiology?",
+    "answer": "BIO 192",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHM 192 in 100 Level Physiology?",
+    "answer": "CHM 192",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHS 192 in 100 Level Physiology?",
+    "answer": "PHS 192",
+    "department": "Physiology",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 201 in 200 Level Physiology?",
+    "answer": "PHY 201",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 203 in 200 Level Physiology?",
+    "answer": "PHY 203",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 291 in 200 Level Physiology?",
+    "answer": "PHY 291",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 201 in 200 Level Physiology?",
+    "answer": "GNS 201 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 203 in 200 Level Physiology?",
+    "answer": "GNS 203 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course ANA 203 in 200 Level Physiology?",
+    "answer": "ANA 203",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BCH 207 in 200 Level Physiology?",
+    "answer": "BCH 207",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 202 in 200 Level Physiology?",
+    "answer": "PHY 202 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 204 in 200 Level Physiology?",
+    "answer": "PHY 204 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 208 in 200 Level Physiology?",
+    "answer": "PHY 208 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 210 in 200 Level Physiology?",
+    "answer": "PHY 210 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 292 in 200 Level Physiology?",
+    "answer": "PHY 292 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course ANA 212 in 200 Level Physiology?",
+    "answer": "ANA 212 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BCH 204 in 200 Level Physiology?",
+    "answer": "BCH 204 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CHS 202 in 200 Level Physiology?",
+    "answer": "CHS 202 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 206 in 200 Level Physiology?",
+    "answer": "GNS 206 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 208 in 200 Level Physiology?",
+    "answer": "GNS 208 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 202 in 200 Level Physiology?",
+    "answer": "GNS 202 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 204 in 200 Level Physiology?",
+    "answer": "GNS 204 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 301 in 300 Level Physiology?",
+    "answer": "PHY 301 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 303 in 300 Level Physiology?",
+    "answer": "PHY 303 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 399 in 300 Level Physiology?",
+    "answer": "PHY 399 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course ANA 305 in 300 Level Physiology?",
+    "answer": "ANA 305 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BCH 303 in 300 Level Physiology?",
+    "answer": "BCH 303 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course GNS 301 in 300 Level Physiology?",
+    "answer": "GNS 301 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CCC 303 in 300 Level Physiology?",
+    "answer": "CCC 303 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 302 in 300 Level Physiology?",
+    "answer": "PHY 302 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 304 in 300 Level Physiology?",
+    "answer": "PHY 304 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 306 in 300 Level Physiology?",
+    "answer": "PHY 306 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 308 in 300 Level Physiology?",
+    "answer": "PHY 308 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 310 in 300 Level Physiology?",
+    "answer": "PHY 310 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHA 302 in 300 Level Physiology?",
+    "answer": "PHA 302 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course BCH 302 in 300 Level Physiology?",
+    "answer": "BCH 302 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course CCC 304 in 300 Level Physiology?",
+    "answer": "CCC 304 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 401 in 400 Level Physiology?",
+    "answer": "PHY 401 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 403 in 400 Level Physiology?",
+    "answer": "PHY 403 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 405 in 400 Level Physiology?",
+    "answer": "PHY 405 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 407 in 400 Level Physiology?",
+    "answer": "PHY 407 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 409 in 400 Level Physiology?",
+    "answer": "PHY 409 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 411 in 400 Level Physiology?",
+    "answer": "PHY 411 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 499 in 400 Level Physiology?",
+    "answer": "PHY 499 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 402 in 400 Level Physiology?",
+    "answer": "PHY 402 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 404 in 400 Level Physiology?",
+    "answer": "PHY 404 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 406 in 400 Level Physiology?",
+    "answer": "PHY 406 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 408 in 400 Level Physiology?",
+    "answer": "PHY 408 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 410 in 400 Level Physiology?",
+    "answer": "PHY 410 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the course PHY 498 in 400 Level Physiology?",
+    "answer": "PHY 498 Offered in departments: Physiology.",
+    "department": "Physiology",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
   }
 ]
