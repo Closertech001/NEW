@@ -9182,5 +9182,29 @@
     "level": "400",
     "semester": "Second",
     "faculty": "COHES"
+  },
+  {
+    "question": "Who is the Dean of Student Affairs?",
+    "answer": "Professor R.O. Kareem is the Dean of Student Affairs at Crescent University.",
+    "department": "Student Affairs",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who is the Dean of the School of Postgraduate Studies?",
+    "answer": "The School of Postgraduate Studies at Crescent University is overseen by a Dean, reachable via dean.spgs@cuab.edu.ng.",
+    "department": "School of Postgraduate Studies",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who is the Dean of the Bola Ajibola College of Law?",
+    "answer": "Professor A. Toriola Oyewo is the Dean of the Bola Ajibola College of Law at Crescent University.",
+    "department": "Law",
+    "level": "",
+    "semester": "",
+    "faculty": "BACOLAW"
   }
 ]
