@@ -36,7 +36,7 @@ def correct_spelling(text):
     return suggestions[0].term if suggestions else text
 
 # Get embeddings
-questions = [item['question'] for item in data]
+questions = [preprocess_text(item['question']) for item in data]
 question_embeddings = model.encode(questions, convert_to_tensor=True)
 
 # Semantic search function
@@ -47,7 +47,12 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
     top_idx = int(np.argmax(similarities))
     top_score = float(similarities[top_idx])
     if top_score >= threshold:
-        return dataset[top_idx]['answer']
+        answer = dataset[top_idx]['answer']
+        dept = dataset[top_idx].get('department', '')
+        level = dataset[top_idx].get('level', '')
+        if dept or level:
+            return f"{answer}\n\n**Department**: {dept if dept else 'N/A'}\n**Level**: {level if level else 'N/A'}"
+        return answer
     else:
         return None
 
