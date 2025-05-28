@@ -14,7 +14,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load sentence transformer model
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
 
 # Load SymSpell for spelling correction
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
