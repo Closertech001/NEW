@@ -5430,5 +5430,829 @@
     "level": "200",
     "semester": "Second",
     "faculty": "BACOLAW"
+  },
+    {
+    "question": "What are the courses introduced in 100 level first semester Anatomy?",
+    "answer": "General Biology I (BIO 101) Unit:3",
+    "department": "Anatomy",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Anatomy?",
+    "answer": "General Biology Practical I (BIO 191)",
+    "department": "Anatomy",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level second semester Anatomy?",
+    "answer": "General Biology Practical II (BIO 192) Unit:1",
+    "department": "Anatomy",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level second semester Anatomy?",
+    "answer": "General Biology II (BIO 101) Unit:3",
+    "department": "Anatomy",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Anatomy?",
+    "answer": "Introductory Anatomy (ANA 201) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Anatomy?",
+    "answer": "Gross Anatomy of Upper Limb (ANA 203) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Anatomy?",
+    "answer": "Gross Anatomy of lower Limb (ANA 205) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Anatomy?",
+    "answer": "Histology of Basic Tissues (ANA 207) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Anatomy?",
+    "answer": "General Embryology (ANA 209) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Anatomy?",
+    "answer": "Gross Anatomy of Thorax (ANA 202) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Anatomy?",
+    "answer": "Gross Anatomy of Pelvic and Perineum (ANA 204) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Anatomy?",
+    "answer": "Systematics Histology (Organology) (ANA 206) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Anatomy?",
+    "answer": "Systemic Embryology (Organogenesis) (ANA 208) Unit:2",
+    "department": "Anatomy",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Anatomy?",
+    "answer": "Gross Anatomy of Head andNeck (ANA 301) Unit:2",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Anatomy?",
+    "answer": "Neuroanatomy (ANA 303) Unit:2",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Anatomy?",
+    "answer": "Histology of Special Senses & Neurohistology (ANA 305) Unit:2",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Anatomy?",
+    "answer": "Radiologic Anatomy andTechniques (ANA 302) Unit:2",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Anatomy?",
+    "answer": "Histochemistry and Cytochemistry (ANA 304) Unit:3",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Anatomy?",
+    "answer": "Cell and Molecular Biology (ANA 306) Unit:2",
+    "department": "Anatomy",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Anatomy?",
+    "answer": "Surface &Prosthetic Anatomy (ANA 401) Unit:2",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Anatomy?",
+    "answer": "Anatomical and Museum Techniques (ANA 403) Unit:4",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Anatomy?",
+    "answer": "Introduction to Electron Microscopy (ANA 405) Unit:2",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Anatomy?",
+    "answer": "Skeletal Biology and Anthropology (ANA 407) Unit:2",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Electron Microscopic Technique and Ultrastructure (ANA 402) Unit:4",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Introduction to Histopathology (ANA 404) Unit:2",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Introduction to Forensic Science (ANA 406) Unit:2",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Introduction to Archaeology (ANA 408) Unit:3",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Final Year Project (ANA 498) Unit:6",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Health Physics and Reactors (PHS 422) Unit:3",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Anatomy?",
+    "answer": "Total Units:20",
+    "department": "Anatomy",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the complete breakdown of fees for returning Anatomy students ?",
+    "answer": "N840,000 tuition + N5,000 portal fee + N5,000 departmental fee + N10,000 parent forum  + N2,000 Imasa.",
+    "department": "Anatomy",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What fees do Anatomy freshers pay in total ?",
+    "answer": "N928,00 tuition + N10,000 screening form + N50,000 acceptance fee + N10.000 parent form.",
+    "department": "Anatomy",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level first semester Accounting?",
+    "answer": "Communication in English Language (GST 111) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level first semester Accounting?",
+    "answer": "Principles of Management (AMS 101) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level first semester Accounting?",
+    "answer": "Introduction to Computing (AMS 103) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level second semester Accounting?",
+    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level second semester Accounting?",
+    "answer": "Basic Mathematics (AMS 102) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level second semester Accounting?",
+    "answer": "Principles of Project Management (AMS 104) Unit:2",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level second semester Accounting?",
+    "answer": "Introduction to Financial Accounting II (ACC 102) Unit:3",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 100level second semester Accounting?",
+    "answer": "Basic Psychology for Accounting",
+    "department": "Accounting",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level first semester Accounting?",
+    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level first semester Accounting?",
+    "answer": "Financial Accounting I (ACC 201) Unit:3",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level first semester Accounting?",
+    "answer": "Corporate Governance & Accounting Ethics (ACC 203) Unit:3",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Philosophy, Logic, and Human Existence (GST 212) Unit:2",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Financial Accounting II (ACC 202) Unit:3",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Cost Accounting (ACC 204) Unit:3",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Accounting Laboratory (ACC 206) Unit:3",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Accounting Theory (CUAB-ACC 208) Unit:2",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Business Policy and Strategic Management (CUAB-ACC 212) Unit:2",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 200level second semester Accounting?",
+    "answer": "Total Units:15",
+    "department": "Accounting",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level first semester Accounting?",
+    "answer": "Financial Reporting I (ACC 301) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level first semester Accounting?",
+    "answer": "Management Accounting (ACC 303) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level first semester Accounting?",
+    "answer": "Taxation I (ACC 305) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level first semester Accounting?",
+    "answer": "Auditing and Assurance I (ACC 307) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level second semester Accounting?",
+    "answer": "Peace and Conflict Resolution (GST 312) Unit:2",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level second semester Accounting?",
+    "answer": "Venture Creation (ENT 312) Unit:2",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level second semester Accounting?",
+    "answer": "Financial Reporting I (ACC 302) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 300level second semester Accounting?",
+    "answer": "Taxation II (ACC 306) Unit:3",
+    "department": "Accounting",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level first semester Accounting?",
+    "answer": "Advanced Financial Reporting (ACC 401) Unit:3",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level first semester Accounting?",
+    "answer": "Auditing and Assurance II",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level second semester Accounting?",
+    "answer": "Corporate Reporting (ACC 402) Unit:3",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level second semester Accounting?",
+    "answer": "Financial Management (ACC 404) Unit:3",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level second semester Accounting?",
+    "answer": "Project (ACC 490) Unit:6",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What courses are offered in 400level second semester Accounting?",
+    "answer": "Environmental Accounting (CUAB-ACC 406) Unit:2",
+    "department": "Accounting",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COHES"
+  },
+  {
+    "question": "Who are the academic staffs in the department of Accounting?",
+    "answer": "Professor/Head Of Department(HOD): Prof. T.T. Siyanbola, Reader: Dr. S.A. Babatunde, Senior Lecturer: Dr. A.M.A. Tonade, Dr. J.K. Ogunwede, Dr. (Mrs.) J.A. Isoken, Dr. R.O. Animasaun, Lecturer: Dr. A.O. Nurudeen, Dr. I. M. Falayi, J.O. Ojurongbe, H.O. Onifade, W.A. Sanyaolu",
+    "department": "Accounting",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "Who are the administrative and technical staffs in the department of Accounting?",
+    "answer": "Laboratory Technician: Oluwalasinu O.G, Administrative Officer: Subair O.B, Administrative Secretary :Oyabunmi Y.N.",
+    "department": "Accounting",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What is the complete breakdown of fees for returning Accounting students ?",
+    "answer": "N855,000 tuition + N5,000 portal fee + N5,000 departmental fee + N10,000 parent forum  + N2,000 Imasa.",
+    "department": "Accounting",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What fees do Accounting freshers pay in total ?",
+    "answer": "N1,018,000 tuition + N10,000 screening form + N50,000 acceptance fee + N10.000 parent form.",
+    "department": "Accounting",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Architecture?",
+    "answer": "Communication in English (GST 111) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Architecture?",
+    "answer": "Elementary Mathematics I (MTH 101) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Architecture?",
+    "answer": "Elementary Mathematics III (MTH 102) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Architecture?",
+    "answer": "General Physics  (Mechanics) I (PHY 101) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level first semester Architecture?",
+    "answer": "Graphics Communication I (FAA 103) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level second semester Architecture?",
+    "answer": "Nigerian Peoples and Culture (GST 112) Unit:2",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 100 level second semester Architecture?",
+    "answer": "Graphics Communication II",
+    "department": "Architecture",
+    "level": "100",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Architecture?",
+    "answer": "Entrepreneurship and Innovation (ENT 211) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Architecture?",
+    "answer": "Introduction to Computer-Aided Design (FAA 221) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level first semester Architecture?",
+    "answer": "Architectural Design Studio I (ARC 201) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Philosophy, Logic and Human Existence (GST 212) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Architectural Design Studio II (ARC 202) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Building Components and Methods II (ARC 204) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Building materials workshop practice and safety (ARC 206) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Building Structures I (ARC 208) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 200 level second semester Architecture?",
+    "answer": "Islamic Architecture (CUAB-ARC210) Unit:2",
+    "department": "Architecture",
+    "level": "200",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Architecture?",
+    "answer": "Research Methods (FAA 313) Unit:2",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Architecture?",
+    "answer": "Architectural Design Studio III (ARC 301) Unit:2",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level first semester Architecture?",
+    "answer": "Building Components and Methods IlI (ARC 303) Unit:2",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Architecture?",
+    "answer": "Peace and Conflict Resolutions (GST 312) Unit:2",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Architecture?",
+    "answer": "Venture Creation (ENT 312) Unit:2",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 300 level second semester Architecture?",
+    "answer": "Students' Industrial Work Experience Scheme (SIWES) (ARC 302) Unit: 6",
+    "department": "Architecture",
+    "level": "300",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Architecture?",
+    "answer": "Architectural Design Studio IV (ARC 401) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Architecture?",
+    "answer": "Building Components and Methods IV (ARC 403) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level first semester Architecture?",
+    "answer": "Building Services II (ARC 405) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "First",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Professional Practice (FAA 484) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Architectural Design Studio V(ARC 402) Unit:4",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Research Project/Dissertation (ARC 406) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Building Contract and Arbitration (CUAB-ARC 410) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Acoustics and Noise Control (CUAB-ARC 412) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What are the courses introduced in 400 level second semester Architecture?",
+    "answer": "Project Planning and Control (CUAB-ARC 416) Unit:2",
+    "department": "Architecture",
+    "level": "400",
+    "semester": "Second",
+    "faculty": "COES"
+  },
+  {
+    "question": "What is the complete breakdown of fees for returning Architecture students ?",
+    "answer": "N835,000 tuition + N5,000 portal fee + N5,000 departmental fee + N10,000 parent forum  + N2,000 Imasa.",
+    "department": "Architecture",
+    "level": "",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "What fees do Architecture freshers pay in total ?",
+    "answer": "N968,00 tuition + N10,000 screening form + N50,000 acceptance fee + N10.000 parent form.",
+    "department": "Architecture",
+    "level": "",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "Who are the academic staff in the department of Architecture?",
+    "answer": "Dean: Prof. K.O. Ajibola, Professor: Prof. S.A. Daramola. Senior Lecturer: Dr. S.S. Omoniyi, Dr. O.A. Adekitan, Dr. A.S. Oguntimehin, Lecturer: Dr. T.O. Yusuf, Dr. K. Oleruntoba, Are. M.K Isiaka.",
+    "department": "Architecture",
+    "level": "",
+    "semester": "",
+    "faculty": "COES"
+  },
+  {
+    "question": "Who are the administrative staff in the department of Architecture",
+    "answer": "Secretary: Halimah M. Badru, Clerk: R.A. Olanrewaju",
+    "department": "Architecture",
+    "level": "",
+    "semester": "",
+    "faculty": "COES"
   }
 ]
