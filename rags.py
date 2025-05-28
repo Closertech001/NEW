@@ -9,15 +9,6 @@ import random
 import pkg_resources
 from dotenv import load_dotenv
 from openai import OpenAI
-import nltk
-from nltk.stem import WordNetLemmatizer
-
-# Download nltk data (run once)
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-
-# Initialize lemmatizer
-lemmatizer = WordNetLemmatizer()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -29,8 +20,8 @@ if not openai_api_key:
 # Initialize OpenAI client
 client = OpenAI(api_key=openai_api_key)
 
-# Load sentence transformer model on CPU
-model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+# Load upgraded sentence transformer model for better semantic understanding
+model = SentenceTransformer('all-mpnet-base-v2', device='cpu')
 
 # Initialize SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -52,36 +43,17 @@ abbreviations = {
     "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
     "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
 }
-
-# Expanded synonym map (include singular/plural forms)
 synonym_map = {
-    "lecturer": "academic staff", "lecturers": "academic staff",
-    "professor": "academic staff", "professors": "academic staff",
-    "teacher": "academic staff", "teachers": "academic staff",
-    "instructor": "academic staff", "instructors": "academic staff",
-    "tutor": "academic staff", "tutors": "academic staff",
-    "head": "dean",
-    "school": "university",
-    "course": "subject",
-    "class": "course",
-    "tech staff": "technical staff",
-    "it people": "technical staff",
-    "lab helper": "technical staff",
-    "computer staff": "technical staff",
-    "equipment handler": "technical staff",
-    "office staff": "non-academic staff",
-    "admin worker": "non-academic staff",
-    "support staff": "non-academic staff",
-    "clerk": "non-academic staff",
-    "receptionist": "non-academic staff",
-    "school worker": "non-academic staff",
-    "it guy": "technical staff",
-    "secretary": "non-academic staff"
+    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff", 
+    "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course", 
+    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
+    "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
+    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
+    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
 }
 
-# Text preprocessing helpers
+# Text preprocessing
 def normalize_text(text):
-    # Remove punctuation, repeated chars, etc.
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
@@ -89,7 +61,7 @@ def normalize_text(text):
 def preprocess_text(text):
     text = normalize_text(text.lower())
 
-    # Phrase-level replacements (handle multi-word phrases first)
+    # Phrase-level replacements (multi-word terms)
     for phrase, replacement in {**abbreviations, **synonym_map}.items():
         if phrase in text:
             text = text.replace(phrase, replacement)
@@ -97,17 +69,10 @@ def preprocess_text(text):
     words = text.split()
     expanded = []
     for word in words:
-        # Lemmatize word to base form
-        lemma = lemmatizer.lemmatize(word)
-
-        # Map abbreviations and synonyms on lemma
-        lemma = abbreviations.get(lemma, lemma)
-        lemma = synonym_map.get(lemma, lemma)
-
-        # Spell correction with SymSpell
-        suggestions = sym_spell.lookup(lemma, Verbosity.CLOSEST, max_edit_distance=2)
-        corrected = suggestions[0].term if suggestions else lemma
-
+        word = abbreviations.get(word, word)  # Still check for single-word replacements
+        word = synonym_map.get(word, word)
+        suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
+        corrected = suggestions[0].term if suggestions else word
         expanded.append(corrected)
 
     return ' '.join(expanded)
@@ -119,7 +84,7 @@ with open("qa_dataset.json") as f:
 questions = [item['question'] for item in data]
 question_embeddings = model.encode(questions, convert_to_tensor=True)
 
-# Find best response
+# Match function
 def find_response(user_input, dataset, embeddings, threshold=0.65):
     cleaned = preprocess_text(user_input)
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
@@ -130,7 +95,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
         return dataset[top_idx]['answer']
     return None
 
-# GPT fallback
+# Fallback using GPT
 def gpt_fallback(user_input):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
