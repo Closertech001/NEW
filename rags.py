@@ -5,13 +5,13 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell, Verbosity
 import numpy as np
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import re
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI()
 
 # Load Sentence Transformer Model
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -61,14 +61,14 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
 # GPT fallback
 
 def gpt_fallback(user_input):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful chatbot for Crescent University."},
             {"role": "user", "content": user_input}
         ]
     )
-    return response.choices[0].message['content'].strip()
+    return response.choices[0].message.content.strip()
 
 # Streamlit UI
 st.title("Crescent University Chatbot")
