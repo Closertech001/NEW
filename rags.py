@@ -39,6 +39,17 @@ abbreviations = {
     "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
     "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second"
 }
+synonym_map = {
+    "lecturers": "academic staff",
+    "professors": "academic staff",
+    "teachers": "academic staff",
+    "instructors": "academic staff",
+    "tutors": "academic staff",
+    "head": "dean",
+    "school": "faculty",
+    "course": "subject",
+    "class": "course"
+}
 
 # Text preprocessing
 def normalize_text(text):
@@ -47,14 +58,18 @@ def normalize_text(text):
     return text
 
 def preprocess_text(text):
-    text = normalize_text(text)
+    text = normalize_text(text.lower())
     words = text.split()
-    expanded = [abbreviations.get(word.lower(), word) for word in words]
-    corrected = []
-    for word in expanded:
+
+    expanded = []
+    for word in words:
+        word = abbreviations.get(word, word)
+        word = synonym_map.get(word, word)
         suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
-        corrected.append(suggestions[0].term if suggestions else word)
-    return ' '.join(corrected)
+        corrected = suggestions[0].term if suggestions else word
+        expanded.append(corrected)
+
+    return ' '.join(expanded)
 
 # Load dataset
 with open("qa_dataset.json") as f:
