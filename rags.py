@@ -9,22 +9,22 @@ from dotenv import load_dotenv
 import re
 import random
 
-# Load environment variables
+# Load API key from .env file
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Load sentence transformer model on CPU to avoid NotImplementedError
-model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+# Load sentence transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Load SymSpell for spelling correction
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 sym_spell.load_dictionary("frequency_dictionary_en_82_765.txt", 0, 1)
 
-# Load Q&A dataset
+# Load dataset
 with open("qa_dataset.json") as f:
     data = json.load(f)
 
-# Preprocessing
+# Preprocess input text
 def preprocess_text(text):
     text = text.lower()
     text = re.sub(r"[\W_]+", " ", text)
@@ -35,11 +35,11 @@ def correct_spelling(text):
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggestions[0].term if suggestions else text
 
-# Get sentence embeddings
+# Get embeddings
 questions = [item['question'] for item in data]
 question_embeddings = model.encode(questions, convert_to_tensor=True)
 
-# Semantic search
+# Semantic search function
 def find_response(user_input, dataset, embeddings, threshold=0.65):
     cleaned = correct_spelling(preprocess_text(user_input))
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
@@ -51,7 +51,7 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
     else:
         return None
 
-# Fallback to GPT
+# GPT fallback function
 def gpt_fallback(user_input):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -76,7 +76,7 @@ def is_greeting(text):
     cleaned = text.lower().strip()
     return any(greet in cleaned for greet in greeting_inputs)
 
-# Chat display styling
+# Chat bubble styling
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -93,15 +93,14 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
-        color: #000;
     ">
         {message}
     </div>
     """
 
 # Streamlit UI
-st.title("🎓 Crescent University Chatbot")
-st.markdown("Ask me anything about Crescent University!")
+st.title("Crescent University Chatbot")
+st.markdown("Ask me anything about Crescent University 🧠")
 
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -110,6 +109,7 @@ user_input = st.text_input("Your question:", key="input")
 
 if user_input:
     with st.spinner("Thinking..."):
+        # Check for greeting
         if is_greeting(user_input):
             response = random.choice(greeting_responses)
         else:
@@ -117,12 +117,13 @@ if user_input:
             if not response:
                 response = gpt_fallback(user_input)
 
+        # Save to chat history
         st.session_state.history.append({
             "user": user_input,
             "bot": response
         })
 
-# Show chat history
+# Display full chat history
 for chat in st.session_state.history:
     st.markdown(render_message(chat["user"], is_user=True), unsafe_allow_html=True)
     st.markdown(render_message(chat["bot"], is_user=False), unsafe_allow_html=True)
