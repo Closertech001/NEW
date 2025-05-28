@@ -114,8 +114,16 @@ if user_input:
             response = random.choice(greeting_responses)
         else:
             response = find_response(user_input, data, question_embeddings)
-            if not response:
-                response = gpt_fallback(user_input)
+            if response:
+                final_response = response
+            else:
+                try:
+                    final_response = gpt_fallback(user_input)
+                except Exception:
+                    final_response = (
+                        "I'm not sure how to answer that at the moment. "
+                        "Could you try asking in a different way or with more details?"
+                    )
 
         st.session_state.history.append({
             "user": user_input,
