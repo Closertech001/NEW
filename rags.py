@@ -84,24 +84,37 @@ with open("qa_dataset.json") as f:
 processed_questions = [preprocess_text(item['question']) for item in data]
 question_embeddings = model.encode(processed_questions, convert_to_tensor=True)
 
-# Match function
-def find_response(user_input, dataset, embeddings, threshold=0.65):
+# Modified: Find top-k similar questions from dataset
+def find_top_k_matches(user_input, dataset, embeddings, top_k=3):
     cleaned = preprocess_text(user_input)
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
     similarities = util.pytorch_cos_sim(user_embedding, embeddings)[0]
-    top_idx = int(np.argmax(similarities))
-    top_score = float(similarities[top_idx])
-    if top_score >= threshold:
-        return dataset[top_idx]['answer']
-    return None
+    top_k_indices = np.argsort(-similarities.cpu().numpy())[:top_k]
+    top_k_matches = []
+    for idx in top_k_indices:
+        top_k_matches.append({
+            "question": dataset[idx]['question'],
+            "answer": dataset[idx]['answer'],
+            "score": float(similarities[idx])
+        })
+    return top_k_matches
 
-# Fallback using GPT
-def gpt_fallback(user_input):
+# Modified: GPT-4-turbo fallback with RAG-style context
+def gpt_fallback_with_context(user_input, top_matches):
+    context_text = "\n".join(
+        [f"{i+1}. Q: {item['question']}\n   A: {item['answer']}" for i, item in enumerate(top_matches)]
+    )
+    prompt = (
+        f"You are a helpful chatbot for Crescent University. Use the following context to answer the user's question.\n\n"
+        f"Context:\n{context_text}\n\n"
+        f"User Question: {user_input}"
+    )
+
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful chatbot for Crescent University."},
-            {"role": "user", "content": user_input}
+            {"role": "user", "content": prompt}
         ]
     )
     return response.choices[0].message.content.strip()
@@ -157,16 +170,17 @@ if user_input:
         if is_greeting(user_input):
             final_response = random.choice(greeting_responses)
         else:
-            response = find_response(user_input, data, question_embeddings)
-            if response:
-                final_response = response
+            top_matches = find_top_k_matches(user_input, data, question_embeddings, top_k=3)
+            best_match = top_matches[0]
+            if best_match['score'] >= 0.75:  # You can fine-tune this threshold
+                final_response = best_match['answer']
             else:
                 try:
-                    final_response = gpt_fallback(user_input)
-                except Exception:
+                    final_response = gpt_fallback_with_context(user_input, top_matches)
+                except Exception as e:
                     final_response = (
-                        "I'm not sure how to answer that at the moment. "
-                        "Could you try asking in a different way or with more details?"
+                        "I'm not sure how to answer that right now. "
+                        "Please try rephrasing your question."
                     )
 
         st.session_state.history.append({
