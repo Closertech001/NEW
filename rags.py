@@ -9,13 +9,16 @@ import random
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# Load environment variables
+# Load environment variables from .env file
 load_dotenv()
+
+# Get API key
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     st.error("OpenAI API key not found. Please set it in your .env file.")
     st.stop()
 
+# Initialize OpenAI client
 client = OpenAI(api_key=openai_api_key)
 
 # Load sentence transformer model on CPU
