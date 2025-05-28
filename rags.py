@@ -74,7 +74,7 @@ greeting_responses = [
 
 def is_greeting(text):
     cleaned = text.lower().strip()
-    return any(greet in cleaned for greet in greeting_inputs)
+    return cleaned in greeting_inputs
 
 # Chat display styling
 def render_message(message, is_user=True):
