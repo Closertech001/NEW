@@ -37,22 +37,19 @@ abbreviations = {
     "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
     "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
     "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
-    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second",     "tech staff": "technical staff",
+    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second", "tech staff": "technical staff",
     "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
     "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
     "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
     "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
 }
 synonym_map = {
-    "lecturers": "academic staff",
-    "professors": "academic staff",
-    "teachers": "academic staff",
-    "instructors": "academic staff",
-    "tutors": "academic staff",
-    "head": "dean",
-    "school": "faculty",
-    "course": "subject",
-    "class": "course"
+    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff", 
+    "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course", 
+    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
+    "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
+    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
+    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
 }
 
 # Text preprocessing
