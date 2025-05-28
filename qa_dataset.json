@@ -1625,7 +1625,7 @@
   },
   {
     "question": "What courses are offered in 100 Level First Semester department Economics with Operations Research?",
-    "answer": "GST 111 Communication Skills in English (2 units) | ECO 101 Principles of Economics I (2 units) | ECO 103 Introductory Mathematics I (2 units) | CUAB-ECO 105 Introduction to Statistics for Economics I (2 units) | CUAB-ECO 107 Introduction to Finance I (2 units) | CUAB-ECO 109 Introduction to Financial Accounting for Economists I (2 units) | CUAB-ECO 111 Introduction to Business Economics I (2 units) | CUAB-ECO 113 – Islamic Economic System (2 units) Total: 16 Units",
+    "answer": "GST 111 Communication Skills in English (2 units) | ECO 101 Principles of Economics I (2 units) | ECO 103 Introductory Mathematics I (2 units) | CUAB-ECO 105 Introduction to Statistics for Economics I (2 units) | CUAB-ECO 107 Introduction to Finance I (2 units) | CUAB-ECO 109 Introduction to Financial Accounting for Economists I (2 units) | CUAB-ECO 111 Introduction to Business Economics I (2 units) | CUAB-ECO 113 \u2013 Islamic Economic System (2 units) Total: 16 Units",
     "department": "Economics",
     "level": "100",
     "semester": "First",
@@ -1633,7 +1633,7 @@
   },
   {
     "question": "What courses are offered in 100 Level Second Semester department Economics with Operations Research?",
-    "answer": "GST 112 Nigerian Peoples and Culture (2 units) | ECO 102 Principles of Economics II (2 units) | ECO 104 Introductory Mathematics II (2 units) | CUAB-ECO 106 Introduction to Statistics for Economics II (2 units) | CUAB-ECO 108 Introduction to Finance II (2 units) | CUAB-ECO 110 Introduction to Financial Accounting for Economists II (2 units) | CUAB-ECO 112 Introduction to Business Economics II (2 units) | CUAB-ECO 114 – Uses of Library and Study Skills for Economists (2 units) Total: 16 Units",
+    "answer": "GST 112 Nigerian Peoples and Culture (2 units) | ECO 102 Principles of Economics II (2 units) | ECO 104 Introductory Mathematics II (2 units) | CUAB-ECO 106 Introduction to Statistics for Economics II (2 units) | CUAB-ECO 108 Introduction to Finance II (2 units) | CUAB-ECO 110 Introduction to Financial Accounting for Economists II (2 units) | CUAB-ECO 112 Introduction to Business Economics II (2 units) | CUAB-ECO 114 \u2013 Uses of Library and Study Skills for Economists (2 units) Total: 16 Units",
     "department": "Economics",
     "level": "100",
     "semester": "Second",
@@ -1737,7 +1737,7 @@
   },
   {
     "question": "What resources are available in the Femi Okunnu Law Library?",
-    "answer": "Over 3,000 legal texts | E-library access to Law Pavilion, Lexis Nexis, and Legalpedia | Open Monday–Friday (8am–6pm) and Saturday (10am–2pm)",
+    "answer": "Over 3,000 legal texts | E-library access to Law Pavilion, Lexis Nexis, and Legalpedia | Open Monday\u2013Friday (8am\u20136pm) and Saturday (10am\u20132pm)",
     "department": "Deparment of law (LL.B)",
     "level": "",
     "semester": "",
