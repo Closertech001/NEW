@@ -3,46 +3,45 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import numpy as np
-import openai
 import os
-from dotenv import load_dotenv
 import re
 import random
+from dotenv import load_dotenv
 from openai import OpenAI
-
 
 # Load environment variables
 load_dotenv()
-client = OpenAI()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    st.error("OpenAI API key not found. Please set it in your .env file.")
+    st.stop()
 
-# Load sentence transformer model on CPU to avoid NotImplementedError
+client = OpenAI(api_key=openai_api_key)
+
+# Load sentence transformer model on CPU
 model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
 
-# Load SymSpell for spelling correction
+# Initialize SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 sym_spell.load_dictionary("frequency_dictionary_en_82_765.txt", 0, 1)
 
-# Load Q&A dataset
+# Load dataset
 with open("qa_dataset.json") as f:
     data = json.load(f)
 
-# Preprocessing
+questions = [item['question'] for item in data]
+question_embeddings = model.encode(questions, convert_to_tensor=True)
+
+# Helpers
 def preprocess_text(text):
     text = text.lower()
     text = re.sub(r"[\W_]+", " ", text)
     return text.strip()
 
-# Spell correction
 def correct_spelling(text):
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggestions[0].term if suggestions else text
 
-# Get sentence embeddings
-questions = [item['question'] for item in data]
-question_embeddings = model.encode(questions, convert_to_tensor=True)
-
-# Semantic search
 def find_response(user_input, dataset, embeddings, threshold=0.65):
     cleaned = correct_spelling(preprocess_text(user_input))
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
@@ -54,7 +53,6 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
     else:
         return None
 
-# Fallback to GPT
 def gpt_fallback(user_input):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -65,8 +63,7 @@ def gpt_fallback(user_input):
     )
     return response.choices[0].message.content.strip()
 
-
-# Greeting detection
+# Greetings
 greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
 greeting_responses = [
     "Hello! How can I help you today?",
@@ -80,7 +77,6 @@ def is_greeting(text):
     cleaned = text.lower().strip()
     return cleaned in greeting_inputs
 
-# Chat display styling
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -97,7 +93,7 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
-        color: #000;
+        color:#000;
     ">
         {message}
     </div>
@@ -126,7 +122,7 @@ if user_input:
             "bot": response
         })
 
-# Show chat history
+# Display chat history
 for chat in st.session_state.history:
     st.markdown(render_message(chat["user"], is_user=True), unsafe_allow_html=True)
     st.markdown(render_message(chat["bot"], is_user=False), unsafe_allow_html=True)
