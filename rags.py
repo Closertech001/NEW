@@ -63,11 +63,16 @@ def normalize_text(text):
 
 def preprocess_text(text):
     text = normalize_text(text.lower())
-    words = text.split()
 
+    # Phrase-level replacements (multi-word terms)
+    for phrase, replacement in {**abbreviations, **synonym_map}.items():
+        if phrase in text:
+            text = text.replace(phrase, replacement)
+
+    words = text.split()
     expanded = []
     for word in words:
-        word = abbreviations.get(word, word)
+        word = abbreviations.get(word, word)  # Still check for single-word replacements
         word = synonym_map.get(word, word)
         suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
         corrected = suggestions[0].term if suggestions else word
