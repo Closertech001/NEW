@@ -8,7 +8,7 @@ import re
 import random
 import pkg_resources
 from dotenv import load_dotenv
-from openai import OpenAI
+import openai
 
 # Load environment variables from .env file
 load_dotenv()
@@ -17,14 +17,14 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OpenAI API key not found in environment variables")
 
-client = OpenAI(api_key=openai_api_key)  # check if your version supports this
+openai.api_key = openai_api_key
 
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "Hello"}]
-)
-
-print(response.choices[0].message.content)
+# Test OpenAI connection (optional)
+# response = openai.ChatCompletion.create(
+#     model="gpt-4o-mini",
+#     messages=[{"role": "user", "content": "Hello"}]
+# )
+# print(response['choices'][0]['message']['content'])
 
 # Load upgraded sentence transformer model for better semantic understanding
 model = SentenceTransformer('all-mpnet-base-v2', device='cpu')
@@ -49,6 +49,7 @@ abbreviations = {
     "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
     "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
 }
+
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff", 
     "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course", 
@@ -90,7 +91,7 @@ with open("qa_dataset.json") as f:
 processed_questions = [preprocess_text(item['question']) for item in data]
 question_embeddings = model.encode(processed_questions, convert_to_tensor=True)
 
-# Modified: Find top-k similar questions from dataset
+# Find top-k similar questions from dataset
 def find_top_k_matches(user_input, dataset, embeddings, top_k=3):
     cleaned = preprocess_text(user_input)
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
@@ -105,7 +106,7 @@ def find_top_k_matches(user_input, dataset, embeddings, top_k=3):
         })
     return top_k_matches
 
-# Modified: GPT-4-turbo fallback with RAG-style context
+# GPT fallback with RAG-style context using classic openai SDK
 def gpt_fallback_with_context(user_input, top_matches):
     context_text = "\n".join(
         [f"{i+1}. Q: {item['question']}\n   A: {item['answer']}" for i, item in enumerate(top_matches)]
@@ -116,14 +117,14 @@ def gpt_fallback_with_context(user_input, top_matches):
         f"User Question: {user_input}"
     )
 
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="gpt-4-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful chatbot for Crescent University."},
             {"role": "user", "content": prompt}
         ]
     )
-    return response.choices[0].message.content.strip()
+    return response['choices'][0]['message']['content'].strip()
 
 # Greeting logic
 greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
