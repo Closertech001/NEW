@@ -8,9 +8,12 @@ import os
 from dotenv import load_dotenv
 import re
 import random
+from openai import OpenAI
+
 
 # Load environment variables
 load_dotenv()
+client = OpenAI()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Load sentence transformer model on CPU to avoid NotImplementedError
@@ -53,14 +56,15 @@ def find_response(user_input, dataset, embeddings, threshold=0.65):
 
 # Fallback to GPT
 def gpt_fallback(user_input):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful chatbot for Crescent University."},
             {"role": "user", "content": user_input}
         ]
     )
-    return response.choices[0].message['content'].strip()
+    return response.choices[0].message.content.strip()
+
 
 # Greeting detection
 greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
