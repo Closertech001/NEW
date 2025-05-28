@@ -592,7 +592,23 @@
     "faculty": ""
   },
   {
-    "question": "Who are the academic staff in the Department of Anatomy?",
+    "question": "Who are the academic staff in Anatomy?",
+    "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
+    "department": "Department of Anatomy",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who are the lecturers in Anatomy?",
+    "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
+    "department": "Department of Anatomy",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "List the academic staff in the Department of Anatomy.",
     "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
     "department": "Department of Anatomy",
     "level": "",
@@ -805,7 +821,7 @@
     "department": "Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "When was the Department of Architecture established?",
@@ -813,7 +829,7 @@
     "department": "Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "What degrees are offered in the Department of Architecture?",
@@ -821,7 +837,7 @@
     "department": "Department of Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "What is the philosophy of the Architecture programme?",
@@ -829,7 +845,7 @@
     "department": "Department of Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+   "faculty": "COES"
   },
   {
     "question": "What are the objectives of the Architecture programme?",
@@ -837,7 +853,7 @@
     "department": "Department of Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "What are the unique features of the Architecture programme?",
@@ -845,7 +861,7 @@
     "department": "Department of Architecture",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COES"
   },
   {
     "question": "What employability skills does the Architecture programme provide?",
