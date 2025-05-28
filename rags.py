@@ -81,8 +81,8 @@ def preprocess_text(text):
 with open("qa_dataset.json") as f:
     data = json.load(f)
 
-questions = [item['question'] for item in data]
-question_embeddings = model.encode(questions, convert_to_tensor=True)
+processed_questions = [preprocess_text(item['question']) for item in data]
+question_embeddings = model.encode(processed_questions, convert_to_tensor=True)
 
 # Match function
 def find_response(user_input, dataset, embeddings, threshold=0.65):
