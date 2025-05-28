@@ -13,12 +13,18 @@ from openai import OpenAI
 # Load environment variables from .env file
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
-if not openai_api_key:
-    st.error("OpenAI API key not found. Please set it in your .env file.")
-    st.stop()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=openai_api_key)
+if not openai_api_key:
+    raise ValueError("OpenAI API key not found in environment variables")
+
+client = OpenAI(api_key=openai_api_key)  # check if your version supports this
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+
+print(response.choices[0].message.content)
 
 # Load upgraded sentence transformer model for better semantic understanding
 model = SentenceTransformer('all-mpnet-base-v2', device='cpu')
