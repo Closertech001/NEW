@@ -83,9 +83,3 @@ if user_input:
         if not response:
             response = gpt_fallback(user_input)
         st.success(response)
-
-# Optional: Add suggestions
-st.markdown("**Examples:**")
-st.markdown("- What is the vision of Crescent University?")
-st.markdown("- Who is the Vice Chancellor?")
-st.markdown("- What is the tuition fee for new students?")
