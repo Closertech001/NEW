@@ -125,9 +125,3 @@ if user_input:
 for chat in st.session_state.history:
     st.markdown(render_message(chat["user"], is_user=True), unsafe_allow_html=True)
     st.markdown(render_message(chat["bot"], is_user=False), unsafe_allow_html=True)
-
-st.markdown("---")
-st.markdown("**Example questions:**")
-st.markdown("- What is the vision of Crescent University?")
-st.markdown("- Which course is introduction to sociology?")
-st.markdown("- Who is the Vice Chancellor?")
