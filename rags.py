@@ -12,8 +12,6 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 client = OpenAI()
-openai_api_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=openai_api_key)
 
 # Load sentence transformer model
 model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
