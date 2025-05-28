@@ -1,7 +1,7 @@
 import json
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
-from symspellpy.symspellpy import SymSpell
+from symspellpy.symspellpy import SymSpell, Verbosity
 import numpy as np
 import os
 import re
@@ -12,8 +12,6 @@ from openai import OpenAI
 
 # Load environment variables from .env file
 load_dotenv()
-
-# Get API key
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     st.error("OpenAI API key not found. Please set it in your .env file.")
@@ -26,12 +24,11 @@ client = OpenAI(api_key=openai_api_key)
 model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
 
 # Initialize SymSpell
-# --- SymSpell Setup ---
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# --- Abbreviations and Department Mapping ---
+# Abbreviation mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -43,29 +40,22 @@ abbreviations = {
     "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second"
 }
 
-department_map = {
-    "GST": "General Studies", "MTH": "Mathematics", "PHY": "Physics", "STA": "Statistics",
-    "COS": "Computer Science", "CUAB-CSC": "Computer Science", "CSC": "Computer Science",
-    "IFT": "Computer Science", "SEN": "Software Engineering", "ENT": "Entrepreneurship",
-    "CYB": "Cybersecurity", "ICT": "Information and Communication Technology",
-    "DTS": "Data Science", "CUAB-CPS": "Computer Science", "CUAB-ECO": "Economics with Operations Research",
-    "ECO": "Economics with Operations Research", "SSC": "Social Sciences", "CUAB-BCO": "Economics with Operations Research",
-    "LIB": "Library Studies", "LAW": "Law (BACOLAW)", "GNS": "General Studies", "ENG": "English",
-    "SOS": "Sociology", "PIS": "Political Science", "CPS": "Computer Science",
-    "LPI": "Law (BACOLAW)", "ICL": "Law (BACOLAW)", "LPB": "Law (BACOLAW)", "TPT": "Law (BACOLAW)",
-    "FAC": "Agricultural Sciences", "ANA": "Anatomy", "BIO": "Biological Sciences",
-    "CHM": "Chemical Sciences", "CUAB-BCH": "Biochemistry", "CUAB": "Crescent University - General"
-}
-
-# --- Text Preprocessing ---
+# Text preprocessing
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
     return text
 
-def extract_prefix(code):
-    match = re.match(r"([A-Z\-]+)", code)
-    return match.group(1) if match else None
+def preprocess_text(text):
+    text = normalize_text(text)
+    words = text.split()
+    expanded = [abbreviations.get(word.lower(), word) for word in words]
+    corrected = []
+    for word in expanded:
+        suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
+        corrected.append(suggestions[0].term if suggestions else word)
+    return ' '.join(corrected)
+
 # Load dataset
 with open("qa_dataset.json") as f:
     data = json.load(f)
@@ -73,27 +63,18 @@ with open("qa_dataset.json") as f:
 questions = [item['question'] for item in data]
 question_embeddings = model.encode(questions, convert_to_tensor=True)
 
-# Helpers
-def preprocess_text(text):
-    text = text.lower()
-    text = re.sub(r"[\W_]+", " ", text)
-    return text.strip()
-
-def correct_spelling(text):
-    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
-    return suggestions[0].term if suggestions else text
-
+# Match function
 def find_response(user_input, dataset, embeddings, threshold=0.65):
-    cleaned = correct_spelling(preprocess_text(user_input))
+    cleaned = preprocess_text(user_input)
     user_embedding = model.encode(cleaned, convert_to_tensor=True)
     similarities = util.pytorch_cos_sim(user_embedding, embeddings)[0]
     top_idx = int(np.argmax(similarities))
     top_score = float(similarities[top_idx])
     if top_score >= threshold:
         return dataset[top_idx]['answer']
-    else:
-        return None
+    return None
 
+# Fallback using GPT
 def gpt_fallback(user_input):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -104,7 +85,7 @@ def gpt_fallback(user_input):
     )
     return response.choices[0].message.content.strip()
 
-# Greetings
+# Greeting logic
 greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
 greeting_responses = [
     "Hello! How can I help you today?",
@@ -118,6 +99,7 @@ def is_greeting(text):
     cleaned = re.sub(r"[^\w\s]", "", text.lower().strip())
     return cleaned in greeting_inputs
 
+# UI chat bubbles
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -140,7 +122,7 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# Streamlit UI
+# Streamlit app
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask me anything about Crescent University!")
 
@@ -152,7 +134,7 @@ user_input = st.text_input("Your question:", key="input")
 if user_input:
     with st.spinner("Thinking..."):
         if is_greeting(user_input):
-            response = random.choice(greeting_responses)
+            final_response = random.choice(greeting_responses)
         else:
             response = find_response(user_input, data, question_embeddings)
             if response:
