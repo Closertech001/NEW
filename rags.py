@@ -106,21 +106,30 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# GPT Fallback
 @st.cache_data(show_spinner=False)
 def rag_fallback_with_context(query, top_k_matches):
-    context_text = "\n".join([f"Q: {data[i]['question']}\nA: {data[i]['answer']}" for i in top_k_matches])
     try:
+        # Ensure we don't go out of bounds and truncate context
+        context_text = "\n".join([
+            f"Q: {data[i]['question']}\nA: {data[i]['answer']}" 
+            for i in top_k_matches if i < len(data)
+        ])[:3000]  # truncate to 3000 characters
+
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # Faster than GPT-4
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
                 {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
-            ]
+            ],
+            timeout=10  # set timeout in seconds
         )
+
         return response.choices[0].message.content.strip()
-    except Exception:
+
+    except Exception as e:
+        st.error(f"RAG fallback failed: {e}")
         return "Sorry, I'm unable to get an answer right now."
+
 
 # Handle greetings
 def handle_small_talk(msg):
