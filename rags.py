@@ -13,7 +13,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 # Load data (cached)
 @st.cache_data(show_spinner=False)
 def load_data():
-    with open("qa_dataset.json", "r") as f:
+    with open("cuab_qa.json", "r") as f:
         return json.load(f)
 
 data = load_data()
@@ -162,6 +162,3 @@ if submit and user_input:
 
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
-
-st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
-st.caption("Built for Crescent University using FAISS + RAG hybrid.")
