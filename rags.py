@@ -3,15 +3,14 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
-import openai
-import os
+from openai import OpenAI
 import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 import tiktoken
 
-# Set OpenAI key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Initialize OpenAI client
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Load corrected dataset
 with open("qa_dataset.json", "r") as f:
@@ -126,13 +125,12 @@ def rag_fallback_with_context(query, top_k_matches):
 
         context_text = "\n".join(context_parts)
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
                 {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
-            ],
-            timeout=10
+            ]
         )
 
         return response.choices[0].message.content.strip()
@@ -153,8 +151,8 @@ def handle_small_talk(msg):
     }
     return small_talk.get(msg.lower())
 
-st.title("🎓 Crescent University Chatbot")
-st.markdown("Ask me anything about Crescent University, Abeokuta!")
+st.title("\U0001F393 Crescent University Chatbot")
+st.markdown("Ask me anything about Crescent University")
 
 if "history" not in st.session_state:
     st.session_state.history = []
