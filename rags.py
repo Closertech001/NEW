@@ -63,6 +63,9 @@ synonym_map = {
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
+    text = re.sub(r"\bwho’s\b", "who is", text)
+    text = re.sub(r"\bwhat’s\b", "what is", text)
+    text = re.sub(r"\bhow’s\b", "how is", text)
     return text
 
 def preprocess_text(text):
@@ -105,6 +108,7 @@ def find_top_k_matches(user_input, dataset, embeddings, top_k=3):
             "score": float(similarities[idx])
         })
     return top_k_matches
+    
 
 # GPT fallback with RAG-style context using classic openai SDK
 def gpt_fallback_with_context(user_input, top_matches):
@@ -125,6 +129,8 @@ def gpt_fallback_with_context(user_input, top_matches):
         ]
     )
     return response['choices'][0]['message']['content'].strip()
+    print("Top matches:", top_matches)
+    final_response = gpt_fallback_with_context(user_input, top_matches)
 
 # Greeting logic
 greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
@@ -179,7 +185,7 @@ if user_input:
         else:
             top_matches = find_top_k_matches(user_input, data, question_embeddings, top_k=3)
             best_match = top_matches[0]
-            if best_match['score'] >= 0.75:  # You can fine-tune this threshold
+            if best_match['score'] >= 0.6:  # You can fine-tune this threshold
                 final_response = best_match['answer']
             else:
                 try:
