@@ -9582,5 +9582,405 @@
     "level": "",
     "semester": "",
     "faculty": ""
+  },
+  {
+    "question": "What courses are available in the Computer Science department?",
+    "answer": "The Computer Science department offers courses in programming, AI, software engineering, cybersecurity, networking, and more across 100\u2013400 levels.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the graduation requirements for my program?",
+    "answer": "You must complete 120 credit units (UTME) or 90 (Direct Entry), pass core and elective courses, and complete your final year project and SIWES.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I contact my academic advisor?",
+    "answer": "You can contact your academic advisor through the department office or student portal where advisors are assigned by department.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I check my exam schedule?",
+    "answer": "Exam schedules are usually posted on the departmental notice boards and on the university portal.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where can I find the academic calendar?",
+    "answer": "The academic calendar is available on the official Crescent University website and through your department.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for admission to the university?",
+    "answer": "Apply online via the 'Apply Now' section of the CUAB website and follow the instructions provided for uploading documents.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What documents are required for admission?",
+    "answer": "Documents include O'level results, birth certificate, local government identification, passport photo, and JAMB result slip.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I transfer credits from another university?",
+    "answer": "Yes, students with a CGPA of at least 1.5 and relevant transcripts may transfer to CUAB if accepted.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When is the deadline to submit my application?",
+    "answer": "Deadlines vary yearly but are typically in August; check the admissions page of the CUAB website for current dates.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for scholarships or financial aid?",
+    "answer": "Scholarships or financial aid can be applied for through the Student Affairs or Bursary Department; availability varies each year.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the tuition fees for this academic year?",
+    "answer": "Tuition fees vary by program; for example, Nursing freshers pay \u20a61,653,000. Check the CUAB website for program-specific fees.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there any payment plans available for tuition?",
+    "answer": "Yes, students can pay 70% of fees at the start of first semester and the remaining 30% at the start of second semester.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where is the library located, and what are its hours?",
+    "answer": "The university library is located within the main academic complex and operates weekdays during work hours.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I access the Wi-Fi on campus?",
+    "answer": "Wi-Fi access credentials are issued at the ICT center. Log in using your student ID and default password.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there any student counseling services available?",
+    "answer": "Yes, the university offers counseling services through the Student Affairs unit.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When will exam results be published?",
+    "answer": "Exam results are released through the student portal after approval by the Examination Committee.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I request a re-evaluation of my exam paper?",
+    "answer": "Requests for exam re-evaluation can be made through the department HOD by filling a re-evaluation form.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What clubs and societies can I join?",
+    "answer": "Students can join clubs such as drama, debate, tech clubs, JCI, and more during the orientation period.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there any sports facilities on campus?",
+    "answer": "Sports facilities include football fields, a gymnasium, table tennis, and basketball courts.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I get involved in student government?",
+    "answer": "To join student government, participate in elections held by the Student Union during the academic session.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I reset my university email password?",
+    "answer": "Visit the ICT helpdesk or Student Affairs to request a password reset for your university email.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who do I contact for technical support with the student portal?",
+    "answer": "For portal issues, contact the ICT unit or use the tech support link provided on the login page.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who is the lecturer for the Data Structures course?",
+    "answer": "Dr. Ibharalu Friday teaches Data Structures and specializes in software engineering and distributed systems.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What textbooks do I need for my courses this semester?",
+    "answer": "Required textbooks are listed in each course outline provided during lectures or in the departmental handbook.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I find out which courses are compulsory for my department?",
+    "answer": "Compulsory courses are listed in your department\u2019s handbook and course registration system by level.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I obtain my transcript after graduation?",
+    "answer": "You can request your transcript from the Registrar\u2019s office by filling out a transcript request form.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the dress code for lectures and examinations?",
+    "answer": "Students are expected to dress formally and modestly. Revealing clothes are not allowed.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there on-campus job opportunities for students?",
+    "answer": "Yes, limited on-campus jobs exist via departments or the library. Apply through Student Affairs.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I defer my admission to the next academic session?",
+    "answer": "Yes, submit a formal deferral request to the Admissions Office stating your reasons.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I retrieve my lost student ID card?",
+    "answer": "Report to the Student Affairs office and apply for a replacement ID card.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where can I access past examination questions?",
+    "answer": "Past questions are available at departmental libraries or from senior students.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there a school clinic for medical emergencies?",
+    "answer": "Yes, the university clinic provides medical services to students on weekdays.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the process for course registration?",
+    "answer": "Course registration is done online after payment of fees and department clearance.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I change my department after admission?",
+    "answer": "Yes, subject to CGPA and approval from both departments and the Registrar.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the penalties for missing an exam?",
+    "answer": "Missing an exam without valid reason can lead to an automatic failure (grade F).",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I lodge complaints about lecturers?",
+    "answer": "Complaints can be submitted to the HOD or Dean with supporting documentation.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there a student mentorship program at CUAB?",
+    "answer": "Yes, senior students mentor freshers via the mentorship scheme organized annually.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the procedure for withdrawal from a course?",
+    "answer": "Use the portal to withdraw within the add/drop period. Approval from HOD is needed.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can students participate in exchange programs?",
+    "answer": "Exchange programs are occasionally available through partnerships. Inquire via Academic Affairs.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What happens if I fail a compulsory course?",
+    "answer": "You must retake and pass any compulsory course you fail to be eligible for graduation.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for a hostel change?",
+    "answer": "Submit a hostel change form at Student Affairs and wait for reassignment.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there support for students with disabilities?",
+    "answer": "Yes, facilities and academic support are available. Contact Student Affairs.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When do I get my matriculation number?",
+    "answer": "Matric numbers are issued after successful registration and matriculation ceremony.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What happens if I miss a continuous assessment?",
+    "answer": "Missing CA without permission may lead to being barred from exams.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are laptops mandatory for Computer Science students?",
+    "answer": "While not mandatory, laptops are strongly recommended for Computer Science students.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I check my CGPA?",
+    "answer": "You can view your CGPA on your student portal under academic records.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there an orientation program for new students?",
+    "answer": "Yes, all new students must attend orientation at the beginning of the session.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I register for extra credit courses?",
+    "answer": "Yes, with approval from your department, you may register extra courses.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I know if I am eligible for convocation?",
+    "answer": "Eligibility for convocation depends on successful clearance and meeting graduation requirements.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are religious services conducted on campus?",
+    "answer": "Yes, regular Friday and weekend religious programs are conducted on campus.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
   }
 ]
