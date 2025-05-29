@@ -198,6 +198,7 @@ if user_input:
             "user": user_input,
             "bot": final_response
         })
+        st.session_state.input = ""
 
 # Display chat history
 for chat in st.session_state.history:
