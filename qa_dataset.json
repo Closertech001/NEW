@@ -9200,7 +9200,7 @@
     "faculty": ""
   },
   {
-    "question": "Who is the Dean of the Bola Ajibola College of Law?",
+    "question": "Who is the Dean of the Bola Ajibola College of Law(faculty of law)?",
     "answer": "Professor A. Toriola Oyewo is the Dean of the Bola Ajibola College of Law at Crescent University.",
     "department": "Law",
     "level": "",
@@ -9208,7 +9208,7 @@
     "faculty": "BACOLAW"
   },
   {
-    "question": "Which faculty is the Department of Mass Communication under?",
+    "question": "Which faculty is the Department of Mass Communication under ?",
     "answer": "The Department of Mass Communication is under the College of Arts, Social and Management Sciences (CASMAS)."
   },
   {
