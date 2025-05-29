@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
 from symspellpy.symspellpy import SymSpell, Verbosity
 import numpy as np
 import os
@@ -9,32 +9,22 @@ import random
 import pkg_resources
 from dotenv import load_dotenv
 import openai
+import faiss
+from collections import defaultdict
 
 # Load environment variables from .env file
 load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-if not openai_api_key:
+if not openai.api_key:
     raise ValueError("OpenAI API key not found in environment variables")
 
-openai.api_key = openai_api_key
-
-# Test OpenAI connection (optional)
-# response = openai.ChatCompletion.create(
-#     model="gpt-4o-mini",
-#     messages=[{"role": "user", "content": "Hello"}]
-# )
-# print(response['choices'][0]['message']['content'])
-
-# Load upgraded sentence transformer model for better semantic understanding
 model = SentenceTransformer('all-mpnet-base-v2', device='cpu')
 
-# Initialize SymSpell
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviation mapping
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -42,24 +32,14 @@ abbreviations = {
     "idk": "i don't know", "imo": "in my opinion", "msg": "message", "doc": "document", "d": "the",
     "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
     "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
-    "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
-    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second", "tech staff": "technical staff",
-    "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
-    "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
-    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
+    "info": "information", "l": "level"
 }
 
 synonym_map = {
-    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff", 
-    "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course", 
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
-    "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff", 
-    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
+    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff",
+    "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course"
 }
 
-# Text preprocessing
 def normalize_text(text):
     text = re.sub(r'([^a-zA-Z0-9\s])', '', text)
     text = re.sub(r'(.)\1{2,}', r'\1', text)
@@ -70,81 +50,68 @@ def normalize_text(text):
 
 def preprocess_text(text):
     text = normalize_text(text.lower())
-
-    # Phrase-level replacements (multi-word terms)
     for phrase, replacement in {**abbreviations, **synonym_map}.items():
         if phrase in text:
             text = text.replace(phrase, replacement)
-
     words = text.split()
     expanded = []
     for word in words:
-        word = abbreviations.get(word, word)  # Still check for single-word replacements
+        word = abbreviations.get(word, word)
         word = synonym_map.get(word, word)
         suggestions = sym_spell.lookup(word, Verbosity.CLOSEST, max_edit_distance=2)
         corrected = suggestions[0].term if suggestions else word
         expanded.append(corrected)
-
     return ' '.join(expanded)
 
-# Load dataset
 with open("qa_dataset.json") as f:
     data = json.load(f)
 
-processed_questions = [preprocess_text(item['question']) for item in data]
-question_embeddings = model.encode(processed_questions, convert_to_tensor=True)
+data_by_dept = defaultdict(list)
+indices_by_dept = {}
 
-# Find top-k similar questions from dataset
-def find_top_k_matches(user_input, dataset, embeddings, top_k=3):
+for item in data:
+    dept = item.get("department", "All")
+    data_by_dept[dept].append(item)
+
+for dept, dept_data in data_by_dept.items():
+    questions = [preprocess_text(q["question"]) for q in dept_data]
+    embeddings = model.encode(questions, convert_to_numpy=True, normalize_embeddings=True)
+    index = faiss.IndexFlatIP(embeddings.shape[1])
+    index.add(embeddings)
+    indices_by_dept[dept] = (index, dept_data)
+
+def find_top_k_matches(user_input, dataset, index, top_k=3):
     cleaned = preprocess_text(user_input)
-    user_embedding = model.encode(cleaned, convert_to_tensor=True)
-    similarities = util.pytorch_cos_sim(user_embedding, embeddings)[0]
-    top_k_indices = np.argsort(-similarities.cpu().numpy())[:top_k]
+    user_embedding = model.encode([cleaned], convert_to_numpy=True, normalize_embeddings=True)
+    scores, indices = index.search(user_embedding, top_k)
     top_k_matches = []
-    for idx in top_k_indices:
+    for i, idx in enumerate(indices[0]):
         top_k_matches.append({
             "question": dataset[idx]['question'],
             "answer": dataset[idx]['answer'],
-            "score": float(similarities[idx])
+            "score": float(scores[0][i])
         })
     return top_k_matches
-    
 
-# GPT fallback with RAG-style context using classic openai SDK
 def gpt_fallback_with_context(user_input, top_matches):
-    context_text = "\n".join(
-        [f"{i+1}. Q: {item['question']}\n   A: {item['answer']}" for i, item in enumerate(top_matches)]
-    )
-    prompt = (
-        f"You are a helpful chatbot for Crescent University. Use the following context to answer the user's question.\n\n"
-        f"Context:\n{context_text}\n\n"
-        f"User Question: {user_input}"
-    )
+    context_blocks = "\n".join([
+        f"{i+1}. {item['question']} — {item['answer']}" for i, item in enumerate(top_matches)
+    ])
+    messages = [
+        {"role": "system", "content": "You're a helpful assistant for Crescent University. Answer based only on the given context."},
+        {"role": "user", "content": f"""Context:
+{context_blocks}
 
+User Question: {user_input}
+Answer based strictly on the context above."""}
+    ]
     response = openai.ChatCompletion.create(
         model="gpt-4-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful chatbot for Crescent University."},
-            {"role": "user", "content": prompt}
-        ]
+        messages=messages,
+        timeout=10
     )
-    final_response = gpt_fallback_with_context(user_input, top_matches)
+    return response['choices'][0]['message']['content']
 
-# Greeting logic
-greeting_inputs = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "greetings"]
-greeting_responses = [
-    "Hello! How can I help you today?",
-    "Hi there! Ask me anything about Crescent University.",
-    "Hey! What would you like to know?",
-    "Greetings! I'm here to assist you.",
-    "Hi! How can I be of service?"
-]
-
-def is_greeting(text):
-    cleaned = re.sub(r"[^\w\s]", "", text.lower().strip())
-    return cleaned in greeting_inputs
-
-# UI chat bubbles
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -167,40 +134,53 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# Streamlit app
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask me anything about Crescent University!")
 
 if "history" not in st.session_state:
     st.session_state.history = []
 
+selected_dept = st.selectbox("Filter by department (optional):", options=["All"] + list(indices_by_dept.keys()))
 user_input = st.text_input("Your question:", key="input")
 
 if user_input:
     with st.spinner("Thinking..."):
-        if is_greeting(user_input):
-            final_response = random.choice(greeting_responses)
+        dept = selected_dept if selected_dept in indices_by_dept else "All"
+        index, filtered_data = indices_by_dept[dept]
+
+        top_matches = find_top_k_matches(user_input, filtered_data, index, top_k=3)
+        best_match = top_matches[0]
+
+        if best_match['score'] >= 0.6:
+            final_response = best_match['answer']
         else:
-            top_matches = find_top_k_matches(user_input, data, question_embeddings, top_k=3)
-            best_match = top_matches[0]
-            if best_match['score'] >= 0.6:  # You can fine-tune this threshold
-                final_response = best_match['answer']
-            else:
-                try:
-                    final_response = gpt_fallback_with_context(user_input, top_matches)
-                except Exception as e:
-                    final_response = (
-                        "I'm not sure how to answer that right now. "
-                        "Please try rephrasing your question."
-                    )
+            try:
+                final_response = gpt_fallback_with_context(user_input, top_matches)
+            except Exception:
+                final_response = "I'm not sure how to answer that. Please try rephrasing."
 
-        st.session_state.history.append({
-            "user": user_input,
-            "bot": final_response
-        })
-        st.session_state.input = ""
+        st.session_state.history.append({"user": user_input, "bot": final_response})
 
-# Display chat history
 for chat in st.session_state.history:
     st.markdown(render_message(chat["user"], is_user=True), unsafe_allow_html=True)
     st.markdown(render_message(chat["bot"], is_user=False), unsafe_allow_html=True)
+
+# Optional: Batch Q&A
+st.markdown("---")
+st.markdown("### 🧪 Batch Q&A")
+multi_input = st.text_area("Enter multiple questions (one per line):")
+if st.button("Submit Batch"):
+    questions = [q.strip() for q in multi_input.strip().split("\n") if q.strip()]
+    for q in questions:
+        dept = selected_dept if selected_dept in indices_by_dept else "All"
+        index, filtered_data = indices_by_dept[dept]
+        top_matches = find_top_k_matches(q, filtered_data, index, top_k=3)
+        if top_matches[0]['score'] >= 0.6:
+            response = top_matches[0]['answer']
+        else:
+            try:
+                response = gpt_fallback_with_context(q, top_matches)
+            except Exception:
+                response = "I'm not sure how to answer that."
+        st.markdown(render_message(q, is_user=True), unsafe_allow_html=True)
+        st.markdown(render_message(response, is_user=False), unsafe_allow_html=True)
