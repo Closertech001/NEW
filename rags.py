@@ -128,8 +128,6 @@ def gpt_fallback_with_context(user_input, top_matches):
             {"role": "user", "content": prompt}
         ]
     )
-    return response['choices'][0]['message']['content'].strip()
-    print("Top matches:", top_matches)
     final_response = gpt_fallback_with_context(user_input, top_matches)
 
 # Greeting logic
