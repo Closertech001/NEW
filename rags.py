@@ -8,6 +8,7 @@ import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 import tiktoken
+import logging
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
@@ -145,8 +146,8 @@ def rag_fallback_with_context(query, top_k_matches):
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-        st.error(f"RAG fallback failed: {e}")
-        return "Hmm, I couldn’t find an exact match for that. Could you rephrase or try asking it differently?"
+        logging.warning(f"OpenAI fallback error: {e}")  # Logs the real error in console/log
+        return "Sorry, I'm having trouble answering that right now. Please try again shortly."
 
 def handle_small_talk(msg):
     small_talk = {
