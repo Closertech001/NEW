@@ -38,6 +38,21 @@ def render_message(message, is_user=True, abbreviation=None, summary=None, depar
     if department:
         extra_info_html += f'<div style="color: #555; margin-top: 5px;">Department: {department}</div>'
 
+# Example synonym map
+SYNONYM_MAP = {
+    "cuab": "crescent university abeokuta",
+    "vc": "vice chancellor",
+    "hod": "head of department",
+    "srf": "student registration form",
+    "csc": "computer science",
+    # Add more if needed
+}
+
+def expand_synonyms(text):
+    words = text.lower().split()
+    return " ".join([SYNONYM_MAP.get(word, word) for word in words])
+
+    
     return f"""
     <div style="
         background-color: {bg_color};
@@ -79,6 +94,7 @@ def main():
         st.session_state.history.append({"message": user_input, "is_user": True})
 
         # Embed user query and search
+        expanded_input = expand_synonyms(user_input)
         query_vec = model.encode(user_input).reshape(1, -1)
         distances, indices = index.search(query_vec, k=1)  # top 1
 
