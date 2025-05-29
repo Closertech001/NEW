@@ -113,7 +113,6 @@ def rag_fallback_with_context(query, top_k_matches):
 
         context_parts = []
         total_tokens = 0
-
         for i in top_k_matches:
             if i < len(data):
                 qa_pair = f"Q: {data[i]['question']}\nA: {data[i]['answer']}"
@@ -125,12 +124,22 @@ def rag_fallback_with_context(query, top_k_matches):
 
         context_text = "\n".join(context_parts)
 
+        # Include multi-turn conversation history
+        history = []
+        for msg, is_user in st.session_state.history[-6:]:
+            role = "user" if is_user else "assistant"
+            history.append({"role": role, "content": msg})
+
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
+            {"role": "system", "content": f"Here is relevant background info:\n{context_text}"}
+        ] + history + [
+            {"role": "user", "content": query}
+        ]
+
         response = client.chat.completions.create(
             model="gpt-4",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
-                {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
-            ]
+            messages=messages
         )
 
         return response.choices[0].message.content.strip()
