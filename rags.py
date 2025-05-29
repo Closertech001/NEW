@@ -101,6 +101,8 @@ def render_message(message, is_user=True):
         font-family: Arial, sans-serif;
         font-size: 14px;
         color:#000;
+        font-weight:600;
+
     ">
         {message}
     </div>
