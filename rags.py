@@ -5,6 +5,7 @@ import numpy as np
 import json
 import openai
 import os
+import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 
@@ -20,7 +21,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviation mapping
+# Abbreviations and Synonym Maps
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -37,7 +38,6 @@ abbreviations = {
     "secretary": "non-academic staff"
 }
 
-# Synonym map
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
     "instructors": "academic staff", "tutors": "academic staff",
@@ -52,28 +52,38 @@ synonym_map = {
 def normalize_text(text):
     text = text.lower()
     for abbr, full in abbreviations.items():
-        text = text.replace(abbr, full)
+        text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
     for key, value in synonym_map.items():
-        text = text.replace(key, value)
+        text = re.sub(rf'\b{re.escape(key)}\b', value, text)
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     if suggestions:
         text = suggestions[0].term
     return text
 
-# Embed model
+# Load model
 @st.cache_resource(show_spinner=False)
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 model = load_model()
 
-# Preprocess and index questions
-questions = [normalize_text(qa["question"]) for qa in data]
-embeddings = model.encode(questions, show_progress_bar=False)
-index = faiss.IndexFlatL2(embeddings[0].shape[0])
-index.add(np.array(embeddings))
+# Build FAISS index
+@st.cache_resource(show_spinner=False)
+def build_faiss_index():
+    questions = [normalize_text(qa["question"]) for qa in data]
+    embeddings = model.encode(questions, show_progress_bar=False)
+    dim = embeddings[0].shape[0]
 
-# Simple UI message box
+    quantizer = faiss.IndexFlatL2(dim)
+    index = faiss.IndexIVFFlat(quantizer, dim, 100)
+    index.train(np.array(embeddings))
+    index.add(np.array(embeddings))
+
+    return index, embeddings, questions
+
+index, embeddings, questions = build_faiss_index()
+
+# Message renderer
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -96,13 +106,13 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# RAG fallback with context
+# GPT Fallback
 @st.cache_data(show_spinner=False)
 def rag_fallback_with_context(query, top_k_matches):
     context_text = "\n".join([f"Q: {data[i]['question']}\nA: {data[i]['answer']}" for i in top_k_matches])
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",  # Faster than GPT-4
             messages=[
                 {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
                 {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
@@ -112,7 +122,7 @@ def rag_fallback_with_context(query, top_k_matches):
     except Exception:
         return "Sorry, I'm unable to get an answer right now."
 
-# Handle small talk
+# Handle greetings
 def handle_small_talk(msg):
     small_talk = {
         "hi": "Hello! How can I assist you today?",
@@ -143,6 +153,7 @@ if user_input:
         st.session_state.history.append((small_response, False))
     else:
         query_vec = model.encode([user_input_clean])
+        index.nprobe = 10  # Improves accuracy for IndexIVFFlat
         D, I = index.search(np.array(query_vec), k=3)
         scores = D[0]
         indices = I[0]
@@ -153,7 +164,6 @@ if user_input:
             response = rag_fallback_with_context(user_input_clean, indices)
 
         st.session_state.history.append((response, False))
-        st.experimental_rerun()
 
 # Display chat history
 for msg, is_user in st.session_state.history:
