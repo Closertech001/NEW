@@ -121,12 +121,15 @@ if user_input:
         score = D[0][0]
         match_idx = I[0][0]
 
-        if score < 1.0:  # Good match
+        if score < 1.0:
             response = data[match_idx]["answer"]
         else:
             response = rag_fallback(user_input_clean)
 
         st.session_state.history.append((response, False))
+
+    # Clear input after processing
+    st.experimental_rerun()
 
 # Display conversation
 for msg, is_user in st.session_state.history:
