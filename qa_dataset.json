@@ -9502,5 +9502,85 @@
     "level": "",
     "semester": "",
     "faculty": ""
+  },
+  {
+    "question": "How do I apply for admission to Crescent University?",
+    "answer": "Visit the Crescent University undergraduate admission portal, complete the application form, upload your credentials, and pay the required fee. You can access it via the official university website.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the minimum UTME score required for admission?",
+    "answer": "The minimum UTME score generally required is 160. However, some competitive departments may require higher scores.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When will the admission list be released?",
+    "answer": "The admission list is usually released a few weeks after the Post-UTME screening. Check the university portal or JAMB CAPS regularly.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for hostel accommodation?",
+    "answer": "After gaining admission, log into the student portal to apply for hostel accommodation. Select your preferred option and pay the applicable fees.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I transfer from another university to Crescent?",
+    "answer": "Yes, transfer admissions are allowed. You must provide academic transcripts, meet departmental requirements, and have a minimum CGPA of 1.5.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is part-time or distance learning available?",
+    "answer": "Currently, Crescent University offers only full-time degree programs. Part-time or distance learning is not available at this time.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I check my admission status online?",
+    "answer": "Go to the Crescent University admission portal and log in with your credentials. Alternatively, check your JAMB CAPS profile.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can international students apply?",
+    "answer": "Yes, international students are welcome. They need to meet academic and visa requirements and submit passport details during application.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there an age limit for admission?",
+    "answer": "Applicants must be at least 16 years old. There is no upper age limit for admission.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the course structure for 100 level students in Computer Science?",
+    "answer": "100 level Computer Science students take foundational courses such as Introduction to Computing, Mathematics, Physics, and General Studies. The curriculum includes both theory and practical components.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
   }
 ]
