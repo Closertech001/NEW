@@ -1,26 +1,24 @@
 import streamlit as st
-from sentence_transformers import SentenceTransformer
-import faiss
 import numpy as np
+import faiss
 import json
 import openai
-import os
-from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
+from sentence_transformers import SentenceTransformer
+from symspellpy.symspellpy import SymSpell
 
-# Set OpenAI key
+# OpenAI key from Streamlit secrets
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Load dataset
-with open("qa_dataset.json", "r") as f:
-    data = json.load(f)
+# Load data (cached)
+@st.cache_data(show_spinner=False)
+def load_data():
+    with open("qa_dataset.json", "r") as f:
+        return json.load(f)
 
-# Initialize SymSpell
-sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
-sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
+data = load_data()
 
-# Abbreviation mapping
+# Abbreviations and synonyms same as before
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -37,7 +35,6 @@ abbreviations = {
     "secretary": "non-academic staff"
 }
 
-# Synonym map
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
     "instructors": "academic staff", "tutors": "academic staff",
@@ -48,7 +45,15 @@ synonym_map = {
     "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
 }
 
-# Normalize input
+@st.cache_resource(show_spinner=False)
+def get_sym_spell():
+    sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+    dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+    sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
+    return sym_spell
+
+sym_spell = get_sym_spell()
+
 def normalize_text(text):
     text = text.lower()
     for abbr, full in abbreviations.items():
@@ -60,40 +65,22 @@ def normalize_text(text):
         text = suggestions[0].term
     return text
 
-# Load model only once, cache_resource because it's a heavy resource and unhashable
 @st.cache_resource(show_spinner=False)
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 model = load_model()
 
-# Prepare the questions list outside cached function (simple list of strings)
-questions = [normalize_text(qa["question"]) for qa in data]
-
-# Cache index building, but only pass hashable simple input (list of strings)
 @st.cache_data(show_spinner=False)
-def build_faiss_index(questions):
-    embeddings = model.encode(questions, show_progress_bar=False)
+def load_index():
+    questions = np.load("questions.npy", allow_pickle=True)
+    embeddings = np.load("embeddings.npy")
     index = faiss.IndexFlatL2(embeddings.shape[1])
-    index.add(np.array(embeddings))
-    return embeddings, index
+    index.add(embeddings)
+    return questions, embeddings, index
 
-embeddings, index = build_faiss_index(questions)
+questions, embeddings, index = load_index()
 
-def rag_fallback(query):
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
-                {"role": "user", "content": query}
-            ]
-        )
-        return response.choices[0].message.content.strip()
-    except Exception:
-        return "Sorry, I'm unable to get an answer right now."
-
-# Simple UI message box
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -110,14 +97,26 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
-        font-weight: 600;
         color:#000;
     ">
         {message}
     </div>
     """
 
-# Handle special small talk
+@st.cache_data(show_spinner=False)
+def rag_fallback(query):
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
+                {"role": "user", "content": query}
+            ]
+        )
+        return response.choices[0].message.content.strip()
+    except Exception:
+        return "Sorry, I'm unable to get an answer right now."
+
 def handle_small_talk(msg):
     small_talk = {
         "hi": "Hello! How can I assist you today?",
@@ -130,17 +129,17 @@ def handle_small_talk(msg):
     }
     return small_talk.get(msg.lower())
 
-# Streamlit app layout
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask me anything about Crescent University, Abeokuta!")
 
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# User input
-user_input = st.text_input("You:", placeholder="Type your question here...")
+with st.form(key="chat_form", clear_on_submit=True):
+    user_input = st.text_input("You:", placeholder="Type your question here...")
+    submit = st.form_submit_button("Send")
 
-if user_input:
+if submit and user_input:
     user_input_clean = normalize_text(user_input)
     st.session_state.history.append((user_input, True))
 
@@ -148,21 +147,21 @@ if user_input:
     if small_response:
         st.session_state.history.append((small_response, False))
     else:
-        query_vec = model.encode([user_input_clean])
-        D, I = index.search(np.array(query_vec), k=1)
-        score = D[0][0]
-        match_idx = I[0][0]
+        with st.spinner("Searching answer..."):
+            query_vec = model.encode([user_input_clean])
+            D, I = index.search(np.array(query_vec), k=1)
+            score = D[0][0]
+            match_idx = I[0][0]
 
-        if score < 1.0:
-            response = data[match_idx]["answer"]
-        else:
-            with st.spinner("Thinking..."):
+            if score < 1.0:
+                response = data[match_idx]["answer"]
+            else:
                 response = rag_fallback(user_input_clean)
 
         st.session_state.history.append((response, False))
 
-    st.experimental_rerun()
-
-# Display conversation
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
+
+st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
+st.caption("Built for Crescent University using FAISS + RAG hybrid.")
