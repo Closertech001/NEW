@@ -5,6 +5,8 @@ import numpy as np
 import json
 import openai
 import os
+from symspellpy.symspellpy import SymSpell, Verbosity
+import pkg_resources
 
 # Set OpenAI key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -13,6 +15,28 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
+# Initialize SymSpell
+sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
+
+# Abbreviation mapping
+abbreviations = {
+    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
+    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
+    "wud": "would", "abt": "about", "bcz": "because", "btw": "between", "asap": "as soon as possible",
+    "idk": "i don't know", "imo": "in my opinion", "msg": "message", "doc": "document", "d": "the",
+    "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
+    "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
+    "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
+    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second", 
+    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", 
+    "computer staff": "technical staff", "equipment handler": "technical staff", "it guy": "technical staff",
+    "office staff": "non-academic staff", "admin worker": "non-academic staff", "support staff": "non-academic staff",
+    "clerk": "non-academic staff", "receptionist": "non-academic staff", "school worker": "non-academic staff",
+    "secretary": "non-academic staff"
+}
+
 # Synonym map
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
@@ -20,11 +44,6 @@ synonym_map = {
     "head": "dean", "hod": "dean", "h.o.d": "dean",
     "course": "subject", "class": "course", "courses": "subjects", "classes": "courses",
     "school": "university", "campus": "university", "institution": "university",
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff",
-    "computer staff": "technical staff", "equipment handler": "technical staff", "it guy": "technical staff",
-    "office staff": "non-academic staff", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff",
-    "school worker": "non-academic staff", "secretary": "non-academic staff",
     "dept": "department", "faculty": "college", "program": "course",
     "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
 }
@@ -32,8 +51,13 @@ synonym_map = {
 # Normalize input
 def normalize_text(text):
     text = text.lower()
+    for abbr, full in abbreviations.items():
+        text = text.replace(abbr, full)
     for key, value in synonym_map.items():
         text = text.replace(key, value)
+    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
+    if suggestions:
+        text = suggestions[0].term
     return text
 
 # Embed model
@@ -121,14 +145,14 @@ if user_input:
         score = D[0][0]
         match_idx = I[0][0]
 
-        if score < 1.0:
+        if score < 1.0:  # Good match
             response = data[match_idx]["answer"]
         else:
             response = rag_fallback(user_input_clean)
 
         st.session_state.history.append((response, False))
 
-    # Clear input after processing
+    # Clear input box after response
     st.experimental_rerun()
 
 # Display conversation
