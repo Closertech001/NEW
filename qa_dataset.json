@@ -9326,5 +9326,181 @@
   {
     "question": "Is Nursing under Health faculty?",
     "answer": "Yes, Nursing is part of the College of Health Sciences (COHES)."
+  },
+  {
+    "question": "Where can I find the academic calendar?",
+    "answer": "You can find the academic calendar on the university website or by visiting the Registrar\u2019s Office.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When is the deadline to submit my application?",
+    "answer": "Application deadlines vary by program. Please check the admissions section on the university website or contact the Admission Officer.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for scholarships or financial aid?",
+    "answer": "Visit the Student Affairs or Bursary Office to inquire about available scholarships and how to apply. Some programs may also be listed online.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where is the library located, and what are its hours?",
+    "answer": "The university library is located centrally on campus near the administrative building. It is open from 8:00 AM to 8:00 PM on weekdays and 10:00 AM to 4:00 PM on Saturdays.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I access the Wi-Fi on campus?",
+    "answer": "Visit the ICT Department to register your device. Once registered, you\u2019ll receive your username and password to connect to the campus Wi-Fi.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When will exam results be published?",
+    "answer": "Exam results are typically released 2\u20133 weeks after the end of exams. Check your student portal or contact the Exams and Records office.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I request a re-evaluation of my exam paper?",
+    "answer": "Submit a formal request to your Head of Department within 7 days of result publication. Include reasons and any supporting documents.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What happens if I fail a course?",
+    "answer": "You\u2019ll need to retake the course in the next available semester. Speak with your academic advisor to revise your course plan.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What clubs and societies can I join?",
+    "answer": "There are academic clubs, cultural societies, religious fellowships, tech communities, and entrepreneurial groups. Visit the Student Affairs office to see the full list.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I get involved in student government?",
+    "answer": "Elections are held annually. Watch for announcements from the Student Affairs office and submit your nomination form if eligible.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I reset my university email password?",
+    "answer": "Visit the ICT Help Desk or email support@crescentuniversity.edu.ng to reset your password.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who do I contact for technical support with the student portal?",
+    "answer": "Contact the ICT support team at the university or email helpdesk@crescentuniversity.edu.ng.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who is the lecturer for the Data Structures course?",
+    "answer": "Lecturer assignments vary by semester. Check your departmental notice board or ask your Head of Department for the current course coordinator.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What textbooks do I need for my courses this semester?",
+    "answer": "Textbook lists are provided by your lecturers during course registration or the first week of classes.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I contact my academic advisor?",
+    "answer": "Your academic advisor is assigned by your department. You can find their contact details on your departmental notice board or ask your course rep.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the admission requirements for undergraduate programs?",
+    "answer": "Applicants must have at least five credit passes in relevant subjects including English and Mathematics at not more than two sittings in SSCE/GCE/NECO/NABTEB. They must also sit for and pass the UTME and the university's post-UTME screening.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I apply for postgraduate studies at Crescent University?",
+    "answer": "Visit the School of Postgraduate Studies section on the university website, fill the online application form, and submit required documents including academic transcripts and certificates.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there any scholarships or financial aid opportunities available?",
+    "answer": "Yes, Crescent University offers merit-based scholarships and financial aid for students with exceptional academic records or financial need. Visit the Bursary or Student Affairs Office for details.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I access my academic records and transcripts?",
+    "answer": "Students can request transcripts and academic records through the Exams and Records office or via the student portal with proper identification and application.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is on-campus accommodation available for students?",
+    "answer": "Yes, Crescent University provides on-campus accommodation for all students. Students are required to reside on campus as per the university policy.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Does the university offer career counseling and job placement services?",
+    "answer": "Yes, the Career Services unit helps students with career counseling, resume building, interview preparation, and internship/job placements.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I contact the student affairs office for assistance?",
+    "answer": "You can visit the Student Affairs Office located near the main administrative building or call their official number listed on the university website.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
   }
 ]
