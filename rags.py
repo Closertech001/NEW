@@ -1,58 +1,46 @@
 import streamlit as st
-import json
+from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
-from sentence_transformers import SentenceTransformer
+import json
+import os
 
-# Load your data (example: JSON file with Q&A and metadata)
-@st.cache_data
-def load_data():
-    with open("qa_dataset.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return data
-
-# Initialize model once
-@st.cache_resource
+# Caching model to avoid reloading on every run
+@st.cache_resource(show_spinner="Loading model...")
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
-# Build FAISS index
-@st.cache_resource
-def build_faiss_index(embeddings):
-    dimension = embeddings.shape[1]
-    index = faiss.IndexFlatL2(dimension)
-    index.add(embeddings)
-    return index
+# Caching FAISS index and dataset
+@st.cache_resource(show_spinner="Loading FAISS index...")
+def load_faiss_index():
+    with open("qa_dataset.json", "r") as f:
+        data = json.load(f)
+    corpus = [item["question"] for item in data]
+    embeddings = model.encode(corpus, show_progress_bar=True)
+    index = faiss.IndexFlatL2(embeddings.shape[1])
+    index.add(np.array(embeddings))
+    return index, data
 
-# Render chat messages with optional metadata
-def render_message(message, is_user=True, abbreviation=None, summary=None, department=None):
+# Expand abbreviations and synonyms
+def expand_synonyms(text):
+    synonym_map = {
+        "cuab": "crescent university abeokuta",
+        "vc": "vice chancellor",
+        "hod": "head of department",
+        "srf": "student registration form",
+        "fresher": "new student",
+        "finals": "final year student",
+        "convocation": "graduation ceremony",
+        # Add more as needed
+    }
+    words = text.lower().split()
+    return " ".join([synonym_map.get(word, word) for word in words])
+
+# Chat bubble renderer
+def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
     margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-
-    extra_info_html = ""
-    if abbreviation:
-        extra_info_html += f'<div style="font-weight:bold; margin-top: 5px;">Abbreviation: {abbreviation}</div>'
-    if summary:
-        extra_info_html += f'<div style="font-style: italic; margin-top: 5px;">Summary: {summary}</div>'
-    if department:
-        extra_info_html += f'<div style="color: #555; margin-top: 5px;">Department: {department}</div>'
-
-# Example synonym map
-SYNONYM_MAP = {
-    "cuab": "crescent university abeokuta",
-    "vc": "vice chancellor",
-    "hod": "head of department",
-    "srf": "student registration form",
-    "csc": "computer science",
-    # Add more if needed
-}
-
-def expand_synonyms(text):
-    words = text.lower().split()
-    return " ".join([SYNONYM_MAP.get(word, word) for word in words])
-
-    
     return f"""
     <div style="
         background-color: {bg_color};
@@ -68,66 +56,43 @@ def expand_synonyms(text):
         color:#000;
     ">
         {message}
-        {extra_info_html}
     </div>
     """
 
-def main():
-    st.title("University Q&A Chatbot")
+# Load model and index
+model = load_model()
+index, dataset = load_faiss_index()
 
-    data = load_data()
-    model = load_model()
+# App layout
+st.set_page_config(page_title="CUAB Chatbot", layout="wide")
+st.markdown("<h1 style='text-align: center;'>🎓 CUAB Chatbot</h1>", unsafe_allow_html=True)
 
-    # Prepare embeddings array
-    questions = [entry["question"] for entry in data]
-    embeddings = np.array([model.encode(q) for q in questions])
-    index = build_faiss_index(embeddings)
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-    # Session state for chat history
-    if "history" not in st.session_state:
-        st.session_state.history = []
+# Chat input and output
+user_input = st.chat_input("Ask your question about Crescent University...")
 
-    user_input = st.text_input("Ask your question:")
+if user_input:
+    # Store user message
+    st.session_state.messages.append({"role": "user", "content": user_input})
 
-    if user_input:
-        # Show user question
-        st.session_state.history.append({"message": user_input, "is_user": True})
+    # Display user message
+    st.markdown(render_message(user_input, is_user=True), unsafe_allow_html=True)
 
-        # Embed user query and search
-        expanded_input = expand_synonyms(user_input)
-        query_vec = model.encode(user_input).reshape(1, -1)
-        distances, indices = index.search(query_vec, k=1)  # top 1
+    # Expand and encode query
+    query = expand_synonyms(user_input.strip())
+    query_vector = model.encode([query])
 
-        best_match = data[indices[0][0]]
-        answer = best_match.get("answer", "Sorry, I don't have an answer for that.")
-        abbreviation = best_match.get("abbreviation")
-        summary = best_match.get("summary")
-        department = best_match.get("department")
+    # Search FAISS index
+    _, idxs = index.search(np.array(query_vector), k=1)
+    answer = dataset[idxs[0][0]]['answer']
 
-        # Append bot answer with metadata
-        st.session_state.history.append(
-            {
-                "message": answer,
-                "is_user": False,
-                "abbreviation": abbreviation,
-                "summary": summary,
-                "department": department,
-            }
-        )
+    # Display bot response
+    st.session_state.messages.append({"role": "bot", "content": answer})
+    st.markdown(render_message(answer, is_user=False), unsafe_allow_html=True)
 
-    # Render chat history
-    for chat in st.session_state.history:
-        st.markdown(
-            render_message(
-                message=chat["message"],
-                is_user=chat["is_user"],
-                abbreviation=chat.get("abbreviation"),
-                summary=chat.get("summary"),
-                department=chat.get("department"),
-            ),
-            unsafe_allow_html=True,
-        )
-
-
-if __name__ == "__main__":
-    main()
+# Render past messages
+for msg in st.session_state.messages:
+    st.markdown(render_message(msg["content"], is_user=(msg["role"] == "user")), unsafe_allow_html=True)
