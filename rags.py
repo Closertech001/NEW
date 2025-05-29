@@ -8,6 +8,7 @@ import os
 import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
+import tiktoken  # for token-safe truncation
 
 # Set OpenAI key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -48,7 +49,6 @@ synonym_map = {
     "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
 }
 
-# Normalize input
 def normalize_text(text):
     text = text.lower()
     for abbr, full in abbreviations.items():
@@ -106,14 +106,28 @@ def render_message(message, is_user=True):
     </div>
     """
 
+# Safe RAG fallback using token counting
 @st.cache_data(show_spinner=False)
 def rag_fallback_with_context(query, top_k_matches):
     try:
-        # Ensure we don't go out of bounds and truncate context
-        context_text = "\n".join([
-            f"Q: {data[i]['question']}\nA: {data[i]['answer']}" 
-            for i in top_k_matches if i < len(data)
-        ])[:3000]  # truncate to 3000 characters
+        encoding = tiktoken.encoding_for_model("gpt-4")
+        max_tokens = 4096
+        buffer_tokens = 500
+        context_tokens = max_tokens - buffer_tokens
+
+        context_parts = []
+        total_tokens = 0
+
+        for i in top_k_matches:
+            if i < len(data):
+                qa_pair = f"Q: {data[i]['question']}\nA: {data[i]['answer']}"
+                tokens = len(encoding.encode(qa_pair))
+                if total_tokens + tokens > context_tokens:
+                    break
+                context_parts.append(qa_pair)
+                total_tokens += tokens
+
+        context_text = "\n".join(context_parts)
 
         response = openai.ChatCompletion.create(
             model="gpt-4",
@@ -121,7 +135,7 @@ def rag_fallback_with_context(query, top_k_matches):
                 {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
                 {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
             ],
-            timeout=10  # set timeout in seconds
+            timeout=10
         )
 
         return response.choices[0].message.content.strip()
@@ -129,7 +143,6 @@ def rag_fallback_with_context(query, top_k_matches):
     except Exception as e:
         st.error(f"RAG fallback failed: {e}")
         return "Sorry, I'm unable to get an answer right now."
-
 
 # Handle greetings
 def handle_small_talk(msg):
@@ -162,7 +175,7 @@ if user_input:
         st.session_state.history.append((small_response, False))
     else:
         query_vec = model.encode([user_input_clean])
-        index.nprobe = 10  # Improves accuracy for IndexIVFFlat
+        index.nprobe = 10
         D, I = index.search(np.array(query_vec), k=3)
         scores = D[0]
         indices = I[0]
