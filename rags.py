@@ -51,31 +51,47 @@ synonym_map = {
 # Normalize input
 def normalize_text(text):
     text = text.lower()
-    words = text.split()
-    words = [abbreviations.get(word, word) for word in words]
-    words = [synonym_map.get(word, word) for word in words]
-    normalized = " ".join(words)
-    suggestions = sym_spell.lookup_compound(normalized, max_edit_distance=2)
+    for abbr, full in abbreviations.items():
+        text = text.replace(abbr, full)
+    for key, value in synonym_map.items():
+        text = text.replace(key, value)
+    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     if suggestions:
-        normalized = suggestions[0].term
-    return normalized
+        text = suggestions[0].term
+    return text
 
-# Embed model
+# Load model only once, cache_resource because it's a heavy resource and unhashable
 @st.cache_resource(show_spinner=False)
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 model = load_model()
 
-@st.cache_resource(show_spinner=False)
-def build_index(data, model):
-    questions = [normalize_text(qa["question"]) for qa in data]
-    embeddings = model.encode(questions, show_progress_bar=False)
-    index = faiss.IndexFlatL2(embeddings[0].shape[0])
-    index.add(np.array(embeddings))
-    return questions, embeddings, index
+# Prepare the questions list outside cached function (simple list of strings)
+questions = [normalize_text(qa["question"]) for qa in data]
 
-questions, embeddings, index = build_index(data, model)
+# Cache index building, but only pass hashable simple input (list of strings)
+@st.cache_data(show_spinner=False)
+def build_faiss_index(questions):
+    embeddings = model.encode(questions, show_progress_bar=False)
+    index = faiss.IndexFlatL2(embeddings.shape[1])
+    index.add(np.array(embeddings))
+    return embeddings, index
+
+embeddings, index = build_faiss_index(questions)
+
+def rag_fallback(query):
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
+                {"role": "user", "content": query}
+            ]
+        )
+        return response.choices[0].message.content.strip()
+    except Exception:
+        return "Sorry, I'm unable to get an answer right now."
 
 # Simple UI message box
 def render_message(message, is_user=True):
@@ -100,21 +116,6 @@ def render_message(message, is_user=True):
         {message}
     </div>
     """
-
-# RAG fallback
-@st.cache_data(show_spinner=False)
-def rag_fallback(query):
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
-                {"role": "user", "content": query}
-            ]
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        return "Sorry, I'm unable to get an answer right now."
 
 # Handle special small talk
 def handle_small_talk(msg):
