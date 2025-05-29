@@ -29,8 +29,8 @@ abbreviations = {
     "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
     "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
     "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
-    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second", 
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", 
+    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second",
+    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff",
     "computer staff": "technical staff", "equipment handler": "technical staff", "it guy": "technical staff",
     "office staff": "non-academic staff", "admin worker": "non-academic staff", "support staff": "non-academic staff",
     "clerk": "non-academic staff", "receptionist": "non-academic staff", "school worker": "non-academic staff",
@@ -51,14 +51,14 @@ synonym_map = {
 # Normalize input
 def normalize_text(text):
     text = text.lower()
-    for abbr, full in abbreviations.items():
-        text = text.replace(abbr, full)
-    for key, value in synonym_map.items():
-        text = text.replace(key, value)
-    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
+    words = text.split()
+    words = [abbreviations.get(word, word) for word in words]
+    words = [synonym_map.get(word, word) for word in words]
+    normalized = " ".join(words)
+    suggestions = sym_spell.lookup_compound(normalized, max_edit_distance=2)
     if suggestions:
-        text = suggestions[0].term
-    return text
+        normalized = suggestions[0].term
+    return normalized
 
 # Embed model
 @st.cache_resource(show_spinner=False)
@@ -67,11 +67,15 @@ def load_model():
 
 model = load_model()
 
-# Preprocess and index questions
-questions = [normalize_text(qa["question"]) for qa in data]
-embeddings = model.encode(questions, show_progress_bar=False)
-index = faiss.IndexFlatL2(embeddings[0].shape[0])
-index.add(np.array(embeddings))
+@st.cache_resource(show_spinner=False)
+def build_index(data, model):
+    questions = [normalize_text(qa["question"]) for qa in data]
+    embeddings = model.encode(questions, show_progress_bar=False)
+    index = faiss.IndexFlatL2(embeddings[0].shape[0])
+    index.add(np.array(embeddings))
+    return questions, embeddings, index
+
+questions, embeddings, index = build_index(data, model)
 
 # Simple UI message box
 def render_message(message, is_user=True):
@@ -90,6 +94,7 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
+        font-weight: 600;
         color:#000;
     ">
         {message}
@@ -101,7 +106,7 @@ def render_message(message, is_user=True):
 def rag_fallback(query):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
                 {"role": "user", "content": query}
@@ -119,6 +124,8 @@ def handle_small_talk(msg):
         "thanks": "You're welcome!",
         "thank you": "You're welcome!",
         "bye": "Goodbye! Have a great day!",
+        "goodbye": "Bye! Take care.",
+        "how are you": "I'm just a bot, but I'm here to help you!"
     }
     return small_talk.get(msg.lower())
 
@@ -130,7 +137,7 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 # User input
-user_input = st.text_input("You:", placeholder="Type your question here...", key="input")
+user_input = st.text_input("You:", placeholder="Type your question here...")
 
 if user_input:
     user_input_clean = normalize_text(user_input)
@@ -145,19 +152,16 @@ if user_input:
         score = D[0][0]
         match_idx = I[0][0]
 
-        if score < 1.0:  # Good match
+        if score < 1.0:
             response = data[match_idx]["answer"]
         else:
-            response = rag_fallback(user_input_clean)
+            with st.spinner("Thinking..."):
+                response = rag_fallback(user_input_clean)
 
         st.session_state.history.append((response, False))
 
-    # Clear input box after response
     st.experimental_rerun()
 
 # Display conversation
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
-
-# Footer
-st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
