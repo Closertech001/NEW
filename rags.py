@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 # Load your data (example: JSON file with Q&A and metadata)
 @st.cache_data
 def load_data():
-    with open("data.json", "r", encoding="utf-8") as f:
+    with open("qa_dataset.json", "r", encoding="utf-8") as f:
         data = json.load(f)
     return data
 
