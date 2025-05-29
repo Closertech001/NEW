@@ -562,34 +562,34 @@
   {
     "question": "Under which college is the Department of Anatomy?",
     "answer": "It is under the College of Health Sciences (COHES).",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What other departments are in the College of Health Sciences?",
     "answer": "Departments of Anatomy, Department of Nursing, and Department of Physiology.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What is the philosophy of the Anatomy program?",
     "answer": "To produce graduates of high academic standing with practical exposure in all aspects of anatomical sciences who can function in medical education, laboratory services, and entrepreneurship.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are the objectives of the Anatomy program?",
     "answer": "1. Teach Anatomy to various health science students.  2. Use basic laboratory equipment.  3. Demonstrate organ and system functions on living subjects.  4. Identify anatomical features using radiographs and related tools.  5. Promote Anatomy through research and postgraduate studies.",
-    "department": "",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "Who are the academic staff in Anatomy?",
@@ -597,15 +597,15 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "Who are the lecturers in Anatomy?",
     "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
-    "department": "Department of Anatomy",
+      "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "List the academic staff in the Department of Anatomy.",
@@ -613,7 +613,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "Who are the technical and non-academic staff in the Department of Anatomy?",
@@ -621,7 +621,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are the UTME admission requirements for Department of Anatomy?",
@@ -629,7 +629,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are the Direct Entry requirements in Department of Anatomy?",
@@ -637,7 +637,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "Are transfer students accepted in Department of Anatomy?",
@@ -645,7 +645,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are the graduation requirements for B.Sc. Anatomy?",
@@ -653,7 +653,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are some courses at 100 Level in Anatomy?",
@@ -661,7 +661,7 @@
     "department": "Department of Anatomy",
     "level": "100",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What courses are introduced in 200 Level Department of Anatomy?",
@@ -669,7 +669,7 @@
     "department": "Department of Anatomy",
     "level": "200",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are some 300 Level courses Department of Anatomy?",
@@ -677,7 +677,7 @@
     "department": "Department of Anatomy",
     "level": "300",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What are final year courses in 400 Level Department of Anatomy?",
@@ -685,7 +685,7 @@
     "department": "Department of Anatomy",
     "level": "400",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "Is SIWES included in the program of Department of Anatomy?",
@@ -693,7 +693,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": ""
+    "faculty": "COHES"
   },
   {
     "question": "What is the focus of the Department of Accounting?",
@@ -9982,5 +9982,13 @@
     "level": "",
     "semester": "",
     "faculty": ""
+  },
+  {
+    "question": "What is the objective of the Department of Anatomy at Crescent University?",
+    "answer": "The Department of Anatomy aims to train students to acquire a sound and comprehensive understanding of the structure and development of the human body, preparing them for careers in medicine, allied health sciences, and biomedical research.",
+    "department": "ANATOMY",
+    "level": "",
+    "semester": "",
+    "faculty": "COHES"
   }
 ]
