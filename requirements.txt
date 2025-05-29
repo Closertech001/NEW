@@ -5,4 +5,3 @@ numpy
 openai
 symspellpy
 tiktoken
-pkg_resources
