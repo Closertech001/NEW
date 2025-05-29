@@ -134,4 +134,3 @@ for msg, is_user in st.session_state.history:
 
 # Footer
 st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
-st.caption("Built for Crescent University using FAISS + RAG hybrid.")
