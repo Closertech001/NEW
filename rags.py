@@ -164,7 +164,31 @@ st.markdown("Ask me anything about Crescent University, Abeokuta!")
 if "history" not in st.session_state:
     st.session_state.history = []
 
-user_input = st.text_input("You:", placeholder="Type your question here...")
+user_input = st.text_input("You:", key="user_input", placeholder="Type your question here...")
+
+if user_input:
+    user_input_clean = normalize_text(user_input)
+    st.session_state.history.append((user_input, True))
+
+    # Clear the input field
+    st.session_state.user_input = ""
+
+    small_response = handle_small_talk(user_input_clean)
+    if small_response:
+        st.session_state.history.append((small_response, False))
+    else:
+        query_vec = model.encode([user_input_clean])
+        index.nprobe = 10
+        D, I = index.search(np.array(query_vec), k=3)
+        scores = D[0]
+        indices = I[0]
+
+        if scores[0] < 0.9:
+            response = data[indices[0]]["answer"]
+        else:
+            response = rag_fallback_with_context(user_input_clean, indices)
+
+        st.session_state.history.append((response, False))
 
 if user_input:
     user_input_clean = normalize_text(user_input)
@@ -190,6 +214,3 @@ if user_input:
 # Display chat history
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
-
-st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
-st.caption("Built for Crescent University using FAISS + RAG hybrid.")
