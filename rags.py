@@ -105,11 +105,7 @@ def rag_fallback_with_context(query, top_k_matches):
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
-                {"role": "user", "content": f"Refer to the following:
-{context_text}
-
-Now answer this:
-{query}"}
+                {"role": "user", "content": f"Refer to the following:\n{context_text}\n\nNow answer this:\n{query}"}
             ]
         )
         return response.choices[0].message.content.strip()
@@ -162,3 +158,6 @@ if user_input:
 # Display chat history
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
+
+st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
+st.caption("Built for Crescent University using FAISS + RAG hybrid.")
