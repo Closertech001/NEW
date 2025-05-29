@@ -97,7 +97,7 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
-        font-weight:600;
+        font-weight:400;
         color:#000;
     ">
         {message}
