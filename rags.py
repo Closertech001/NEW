@@ -8,12 +8,12 @@ import os
 import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
-import tiktoken  # for token-safe truncation
+import tiktoken
 
 # Set OpenAI key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Load dataset
+# Load corrected dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
@@ -60,14 +60,12 @@ def normalize_text(text):
         text = suggestions[0].term
     return text
 
-# Load model
 @st.cache_resource(show_spinner=False)
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 model = load_model()
 
-# Build FAISS index
 @st.cache_resource(show_spinner=False)
 def build_faiss_index():
     questions = [normalize_text(qa["question"]) for qa in data]
@@ -83,7 +81,6 @@ def build_faiss_index():
 
 index, embeddings, questions = build_faiss_index()
 
-# Message renderer
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -100,13 +97,13 @@ def render_message(message, is_user=True):
         clear: both;
         font-family: Arial, sans-serif;
         font-size: 14px;
+        font-weight:600;
         color:#000;
     ">
         {message}
     </div>
     """
 
-# Safe RAG fallback using token counting
 @st.cache_data(show_spinner=False)
 def rag_fallback_with_context(query, top_k_matches):
     try:
@@ -142,9 +139,8 @@ def rag_fallback_with_context(query, top_k_matches):
 
     except Exception as e:
         st.error(f"RAG fallback failed: {e}")
-        return "Sorry, I'm unable to get an answer right now."
+        return "Hmm, I couldn’t find an exact match for that. Could you rephrase or try asking it differently?"
 
-# Handle greetings
 def handle_small_talk(msg):
     small_talk = {
         "hi": "Hello! How can I assist you today?",
@@ -157,14 +153,12 @@ def handle_small_talk(msg):
     }
     return small_talk.get(msg.lower())
 
-# Streamlit UI
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask me anything about Crescent University, Abeokuta!")
 
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# Form to handle input cleanly and reset after submission
 with st.form(key="chat_form", clear_on_submit=True):
     user_input = st.text_input("You:", key="user_input", placeholder="Type your question here...")
     submitted = st.form_submit_button("Send")
@@ -183,13 +177,16 @@ if submitted and user_input:
         scores = D[0]
         indices = I[0]
 
-        if scores[0] < 0.9:
+        if scores[0] > 0.9:
             response = data[indices[0]]["answer"]
         else:
             response = rag_fallback_with_context(user_input_clean, indices)
 
+        if not response.endswith(('.', '!', '?')):
+            response += "."
+        response = "Sure! " + response[0].upper() + response[1:]
+
         st.session_state.history.append((response, False))
 
-# Display chat history
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
