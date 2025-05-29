@@ -3,40 +3,53 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
+import openai
 import os
 
-# Caching model to avoid reloading on every run
-@st.cache_resource(show_spinner="Loading model...")
+# Set OpenAI key
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+# Load dataset
+with open("cuab_qa.json", "r") as f:
+    data = json.load(f)
+
+# Synonym map
+synonym_map = {
+    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
+    "instructors": "academic staff", "tutors": "academic staff",
+    "head": "dean", "hod": "dean", "h.o.d": "dean",
+    "course": "subject", "class": "course", "courses": "subjects", "classes": "courses",
+    "school": "university", "campus": "university", "institution": "university",
+    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff",
+    "computer staff": "technical staff", "equipment handler": "technical staff", "it guy": "technical staff",
+    "office staff": "non-academic staff", "admin worker": "non-academic staff",
+    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff",
+    "school worker": "non-academic staff", "secretary": "non-academic staff",
+    "dept": "department", "faculty": "college", "program": "course",
+    "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
+}
+
+# Normalize input
+def normalize_text(text):
+    text = text.lower()
+    for key, value in synonym_map.items():
+        text = text.replace(key, value)
+    return text
+
+# Embed model
+@st.cache_resource(show_spinner=False)
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
-# Caching FAISS index and dataset
-@st.cache_resource(show_spinner="Loading FAISS index...")
-def load_faiss_index():
-    with open("qa_dataset.json", "r") as f:
-        data = json.load(f)
-    corpus = [item["question"] for item in data]
-    embeddings = model.encode(corpus, show_progress_bar=True)
-    index = faiss.IndexFlatL2(embeddings.shape[1])
-    index.add(np.array(embeddings))
-    return index, data
+model = load_model()
 
-# Expand abbreviations and synonyms
-def expand_synonyms(text):
-    synonym_map = {
-        "cuab": "crescent university abeokuta",
-        "vc": "vice chancellor",
-        "hod": "head of department",
-        "srf": "student registration form",
-        "fresher": "new student",
-        "finals": "final year student",
-        "convocation": "graduation ceremony",
-        # Add more as needed
-    }
-    words = text.lower().split()
-    return " ".join([synonym_map.get(word, word) for word in words])
+# Preprocess and index questions
+questions = [normalize_text(qa["question"]) for qa in data]
+embeddings = model.encode(questions, show_progress_bar=False)
+index = faiss.IndexFlatL2(embeddings[0].shape[0])
+index.add(np.array(embeddings))
 
-# Chat bubble renderer
+# Simple UI message box
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -59,40 +72,66 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# Load model and index
-model = load_model()
-index, dataset = load_faiss_index()
+# RAG fallback
+@st.cache_data(show_spinner=False)
+def rag_fallback(query):
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant for Crescent University students."},
+                {"role": "user", "content": query}
+            ]
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return "Sorry, I'm unable to get an answer right now."
 
-# App layout
-st.set_page_config(page_title="CUAB Chatbot", layout="wide")
-st.markdown("<h1 style='text-align: center;'>🎓 CUAB Chatbot</h1>", unsafe_allow_html=True)
+# Handle special small talk
+def handle_small_talk(msg):
+    small_talk = {
+        "hi": "Hello! How can I assist you today?",
+        "hello": "Hi there! How can I help?",
+        "thanks": "You're welcome!",
+        "thank you": "You're welcome!",
+        "bye": "Goodbye! Have a great day!",
+    }
+    return small_talk.get(msg.lower())
 
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# Streamlit app layout
+st.title("🎓 Crescent University Chatbot")
+st.markdown("Ask me anything about Crescent University, Abeokuta!")
 
-# Chat input and output
-user_input = st.chat_input("Ask your question about Crescent University...")
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+# User input
+user_input = st.text_input("You:", placeholder="Type your question here...", key="input")
 
 if user_input:
-    # Store user message
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    user_input_clean = normalize_text(user_input)
+    st.session_state.history.append((user_input, True))
 
-    # Display user message
-    st.markdown(render_message(user_input, is_user=True), unsafe_allow_html=True)
+    small_response = handle_small_talk(user_input_clean)
+    if small_response:
+        st.session_state.history.append((small_response, False))
+    else:
+        query_vec = model.encode([user_input_clean])
+        D, I = index.search(np.array(query_vec), k=1)
+        score = D[0][0]
+        match_idx = I[0][0]
 
-    # Expand and encode query
-    query = expand_synonyms(user_input.strip())
-    query_vector = model.encode([query])
+        if score < 1.0:  # Good match
+            response = data[match_idx]["answer"]
+        else:
+            response = rag_fallback(user_input_clean)
 
-    # Search FAISS index
-    _, idxs = index.search(np.array(query_vector), k=1)
-    answer = dataset[idxs[0][0]]['answer']
+        st.session_state.history.append((response, False))
 
-    # Display bot response
-    st.session_state.messages.append({"role": "bot", "content": answer})
-    st.markdown(render_message(answer, is_user=False), unsafe_allow_html=True)
+# Display conversation
+for msg, is_user in st.session_state.history:
+    st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
 
-# Render past messages
-for msg in st.session_state.messages:
-    st.markdown(render_message(msg["content"], is_user=(msg["role"] == "user")), unsafe_allow_html=True)
+# Footer
+st.markdown("<hr style='margin-top:2em;'>", unsafe_allow_html=True)
+st.caption("Built for Crescent University using FAISS + RAG hybrid.")
