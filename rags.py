@@ -10,7 +10,7 @@ import os
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Load dataset
-with open("cuab_qa.json", "r") as f:
+with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
 # Synonym map
