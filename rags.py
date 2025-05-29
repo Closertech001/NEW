@@ -101,8 +101,6 @@ def render_message(message, is_user=True):
         font-family: Arial, sans-serif;
         font-size: 14px;
         color:#000;
-        font-weight:600;
-
     ">
         {message}
     </div>
@@ -166,33 +164,12 @@ st.markdown("Ask me anything about Crescent University, Abeokuta!")
 if "history" not in st.session_state:
     st.session_state.history = []
 
-user_input = st.text_input("You:", key="user_input", placeholder="Type your question here...")
+# Form to handle input cleanly and reset after submission
+with st.form(key="chat_form", clear_on_submit=True):
+    user_input = st.text_input("You:", key="user_input", placeholder="Type your question here...")
+    submitted = st.form_submit_button("Send")
 
-if user_input:
-    user_input_clean = normalize_text(user_input)
-    st.session_state.history.append((user_input, True))
-
-    # Clear the input field
-    st.session_state.user_input = ""
-
-    small_response = handle_small_talk(user_input_clean)
-    if small_response:
-        st.session_state.history.append((small_response, False))
-    else:
-        query_vec = model.encode([user_input_clean])
-        index.nprobe = 10
-        D, I = index.search(np.array(query_vec), k=3)
-        scores = D[0]
-        indices = I[0]
-
-        if scores[0] < 0.9:
-            response = data[indices[0]]["answer"]
-        else:
-            response = rag_fallback_with_context(user_input_clean, indices)
-
-        st.session_state.history.append((response, False))
-
-if user_input:
+if submitted and user_input:
     user_input_clean = normalize_text(user_input)
     st.session_state.history.append((user_input, True))
 
