@@ -11,7 +11,7 @@ import pkg_resources
 # Load data
 @st.cache_resource
 def load_dataset():
-    with open("QA_dataset.json", "r") as f:
+    with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
 # --------------------------
