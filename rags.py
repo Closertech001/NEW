@@ -9,6 +9,7 @@ from symspellpy.symspellpy import SymSpell
 import pkg_resources
 import tiktoken
 import logging
+import os
 
 # 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
@@ -28,6 +29,13 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
+# Load pidgin dictionary into SymSpell
+pidgin_dict_path = "pidgin_dict.txt"
+if os.path.exists(pidgin_dict_path):
+    sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
+else:
+    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found. Skipping pidgin spell corrections.")
+
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -39,6 +47,45 @@ abbreviations = {
     "a-level": "advanced level", "alevel": "advanced level", "2nd": "second", "1st": "first",
     "nxt": "next", "prev": "previous", "exp": "experience"
 }
+
+# Add common Pidgin English phrases and slang
+pidgin_map = {
+    "how far": "how are you",
+    "wetin": "what",
+    "no wahala": "no problem",
+    "abeg": "please",
+    "sharp sharp": "quickly",
+    "bros": "brother",
+    "guy": "person",
+    "waka": "walk",
+    "chop": "eat",
+    "jollof": "rice dish",
+    "nah": "no",
+    "dey": "is",
+    "yarn": "talk",
+    "gbam": "exactly",
+    "ehn": "yes",
+    "waka pass": "walk past",
+    "how you dey": "how are you",
+    "i no sabi": "i don't know",
+    "make we go": "let's go",
+    "omo": "child",
+    "dash": "give",
+    "carry go": "continue",
+    "owo": "money",
+    "pikin": "child",
+    "see as e be": "look how it is",
+    "no vex": "sorry",
+    "sharp": "fast",
+    "jare": "please",
+    "e sure": "it is sure",
+    "you sabi": "you know",
+    "abeg make you": "please",
+    "how you see am": "what do you think",
+    "carry come": "bring",
+}
+
+abbreviations.update(pidgin_map)
 
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
@@ -66,10 +113,13 @@ synonym_map = {
 
 def normalize_text(text):
     text = text.lower()
+    # Expand abbreviations including pidgin
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    # Expand synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    # Spell correction with symspell
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
@@ -131,6 +181,13 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
+# File to log unmatched queries for later review/improvement
+UNMATCHED_LOG = "unmatched_queries.log"
+
+def log_unmatched_query(query):
+    with open(UNMATCHED_LOG, "a") as f:
+        f.write(query + "\n")
+
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -146,46 +203,49 @@ def render_message(message, is_user=True):
         float: {align};
         clear: both;
         font-family: Arial, sans-serif;
-        font-size: 14px;
-        color:#000;
-    ">
+        font-size: 16px;">
         {message}
-    </div>
+    </div><div style="clear: both;"></div>
     """
 
-st.title("🎓 Crescent University Chatbot")
-st.markdown("Ask about admissions, courses, hostels, fees, staff, etc.")
+def main():
+    st.title("Crescent University Chatbot")
 
-if "history" not in st.session_state:
-    st.session_state.history = []
+    if "history" not in st.session_state:
+        st.session_state.history = []
 
-with st.form("chat_form", clear_on_submit=True):
-    user_input = st.text_input("You:", key="user_input", placeholder="Type your question here...")
-    submitted = st.form_submit_button("Send")
+    user_input = st.text_input("Ask me anything about Crescent University:")
 
-if submitted and user_input:
-    norm_input = normalize_text(user_input)
-    st.session_state.history.append((user_input, True))
+    if user_input:
+        norm_input = normalize_text(user_input)
 
-    course_code = extract_course_code(user_input)
-    if course_code:
-        course_info = get_course_info(course_code)
-        st.session_state.history.append((course_info, False))
-    else:
-        query_vec = model.encode([norm_input]).astype("float32")
-        index.nprobe = 10
-        D, I = index.search(query_vec, k=3)
-        score, idx = D[0][0], I[0][0]
-
-        if score > 1.0 or np.isnan(score):
-            response = rag_fallback_with_context(norm_input, I[0])
+        # Direct course code question handling
+        course_code = extract_course_code(norm_input)
+        if course_code:
+            answer = get_course_info(course_code)
         else:
-            response = filtered_data[idx]["answer"]
+            # Search embedding index
+            query_emb = model.encode([norm_input], show_progress_bar=False)
+            D, I = index.search(np.array(query_emb).astype("float32"), 10)
+            best_score = D[0][0]
+            best_idx = I[0][0]
 
-        if not response.endswith(('.', '!', '?')):
-            response += '.'
-        response = "Sure! " + response[0].upper() + response[1:]
-        st.session_state.history.append((response, False))
+            # Threshold for direct answers from dataset
+            if best_score < 1.0 and best_idx < len(filtered_data):
+                answer = filtered_data[best_idx]["answer"]
+            else:
+                # Use RAG fallback with top matches from index
+                answer = rag_fallback_with_context(user_input, I[0])
+                # Log unmatched queries that returned generic fallback
+                if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                    log_unmatched_query(user_input)
 
-for msg, is_user in st.session_state.history:
-    st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
+        st.session_state.history.append(("user", user_input))
+        st.session_state.history.append(("bot", answer))
+
+    # Render chat messages
+    for role, msg in st.session_state.history:
+        st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
