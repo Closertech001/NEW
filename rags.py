@@ -104,7 +104,6 @@ def render_message(message, is_user=True):
     </div>
     """
 
-@st.cache_data(show_spinner=False)
 def rag_fallback_with_context(query, top_k_matches):
     try:
         encoding = tiktoken.encoding_for_model("gpt-4")
@@ -184,10 +183,13 @@ if submitted and user_input:
         scores = D[0]
         indices = I[0]
 
-        if scores[0] > 0.9:
-            response = data[indices[0]]["answer"]
-        else:
+        top_index = indices[0]
+        top_score = scores[0]
+
+        if top_score < 0.9:
             response = rag_fallback_with_context(user_input_clean, indices)
+        else:
+            response = data[top_index]["answer"]
 
         if not response.endswith(('.', '!', '?')):
             response += "."
