@@ -178,47 +178,54 @@ def render_message(message, is_user=False):
     css_class = "user-msg" if is_user else "bot-msg"
     return f'<div class="message {css_class}">{message}</div>'
 
-st.markdown("""
+st.markdown(
+    """
     <style>
-    input[type="text"] {
-        padding: 12px;
-        border-radius: 12px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-    }
-    button[kind="primary"] {
-        background-color: #2e7d32 !important;
-        color: white !important;
-        border-radius: 12px !important;
-        font-size: 16px !important;
-        padding: 8px 20px !important;
-        margin-top: 5px;
-    }
-    button[kind="primary"]:hover {
-        background-color: #1b5e20 !important;
-    }
     .message {
-        padding: 12px;
-        border-radius: 16px;
-        margin: 8px 0;
-        max-width: 75%;
-        word-wrap: break-word;
+        opacity: 0;
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-out;
+    }
+    .slideInRight {
+        animation-name: slideInRight;
+    }
+    .slideInLeft {
+        animation-name: slideInLeft;
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .typing-indicator {
+        font-style: italic;
+        color: gray;
+        margin: 10px 0 10px 50px;
+        clear: both;
         font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-    }
-    .user-msg {
-        background-color: #dcf8c6;
-        margin-left: auto;
-        text-align: right;
-    }
-    .bot-msg {
-        background-color: #f1f0f0;
-        margin-right: auto;
-        text-align: left;
+        font-size: 14px;
     }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
+
 
 def main():
     st.title("Crescent University Chatbot")
