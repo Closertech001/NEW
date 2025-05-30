@@ -184,8 +184,6 @@ def build_contextual_prompt(history, current_user_query, max_tokens=1000):
     context_messages.append("User: " + current_user_query)
     return "\n".join(context_messages)
 
-
-
 # Streamlit UI
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask me anything about your courses, departments, and school!")
