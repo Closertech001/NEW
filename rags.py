@@ -24,12 +24,6 @@ with open("qa_dataset.json", "r") as f:
 topics = sorted(set(q.get("topic", "") for q in data if q.get("topic")))
 selected_topic = st.selectbox("Filter by topic", ["All"] + topics)
 
-# Filter dataset
-if selected_topic != "All":
-    filtered_data = [q for q in data if q.get("topic") == selected_topic]
-else:
-    filtered_data = data
-
 # 🔠 SymSpell correction and enhanced abbreviation/synonym maps
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
