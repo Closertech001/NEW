@@ -174,17 +174,18 @@ def get_random_farewell_response():
         "Peace out! Hope to chat again soon."
     ])
 
+def render_message(message, is_user=False):
+    css_class = "user-msg" if is_user else "bot-msg"
+    return f'<div class="message {css_class}">{message}</div>'
+
 st.markdown("""
     <style>
-    /* Input box */
     input[type="text"] {
         padding: 12px;
         border-radius: 12px;
         font-size: 16px;
         border: 1px solid #ccc;
     }
-
-    /* Button */
     button[kind="primary"] {
         background-color: #2e7d32 !important;
         color: white !important;
@@ -196,8 +197,6 @@ st.markdown("""
     button[kind="primary"]:hover {
         background-color: #1b5e20 !important;
     }
-
-    /* Message bubbles */
     .message {
         padding: 12px;
         border-radius: 16px;
