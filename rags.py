@@ -194,19 +194,26 @@ def get_courses_by_level_and_dept(level, department, semester=None):
 
     return f"Courses for {level} level in {department}:\n" + "\n".join(course_lines)
 
-def render_message(message, is_user=False):
-    if is_user:
-        return f"""
-        <div style="text-align: right; background-color: #DCF8C6; padding: 10px; border-radius: 10px; margin: 5px;">
-            <strong>You:</strong> {message}
-        </div>
-        """
-    else:
-        return f"""
-        <div style="text-align: left; background-color: #F1F0F0; padding: 10px; border-radius: 10px; margin: 5px;">
-            <strong>Bot:</strong> {message}
-        </div>
-        """
+# --- render_message must be above main ---
+def render_message(message, is_user=True):
+    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
+    align = "right" if is_user else "left"
+    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
+    return f"""
+    <div style="
+        background-color: {bg_color};
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+        margin: {margin};
+        text-align: left;
+        float: {align};
+        clear: both;
+        font-family: Arial, sans-serif;
+        font-size: 16px;">
+        {message}
+    </div><div style="clear: both;"></div>
+    """
 # Main app function
 
 def main():
