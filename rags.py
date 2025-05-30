@@ -12,6 +12,9 @@ import pkg_resources
 import tiktoken
 import logging
 
+# Must be the very first Streamlit command:
+st.set_page_config(page_title="Crescent Chatbot", layout="centered")
+
 # 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -29,23 +32,39 @@ if selected_topic != "All":
 else:
     filtered_data = data
 
-# 🔠 SymSpell correction
+# 🔠 SymSpell correction setup
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dict_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dict_path, 0, 1)
 
-abbreviations = {"u": "you", "r": "are", "pls": "please", "abt": "about", "yr": "year", "sem": "semester"}
-synonym_map = {"lecturers": "academic staff", "professors": "academic staff", "hod": "dean", "course": "subject"}
+abbreviations = {
+    "u": "you",
+    "r": "are",
+    "pls": "please",
+    "abt": "about",
+    "yr": "year",
+    "sem": "semester"
+}
+synonym_map = {
+    "lecturers": "academic staff",
+    "professors": "academic staff",
+    "hod": "dean",
+    "course": "subject"
+}
 
 def normalize_text(text):
     text = text.lower()
-    for abbr, full in abbreviations.items(): text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    for key, val in synonym_map.items(): text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    for abbr, full in abbreviations.items():
+        text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    for key, val in synonym_map.items():
+        text = re.sub(rf'\b{re.escape(key)}\b', val, text)
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
 @st.cache_resource
-def load_model(): return SentenceTransformer("all-MiniLM-L6-v2")
+def load_model():
+    return SentenceTransformer("all-MiniLM-L6-v2")
+
 model = load_model()
 
 @st.cache_resource
@@ -60,7 +79,7 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
-# 📘 RAG fallback
+# 📘 RAG fallback for no close match
 
 def rag_fallback_with_context(query, top_k_matches):
     try:
@@ -70,7 +89,8 @@ def rag_fallback_with_context(query, top_k_matches):
             if i < len(filtered_data):
                 pair = f"Q: {filtered_data[i]['question']}\nA: {filtered_data[i]['answer']}"
                 tokens = len(encoding.encode(pair))
-                if total_tokens + tokens > 3596: break
+                if total_tokens + tokens > 3596:
+                    break
                 context_parts.append(pair)
                 total_tokens += tokens
 
@@ -87,14 +107,14 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
-# 🔍 Search shared course across departments
+# 🔍 Search shared courses across departments
 
 def search_course_departments(course_query):
     course_query = course_query.lower()
     matches = [q for q in data if course_query in q["question"].lower() and q.get("level") == "100"]
     if matches:
-        depts = sorted(set(m["department"] for m in matches if m["department"]))
-        facs = sorted(set(m["faculty"] for m in matches if m["faculty"]))
+        depts = sorted(set(m["department"] for m in matches if m.get("department")))
+        facs = sorted(set(m["faculty"] for m in matches if m.get("faculty")))
         return f"This course is taken in departments: {', '.join(depts)} under faculties: {', '.join(facs)}."
     return "Course not found across departments."
 
@@ -109,7 +129,7 @@ def render_message(msg, is_user):
     </div>"""
 
 # 🧾 Streamlit UI
-st.set_page_config(page_title="Crescent Chatbot", layout="centered")
+
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask about admissions, courses, hostels, fees, staff, etc.")
 
@@ -138,7 +158,8 @@ if submitted and user_input:
         else:
             response = filtered_data[idx]["answer"]
 
-        if not response.endswith(('.', '!', '?')): response += '.'
+        if not response.endswith(('.', '!', '?')):
+            response += '.'
         response = "Sure! " + response[0].upper() + response[1:]
         st.session_state.history.append((response, False))
 
