@@ -20,9 +20,8 @@ st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
-# 🏷 Topic filter UI
-topics = sorted(set(q.get("topic", "") for q in data if q.get("topic")))
-selected_topic = st.selectbox("Filter by topic", ["All"] + topics)
+# Use entire dataset
+filtered_data = data
 
 # 🔠 SymSpell correction and enhanced abbreviation/synonym maps
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -91,14 +90,12 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
-# 📝 Extract course code
 def extract_course_code(text):
     match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
     if match:
         return match.group(1).replace(" ", "").upper()
     return None
 
-# 📓 Get course info
 def get_course_info(course_code):
     course_code_lower = course_code.lower()
     for entry in data:
@@ -108,7 +105,6 @@ def get_course_info(course_code):
             return f"{course_code} is '{course_name}' and it is done at level {level}."
     return f"Sorry, I couldn't find information about {course_code}."
 
-# 🔍 RAG fallback
 def rag_fallback_with_context(query, top_k_matches):
     try:
         encoding = tiktoken.encoding_for_model("gpt-4")
@@ -135,7 +131,6 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
-# 💬 Styled chat bubbles
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -158,7 +153,6 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# 📝 Streamlit UI
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask about admissions, courses, hostels, fees, staff, etc.")
 
