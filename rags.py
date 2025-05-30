@@ -15,27 +15,23 @@ import random
 # 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# 🚼 Set Streamlit page config first
+# 🚼 Set Streamlit page config
 st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 
 # 📚 Load structured dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
-
-# Use entire dataset
 filtered_data = data
 
-# 🔠 SymSpell correction and enhanced abbreviation/synonym maps
+# 🔠 SymSpell setup
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
-
-# Load pidgin dictionary into SymSpell
 pidgin_dict_path = "pidgin_dict.txt"
 if os.path.exists(pidgin_dict_path):
     sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
 else:
-    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found. Skipping pidgin spell corrections.")
+    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found.")
 
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
@@ -49,78 +45,37 @@ abbreviations = {
     "nxt": "next", "prev": "previous", "exp": "experience"
 }
 
-# Add common Pidgin English phrases and slang
 pidgin_map = {
-    "how far": "how are you",
-    "wetin": "what",
-    "no wahala": "no problem",
-    "abeg": "please",
-    "sharp sharp": "quickly",
-    "bros": "brother",
-    "guy": "person",
-    "waka": "walk",
-    "chop": "eat",
-    "jollof": "rice dish",
-    "nah": "no",
-    "dey": "is",
-    "yarn": "talk",
-    "gbam": "exactly",
-    "ehn": "yes",
-    "waka pass": "walk past",
-    "how you dey": "how are you",
-    "i no sabi": "i don't know",
-    "make we go": "let's go",
-    "omo": "child",
-    "dash": "give",
-    "carry go": "continue",
-    "owo": "money",
-    "pikin": "child",
-    "see as e be": "look how it is",
-    "no vex": "sorry",
-    "sharp": "fast",
-    "jare": "please",
-    "e sure": "it is sure",
-    "you sabi": "you know",
-    "abeg make you": "please",
-    "how you see am": "what do you think",
-    "carry come": "bring",
+    "how far": "how are you", "wetin": "what", "no wahala": "no problem", "abeg": "please",
+    "sharp sharp": "quickly", "bros": "brother", "guy": "person", "waka": "walk", "chop": "eat",
+    "jollof": "rice dish", "nah": "no", "dey": "is", "yarn": "talk", "gbam": "exactly",
+    "ehn": "yes", "waka pass": "walk past", "how you dey": "how are you", "i no sabi": "i don't know",
+    "make we go": "let's go", "omo": "child", "dash": "give", "carry go": "continue", "owo": "money",
+    "pikin": "child", "see as e be": "look how it is", "no vex": "sorry", "sharp": "fast", "jare": "please",
+    "e sure": "it is sure", "you sabi": "you know", "abeg make you": "please", "how you see am": "what do you think",
+    "carry come": "bring"
 }
 
 abbreviations.update(pidgin_map)
 
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
-    "instructors": "academic staff", "tutors": "academic staff", "staff members": "staff",
-    "head": "dean", "hod": "head of department", "dept": "department", "school": "university",
-    "college": "faculty", "course": "subject", "class": "course", "subject": "course", 
-    "unit": "credit", "credit unit": "unit", "course load": "unit", "non teaching": "non-academic",
-    "nonteaching": "non-academic", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", 
-    "receptionist": "non-academic staff", "secretary": "non-academic staff", 
-    "office staff": "non-academic staff", "tech staff": "technical staff", 
-    "it people": "technical staff", "lab helper": "technical staff", 
-    "computer staff": "technical staff", "equipment handler": "technical staff", 
-    "it guy": "technical staff", "hostel": "accommodation", "lodging": "accommodation", 
-    "room": "accommodation", "school fees": "tuition", "acceptance fee": "admission fee",
-    "fees": "tuition", "enrol": "apply", "join": "apply", "sign up": "apply", "admit": "apply",
-    "requirement": "criteria", "conditions": "criteria", "needed": "required", 
-    "needed for": "required for", "who handles": "who manages", 
-    "who takes care of": "who manages", "computer sci": "computer science",
-    "cs": "computer science", "eco": "economics", "stat": "statistics", 
-    "phy": "physics", "bio": "biology", "chem": "chemistry", 
-    "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
-    "exam": "examination", "tests": "assessments", "marks": "grades"
+    "tutors": "academic staff", "head": "dean", "hod": "head of department", "dept": "department",
+    "school": "university", "college": "faculty", "course": "subject", "class": "course", "subject": "course",
+    "unit": "credit", "credit unit": "unit", "non teaching": "non-academic", "hostel": "accommodation",
+    "lodging": "accommodation", "room": "accommodation", "school fees": "tuition", "fees": "tuition",
+    "acceptance fee": "admission fee", "enrol": "apply", "join": "apply", "sign up": "apply",
+    "requirement": "criteria", "conditions": "criteria", "needed": "required", "it people": "technical staff",
+    "computer staff": "technical staff", "admin worker": "non-academic staff", "exam": "examination",
+    "mass comm": "mass communication", "comm": "communication"
 }
 
 def normalize_text(text):
     text = text.lower()
-    # Expand abbreviations including pidgin
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    # Expand synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
-    # Spell correction with symspell
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
@@ -138,22 +93,16 @@ def build_index():
     index.train(emb)
     index.add(emb)
     return index, emb, questions
-
 index, embeddings, questions = build_index()
 
 def extract_course_code(text):
     match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
-    if match:
-        return match.group(1).replace(" ", "").upper()
-    return None
+    return match.group(1).replace(" ", "").upper() if match else None
 
 def get_course_info(course_code):
-    course_code_lower = course_code.lower()
     for entry in data:
-        if course_code_lower in entry.get("question", "").lower() or course_code_lower == entry.get("course_code", "").lower():
-            course_name = entry.get("course_name", "Unknown course name")
-            level = entry.get("level", "Unknown level")
-            return f"{course_code} is '{course_name}' and it is done at level {level}."
+        if course_code.lower() in entry.get("question", "").lower() or course_code.lower() == entry.get("course_code", "").lower():
+            return f"{course_code} is '{entry.get('course_name', 'Unknown course name')}' and it is done at level {entry.get('level', 'Unknown level')}."
     return f"Sorry, I couldn't find information about {course_code}."
 
 def rag_fallback_with_context(query, top_k_matches):
@@ -168,23 +117,18 @@ def rag_fallback_with_context(query, top_k_matches):
                     break
                 context_parts.append(pair)
                 total_tokens += tokens
-
         messages = [
             {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
             {"role": "system", "content": f"Context:\n{chr(10).join(context_parts)}"},
             {"role": "user", "content": query}
         ]
-
         response = client.chat.completions.create(model="gpt-4", messages=messages)
         return response.choices[0].message.content.strip()
-
     except Exception as e:
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
-# File to log unmatched queries for later review/improvement
 UNMATCHED_LOG = "unmatched_queries.log"
-
 def log_unmatched_query(query):
     with open(UNMATCHED_LOG, "a") as f:
         f.write(query + "\n")
@@ -209,85 +153,85 @@ def render_message(message, is_user=True):
     </div><div style="clear: both;"></div>
     """
 
-# --- New greeting and farewell logic ---
 def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "hiya", "sup", "yo"]
-    text_lower = text.lower()
-    return any(greet in text_lower for greet in greetings)
+    return any(greet in text.lower() for greet in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "hiya", "sup", "yo"])
 
 def is_farewell(text):
-    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-    text_lower = text.lower()
-    return any(farewell in text_lower for farewell in farewells)
+    return any(farewell in text.lower() for farewell in ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"])
 
 def get_random_greeting_response():
-    responses = [
+    return random.choice([
         "Hello! How can I assist you today?",
         "Hi there! What can I help you with?",
         "Hey! Feel free to ask me anything about Crescent University.",
         "Greetings! How may I be of service?",
         "Hello! Ready to help you with any questions."
-    ]
-    return random.choice(responses)
+    ])
 
 def get_random_farewell_response():
-    responses = [
+    return random.choice([
         "Goodbye! Have a great day!",
         "See you later! Feel free to come back anytime.",
         "Bye! Take care!",
         "Farewell! Let me know if you need anything else.",
         "Peace out! Hope to chat again soon."
-    ]
-    return random.choice(responses)
-
+    ])
 
 def main():
     st.title("Crescent University Chatbot")
 
-    # Sidebar with Clear Chat button
+    # 🌙 Optional dark mode toggle
+    dark_mode = st.sidebar.checkbox("🌙 Dark Mode")
+    if dark_mode:
+        st.markdown("""<style>
+            body, .stApp {
+                background-color: #111 !important;
+                color: #f1f1f1 !important;
+            }
+        </style>""", unsafe_allow_html=True)
+
+    # Sidebar clear
     if st.sidebar.button("Clear Chat"):
         st.session_state.history = []
 
     if "history" not in st.session_state:
         st.session_state.history = []
 
-    user_input = st.text_input("Ask me anything about Crescent University:")
+    user_input = st.text_input("Ask me anything about Crescent University:", key="user_input")
 
     if user_input:
         norm_input = normalize_text(user_input)
 
-        if is_greeting(user_input):
-            answer = get_random_greeting_response()
-        elif is_farewell(user_input):
-            answer = get_random_farewell_response()
-        else:
-            # Direct course code question handling
-            course_code = extract_course_code(norm_input)
-            if course_code:
-                answer = get_course_info(course_code)
+        with st.spinner("Bot is typing..."):
+            if is_greeting(user_input):
+                answer = get_random_greeting_response()
+            elif is_farewell(user_input):
+                answer = get_random_farewell_response()
             else:
-                # Search embedding index
-                query_emb = model.encode([norm_input], show_progress_bar=False)
-                D, I = index.search(np.array(query_emb).astype("float32"), 10)
-                best_score = D[0][0]
-                best_idx = I[0][0]
-
-                # Threshold for direct answers from dataset
-                if best_score < 1.0 and best_idx < len(filtered_data):
-                    answer = filtered_data[best_idx]["answer"]
+                course_code = extract_course_code(norm_input)
+                if course_code:
+                    answer = get_course_info(course_code)
                 else:
-                    # Use RAG fallback with top matches from index
-                    answer = rag_fallback_with_context(user_input, I[0])
-                    # Log unmatched queries that returned generic fallback
-                    if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
-                        log_unmatched_query(user_input)
+                    query_emb = model.encode([norm_input], show_progress_bar=False)
+                    D, I = index.search(np.array(query_emb).astype("float32"), 10)
+                    best_score = D[0][0]
+                    best_idx = I[0][0]
+                    if best_score < 1.0 and best_idx < len(filtered_data):
+                        answer = filtered_data[best_idx]["answer"]
+                    else:
+                        answer = rag_fallback_with_context(user_input, I[0])
+                        if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                            log_unmatched_query(user_input)
 
         st.session_state.history.append(("user", user_input))
         st.session_state.history.append(("bot", answer))
 
-    # Render chat messages
+        # Clear input box
+        st.session_state["user_input"] = ""
+
+    # Render chat
     for role, msg in st.session_state.history:
-        st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
+        st.markdown(render_message(msg, is_user=(role == "user")), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
