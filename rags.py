@@ -188,7 +188,7 @@ if submitted and user_input:
         top_index = indices[0]
         top_score = scores[0]
 
-        if top_score < 0.6:
+        if top_score < 0.7:
             response = rag_fallback_with_context(user_input_clean, indices)
         else:
             response = data[top_index]["answer"]
