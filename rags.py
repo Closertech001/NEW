@@ -244,14 +244,13 @@ def get_random_farewell_response():
 def main():
     st.title("Crescent University Chatbot")
 
-    # Sidebar with Clear Chat button
     if st.sidebar.button("Clear Chat"):
         st.session_state.history = []
 
     if "history" not in st.session_state:
         st.session_state.history = []
 
-    user_input = st.text_input("Ask me anything about Crescent University:")
+    user_input = st.text_input("Ask me anything about Crescent University:", key="text_input")
 
     if user_input:
         norm_input = normalize_text(user_input)
@@ -261,33 +260,28 @@ def main():
         elif is_farewell(user_input):
             answer = get_random_farewell_response()
         else:
-            # Direct course code question handling
             course_code = extract_course_code(norm_input)
             if course_code:
                 answer = get_course_info(course_code)
             else:
-                # Search embedding index
                 query_emb = model.encode([norm_input], show_progress_bar=False)
                 D, I = index.search(np.array(query_emb).astype("float32"), 10)
                 best_score = D[0][0]
                 best_idx = I[0][0]
 
-                # Threshold for direct answers from dataset
                 if best_score < 1.0 and best_idx < len(filtered_data):
                     answer = filtered_data[best_idx]["answer"]
                 else:
-                    # Use RAG fallback with top matches from index
                     answer = rag_fallback_with_context(user_input, I[0])
-                    # Log unmatched queries that returned generic fallback
                     if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
                         log_unmatched_query(user_input)
 
         st.session_state.history.append(("user", user_input))
         st.session_state.history.append(("bot", answer))
 
+        # Clear input box after processing
+        st.session_state["text_input"] = ""
+
     # Render chat messages
     for role, msg in st.session_state.history:
         st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
-
-if __name__ == "__main__":
-    main()
