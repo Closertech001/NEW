@@ -192,6 +192,7 @@ Q: How can I apply for admission?
 A: You can apply for admission through the university’s online portal at admissions.crescentuniversity.edu.
 
 Answer:
+"""
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
