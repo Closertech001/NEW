@@ -1,40 +1,36 @@
+import re
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
 from openai import OpenAI
-import re
-from symspellpy.symspellpy import SymSpell
-import pkg_resources
-import tiktoken
 import logging
-import os
-import random
+import pkg_resources
+from symspellpy.symspellpy import SymSpell
 
-# 🔐 Initialize OpenAI client
+# Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# 🚼 Set Streamlit page config first
+# Set Streamlit page config first
 st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 
-# 📚 Load structured dataset
+# Load structured dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
 # Use entire dataset
 filtered_data = data
 
-# 🔠 SymSpell correction and enhanced abbreviation/synonym maps
+# Initialize SymSpell for spell correction (and pidgin)
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Load pidgin dictionary into SymSpell
 pidgin_dict_path = "pidgin_dict.txt"
-if os.path.exists(pidgin_dict_path):
+try:
     sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
-else:
+except Exception:
     logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found. Skipping pidgin spell corrections.")
 
 abbreviations = {
@@ -111,16 +107,12 @@ synonym_map = {
     "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
-
 def normalize_text(text):
     text = text.lower()
-    # Expand abbreviations including pidgin
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    # Expand synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
-    # Spell correction with symspell
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
@@ -141,129 +133,103 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
-def extract_course_code(text):
-    match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
+# Helper extractors
+
+def extract_level(text):
+    match = re.search(r'\b(\d{3})\s*level\b', text)
     if match:
-        return match.group(1).replace(" ", "").upper()
+        return match.group(1)
     return None
 
-def get_course_info(course_code):
-    course_code_lower = course_code.lower()
+def extract_semester(text):
+    sem_map = {
+        'first': 'first',
+        '1st': 'first',
+        'second': 'second',
+        '2nd': 'second',
+        '1': 'first',
+        '2': 'second',
+    }
+    for key in sem_map:
+        if key in text:
+            return sem_map[key]
+    return None
+
+def extract_department(text):
+    # List your departments here — make sure to lowercase for matching
+    departments = [
+        'computer science', 'mass communication', 'law', 'physics', 'chemistry',
+        'biology', 'architecture', 'economics', 'statistics', 'mathematics',
+        'engineering', 'accounting', 'education'
+    ]
+    for dept in departments:
+        if dept in text:
+            return dept
+    return None
+
+def get_courses_by_level_and_dept(level, department, semester=None):
+    results = []
     for entry in data:
-        if course_code_lower in entry.get("question", "").lower() or course_code_lower == entry.get("course_code", "").lower():
-            course_name = entry.get("course_name", "Unknown course name")
-            level = entry.get("level", "Unknown level")
-            return f"{course_code} is '{course_name}' and it is done at level {level}."
-    return f"Sorry, I couldn't find information about {course_code}."
+        entry_level = str(entry.get("level", "")).lower()
+        entry_semester = str(entry.get("semester", "")).lower()
+        entry_dept = str(entry.get("department", "")).lower()
 
-def rag_fallback_with_context(query, top_k_matches):
-    try:
-        encoding = tiktoken.encoding_for_model("gpt-4")
-        context_parts, total_tokens = [], 0
-        for i in top_k_matches:
-            if i < len(filtered_data):
-                pair = f"Q: {filtered_data[i]['question']}\nA: {filtered_data[i]['answer']}"
-                tokens = len(encoding.encode(pair))
-                if total_tokens + tokens > 3596:
-                    break
-                context_parts.append(pair)
-                total_tokens += tokens
+        if entry_level == level.lower() and department.lower() in entry_dept:
+            if semester:
+                if semester.lower() == entry_semester:
+                    results.append(entry)
+            else:
+                results.append(entry)
 
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
-            {"role": "system", "content": f"Context:\n{chr(10).join(context_parts)}"},
-            {"role": "user", "content": query}
-        ]
+    if not results:
+        return f"Sorry, I couldn't find any courses for {level} level in {department}."
 
-        response = client.chat.completions.create(model="gpt-4", messages=messages)
-        return response.choices[0].message.content.strip()
+    # Format the course list nicely
+    course_lines = []
+    for c in results:
+        sem_text = c.get("semester", "N/A").capitalize()
+        code = c.get("course_code", "N/A").upper()
+        name = c.get("course_name", "Unnamed Course")
+        course_lines.append(f"- {code}: {name} ({sem_text} semester)")
 
-    except Exception as e:
-        logging.warning(f"OpenAI fallback error: {e}")
-        return "I couldn't find an exact match. Could you try rephrasing?"
+    return f"Courses for {level} level in {department}:\n" + "\n".join(course_lines)
 
-# File to log unmatched queries for later review/improvement
-UNMATCHED_LOG = "unmatched_queries.log"
-
-def log_unmatched_query(query):
-    with open(UNMATCHED_LOG, "a") as f:
-        f.write(query + "\n")
-
-def render_message(message, is_user=True):
-    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
-    align = "right" if is_user else "left"
-    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-    return f"""
-    <div style="
-        background-color: {bg_color};
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 70%;
-        margin: {margin};
-        text-align: left;
-        float: {align};
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 16px;">
-        {message}
-    </div><div style="clear: both;"></div>
-    """
-
-# --- New greeting and farewell logic ---
-def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "hiya", "sup", "yo"]
-    text_lower = text.lower()
-    return any(greet in text_lower for greet in greetings)
-
-def is_farewell(text):
-    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-    text_lower = text.lower()
-    return any(farewell in text_lower for farewell in farewells)
-
-def get_random_greeting_response():
-    responses = [
-        "Hello! How can I assist you today?",
-        "Hi there! What can I help you with?",
-        "Hey! Feel free to ask me anything about Crescent University.",
-        "Greetings! How may I be of service?",
-        "Hello! Ready to help you with any questions."
-    ]
-    return random.choice(responses)
-
-def get_random_farewell_response():
-    responses = [
-        "Goodbye! Have a great day!",
-        "See you later! Feel free to come back anytime.",
-        "Bye! Take care!",
-        "Farewell! Let me know if you need anything else.",
-        "Peace out! Hope to chat again soon."
-    ]
-    return random.choice(responses)
-
+# Main app function
 
 def main():
     st.title("Crescent University Chatbot")
 
-    if st.sidebar.button("Clear Chat"):
-        st.session_state.history = []
-
     if "history" not in st.session_state:
         st.session_state.history = []
 
-    user_input = st.text_input("Ask me anything about Crescent University:", key="text_input")
+    # Sidebar clear chat button
+    if st.sidebar.button("Clear Chat"):
+        st.session_state.history = []
+        st.experimental_rerun()
+
+    user_input = st.text_input("Ask me anything about Crescent University:")
 
     if user_input:
         norm_input = normalize_text(user_input)
 
-        if is_greeting(user_input):
-            answer = get_random_greeting_response()
-        elif is_farewell(user_input):
-            answer = get_random_farewell_response()
+        level = extract_level(norm_input)
+        department = extract_department(norm_input)
+        semester = extract_semester(norm_input)
+
+        if level and department:
+            answer = get_courses_by_level_and_dept(level, department, semester)
         else:
-            course_code = extract_course_code(norm_input)
+            # Your existing logic for course code or fallback search
+            course_code = None
+            match_course = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', norm_input)
+            if match_course:
+                course_code = match_course.group(1).replace(" ", "").upper()
+
             if course_code:
+                # Your get_course_info function or fallback logic here
                 answer = get_course_info(course_code)
             else:
+                # Search embedding index
                 query_emb = model.encode([norm_input], show_progress_bar=False)
                 D, I = index.search(np.array(query_emb).astype("float32"), 10)
                 best_score = D[0][0]
@@ -279,9 +245,8 @@ def main():
         st.session_state.history.append(("user", user_input))
         st.session_state.history.append(("bot", answer))
 
-        # Clear input box after processing
-        st.session_state["text_input"] = ""
-
-    # Render chat messages
     for role, msg in st.session_state.history:
-        st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
+        st.markdown(render_message(msg, is_user=(role == "user")), unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
