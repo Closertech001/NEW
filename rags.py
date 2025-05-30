@@ -1,37 +1,36 @@
-import re
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
 from openai import OpenAI
-import logging
-import pkg_resources
+import re
 from symspellpy.symspellpy import SymSpell
+import pkg_resources
+import tiktoken
+import logging
+import os
+import time
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# Set Streamlit page config first
 st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 
-# Load structured dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
-# Use entire dataset
 filtered_data = data
 
-# Initialize SymSpell for spell correction (and pidgin)
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
 pidgin_dict_path = "pidgin_dict.txt"
-try:
+if os.path.exists(pidgin_dict_path):
     sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
-except Exception:
-    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found. Skipping pidgin spell corrections.")
+else:
+    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found.")
 
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
@@ -107,6 +106,7 @@ synonym_map = {
     "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
+
 def normalize_text(text):
     text = text.lower()
     for abbr, full in abbreviations.items():
@@ -133,83 +133,59 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
-# Helper extractors
-
-def extract_level(text):
-    match = re.search(r'\b(\d{3})\s*level\b', text)
+def extract_course_code(text):
+    match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
     if match:
-        return match.group(1)
+        return match.group(1).replace(" ", "").upper()
     return None
 
-def extract_semester(text):
-    sem_map = {
-        'first': 'first',
-        '1st': 'first',
-        'second': 'second',
-        '2nd': 'second',
-        '1': 'first',
-        '2': 'second',
-    }
-    for key in sem_map:
-        if key in text:
-            return sem_map[key]
-    return None
-
-def extract_department(text):
-    # List your departments here — make sure to lowercase for matching
-    departments = [
-        'computer science', 'mass communication', 'law', 'physics', 'chemistry',
-        'biology', 'architecture', 'economics', 'statistics', 'mathematics',
-        'engineering', 'accounting', 'education'
-    ]
-    for dept in departments:
-        if dept in text:
-            return dept
-    return None
-
-def get_courses_by_level_and_dept(level, department, semester=None):
-    results = []
+def get_course_info(course_code):
+    course_code_lower = course_code.lower()
     for entry in data:
-        entry_level = str(entry.get("level", "")).lower()
-        entry_semester = str(entry.get("semester", "")).lower()
-        entry_dept = str(entry.get("department", "")).lower()
+        if course_code_lower in entry.get("question", "").lower() or course_code_lower == entry.get("course_code", "").lower():
+            course_name = entry.get("course_name", "Unknown course name")
+            level = entry.get("level", "Unknown level")
+            return f"{course_code} is '{course_name}' and it is done at level {level}."
+    return f"Sorry, I couldn't find information about {course_code}."
 
-        if entry_level == level.lower() and department.lower() in entry_dept:
-            if semester:
-                if semester.lower() == entry_semester:
-                    results.append(entry)
-            else:
-                results.append(entry)
+def rag_fallback_with_context(query, top_k_matches):
+    try:
+        encoding = tiktoken.encoding_for_model("gpt-4")
+        context_parts, total_tokens = [], 0
+        for i in top_k_matches:
+            if i < len(filtered_data):
+                pair = f"Q: {filtered_data[i]['question']}\nA: {filtered_data[i]['answer']}"
+                tokens = len(encoding.encode(pair))
+                if total_tokens + tokens > 3596:
+                    break
+                context_parts.append(pair)
+                total_tokens += tokens
 
-    if not results:
-        return f"Sorry, I couldn't find any courses for {level} level in {department}."
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
+            {"role": "system", "content": f"Context:\n{chr(10).join(context_parts)}"},
+            {"role": "user", "content": query}
+        ]
 
-    # Format the course list nicely
-    course_lines = []
-    for c in results:
-        sem_text = c.get("semester", "N/A").capitalize()
-        code = c.get("course_code", "N/A").upper()
-        name = c.get("course_name", "Unnamed Course")
-        course_lines.append(f"- {code}: {name} ({sem_text} semester)")
+        response = client.chat.completions.create(model="gpt-4", messages=messages)
+        return response.choices[0].message.content.strip()
 
-    return f"Courses for {level} level in {department}:\n" + "\n".join(course_lines)
+    except Exception as e:
+        logging.warning(f"OpenAI fallback error: {e}")
+        return "I couldn't find an exact match. Could you try rephrasing?"
+
+UNMATCHED_LOG = "unmatched_queries.log"
+
+def log_unmatched_query(query):
+    with open(UNMATCHED_LOG, "a") as f:
+        f.write(query + "\n")
 
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
     margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
     return f"""
-    <style>
-    @keyframes fadeIn {{
-        0% {{ opacity: 0; transform: translateY(10px); }}
-        100% {{ opacity: 1; transform: translateY(0); }}
-    }}
-    .chat-message {{
-        animation: fadeIn 0.4s ease-in-out;
-    }}
-    </style>
-
-    <div class="chat-message" style="
+    <div style="
         background-color: {bg_color};
         padding: 10px;
         border-radius: 10px;
@@ -219,62 +195,56 @@ def render_message(message, is_user=True):
         float: {align};
         clear: both;
         font-family: Arial, sans-serif;
-        font-size: 16px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        font-size: 16px;">
         {message}
     </div><div style="clear: both;"></div>
     """
 
-# Main app function
-
 def main():
+    st.sidebar.title("Options")
+    if st.sidebar.button("Clear chat"):
+        st.session_state.history = []
+        st.experimental_rerun()
+
     st.title("Crescent University Chatbot")
 
     if "history" not in st.session_state:
-        st.session_state.history = []
-
-    # Sidebar clear chat button
-    if st.sidebar.button("Clear Chat"):
-        st.session_state.history = []
-        st.experimental_rerun()
+        st.session_state.history = [
+            ("user", "Hello"),
+            ("bot", "Hi there! I'm the Crescent University chatbot. How can I assist you today?")
+        ]
 
     user_input = st.text_input("Ask me anything about Crescent University:")
 
     if user_input:
         norm_input = normalize_text(user_input)
-
-        level = extract_level(norm_input)
-        department = extract_department(norm_input)
-        semester = extract_semester(norm_input)
-
-        if level and department:
-            answer = get_courses_by_level_and_dept(level, department, semester)
-        else:
-            # Your existing logic for course code or fallback search
-            course_code = None
-            match_course = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', norm_input)
-            if match_course:
-                course_code = match_course.group(1).replace(" ", "").upper()
-
-            if course_code:
-                # Your get_course_info function or fallback logic here
-                answer = get_course_info(course_code)
-            else:
-                # Search embedding index
-                query_emb = model.encode([norm_input], show_progress_bar=False)
-                D, I = index.search(np.array(query_emb).astype("float32"), 10)
-                best_score = D[0][0]
-                best_idx = I[0][0]
-
-                if best_score < 1.0 and best_idx < len(filtered_data):
-                    answer = filtered_data[best_idx]["answer"]
-                else:
-                    answer = rag_fallback_with_context(user_input, I[0])
-                    if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
-                        log_unmatched_query(user_input)
-
         st.session_state.history.append(("user", user_input))
+
+        typing_placeholder = st.empty()
+        for i in range(3):
+            dots = '.' * ((i % 3) + 1)
+            typing_placeholder.markdown(render_message(f"🤖 Bot is typing{dots}", is_user=False), unsafe_allow_html=True)
+            time.sleep(0.5)
+
+        course_code = extract_course_code(norm_input)
+
+        if course_code:
+            answer = get_course_info(course_code)
+        else:
+            query_emb = model.encode([norm_input], show_progress_bar=False)
+            D, I = index.search(np.array(query_emb).astype("float32"), 10)
+            best_score = D[0][0]
+            best_idx = I[0][0]
+
+            if best_score < 1.0 and best_idx < len(filtered_data):
+                answer = filtered_data[best_idx]["answer"]
+            else:
+                answer = rag_fallback_with_context(user_input, I[0])
+                if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                    log_unmatched_query(user_input)
+
         st.session_state.history.append(("bot", answer))
+        typing_placeholder.empty()
 
     for role, msg in st.session_state.history:
         st.markdown(render_message(msg, is_user=(role == "user")), unsafe_allow_html=True)
