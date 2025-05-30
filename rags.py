@@ -147,9 +147,6 @@ dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 if dark_mode:
     st.markdown("""
         <style>
-        body, .message { background-color: #121212 !important; color: #ffffff !important; }
-        .user-msg { background-color: #1e88e5 !important; color: white !important; }
-        .bot-msg { background-color: #2c2c2c !important; color: white !important; }
         .message {
         opacity: 0;
         animation-fill-mode: forwards;
