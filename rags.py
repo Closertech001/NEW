@@ -3,19 +3,21 @@ import re
 import time
 import random
 import json
+import os
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
+import openai
 
 # --------------------------
-# Load data
+# Load Q&A dataset
 @st.cache_resource
 def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
 # --------------------------
-# Initialize SymSpell for typo correction
+# Initialize SymSpell
 @st.cache_resource
 def init_symspell():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -24,13 +26,28 @@ def init_symspell():
     return sym_spell
 
 # --------------------------
-# Load SentenceTransformer embedding model
+# Load SentenceTransformer model
 @st.cache_resource
 def load_embedding_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 # --------------------------
-# Normalization dictionaries for abbreviations, slang, synonyms
+# OpenAI GPT fallback
+def gpt_fallback_response(prompt):
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant for Crescent University."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=500,
+        temperature=0.7
+    )
+    return response["choices"][0]["message"]["content"]
+
+# --------------------------
+# Text Normalization
 ABBREVIATIONS = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -40,7 +57,6 @@ ABBREVIATIONS = {
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
     "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience",
-    # Pidgin & informal
     "how far": "how are you", "wetin": "what", "no wahala": "no problem", "abeg": "please",
     "sharp sharp": "quickly", "bros": "brother", "guy": "person", "waka": "walk", "chop": "eat",
     "jollof": "rice dish", "nah": "no", "dey": "is", "yarn": "talk", "gbam": "exactly", "ehn": "yes",
@@ -68,28 +84,22 @@ SYNONYMS = {
     "archi": "architecture", "exam": "examination", "marks": "grades"
 }
 
-# --------------------------
-# Normalize input text
 def normalize_text(text, sym_spell):
     text = text.lower()
-    # Replace abbreviations
     for abbr, full in ABBREVIATIONS.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    # Replace synonyms
     for syn, rep in SYNONYMS.items():
         text = re.sub(rf'\b{re.escape(syn)}\b', rep, text)
-    # Spell correction using symspell compound lookup
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
-    if suggestions:
-        return suggestions[0].term
-    else:
-        return text
+    return suggestions[0].term if suggestions else text
 
 # --------------------------
-# Greeting & Farewell detection
+# Greetings/Farewells
 def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
-    return any(text.lower().strip() == g for g in greetings)
+    return any(text.lower().strip() == g for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"])
+
+def is_farewell(text):
+    return any(text.lower().strip() == f for f in ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"])
 
 def get_random_greeting_response():
     return random.choice([
@@ -99,10 +109,6 @@ def get_random_greeting_response():
         "Greetings! How may I be of service?",
         "Hello! Ready to help you with any questions."
     ])
-
-def is_farewell(text):
-    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-    return any(text.lower().strip() == f for f in farewells)
 
 def get_random_farewell_response():
     return random.choice([
@@ -114,28 +120,40 @@ def get_random_farewell_response():
     ])
 
 # --------------------------
-# Retrieve best matching Q&A
+# Top-K Semantic Retrieval
 def retrieve_top_k_answers(user_input, dataset, embed_model, top_k=3):
     user_embed = embed_model.encode(user_input, convert_to_tensor=True)
     questions = [item["question"] for item in dataset]
     q_embeds = embed_model.encode(questions, convert_to_tensor=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    
-    top_results = []
     top_indices = scores.topk(top_k).indices
+    results = []
 
     for idx in top_indices:
         idx = int(idx)
-        top_results.append({
+        results.append({
             "question": dataset[idx]["question"],
             "answer": dataset[idx]["answer"],
             "score": float(scores[idx])
         })
 
-    return top_results
+    return results
 
 # --------------------------
-# Main app
+# Follow-up Suggestions
+def suggest_followups(top_question):
+    tokens = top_question.split()
+    if "admission" in tokens:
+        return ["What are the admission requirements?", "Is there an admission fee?", "When is the deadline?"]
+    elif "course" in tokens or "subject" in tokens:
+        return ["What are the core courses?", "How many credit units?", "Who teaches this course?"]
+    elif "fees" in tokens:
+        return ["How much is tuition?", "Is there an installment plan?", "Are scholarships available?"]
+    else:
+        return ["Can you explain further?", "Where can I find more info?", "Who can I contact for help?"]
+
+# --------------------------
+# Main App
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
@@ -148,7 +166,6 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
-    # Display chat history
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
@@ -157,27 +174,34 @@ def main():
 
     if user_input:
         norm_input = normalize_text(user_input, sym_spell)
-    
+
         if is_greeting(norm_input):
             response = get_random_greeting_response()
-    
         elif is_farewell(norm_input):
             response = get_random_farewell_response()
-    
         else:
-            results = retrieve_top_k_answers(norm_input, dataset, embed_model, top_k=3)
-            
-            response = "Here’s what I found:\n"
-            for i, res in enumerate(results, 1):
-                response += f"**Option {i}:**\n**Q:** {res['question']}\n**A:** {res['answer']}\n\n"
-    
+            results = retrieve_top_k_answers(norm_input, dataset, embed_model)
+            top_result = results[0]
+
+            if top_result["score"] < 0.6:
+                response = gpt_fallback_response(user_input)
+            else:
+                response = "Here are the top results I found:\n\n"
+                for i, res in enumerate(results, 1):
+                    response += f"**Option {i}:**\n**Q:** {res['question']}\n**A:** {res['answer']}\n\n"
+                suggestions = suggest_followups(results[0]["question"])
+                response += f"**You might also ask:**\n- " + "\n- ".join(suggestions)
+
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
-    
+
         with st.chat_message("assistant"):
             typing_placeholder = st.empty()
             typing_placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             typing_placeholder.markdown(response)
-    
+
         st.session_state.messages.append({"role": "assistant", "content": response})
+
+if __name__ == "__main__":
+    main()
