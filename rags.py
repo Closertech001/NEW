@@ -1,37 +1,39 @@
 import streamlit as st
-import re
-import time
-import random
+from sentence_transformers import SentenceTransformer
+import faiss
+import numpy as np
 import json
-from sentence_transformers import SentenceTransformer, util
+from openai import OpenAI
+import re
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
+import tiktoken
+import logging
+import os
+import random
 
-# --------------------------
-# Load data
+# 🔐 OpenAI API client
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+# 🚼 Page setup
+st.set_page_config(page_title="Crescent Chatbot", layout="centered")
+
+# 📚 Load data
 @st.cache_resource
 def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
+data = load_dataset()
+filtered_data = data
 
-# --------------------------
-# Initialize SymSpell for typo correction
-@st.cache_resource
-def init_symspell():
-    sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-    dict_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
-    sym_spell.load_dictionary(dict_path, term_index=0, count_index=1)
-    return sym_spell
+# 🧠 SymSpell + slang/abbreviations/synonyms
+sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+dict_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+sym_spell.load_dictionary(dict_path, term_index=0, count_index=1)
+if os.path.exists("pidgin_dict.txt"):
+    sym_spell.load_dictionary("pidgin_dict.txt", term_index=0, count_index=1)
 
-# --------------------------
-# Load SentenceTransformer embedding model
-@st.cache_resource
-def load_embedding_model():
-    return SentenceTransformer("all-MiniLM-L6-v2")
-
-# --------------------------
-# Normalization dictionaries for abbreviations, slang, synonyms
-ABBREVIATIONS = {
+abbreviations = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
     "wats": "what is", "info": "information", "yr": "year", "sem": "semester", "admsn": "admission",
@@ -39,8 +41,9 @@ ABBREVIATIONS = {
     "d": "the", "msg": "message", "idk": "i don't know", "imo": "in my opinion", "asap": "as soon as possible",
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
-    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience",
-    # Pidgin & informal
+    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience"
+}
+abbreviations.update({
     "how far": "how are you", "wetin": "what", "no wahala": "no problem", "abeg": "please",
     "sharp sharp": "quickly", "bros": "brother", "guy": "person", "waka": "walk", "chop": "eat",
     "jollof": "rice dish", "nah": "no", "dey": "is", "yarn": "talk", "gbam": "exactly", "ehn": "yes",
@@ -49,9 +52,9 @@ ABBREVIATIONS = {
     "pikin": "child", "see as e be": "look how it is", "no vex": "sorry", "sharp": "fast", 
     "jare": "please", "e sure": "it is sure", "you sabi": "you know", "abeg make you": "please", 
     "how you see am": "what do you think", "carry come": "bring"
-}
+})
 
-SYNONYMS = {
+synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
     "instructors": "academic staff", "tutors": "academic staff", "staff members": "staff",
     "head": "dean", "hod": "head of department", "dept": "department", "school": "university",
@@ -68,109 +71,162 @@ SYNONYMS = {
     "archi": "architecture", "exam": "examination", "marks": "grades"
 }
 
-# --------------------------
-# Normalize input text
-def normalize_text(text, sym_spell):
+def normalize_text(text):
     text = text.lower()
-    # Replace abbreviations
-    for abbr, full in ABBREVIATIONS.items():
+    for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    # Replace synonyms
-    for syn, rep in SYNONYMS.items():
-        text = re.sub(rf'\b{re.escape(syn)}\b', rep, text)
-    # Spell correction using symspell compound lookup
-    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
-    if suggestions:
-        return suggestions[0].term
-    else:
-        return text
+    for key, val in synonym_map.items():
+        text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
+    return suggest[0].term if suggest else text
 
-# --------------------------
-# Greeting & Farewell detection
+@st.cache_resource
+def load_model():
+    return SentenceTransformer("all-MiniLM-L6-v2")
+model = load_model()
+
+@st.cache_resource
+def build_index():
+    questions = [normalize_text(q["question"]) for q in filtered_data]
+    emb = model.encode(questions, show_progress_bar=False)
+    emb = np.array(emb).astype("float32")
+    index = faiss.IndexIVFFlat(faiss.IndexFlatL2(emb.shape[1]), emb.shape[1], 100)
+    index.train(emb)
+    index.add(emb)
+    return index, emb, questions
+index, embeddings, questions = build_index()
+
+def extract_course_code(text):
+    match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
+    if match:
+        return match.group(1).replace(" ", "").upper()
+    return None
+
+def get_course_info(course_code):
+    code_lower = course_code.lower()
+    for entry in data:
+        if code_lower in entry.get("question", "").lower() or code_lower == entry.get("course_code", "").lower():
+            name = entry.get("course_name", "Unknown course")
+            level = entry.get("level", "Unknown level")
+            return f"{course_code} is '{name}' and it is done at level {level}."
+    return f"Sorry, I couldn't find information about {course_code}."
+
+def rag_fallback_with_context(query, top_k_matches):
+    try:
+        encoding = tiktoken.encoding_for_model("gpt-4")
+        context_parts, total_tokens = [], 0
+        for i in top_k_matches:
+            if i < len(filtered_data):
+                pair = f"Q: {filtered_data[i]['question']}\nA: {filtered_data[i]['answer']}"
+                tokens = len(encoding.encode(pair))
+                if total_tokens + tokens > 3596:
+                    break
+                context_parts.append(pair)
+                total_tokens += tokens
+
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
+            {"role": "system", "content": f"Context:\n{chr(10).join(context_parts)}"},
+            {"role": "user", "content": query}
+        ]
+
+        response = client.chat.completions.create(model="gpt-4", messages=messages)
+        return response.choices[0].message.content.strip()
+
+    except Exception as e:
+        logging.warning(f"OpenAI fallback error: {e}")
+        return "I couldn't find an exact match. Could you try rephrasing?"
+
+UNMATCHED_LOG = "unmatched_queries.log"
+def log_unmatched_query(query):
+    with open(UNMATCHED_LOG, "a") as f:
+        f.write(query + "\n")
+
+dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
+
+if dark_mode:
+    st.markdown("""
+        <style>
+        body, .message { background-color: #121212 !important; color: #ffffff !important; }
+        .user-msg { background-color: #1e88e5 !important; color: white !important; }
+        .bot-msg { background-color: #2c2c2c !important; color: white !important; }
+        </style>
+    """, unsafe_allow_html=True)
+
 def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
-    return any(text.lower().strip() == g for g in greetings)
-
-def get_random_greeting_response():
-    return random.choice([
-        "Hello! How can I assist you today?",
-        "Hi there! What can I help you with?",
-        "Hey! Feel free to ask me anything about Crescent University.",
-        "Greetings! How may I be of service?",
-        "Hello! Ready to help you with any questions."
-    ])
+    return text.lower().strip() in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
 
 def is_farewell(text):
-    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-    return any(text.lower().strip() == f for f in farewells)
+    return text.lower().strip() in ["bye", "goodbye", "see you", "later", "farewell", "cya"]
+
+greeting_responses = ["Hello! How can I help you today?", "Hi there! What do you want to know?", "Hey! Ask me anything about Crescent University."]
+farewell_responses = ["Goodbye! Have a nice day!", "See you later!", "Bye!"]
+
+def get_random_greeting_response():
+    return random.choice(greeting_responses)
 
 def get_random_farewell_response():
-    return random.choice([
-        "Goodbye! Have a great day!",
-        "See you later! Feel free to come back anytime.",
-        "Bye! Take care!",
-        "Farewell! Let me know if you need anything else.",
-        "Peace out! Hope to chat again soon."
-    ])
+    return random.choice(farewell_responses)
 
-# --------------------------
-# Retrieve best matching Q&A
-def retrieve_answer(user_input, dataset, embed_model, top_k=1):
-    user_embed = embed_model.encode(user_input, convert_to_tensor=True)
-    questions = [item["question"] for item in dataset]
-    q_embeds = embed_model.encode(questions, convert_to_tensor=True)
-    scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    best_idx = int(scores.argmax())
-    return dataset[best_idx]["question"], dataset[best_idx]["answer"]
+def build_contextual_prompt(history, current_user_query, max_tokens=1000):
+    context_messages = []
+    tokens_used = 0
 
-# --------------------------
-# Main app
-def main():
-    st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
-    st.title("🎓 Crescent University Chatbot")
-    st.markdown("Ask me anything about your department, courses, or the university.")
+    recent_msgs = history[-6:] if len(history) >= 6 else history
+    for role, message in recent_msgs:
+        prefix = "User: " if role == "user" else "Bot: "
+        msg_text = prefix + message
+        tokens_used += len(msg_text.split())
+        if tokens_used > max_tokens:
+            break
+        context_messages.append(msg_text)
 
-    dataset = load_dataset()
-    embed_model = load_embedding_model()
-    sym_spell = init_symspell()
+    context_messages.append("User: " + current_user_query)
+    return "\n".join(context_messages)
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
+# Streamlit UI
+st.title("🎓 Crescent University Chatbot")
+st.markdown("Ask me anything about your courses, departments, and school!")
 
-    # Display chat history
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
+if "history" not in st.session_state:
+    st.session_state.history = []
 
-    user_input = st.chat_input("Type your question here...")
+user_input = st.text_input("You:", key="input", placeholder="Type your question here...")
 
-    if user_input:
-        norm_input = normalize_text(user_input, sym_spell)
+submitted = st.button("Send")
 
-        # Handle greetings
-        if is_greeting(norm_input):
-            response = get_random_greeting_response()
-        # Handle farewells
-        elif is_farewell(norm_input):
-            response = get_random_farewell_response()
+if submitted and user_input:
+    norm_input = normalize_text(user_input)
+
+    with st.spinner("Bot is typing..."):
+        if is_greeting(user_input):
+            answer = get_random_greeting_response()
+        elif is_farewell(user_input):
+            answer = get_random_farewell_response()
         else:
-            # Retrieve best matching Q&A from dataset
-            matched_q, answer = retrieve_answer(norm_input, dataset, embed_model)
-            response = f"**Q:** {matched_q}\n\n**A:** {answer}"
+            course_code = extract_course_code(norm_input)
+            if course_code:
+                answer = get_course_info(course_code)
+            else:
+                context_query = build_contextual_prompt(st.session_state.history, user_input)
+                query_emb = model.encode([normalize_text(context_query)], show_progress_bar=False)
+                D, I = index.search(np.array(query_emb).astype("float32"), 10)
+                best_score = D[0][0]
+                best_idx = I[0][0]
 
-        # Append user message
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        # Show user message
-        st.chat_message("user").markdown(user_input)
+                if best_score < 1.0 and best_idx < len(filtered_data):
+                    answer = filtered_data[best_idx]["answer"]
+                else:
+                    answer = rag_fallback_with_context(context_query, I[0])
+                    if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                        log_unmatched_query(user_input)
 
-        # Bot typing animation
-        with st.chat_message("assistant"):
-            typing_placeholder = st.empty()
-            typing_placeholder.markdown("_Bot is typing..._")
-            time.sleep(1.5)
-            typing_placeholder.markdown(response)
-        # Append bot message
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.history.append(("user", user_input))
+    st.session_state.history.append(("bot", answer))
 
-if __name__ == "__main__":
-    main()
+# Display conversation
+for role, msg in st.session_state.history:
+    if role == "user":
+        st.markdown(f'<div class="user-msg" style="background:#1e88e5;color:white;padding:8px;margin:5px 0;border-radius:8px;">**You:** {msg}</div>', unsafe_allow_html=True)
+    else:
+        st.markdown(f'<div class="bot-msg" style="background:#f1f1f1;color:#333;padding:8px;margin:5px 0;border-radius:8px;">**Bot:** {msg}</div>', unsafe_allow_html=True)
