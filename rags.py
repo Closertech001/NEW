@@ -13,7 +13,7 @@ import logging
 # 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# 🧹 Set Streamlit page config first
+# 🚼 Set Streamlit page config first
 st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 
 # 📚 Load structured dataset
@@ -30,28 +30,45 @@ if selected_topic != "All":
 else:
     filtered_data = data
 
-# 🔠 SymSpell correction and abbreviation/synonym maps
+# 🔠 SymSpell correction and enhanced abbreviation/synonym maps
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
 abbreviations = {
-    "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
-    "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
-    "wud": "would", "abt": "about", "bcz": "because", "btw": "between", "asap": "as soon as possible",
-    "idk": "i don't know", "imo": "in my opinion", "msg": "message", "doc": "document", "d": "the",
-    "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
-    "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
-    "info": "information", "l": "level"
+    "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
+    "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
+    "wats": "what is", "info": "information", "yr": "year", "sem": "semester", "admsn": "admission",
+    "clg": "college", "sch": "school", "uni": "university", "cresnt": "crescent", "l": "level", 
+    "d": "the", "doc": "document", "msg": "message", "idk": "i don't know", "imo": "in my opinion",
+    "asap": "as soon as possible", "dept": "department", "reg": "registration", "fee": "fees",
+    "pg": "postgraduate", "app": "application", "req": "requirement", "nd": "national diploma",
+    "a-level": "advanced level", "alevel": "advanced level", "2nd": "second", "1st": "first",
+    "nxt": "next", "prev": "previous", "exp": "experience"
 }
 
 synonym_map = {
-    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff", "instructors": "academic staff",
-    "tutors": "academic staff", "head": "dean", "school": "university", "course": "subject", "class": "course",
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff", "computer staff": "technical staff",
-    "equipment handler": "technical staff", "office staff": "non-academic staff", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff",
-    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
+    "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
+    "instructors": "academic staff", "tutors": "academic staff", "staff members": "staff",
+    "head": "dean", "hod": "head of department", "dept": "department", "school": "university",
+    "college": "faculty", "course": "subject", "class": "course", "subject": "course", 
+    "unit": "credit", "credit unit": "unit", "course load": "unit", "non teaching": "non-academic",
+    "nonteaching": "non-academic", "admin worker": "non-academic staff",
+    "support staff": "non-academic staff", "clerk": "non-academic staff", 
+    "receptionist": "non-academic staff", "secretary": "non-academic staff", 
+    "office staff": "non-academic staff", "tech staff": "technical staff", 
+    "it people": "technical staff", "lab helper": "technical staff", 
+    "computer staff": "technical staff", "equipment handler": "technical staff", 
+    "it guy": "technical staff", "hostel": "accommodation", "lodging": "accommodation", 
+    "room": "accommodation", "school fees": "tuition", "acceptance fee": "admission fee",
+    "fees": "tuition", "enrol": "apply", "join": "apply", "sign up": "apply", "admit": "apply",
+    "requirement": "criteria", "conditions": "criteria", "needed": "required", 
+    "needed for": "required for", "who handles": "who manages", 
+    "who takes care of": "who manages", "computer sci": "computer science",
+    "cs": "computer science", "eco": "economics", "stat": "statistics", 
+    "phy": "physics", "bio": "biology", "chem": "chemistry", 
+    "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
+    "exam": "examination", "tests": "assessments", "marks": "grades"
 }
 
 def normalize_text(text):
@@ -80,25 +97,24 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
-# 🕵️ Extract course code from user query
+# 📝 Extract course code
 def extract_course_code(text):
     match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
     if match:
         return match.group(1).replace(" ", "").upper()
     return None
 
-# 🔍 Get detailed info about a course code
+# 📓 Get course info
 def get_course_info(course_code):
     course_code_lower = course_code.lower()
     for entry in data:
-        # Check both question and course_code fields (if available)
         if course_code_lower in entry.get("question", "").lower() or course_code_lower == entry.get("course_code", "").lower():
             course_name = entry.get("course_name", "Unknown course name")
             level = entry.get("level", "Unknown level")
             return f"{course_code} is '{course_name}' and it is done at level {level}."
     return f"Sorry, I couldn't find information about {course_code}."
 
-# 📘 RAG fallback with context
+# 🔍 RAG fallback
 def rag_fallback_with_context(query, top_k_matches):
     try:
         encoding = tiktoken.encoding_for_model("gpt-4")
@@ -125,7 +141,7 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
-# 💬 Render message with styling
+# 💬 Styled chat bubbles
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -148,7 +164,7 @@ def render_message(message, is_user=True):
     </div>
     """
 
-# 🧾 Streamlit UI
+# 📝 Streamlit UI
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask about admissions, courses, hostels, fees, staff, etc.")
 
@@ -163,13 +179,11 @@ if submitted and user_input:
     norm_input = normalize_text(user_input)
     st.session_state.history.append((user_input, True))
 
-    # Check for course code in user input
     course_code = extract_course_code(user_input)
     if course_code:
         course_info = get_course_info(course_code)
         st.session_state.history.append((course_info, False))
     else:
-        # Use embedding search
         query_vec = model.encode([norm_input]).astype("float32")
         index.nprobe = 10
         D, I = index.search(query_vec, k=3)
@@ -185,6 +199,5 @@ if submitted and user_input:
         response = "Sure! " + response[0].upper() + response[1:]
         st.session_state.history.append((response, False))
 
-# Display conversation history
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
