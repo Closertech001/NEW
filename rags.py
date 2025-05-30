@@ -24,9 +24,8 @@ pidgin_dict_path = "pidgin_dict.txt"
 if os.path.exists(pidgin_dict_path):
     sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
 else:
-    st.warning(f"Pidgin dictionary file {pidgin_dict_path} not found.")
+    logging.warning(f"Pidgin dictionary file {pidgin_dict_path} not found.")
 
-# Abbreviations + Pidgin map + synonyms (as you gave)
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -76,14 +75,15 @@ synonym_map = {
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
 
-# You had a line updating synonym_map with itself - redundant, so skipping.
-
 def normalize_text(text):
     text = text.lower()
+    # Replace abbreviations & pidgin
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    # Replace synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    # Spell correction using SymSpell
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
