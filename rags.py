@@ -199,32 +199,37 @@ def main():
 
     user_input = st.text_input("Ask me anything about Crescent University:", key="user_input")
 
-    if user_input:
-        norm_input = normalize_text(user_input)
+with st.form(key="chat_form", clear_on_submit=True):
+    user_input = st.text_input("Ask me anything about Crescent University:")
+    submitted = st.form_submit_button("Send")
 
-        with st.spinner("Bot is typing..."):
-            if is_greeting(user_input):
-                answer = get_random_greeting_response()
-            elif is_farewell(user_input):
-                answer = get_random_farewell_response()
+if submitted and user_input:
+    norm_input = normalize_text(user_input)
+
+    with st.spinner("Bot is typing..."):
+        if is_greeting(user_input):
+            answer = get_random_greeting_response()
+        elif is_farewell(user_input):
+            answer = get_random_farewell_response()
+        else:
+            course_code = extract_course_code(norm_input)
+            if course_code:
+                answer = get_course_info(course_code)
             else:
-                course_code = extract_course_code(norm_input)
-                if course_code:
-                    answer = get_course_info(course_code)
+                query_emb = model.encode([norm_input], show_progress_bar=False)
+                D, I = index.search(np.array(query_emb).astype("float32"), 10)
+                best_score = D[0][0]
+                best_idx = I[0][0]
+                if best_score < 1.0 and best_idx < len(filtered_data):
+                    answer = filtered_data[best_idx]["answer"]
                 else:
-                    query_emb = model.encode([norm_input], show_progress_bar=False)
-                    D, I = index.search(np.array(query_emb).astype("float32"), 10)
-                    best_score = D[0][0]
-                    best_idx = I[0][0]
-                    if best_score < 1.0 and best_idx < len(filtered_data):
-                        answer = filtered_data[best_idx]["answer"]
-                    else:
-                        answer = rag_fallback_with_context(user_input, I[0])
-                        if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
-                            log_unmatched_query(user_input)
+                    answer = rag_fallback_with_context(user_input, I[0])
+                    if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                        log_unmatched_query(user_input)
 
-        st.session_state.history.append(("user", user_input))
-        st.session_state.history.append(("bot", answer))
+    st.session_state.history.append(("user", user_input))
+    st.session_state.history.append(("bot", answer))
+
 
         # Clear input box
         st.session_state["user_input"] = ""
