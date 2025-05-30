@@ -159,10 +159,16 @@ def main():
                 response = f"**Q:** {matched_q}\n\n**A:** {answer}"
             else:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
-                response = openai_client.chat.completions.create(
-                    model="gpt-4",
-                    messages=gpt_prompt
-                ).choices[0].message.content
+                try:
+                    gpt_response = openai_client.chat.completions.create(
+                        model="gpt-4",
+                        messages=gpt_prompt
+                    )
+                    response = gpt_response.choices[0].message.content
+                except Exception as e:
+                    response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
+                    st.error(f"OpenAI Error: {e}")
+
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
