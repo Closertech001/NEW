@@ -204,43 +204,35 @@ def show_typing():
 
 def main():
     st.title("Crescent University Chatbot")
-    
-    # Sidebar clear chat button
+
     with st.sidebar:
         if st.button("Clear Chat"):
             st.session_state.messages = []
             st.session_state.greeted = False
-    
-    # Greet user once
+
     if not st.session_state.greeted:
-        bot_greeting = "Hi there! I am Crescent Chatbot. How can I help you today?"
-        st.session_state.messages.append({"role": "bot", "content": bot_greeting})
+        st.session_state.messages.append({"role": "bot", "content": "Hi there! I am Crescent Chatbot. How can I help you today?"})
         st.session_state.greeted = True
-    
-    # Display chat messages
+
     for msg in st.session_state.messages:
         is_user = msg["role"] == "user"
         st.markdown(render_message(msg["content"], is_user=is_user), unsafe_allow_html=True)
-    
-    # Input box
-    user_input = st.text_input("You:", key="input", placeholder="Ask me anything...")
-    
-    if user_input:
-        # Clear input immediately
-        st.session_state.input = ""
-        
-        # Append user message
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        
-        # Show typing indicator (in a separate thread so UI can update)
-        show_typing()
-        
-        # Get bot response
-        response = chatbot_response(user_input)
-        st.session_state.messages.append({"role": "bot", "content": response})
-        
-        # Rerun to display new messages (Streamlit automatically reruns on interaction)
-        st.experimental_rerun()
 
-if __name__ == "__main__":
-    main()
+    user_input = st.text_input("You:", key="input", placeholder="Ask me anything...")
+
+    if user_input and user_input.strip():
+        st.session_state.input = ""  # Clear input box
+        st.session_state.messages.append({"role": "user", "content": user_input})
+
+        # Show typing indicator
+        st.session_state.typing = True
+        st.experimental_rerun()  # Show typing indicator
+
+    if st.session_state.get("typing"):
+        # Show typing indicator
+        st.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
+        # Generate response
+        response = chatbot_response(st.session_state.messages[-1]["content"])
+        st.session_state.messages.append({"role": "bot", "content": response})
+        st.session_state.typing = False
+        st.experimental_rerun()
