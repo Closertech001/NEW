@@ -213,9 +213,7 @@ def main():
     
     # Greet user once
     if not st.session_state.greeted:
-        user_greeting = "Hello!"
         bot_greeting = "Hi there! I am Crescent Chatbot. How can I help you today?"
-        st.session_state.messages.append({"role": "user", "content": user_greeting})
         st.session_state.messages.append({"role": "bot", "content": bot_greeting})
         st.session_state.greeted = True
     
