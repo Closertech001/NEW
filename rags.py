@@ -7,17 +7,16 @@ from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
 from openai import OpenAI
-import torch
 
 # --------------------------
-# Load dataset
+# Load data
 @st.cache_resource
 def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
 # --------------------------
-# Load SymSpell
+# Initialize SymSpell for typo correction
 @st.cache_resource
 def init_symspell():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -26,19 +25,19 @@ def init_symspell():
     return sym_spell
 
 # --------------------------
-# Load SentenceTransformer
+# Load SentenceTransformer embedding model
 @st.cache_resource
 def load_embedding_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 # --------------------------
-# Init OpenAI
+# Initialize OpenAI Client
 @st.cache_resource
 def init_openai():
     return OpenAI()
 
 # --------------------------
-# Abbreviations & Synonyms
+# Normalization dictionaries
 ABBREVIATIONS = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -76,7 +75,6 @@ SYNONYMS = {
 }
 
 # --------------------------
-# Normalize input
 def normalize_text(text, sym_spell):
     text = text.lower()
     for abbr, full in ABBREVIATIONS.items():
@@ -87,64 +85,56 @@ def normalize_text(text, sym_spell):
     return suggestions[0].term if suggestions else text
 
 # --------------------------
-# Greeting / Farewell
 def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
-    return any(text.strip() == g for g in greetings)
+    return any(text.lower().strip() == g for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"])
 
 def get_random_greeting_response():
     return random.choice([
         "Hello! How can I assist you today?",
         "Hi there! What can I help you with?",
         "Hey! Feel free to ask me anything about Crescent University.",
+        "Greetings! How may I be of service?",
+        "Hello! Ready to help you with any questions."
     ])
 
 def is_farewell(text):
-    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-    return any(text.strip() == f for f in farewells)
+    return any(text.lower().strip() == f for f in ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"])
 
 def get_random_farewell_response():
     return random.choice([
         "Goodbye! Have a great day!",
         "See you later! Feel free to come back anytime.",
         "Bye! Take care!",
+        "Farewell! Let me know if you need anything else.",
+        "Peace out! Hope to chat again soon."
     ])
 
 # --------------------------
-# Retrieve answer or fallback
-def retrieve_answer(user_input, dataset, embed_model, threshold=0.7):
+def retrieve_answer(user_input, dataset, embed_model, top_k=1):
     user_embed = embed_model.encode(user_input, convert_to_tensor=True)
     questions = [item["question"] for item in dataset]
     q_embeds = embed_model.encode(questions, convert_to_tensor=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    best_score, best_idx = torch.max(scores, dim=0)
-    best_score = best_score.item()
-
-    if best_score >= threshold:
-        return dataset[best_idx]["question"], dataset[best_idx]["answer"], best_score
-    else:
-        return None, None, best_score
+    best_score = float(scores.max())
+    best_idx = int(scores.argmax())
+    return dataset[best_idx]["question"], dataset[best_idx]["answer"], best_score
 
 # --------------------------
-# GPT fallback
-def gpt_fallback(openai_client, prompt):
-    response = openai_client.chat.completions.create(
-        model="gpt-4",  # or "gpt-3.5-turbo"
-        messages=[{"role": "system", "content": "You are a helpful assistant for Crescent University."},
-                  {"role": "user", "content": prompt}]
-    )
-    return response.choices[0].message.content.strip()
+def build_contextual_prompt(messages, new_input, max_turns=3):
+    recent = messages[-max_turns * 2:] if len(messages) >= 2 else []
+    chat = [{"role": m["role"], "content": m["content"]} for m in recent]
+    chat.append({"role": "user", "content": new_input})
+    return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
 
 # --------------------------
-# Streamlit UI
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or the university.")
 
     dataset = load_dataset()
-    sym_spell = init_symspell()
     embed_model = load_embedding_model()
+    sym_spell = init_symspell()
     openai_client = init_openai()
 
     if "messages" not in st.session_state:
@@ -159,29 +149,29 @@ def main():
     if user_input:
         norm_input = normalize_text(user_input, sym_spell)
 
-        # Detect greetings / farewells
         if is_greeting(norm_input):
             response = get_random_greeting_response()
         elif is_farewell(norm_input):
             response = get_random_farewell_response()
         else:
-            matched_q, matched_ans, score = retrieve_answer(norm_input, dataset, embed_model)
-
-            if matched_ans:
-                response = f"**Q:** {matched_q}\n\n**A:** {matched_ans}"
+            matched_q, answer, score = retrieve_answer(norm_input, dataset, embed_model)
+            if score > 0.75:
+                response = f"**Q:** {matched_q}\n\n**A:** {answer}"
             else:
-                gpt_response = gpt_fallback(openai_client, user_input)
-                response = f"**A (by GPT):** {gpt_response}"
+                gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
+                response = openai_client.chat.completions.create(
+                    model="gpt-4",
+                    messages=gpt_prompt
+                ).choices[0].message.content
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
 
         with st.chat_message("assistant"):
             placeholder = st.empty()
-            placeholder.markdown("_Typing..._")
+            placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             placeholder.markdown(response)
-
         st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
