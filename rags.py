@@ -1,3 +1,5 @@
+# ✅ Crescent University Chatbot - Fixed & Improved Version
+
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 import faiss
@@ -22,7 +24,7 @@ sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviations and Synonym Maps
+# Abbreviations and Synonym Maps (same as before)
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -31,20 +33,13 @@ abbreviations = {
     "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
     "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
     "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
-    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second",
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff",
-    "computer staff": "technical staff", "equipment handler": "technical staff", "it guy": "technical staff",
-    "office staff": "non-academic staff", "admin worker": "non-academic staff", "support staff": "non-academic staff",
-    "clerk": "non-academic staff", "receptionist": "non-academic staff", "school worker": "non-academic staff",
-    "secretary": "non-academic staff"
+    "PHY": "Physics", "STAT": "Statistics", "1st": "First", "2nd": "Second"
 }
 
 synonym_map = {
     "lecturers": "academic staff", "professors": "academic staff", "teachers": "academic staff",
-    "instructors": "academic staff", "tutors": "academic staff",
-    "head": "dean", "hod": "dean", "h.o.d": "dean",
-    "course": "subject", "class": "course", "courses": "subjects", "classes": "courses",
-    "school": "university", "campus": "university", "institution": "university",
+    "instructors": "academic staff", "tutors": "academic staff", "head": "dean", "hod": "dean",
+    "course": "subject", "class": "course", "school": "university", "campus": "university",
     "dept": "department", "faculty": "college", "program": "course",
     "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
 }
@@ -70,39 +65,19 @@ model = load_model()
 def build_faiss_index():
     questions = [normalize_text(qa["question"]) for qa in data]
     embeddings = model.encode(questions, show_progress_bar=False)
-    dim = embeddings[0].shape[0]
+    embedding_array = np.array(embeddings).astype("float32")
 
+    dim = embedding_array.shape[1]
     quantizer = faiss.IndexFlatL2(dim)
     index = faiss.IndexIVFFlat(quantizer, dim, 100)
-    index.train(np.array(embeddings))
-    index.add(np.array(embeddings))
+    index.train(embedding_array)
+    index.add(embedding_array)
 
-    return index, embeddings, questions
+    return index, embedding_array, questions
 
 index, embeddings, questions = build_faiss_index()
 
-def render_message(message, is_user=True):
-    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
-    align = "right" if is_user else "left"
-    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-    return f"""
-    <div style="
-        background-color: {bg_color};
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 70%;
-        margin: {margin};
-        text-align: left;
-        float: {align};
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        font-weight:400;
-        color:#000;
-    ">
-        {message}
-    </div>
-    """
+# Updated RAG fallback
 
 def rag_fallback_with_context(query, top_k_matches):
     try:
@@ -124,15 +99,9 @@ def rag_fallback_with_context(query, top_k_matches):
 
         context_text = "\n".join(context_parts)
 
-        history = []
-        for msg, is_user in st.session_state.history[-6:]:
-            role = "user" if is_user else "assistant"
-            history.append({"role": role, "content": msg})
-
         messages = [
             {"role": "system", "content": "You are a helpful assistant using Crescent University's dataset."},
-            {"role": "system", "content": f"Here is relevant background info:\n{context_text}"}
-        ] + history + [
+            {"role": "system", "content": f"Here is relevant background info:\n{context_text}"},
             {"role": "user", "content": query}
         ]
 
@@ -144,10 +113,8 @@ def rag_fallback_with_context(query, top_k_matches):
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-        import traceback
-        traceback.print_exc()
         logging.warning(f"OpenAI fallback error: {e}")
-        return "Sorry, I'm having trouble answering that right now. Please try again shortly."
+        return "I couldn't find an exact match for that. Could you rephrase or ask differently?"
 
 def handle_small_talk(msg):
     small_talk = {
@@ -188,10 +155,11 @@ if submitted and user_input:
         top_index = indices[0]
         top_score = scores[0]
 
-        if top_score < 0.7:
+        if top_score > 1.0 or np.isnan(top_score):  # avoid invalid results
             response = rag_fallback_with_context(user_input_clean, indices)
         else:
             response = data[top_index]["answer"]
+
 
         if not response.endswith(('.', '!', '?')):
             response += "."
