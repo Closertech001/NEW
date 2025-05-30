@@ -10,20 +10,27 @@ import pkg_resources
 import tiktoken
 import logging
 import os
+import random
 
+# 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+# 🚼 Set Streamlit page config first
 st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 
+# 📚 Load structured dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
+# Use entire dataset
 filtered_data = data
 
+# 🔠 SymSpell correction and enhanced abbreviation/synonym maps
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
+# Load pidgin dictionary into SymSpell
 pidgin_dict_path = "pidgin_dict.txt"
 if os.path.exists(pidgin_dict_path):
     sym_spell.load_dictionary(pidgin_dict_path, term_index=0, count_index=1)
@@ -42,6 +49,7 @@ abbreviations = {
     "nxt": "next", "prev": "previous", "exp": "experience"
 }
 
+# Add common Pidgin English phrases and slang
 pidgin_map = {
     "how far": "how are you",
     "wetin": "what",
@@ -106,10 +114,13 @@ synonym_map = {
 
 def normalize_text(text):
     text = text.lower()
+    # Expand abbreviations including pidgin
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    # Expand synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    # Spell correction with symspell
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
@@ -171,6 +182,7 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
+# File to log unmatched queries for later review/improvement
 UNMATCHED_LOG = "unmatched_queries.log"
 
 def log_unmatched_query(query):
@@ -197,60 +209,85 @@ def render_message(message, is_user=True):
     </div><div style="clear: both;"></div>
     """
 
+# --- New greeting and farewell logic ---
 def is_greeting(text):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
+    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "hiya", "sup", "yo"]
     text_lower = text.lower()
-    for greet in greetings:
-        if greet in text_lower:
-            return True
-    return False
+    return any(greet in text_lower for greet in greetings)
+
+def is_farewell(text):
+    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
+    text_lower = text.lower()
+    return any(farewell in text_lower for farewell in farewells)
+
+def get_random_greeting_response():
+    responses = [
+        "Hello! How can I assist you today?",
+        "Hi there! What can I help you with?",
+        "Hey! Feel free to ask me anything about Crescent University.",
+        "Greetings! How may I be of service?",
+        "Hello! Ready to help you with any questions."
+    ]
+    return random.choice(responses)
+
+def get_random_farewell_response():
+    responses = [
+        "Goodbye! Have a great day!",
+        "See you later! Feel free to come back anytime.",
+        "Bye! Take care!",
+        "Farewell! Let me know if you need anything else.",
+        "Peace out! Hope to chat again soon."
+    ]
+    return random.choice(responses)
+
 
 def main():
     st.title("Crescent University Chatbot")
 
+    # Sidebar with Clear Chat button
+    if st.sidebar.button("Clear Chat"):
+        st.session_state.history = []
+
     if "history" not in st.session_state:
         st.session_state.history = []
-        # Add initial bot greeting
-        st.session_state.history.append(("bot", "Hello! Welcome to Crescent University Chatbot. How can I assist you today?"))
-
-    # Sidebar with Clear Chat button
-    with st.sidebar:
-        st.header("Controls")
-        if st.button("Clear Chat"):
-            st.session_state.history = []
-            # Add greeting back after clearing
-            st.session_state.history.append(("bot", "Hello! Welcome to Crescent University Chatbot. How can I assist you today?"))
 
     user_input = st.text_input("Ask me anything about Crescent University:")
 
     if user_input:
-        st.session_state.history.append(("user", user_input))
         norm_input = normalize_text(user_input)
 
-        # Check if user greeting
         if is_greeting(user_input):
-            answer = "Hello! How can I help you today?"
+            answer = get_random_greeting_response()
+        elif is_farewell(user_input):
+            answer = get_random_farewell_response()
         else:
+            # Direct course code question handling
             course_code = extract_course_code(norm_input)
             if course_code:
                 answer = get_course_info(course_code)
             else:
+                # Search embedding index
                 query_emb = model.encode([norm_input], show_progress_bar=False)
                 D, I = index.search(np.array(query_emb).astype("float32"), 10)
                 best_score = D[0][0]
                 best_idx = I[0][0]
 
+                # Threshold for direct answers from dataset
                 if best_score < 1.0 and best_idx < len(filtered_data):
                     answer = filtered_data[best_idx]["answer"]
                 else:
+                    # Use RAG fallback with top matches from index
                     answer = rag_fallback_with_context(user_input, I[0])
+                    # Log unmatched queries that returned generic fallback
                     if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
                         log_unmatched_query(user_input)
 
+        st.session_state.history.append(("user", user_input))
         st.session_state.history.append(("bot", answer))
 
+    # Render chat messages
     for role, msg in st.session_state.history:
-        st.markdown(render_message(msg, is_user=(role == "user")), unsafe_allow_html=True)
+        st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
