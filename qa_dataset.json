@@ -562,34 +562,34 @@
   {
     "question": "Under which college is the Department of Anatomy?",
     "answer": "It is under the College of Health Sciences (COHES).",
-    "department": "Department of Anatomy",
+    "department": "",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What other departments are in the College of Health Sciences?",
     "answer": "Departments of Anatomy, Department of Nursing, and Department of Physiology.",
-    "department": "Department of Anatomy",
+    "department": "",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What is the philosophy of the Anatomy program?",
     "answer": "To produce graduates of high academic standing with practical exposure in all aspects of anatomical sciences who can function in medical education, laboratory services, and entrepreneurship.",
-    "department": "Department of Anatomy",
+    "department": "",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are the objectives of the Anatomy program?",
     "answer": "1. Teach Anatomy to various health science students.  2. Use basic laboratory equipment.  3. Demonstrate organ and system functions on living subjects.  4. Identify anatomical features using radiographs and related tools.  5. Promote Anatomy through research and postgraduate studies.",
-    "department": "Department of Anatomy",
+    "department": "",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "Who are the academic staff in Anatomy?",
@@ -597,15 +597,15 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "Who are the lecturers in Anatomy?",
     "answer": "Professors: Olusola Atilade Adeeyo, Kehinde T. Adenowo | Senior Lecturers: D.A. Adekomi, O.O. Ogedengbe, P.B. Fakunle, K.A. Iteire | Lecturer I: O.A. Udi, B.S. Ogunlade, P. Akwu-Bala, O.A. Morakinyo | Lecturer II: A.A. Oyeleke.",
-      "department": "Department of Anatomy",
+    "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "List the academic staff in the Department of Anatomy.",
@@ -613,7 +613,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "Who are the technical and non-academic staff in the Department of Anatomy?",
@@ -621,7 +621,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are the UTME admission requirements for Department of Anatomy?",
@@ -629,7 +629,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are the Direct Entry requirements in Department of Anatomy?",
@@ -637,7 +637,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "Are transfer students accepted in Department of Anatomy?",
@@ -645,7 +645,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are the graduation requirements for B.Sc. Anatomy?",
@@ -653,7 +653,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are some courses at 100 Level in Anatomy?",
@@ -661,7 +661,7 @@
     "department": "Department of Anatomy",
     "level": "100",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What courses are introduced in 200 Level Department of Anatomy?",
@@ -669,7 +669,7 @@
     "department": "Department of Anatomy",
     "level": "200",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are some 300 Level courses Department of Anatomy?",
@@ -677,7 +677,7 @@
     "department": "Department of Anatomy",
     "level": "300",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What are final year courses in 400 Level Department of Anatomy?",
@@ -685,7 +685,7 @@
     "department": "Department of Anatomy",
     "level": "400",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "Is SIWES included in the program of Department of Anatomy?",
@@ -693,7 +693,7 @@
     "department": "Department of Anatomy",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
   },
   {
     "question": "What is the focus of the Department of Accounting?",
@@ -9984,11 +9984,403 @@
     "faculty": ""
   },
   {
-    "question": "What is the objective of the Department of Anatomy at Crescent University?",
-    "answer": "The Department of Anatomy aims to train students to acquire a sound and comprehensive understanding of the structure and development of the human body, preparing them for careers in medicine, allied health sciences, and biomedical research.",
-    "department": "ANATOMY",
+    "question": "What courses are offered in the Department of Computer Science?",
+    "answer": "The Department of Computer Science offers courses in programming, data structures, databases, networks, artificial intelligence, and web development.",
+    "department": "",
     "level": "",
     "semester": "",
-    "faculty": "COHES"
+    "faculty": ""
+  },
+  {
+    "question": "How do I register for my courses each semester?",
+    "answer": "You can register for courses online through the student portal after school fees payment and departmental clearance.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who is the HOD of the Mass Communication department?",
+    "answer": "The current Head of Department for Mass Communication can be found on the department notice board or via the university website.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the minimum CGPA required to graduate?",
+    "answer": "Students must have a minimum CGPA of 1.5 to graduate from Crescent University.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I take elective courses outside my department?",
+    "answer": "Yes, with approval from your academic adviser and the host department.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for SIWES/IT?",
+    "answer": "Apply through your department coordinator during the designated SIWES registration period.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What happens if I miss a continuous assessment test?",
+    "answer": "You may lose marks unless you present a valid excuse and are permitted to take a makeup test.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I access my exam timetable?",
+    "answer": "Exam timetables are posted on departmental notice boards and the student portal.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When will the exam results be released?",
+    "answer": "Exam results are released after Senate approval and can be viewed on the student portal.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I carry over failed elective courses?",
+    "answer": "Yes, but you must retake the course during the next academic session.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the admission requirements for Nursing?",
+    "answer": "Applicants must have at least five credits including English, Mathematics, Chemistry, Physics, and Biology at not more than two sittings.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there a Direct Entry option for Computer Science?",
+    "answer": "Yes, candidates with suitable qualifications such as ND or A-levels can apply for Direct Entry.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I defer my admission to next year?",
+    "answer": "Yes, by submitting a formal request to the Admissions Office stating your reason.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I check my admission status?",
+    "answer": "Visit the university portal or the admission section of the website.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What documents are required for screening?",
+    "answer": "Documents include birth certificate, O'level results, JAMB slip, admission letter, and passport photos.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How much is the tuition fee for 100-level Anatomy?",
+    "answer": "Tuition for 100-level Anatomy students is \u20a6853,000 as per the latest fee structure.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there installment payment options?",
+    "answer": "Yes, students can pay 70% in the first semester and 30% in the second semester.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where do I pay my school fees?",
+    "answer": "Fees are paid via the online portal or designated bank accounts provided by the Bursary.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What\u2019s the deadline for school fee payment?",
+    "answer": "The deadline is usually two weeks into the new semester.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I get a refund if I withdraw?",
+    "answer": "Refunds are subject to university policies and approval from the Registrar's office.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for hostel accommodation?",
+    "answer": "Apply through the Student Affairs Division immediately after paying your school fees.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is cooking allowed in the hostels?",
+    "answer": "No, cooking is not allowed inside student hostels.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What are the library opening hours?",
+    "answer": "The library opens from 8:00 AM to 6:00 PM on weekdays.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I access the university Wi-Fi?",
+    "answer": "Wi-Fi credentials are issued by the ICT department after registration.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there a clinic on campus for students?",
+    "answer": "Yes, Crescent University provides a health center for medical consultations and emergencies.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where is the registrar\u2019s office located?",
+    "answer": "It is located in the administrative building near the Senate building.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I get my transcript?",
+    "answer": "Apply through the Registrar's Office or online via the university website.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the procedure for course withdrawal?",
+    "answer": "You must fill a course withdrawal form and get approval from your HOD before the deadline.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I change my department after admission?",
+    "answer": "Yes, based on your CGPA and approval from both departments and the university Senate.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I contact the Dean of Student Affairs?",
+    "answer": "Visit the Dean's office in the administrative building or send an email via the university contact page.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there internship opportunities available through the school?",
+    "answer": "Yes, departments collaborate with organizations for IT placements.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is there a student mentorship program?",
+    "answer": "Yes, new students are paired with mentors through the Student Affairs Division.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Who do I talk to about career guidance?",
+    "answer": "The Career and Counseling Unit under Student Affairs handles that.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can alumni help current students with job placement?",
+    "answer": "Yes, the Alumni Relations Office occasionally shares job opportunities.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I book an appointment with the student counselor?",
+    "answer": "Visit the Student Affairs office and request an appointment slot.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I apply for a remark of my exam script?",
+    "answer": "Submit a remark request form through your department.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What\u2019s the penalty for exam malpractice?",
+    "answer": "Penalties range from suspension to expulsion depending on the offense.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How is GPA calculated at CUAB?",
+    "answer": "GPA is calculated by dividing total weighted grade points by total credit units attempted.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Can I get a printout of my results?",
+    "answer": "Yes, from the Exams and Records Unit or your portal.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What happens if I fail a compulsory course?",
+    "answer": "You must retake and pass the course to graduate.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the vision and mission of Crescent University?",
+    "answer": "The university aims to produce graduates with a strong moral foundation, excellent character, and professional competence.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the university\u2019s motto?",
+    "answer": "The motto is 'Citadel of Academic and Moral Excellence'.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "When was CUAB established?",
+    "answer": "Crescent University was established in 2005.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "What is the dress code for students?",
+    "answer": "Students are expected to dress smartly and decently. Revealing clothes are not permitted.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are religious activities allowed on campus?",
+    "answer": "Yes, there are regular Muslim prayers and Jummah services.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Is CUAB accredited by NUC?",
+    "answer": "Yes, Crescent University is accredited by the National Universities Commission (NUC).",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Are there any active clubs or societies I can join?",
+    "answer": "Yes, including JCI, Literary and Debating Society, ICT club, and more.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How can I join the Student Union Government?",
+    "answer": "You can contest for positions or volunteer during elections.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "How do I reset my student portal password?",
+    "answer": "Visit the ICT department to request a reset.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
+  },
+  {
+    "question": "Where can I submit complaints or suggestions?",
+    "answer": "Submit to the Student Affairs office or through the official online feedback system.",
+    "department": "",
+    "level": "",
+    "semester": "",
+    "faculty": ""
   }
 ]
