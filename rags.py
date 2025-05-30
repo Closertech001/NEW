@@ -214,6 +214,10 @@ def main():
     if "history" not in st.session_state:
         st.session_state.history = []
 
+    # Clear chat button (NO True/False button issues here)
+    if st.button("Clear Chat"):
+        st.session_state.history = []
+
     user_input = st.text_input("Ask me anything about Crescent University:")
 
     if user_input:
@@ -245,7 +249,7 @@ def main():
 
     # Render chat messages
     for role, msg in st.session_state.history:
-        st.markdown(render_message(msg, is_user=(role=="user")), unsafe_allow_html=True)
+        st.markdown(render_message(msg, is_user=(role == "user")), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
