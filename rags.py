@@ -147,46 +147,9 @@ dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 if dark_mode:
     st.markdown("""
         <style>
-        .message {
-        opacity: 0;
-        animation-fill-mode: forwards;
-        animation-duration: 0.5s;
-        animation-timing-function: ease-out;
-    }
-    .slideInRight {
-        animation-name: slideInRight;
-    }
-    .slideInLeft {
-        animation-name: slideInLeft;
-    }
-    @keyframes slideInRight {
-        from {
-            transform: translateX(50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    @keyframes slideInLeft {
-        from {
-            transform: translateX(-50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    .typing-indicator {
-        font-style: italic;
-        color: gray;
-        margin: 10px 0 10px 50px;
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-    }
+        body, .message { background-color: #121212 !important; color: #ffffff !important; }
+        .user-msg { background-color: #1e88e5 !important; color: white !important; }
+        .bot-msg { background-color: #2c2c2c !important; color: white !important; }
         </style>
     """, unsafe_allow_html=True)
 
@@ -221,26 +184,7 @@ def build_contextual_prompt(history, current_user_query, max_tokens=1000):
     context_messages.append("User: " + current_user_query)
     return "\n".join(context_messages)
 
-def render_message(message, is_user=True):
-    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
-    align = "right" if is_user else "left"
-    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-    animation_class = "slideInRight" if is_user else "slideInLeft"
-    return f"""
-    <div class=\"message {animation_class}\" style="
-        background-color: {bg_color};
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 70%;
-        margin: {margin};
-        text-align: left;
-        float: {align};
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 16px;">
-        {message}
-    </div><div style=\"clear: both;\"></div>
-    """
+
 
 # Streamlit UI
 st.title("🎓 Crescent University Chatbot")
