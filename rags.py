@@ -7,6 +7,7 @@ from openai import OpenAI
 import re
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
+import time
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
@@ -16,6 +17,22 @@ st.set_page_config(page_title="Crescent Chatbot", layout="centered")
 # Load Q&A dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
+
+# Prepare data: extract questions and answers
+questions = [entry["question"] for entry in data]
+answers = [entry["answer"] for entry in data]
+
+# Load Sentence Transformer model for embeddings
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Compute embeddings for all dataset questions
+question_embeddings = embedder.encode(questions, convert_to_numpy=True)
+
+# Build FAISS index for fast similarity search
+dimension = question_embeddings.shape[1]
+index = faiss.IndexFlatIP(dimension)  # Inner product (cosine similarity if embeddings normalized)
+faiss.normalize_L2(question_embeddings)
+index.add(question_embeddings)
 
 # Initialize SymSpell for spell correction
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -69,20 +86,16 @@ synonym_map = {
     "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
+synonym_map.update(synonym_map)
 
 def normalize_text(text):
     text = text.lower()
-    # Replace abbreviations and slang word-by-word
-    words = text.split()
-    normalized_words = []
-    for w in words:
-        w = abbreviations.get(w, w)
-        w = synonym_map.get(w, w)
-        normalized_words.append(w)
-    normalized_text = " ".join(normalized_words)
-    # Use symspell to correct spelling
-    suggest = sym_spell.lookup_compound(normalized_text, max_edit_distance=2)
-    return suggest[0].term if suggest else normalized_text
+    for abbr, full in abbreviations.items():
+        text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    for key, val in synonym_map.items():
+        text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
+    return suggest[0].term if suggest else text
 
 # Render chat bubbles with animation
 def render_message(message, is_user=True):
@@ -155,102 +168,83 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Initialize session state
+def openai_fallback_response(question):
+    prompt = f"""
+You are Crescent University’s friendly and knowledgeable chatbot assistant. Your role is to help students, staff, and visitors by answering questions about courses, admissions, departments, fees, registration, campus services, and general university info. Always respond politely and clearly. If you don’t know the answer, say:
+
+"I’m sorry, I don’t have that information right now. Please check the university’s official website or contact the administration for further assistance."
+
+Feel free to ask the user if they need clarification or more help.
+
+User question: "{question}"
+
+Examples:
+
+Q: What courses are offered in Computer Science 100 level?  
+A: The courses include Introduction to Programming, Mathematics for Computing, and Computer Science Fundamentals.
+
+Q: How can I apply for admission?  
+A: You can apply for admission through the university’s online portal at admissions.crescentuniversity.edu.
+
+Answer:
+"""
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are a helpful university assistant chatbot."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7,
+        max_tokens=300,
+        n=1,
+    )
+    return response.choices[0].message.content.strip()
+
+# Initialize session state for chat history and input box clearing
 if "messages" not in st.session_state:
     st.session_state.messages = []
-if "typing" not in st.session_state:
-    st.session_state.typing = False
-if "greeted" not in st.session_state:
-    st.session_state.greeted = False
+if "input" not in st.session_state:
+    st.session_state.input = ""
 
-def chatbot_response(question):
-    normalized_question = normalize_text(question)
+# Greeting on first load
+if len(st.session_state.messages) == 0:
+    greeting = "Hello! I’m Crescent University Chatbot. How can I assist you today?"
+    st.session_state.messages.append({"content": greeting, "is_user": False})
 
-    # Try to detect level (only digits like 100, 200, ... or 2-digit numbers)
-    level_match = re.search(r"\b(100|200|300|400|500|600|\d{2,3})\b", normalized_question)
-    level = level_match.group(1) if level_match else None
+st.title("Crescent University Chatbot")
 
-    # Try to detect department from known list
-    departments_list = [
-        "computer science", "cs", "mass communication", "comm", "law",
-        "physics", "chemistry", "biology", "architecture", "economics",
-        "statistics", "math", "mathematics", "engineering", "history",
-        "english", "education", "accounting", "management", "business"
-    ]
-    dept = None
-    for d in departments_list:
-        if d in normalized_question:
-            dept = d
-            break
+def get_answer(user_question):
+    normalized = normalize_text(user_question)
+    query_emb = embedder.encode([normalized], convert_to_numpy=True)
+    faiss.normalize_L2(query_emb)
+    D, I = index.search(query_emb, k=3)  # Top 3 matches
+    top_indices = I[0]
+    top_scores = D[0]
 
-    if level and dept:
-        courses = []
-        # Normalize department name for matching in data keys (lowercase)
-        dept_norm = dept.lower()
-        level_norm = str(level).lower()
-
-        for entry in data:
-            entry_dept = entry.get("department", "").lower()
-            entry_level = str(entry.get("level", "")).lower()
-
-            # Match exact level and dept
-            if dept_norm == entry_dept and level_norm == entry_level:
-                course_code = entry.get("course_code", "").strip()
-                course_title = entry.get("course_title", "").strip()
-                if course_code and course_title:
-                    courses.append(f"{course_code} - {course_title}")
-
-        if courses:
-            answer = f"Here are the courses for {dept.title()} {level} level (all semesters):\n" + "\n".join(courses)
-            return answer
-
-    # Fallback generic response
-    return "Sorry, I couldn't find courses for that department and level. Could you please clarify?"
+    # Threshold for similarity (cosine similarity)
+    threshold = 0.65
+    for idx, score in zip(top_indices, top_scores):
+        if score >= threshold:
+            return answers[idx]
+    # If no good match, fallback to GPT
+    return openai_fallback_response(user_question)
 
 def main():
-    st.title("Crescent University Chatbot")
-
-    with st.sidebar:
-        if st.button("Clear Chat"):
-            st.session_state.messages = []
-            st.session_state.greeted = False
-            st.session_state.typing = False
-            st.experimental_rerun()
-
-    if not st.session_state.greeted:
-        greeting_msg = "Hi there! I am Crescent Chatbot. How can I help you today?"
-        st.session_state.messages.append({"role": "bot", "content": greeting_msg})
-        st.session_state.greeted = True
-
-    # Display chat messages
+    # Display chat history
     for msg in st.session_state.messages:
-        is_user = msg["role"] == "user"
-        st.markdown(render_message(msg["content"], is_user), unsafe_allow_html=True)
+        st.markdown(render_message(msg["content"], msg["is_user"]), unsafe_allow_html=True)
 
-    # Show typing indicator if bot is typing
-    if st.session_state.typing:
-        st.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
+    # Input form with cleared input after send
+    with st.form("chat_form", clear_on_submit=True):
+        user_input = st.text_input("Type your message here...", value="", key="input_box")
+        submit = st.form_submit_button("Send")
 
-    # User input box
-    user_input = st.text_input("You:", key="input", placeholder="Ask me anything...")
-
-    # When user inputs text and presses Enter
-    if user_input and user_input.strip():
-        # Add user message
-        st.session_state.messages.append({"role": "user", "content": user_input.strip()})
-        # Clear input box immediately
-        st.session_state.input = ""
-        # Show typing indicator
-        st.session_state.typing = True
-        st.experimental_rerun()  # rerun to show typing indicator
-
-    # After showing typing indicator, generate bot response and update messages
-    if st.session_state.typing and st.session_state.messages:
-        last_msg = st.session_state.messages[-1]
-        if last_msg["role"] == "user":
-            response = chatbot_response(last_msg["content"])
-            st.session_state.messages.append({"role": "bot", "content": response})
-            st.session_state.typing = False
+        if submit and user_input.strip():
+            st.session_state.messages.append({"content": user_input.strip(), "is_user": True})
+            with st.spinner("Bot is typing..."):
+                bot_response = get_answer(user_input.strip())
+                time.sleep(0.8)  # Small delay for typing feel
+            st.session_state.messages.append({"content": bot_response, "is_user": False})
             st.experimental_rerun()
 
 if __name__ == "__main__":
