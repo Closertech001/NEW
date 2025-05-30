@@ -115,13 +115,24 @@ def get_random_farewell_response():
 
 # --------------------------
 # Retrieve best matching Q&A
-def retrieve_answer(user_input, dataset, embed_model, top_k=1):
+def retrieve_top_k_answers(user_input, dataset, embed_model, top_k=3):
     user_embed = embed_model.encode(user_input, convert_to_tensor=True)
     questions = [item["question"] for item in dataset]
     q_embeds = embed_model.encode(questions, convert_to_tensor=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    best_idx = int(scores.argmax())
-    return dataset[best_idx]["question"], dataset[best_idx]["answer"]
+    
+    top_results = []
+    top_indices = scores.topk(top_k).indices
+
+    for idx in top_indices:
+        idx = int(idx)
+        top_results.append({
+            "question": dataset[idx]["question"],
+            "answer": dataset[idx]["answer"],
+            "score": float(scores[idx])
+        })
+
+    return top_results
 
 # --------------------------
 # Main app
@@ -146,31 +157,27 @@ def main():
 
     if user_input:
         norm_input = normalize_text(user_input, sym_spell)
-
-        # Handle greetings
+    
         if is_greeting(norm_input):
             response = get_random_greeting_response()
-        # Handle farewells
+    
         elif is_farewell(norm_input):
             response = get_random_farewell_response()
+    
         else:
-            # Retrieve best matching Q&A from dataset
-            matched_q, answer = retrieve_answer(norm_input, dataset, embed_model)
-            response = f"**Q:** {matched_q}\n\n**A:** {answer}"
-
-        # Append user message
+            results = retrieve_top_k_answers(norm_input, dataset, embed_model, top_k=3)
+            
+            response = "Here’s what I found:\n"
+            for i, res in enumerate(results, 1):
+                response += f"**Option {i}:**\n**Q:** {res['question']}\n**A:** {res['answer']}\n\n"
+    
         st.session_state.messages.append({"role": "user", "content": user_input})
-        # Show user message
         st.chat_message("user").markdown(user_input)
-
-        # Bot typing animation
+    
         with st.chat_message("assistant"):
             typing_placeholder = st.empty()
             typing_placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             typing_placeholder.markdown(response)
-        # Append bot message
+    
         st.session_state.messages.append({"role": "assistant", "content": response})
-
-if __name__ == "__main__":
-    main()
