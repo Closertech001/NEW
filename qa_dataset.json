@@ -9694,5 +9694,85 @@
     "department": "",
     "faculty": "",
     "level": ""
+  },
+  {
+    "question": "Does Crescent University offer postgraduate programs?",
+    "answer": "Yes, Crescent University offers postgraduate programs including PGD, Master's, and PhD degrees in various disciplines through its School of Postgraduate Studies."
+  },
+  {
+    "question": "What is the dress code policy at Crescent University?",
+    "answer": "Crescent University enforces a strict dress code. All students are expected to dress modestly and in accordance with Islamic principles. Male students must wear trousers and shirts, while female students must wear long skirts or gowns and a headscarf (hijab)."
+  },
+  {
+    "question": "Is Crescent University accredited by NUC?",
+    "answer": "Yes, Crescent University is fully accredited by the National Universities Commission (NUC) of Nigeria."
+  },
+  {
+    "question": "How do I apply for admission into Crescent University?",
+    "answer": "You can apply for admission through the university's online application portal at https://cuab.edu.ng or visit the Admissions Office on campus. JAMB registration and O'Level requirements must be met."
+  },
+  {
+    "question": "Where is Crescent University located?",
+    "answer": "Crescent University is located at KM 5, Lafenwa-Ayetoro Road, Abeokuta, Ogun State, Nigeria."
+  },
+  {
+    "question": "What faculties are available at Crescent University?",
+    "answer": "Crescent University has several faculties, including: Faculty of Natural and Applied Sciences, Faculty of Information and Communication Technology, Faculty of Law, Faculty of Arts, Social and Management Sciences, and Faculty of Environmental Sciences."
+  },
+  {
+    "question": "Are international students accepted at Crescent University?",
+    "answer": "Yes, Crescent University accepts international students who meet the admission requirements. Additional documentation such as a valid passport and visa is required."
+  },
+  {
+    "question": "Does Crescent University have a convocation ceremony?",
+    "answer": "Yes, Crescent University holds an annual convocation ceremony for graduating students, usually announced on the university\u2019s website and calendar."
+  },
+  {
+    "question": "Does Crescent University accept direct entry applicants?",
+    "answer": "Yes, Crescent University accepts Direct Entry applicants into 200 level, provided they meet the required A'Level, ND, or equivalent qualifications."
+  },
+  {
+    "question": "How can parents or guardians reach the university administration?",
+    "answer": "Parents or guardians can contact the university administration via phone, email, or by visiting the school. Contact details are available on the official website: https://cuab.edu.ng."
+  },
+  {
+    "question": "What are the core 100 level courses for Computer Science at Crescent University?",
+    "answer": "Core 100 level courses for Computer Science at Crescent University include Introduction to Computer Science, Programming Fundamentals, Mathematics for Computing, Physics, and Use of English."
+  },
+  {
+    "question": "Who is the head of the Department of Mass Communication at Crescent University?",
+    "answer": "The Head of Department (HOD) of Mass Communication at Crescent University may vary by academic session. Please check the official website or contact the university directly for the most current HOD."
+  },
+  {
+    "question": "Does the Law department at Crescent University have NUC accreditation?",
+    "answer": "Yes, the Law programme at Crescent University is fully accredited by the National Universities Commission (NUC)."
+  },
+  {
+    "question": "What laboratory facilities are available for Biochemistry students at Crescent University?",
+    "answer": "Biochemistry students at Crescent University have access to well-equipped biochemistry laboratories for practicals in enzymology, molecular biology, and chemical analysis."
+  },
+  {
+    "question": "Are Industrial Training (IT) programs compulsory for Engineering students at Crescent University?",
+    "answer": "Yes, Industrial Training (IT) is a mandatory component for Engineering students at Crescent University as part of their practical learning and graduation requirements."
+  },
+  {
+    "question": "What programming languages are taught in the ICT department?",
+    "answer": "In the ICT department, students are typically taught Python, Java, and C++, along with web development technologies such as HTML, CSS, and JavaScript."
+  },
+  {
+    "question": "Does Crescent University offer Architecture as a course?",
+    "answer": "Yes, Crescent University offers Architecture under the College of Environmental Sciences. The programme includes courses in design, structures, building technology, and architectural drawing."
+  },
+  {
+    "question": "What is the duration of the Nursing program at Crescent University?",
+    "answer": "The Nursing program at Crescent University lasts for five years, including clinical postings and hospital training in line with NMCN guidelines."
+  },
+  {
+    "question": "What projects do final-year students in Microbiology undertake?",
+    "answer": "Final-year Microbiology students at Crescent University undertake research projects in areas like medical microbiology, food microbiology, and environmental microbiology."
+  },
+  {
+    "question": "What are the graduation requirements for Accounting students at Crescent University?",
+    "answer": "Accounting students must complete all core and elective courses, maintain a minimum CGPA, complete SIWES (Industrial Training), and successfully defend a final-year project."
   }
 ]
