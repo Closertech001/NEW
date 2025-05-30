@@ -197,40 +197,56 @@ def render_message(message, is_user=True):
     </div><div style="clear: both;"></div>
     """
 
+def is_greeting(text):
+    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
+    text_lower = text.lower()
+    for greet in greetings:
+        if greet in text_lower:
+            return True
+    return False
+
 def main():
     st.title("Crescent University Chatbot")
 
     if "history" not in st.session_state:
         st.session_state.history = []
+        # Add initial bot greeting
+        st.session_state.history.append(("bot", "Hello! Welcome to Crescent University Chatbot. How can I assist you today?"))
 
     # Sidebar with Clear Chat button
     with st.sidebar:
         st.header("Controls")
         if st.button("Clear Chat"):
             st.session_state.history = []
+            # Add greeting back after clearing
+            st.session_state.history.append(("bot", "Hello! Welcome to Crescent University Chatbot. How can I assist you today?"))
 
     user_input = st.text_input("Ask me anything about Crescent University:")
 
     if user_input:
+        st.session_state.history.append(("user", user_input))
         norm_input = normalize_text(user_input)
 
-        course_code = extract_course_code(norm_input)
-        if course_code:
-            answer = get_course_info(course_code)
+        # Check if user greeting
+        if is_greeting(user_input):
+            answer = "Hello! How can I help you today?"
         else:
-            query_emb = model.encode([norm_input], show_progress_bar=False)
-            D, I = index.search(np.array(query_emb).astype("float32"), 10)
-            best_score = D[0][0]
-            best_idx = I[0][0]
-
-            if best_score < 1.0 and best_idx < len(filtered_data):
-                answer = filtered_data[best_idx]["answer"]
+            course_code = extract_course_code(norm_input)
+            if course_code:
+                answer = get_course_info(course_code)
             else:
-                answer = rag_fallback_with_context(user_input, I[0])
-                if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
-                    log_unmatched_query(user_input)
+                query_emb = model.encode([norm_input], show_progress_bar=False)
+                D, I = index.search(np.array(query_emb).astype("float32"), 10)
+                best_score = D[0][0]
+                best_idx = I[0][0]
 
-        st.session_state.history.append(("user", user_input))
+                if best_score < 1.0 and best_idx < len(filtered_data):
+                    answer = filtered_data[best_idx]["answer"]
+                else:
+                    answer = rag_fallback_with_context(user_input, I[0])
+                    if "couldn't find" in answer.lower() or "try rephrasing" in answer.lower():
+                        log_unmatched_query(user_input)
+
         st.session_state.history.append(("bot", answer))
 
     for role, msg in st.session_state.history:
