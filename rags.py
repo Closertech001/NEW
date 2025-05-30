@@ -167,7 +167,8 @@ st.markdown(
 )
 
 def openai_fallback_response(question):
-    prompt = f"""
+    prompt = f
+    """
 You are Crescent University’s friendly and knowledgeable chatbot assistant. Your role is to help students, staff, and visitors by answering questions about courses, admissions, departments, fees, registration, campus services, and general university info. Always respond politely and clearly. If you don’t know the answer, say:
 
 "I’m sorry, I don’t have that information right now. Please check the university’s official website or contact the administration for further assistance."
@@ -197,7 +198,7 @@ Answer:
         n=1,
     )
     return response.choices[0].message.content.strip()
-
+    
 # Initialize session state for chat history and input box clearing
 if "messages" not in st.session_state:
     st.session_state.messages = []
