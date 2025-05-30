@@ -46,7 +46,7 @@ synonym_map = {
     "course": "subject", "class": "course", "courses": "subjects", "classes": "courses",
     "school": "university", "campus": "university", "institution": "university",
     "dept": "department", "faculty": "college", "program": "course",
-    "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university"
+    "physio": "physiology", "cuab": "crescent university", "crescent": "crescent university", "school": "faculty", "school": "college"
 }
 
 def normalize_text(text):
