@@ -3,21 +3,21 @@ import re
 import time
 import random
 import json
-import os
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
-import openai
+from openai import OpenAI
+import torch
 
 # --------------------------
-# Load Q&A dataset
+# Load dataset
 @st.cache_resource
 def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
 # --------------------------
-# Initialize SymSpell
+# Load SymSpell
 @st.cache_resource
 def init_symspell():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -26,28 +26,19 @@ def init_symspell():
     return sym_spell
 
 # --------------------------
-# Load SentenceTransformer model
+# Load SentenceTransformer
 @st.cache_resource
 def load_embedding_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 # --------------------------
-# OpenAI GPT fallback
-def gpt_fallback_response(prompt):
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant for Crescent University."},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=500,
-        temperature=0.7
-    )
-    return response["choices"][0]["message"]["content"]
+# Init OpenAI
+@st.cache_resource
+def init_openai():
+    return OpenAI()
 
 # --------------------------
-# Text Normalization
+# Abbreviations & Synonyms
 ABBREVIATIONS = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -84,6 +75,8 @@ SYNONYMS = {
     "archi": "architecture", "exam": "examination", "marks": "grades"
 }
 
+# --------------------------
+# Normalize input
 def normalize_text(text, sym_spell):
     text = text.lower()
     for abbr, full in ABBREVIATIONS.items():
@@ -94,74 +87,65 @@ def normalize_text(text, sym_spell):
     return suggestions[0].term if suggestions else text
 
 # --------------------------
-# Greetings/Farewells
+# Greeting / Farewell
 def is_greeting(text):
-    return any(text.lower().strip() == g for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"])
-
-def is_farewell(text):
-    return any(text.lower().strip() == f for f in ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"])
+    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
+    return any(text.strip() == g for g in greetings)
 
 def get_random_greeting_response():
     return random.choice([
         "Hello! How can I assist you today?",
         "Hi there! What can I help you with?",
         "Hey! Feel free to ask me anything about Crescent University.",
-        "Greetings! How may I be of service?",
-        "Hello! Ready to help you with any questions."
     ])
+
+def is_farewell(text):
+    farewells = ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
+    return any(text.strip() == f for f in farewells)
 
 def get_random_farewell_response():
     return random.choice([
         "Goodbye! Have a great day!",
         "See you later! Feel free to come back anytime.",
         "Bye! Take care!",
-        "Farewell! Let me know if you need anything else.",
-        "Peace out! Hope to chat again soon."
     ])
 
 # --------------------------
-# Top-K Semantic Retrieval
-def retrieve_top_k_answers(user_input, dataset, embed_model, top_k=3):
+# Retrieve answer or fallback
+def retrieve_answer(user_input, dataset, embed_model, threshold=0.7):
     user_embed = embed_model.encode(user_input, convert_to_tensor=True)
     questions = [item["question"] for item in dataset]
     q_embeds = embed_model.encode(questions, convert_to_tensor=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    top_indices = scores.topk(top_k).indices
-    results = []
+    best_score, best_idx = torch.max(scores, dim=0)
+    best_score = best_score.item()
 
-    for idx in top_indices:
-        idx = int(idx)
-        results.append({
-            "question": dataset[idx]["question"],
-            "answer": dataset[idx]["answer"],
-            "score": float(scores[idx])
-        })
-
-    return results
-
-# --------------------------
-# Follow-up Suggestions
-def suggest_followups(top_question):
-    tokens = top_question.split()
-    if "admission" in tokens:
-        return ["What are the admission requirements?", "Is there an admission fee?", "When is the deadline?"]
-    elif "course" in tokens or "subject" in tokens:
-        return ["What are the core courses?", "How many credit units?", "Who teaches this course?"]
-    elif "fees" in tokens:
-        return ["How much is tuition?", "Is there an installment plan?", "Are scholarships available?"]
+    if best_score >= threshold:
+        return dataset[best_idx]["question"], dataset[best_idx]["answer"], best_score
     else:
-        return ["Can you explain further?", "Where can I find more info?", "Who can I contact for help?"]
+        return None, None, best_score
 
 # --------------------------
-# Main App
+# GPT fallback
+def gpt_fallback(openai_client, prompt):
+    response = openai_client.chat.completions.create(
+        model="gpt-4",  # or "gpt-3.5-turbo"
+        messages=[{"role": "system", "content": "You are a helpful assistant for Crescent University."},
+                  {"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content.strip()
+
+# --------------------------
+# Streamlit UI
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or the university.")
 
     dataset = load_dataset()
-    embed_model = load_embedding_model()
     sym_spell = init_symspell()
+    embed_model = load_embedding_model()
+    openai_client = init_openai()
 
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
@@ -175,31 +159,28 @@ def main():
     if user_input:
         norm_input = normalize_text(user_input, sym_spell)
 
+        # Detect greetings / farewells
         if is_greeting(norm_input):
             response = get_random_greeting_response()
         elif is_farewell(norm_input):
             response = get_random_farewell_response()
         else:
-            results = retrieve_top_k_answers(norm_input, dataset, embed_model)
-            top_result = results[0]
+            matched_q, matched_ans, score = retrieve_answer(norm_input, dataset, embed_model)
 
-            if top_result["score"] < 0.6:
-                response = gpt_fallback_response(user_input)
+            if matched_ans:
+                response = f"**Q:** {matched_q}\n\n**A:** {matched_ans}"
             else:
-                response = "Here are the top results I found:\n\n"
-                for i, res in enumerate(results, 1):
-                    response += f"**Option {i}:**\n**Q:** {res['question']}\n**A:** {res['answer']}\n\n"
-                suggestions = suggest_followups(results[0]["question"])
-                response += f"**You might also ask:**\n- " + "\n- ".join(suggestions)
+                gpt_response = gpt_fallback(openai_client, user_input)
+                response = f"**A (by GPT):** {gpt_response}"
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
 
         with st.chat_message("assistant"):
-            typing_placeholder = st.empty()
-            typing_placeholder.markdown("_Bot is typing..._")
+            placeholder = st.empty()
+            placeholder.markdown("_Typing..._")
             time.sleep(1.5)
-            typing_placeholder.markdown(response)
+            placeholder.markdown(response)
 
         st.session_state.messages.append({"role": "assistant", "content": response})
 
