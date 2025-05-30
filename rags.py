@@ -27,11 +27,11 @@ embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Compute embeddings for all dataset questions
 question_embeddings = embedder.encode(questions, convert_to_numpy=True)
+faiss.normalize_L2(question_embeddings)  # Normalize before adding to index
 
 # Build FAISS index for fast similarity search
 dimension = question_embeddings.shape[1]
 index = faiss.IndexFlatIP(dimension)  # Inner product (cosine similarity if embeddings normalized)
-faiss.normalize_L2(question_embeddings)
 index.add(question_embeddings)
 
 # Initialize SymSpell for spell correction
@@ -86,14 +86,19 @@ synonym_map = {
     "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
-synonym_map.update(synonym_map)
+
+# Remove redundant update
+# synonym_map.update(synonym_map)
 
 def normalize_text(text):
     text = text.lower()
+    # Replace abbreviations and pidgin terms first
     for abbr, full in abbreviations.items():
         text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
+    # Replace synonyms
     for key, val in synonym_map.items():
         text = re.sub(rf'\b{re.escape(key)}\b', val, text)
+    # Use symspell for spell correction on full sentence
     suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
     return suggest[0].term if suggest else text
 
@@ -187,7 +192,6 @@ Q: How can I apply for admission?
 A: You can apply for admission through the university’s online portal at admissions.crescentuniversity.edu.
 
 Answer:
-"""
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -221,31 +225,32 @@ def get_answer(user_question):
     top_indices = I[0]
     top_scores = D[0]
 
-    # Threshold for similarity (cosine similarity)
     threshold = 0.65
     for idx, score in zip(top_indices, top_scores):
         if score >= threshold:
             return answers[idx]
-    # If no good match, fallback to GPT
+    # Fallback GPT
     return openai_fallback_response(user_question)
 
 def main():
-    # Display chat history
+    # Display chat history safely
     for msg in st.session_state.messages:
-        st.markdown(render_message(msg["content"], msg["is_user"]), unsafe_allow_html=True)
+        content = msg.get("content", "")
+        is_user = bool(msg.get("is_user", False))
+        st.markdown(render_message(content, is_user), unsafe_allow_html=True)
 
-    # Input form with cleared input after send
-    with st.form("chat_form", clear_on_submit=True):
-        user_input = st.text_input("Type your message here...", value="", key="input_box")
-        submit = st.form_submit_button("Send")
+    # Use st.text_input outside of form so clear_on_submit works well
+    user_input = st.text_input("Type your message here...", value="", key="input_box")
 
-        if submit and user_input.strip():
-            st.session_state.messages.append({"content": user_input.strip(), "is_user": True})
-            with st.spinner("Bot is typing..."):
-                bot_response = get_answer(user_input.strip())
-                time.sleep(0.8)  # Small delay for typing feel
-            st.session_state.messages.append({"content": bot_response, "is_user": False})
-            st.experimental_rerun()
+    if st.button("Send") and user_input.strip():
+        st.session_state.messages.append({"content": user_input.strip(), "is_user": True})
+        with st.spinner("Bot is typing..."):
+            bot_response = get_answer(user_input.strip())
+            time.sleep(0.8)
+        st.session_state.messages.append({"content": bot_response, "is_user": False})
+        # Clear input box by resetting session_state input
+        st.session_state.input_box = ""
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
