@@ -7,8 +7,6 @@ from openai import OpenAI
 import re
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
-import time
-import threading
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
@@ -71,16 +69,20 @@ synonym_map = {
     "mass comm": "mass communication", "comm": "communication", "archi": "architecture",
     "exam": "examination", "tests": "assessments", "marks": "grades"
 }
-synonym_map.update(synonym_map)
 
 def normalize_text(text):
     text = text.lower()
-    for abbr, full in abbreviations.items():
-        text = re.sub(rf'\b{re.escape(abbr)}\b', full, text)
-    for key, val in synonym_map.items():
-        text = re.sub(rf'\b{re.escape(key)}\b', val, text)
-    suggest = sym_spell.lookup_compound(text, max_edit_distance=2)
-    return suggest[0].term if suggest else text
+    # Replace abbreviations and slang word-by-word
+    words = text.split()
+    normalized_words = []
+    for w in words:
+        w = abbreviations.get(w, w)
+        w = synonym_map.get(w, w)
+        normalized_words.append(w)
+    normalized_text = " ".join(normalized_words)
+    # Use symspell to correct spelling
+    suggest = sym_spell.lookup_compound(normalized_text, max_edit_distance=2)
+    return suggest[0].term if suggest else normalized_text
 
 # Render chat bubbles with animation
 def render_message(message, is_user=True):
@@ -162,45 +164,48 @@ if "greeted" not in st.session_state:
     st.session_state.greeted = False
 
 def chatbot_response(question):
-    # Normalize input
     normalized_question = normalize_text(question)
-    
-    # Special handling: if user asks about courses at a level without semester, return both semesters
-    level_match = re.search(r"(?:\b)(\d{3}|\d{2}|100|200|300|400|500|600|level|l)(?:\b)", normalized_question)
-    if level_match:
-        level = level_match.group(1)
-        # Look for department
-        dept_match = re.search(r"(computer science|cs|mass communication|comm|law|physics|chemistry|biology|architecture|economics|statistics|math|mathematics|engineering|history|english|education|accounting|management|business)", normalized_question)
-        if dept_match:
-            dept = dept_match.group(1)
-            # Compose answer fetching all courses for level for this department (both semesters)
-            # This assumes data format contains 'department', 'level', 'semester', 'course' fields
-            courses = []
-            for entry in data:
-                # Normalize entry department and level for matching
-                entry_dept = entry.get("department", "").lower()
-                entry_level = str(entry.get("level", "")).lower()
-                if dept in entry_dept and str(level) in entry_level:
-                    courses.append(f"{entry.get('course_code','')} - {entry.get('course_title','')}")
-            if courses:
-                answer = f"Here are the courses for {dept.title()} {level} level (all semesters):\n" + "\n".join(courses)
-                return answer
-    
-    # Else fallback: normal retrieval from data or GPT generation
-    
-    # Simple retrieval: find closest matching question in dataset (placeholder)
-    # For now, just return a generic response or best matching from data
-    
-    # To keep this example short, we'll simulate with a dummy fallback
-    return "Sorry, I am still learning. Could you please rephrase or ask something else?"
 
-def show_typing():
-    st.session_state.typing = True
-    placeholder = st.empty()
-    placeholder.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
-    time.sleep(1.5)  # simulate typing delay
-    placeholder.empty()
-    st.session_state.typing = False
+    # Try to detect level (only digits like 100, 200, ... or 2-digit numbers)
+    level_match = re.search(r"\b(100|200|300|400|500|600|\d{2,3})\b", normalized_question)
+    level = level_match.group(1) if level_match else None
+
+    # Try to detect department from known list
+    departments_list = [
+        "computer science", "cs", "mass communication", "comm", "law",
+        "physics", "chemistry", "biology", "architecture", "economics",
+        "statistics", "math", "mathematics", "engineering", "history",
+        "english", "education", "accounting", "management", "business"
+    ]
+    dept = None
+    for d in departments_list:
+        if d in normalized_question:
+            dept = d
+            break
+
+    if level and dept:
+        courses = []
+        # Normalize department name for matching in data keys (lowercase)
+        dept_norm = dept.lower()
+        level_norm = str(level).lower()
+
+        for entry in data:
+            entry_dept = entry.get("department", "").lower()
+            entry_level = str(entry.get("level", "")).lower()
+
+            # Match exact level and dept
+            if dept_norm == entry_dept and level_norm == entry_level:
+                course_code = entry.get("course_code", "").strip()
+                course_title = entry.get("course_title", "").strip()
+                if course_code and course_title:
+                    courses.append(f"{course_code} - {course_title}")
+
+        if courses:
+            answer = f"Here are the courses for {dept.title()} {level} level (all semesters):\n" + "\n".join(courses)
+            return answer
+
+    # Fallback generic response
+    return "Sorry, I couldn't find courses for that department and level. Could you please clarify?"
 
 def main():
     st.title("Crescent University Chatbot")
@@ -209,30 +214,44 @@ def main():
         if st.button("Clear Chat"):
             st.session_state.messages = []
             st.session_state.greeted = False
+            st.session_state.typing = False
+            st.experimental_rerun()
 
     if not st.session_state.greeted:
-        st.session_state.messages.append({"role": "bot", "content": "Hi there! I am Crescent Chatbot. How can I help you today?"})
+        greeting_msg = "Hi there! I am Crescent Chatbot. How can I help you today?"
+        st.session_state.messages.append({"role": "bot", "content": greeting_msg})
         st.session_state.greeted = True
 
+    # Display chat messages
     for msg in st.session_state.messages:
         is_user = msg["role"] == "user"
-        st.markdown(render_message(msg["content"], is_user=is_user), unsafe_allow_html=True)
+        st.markdown(render_message(msg["content"], is_user), unsafe_allow_html=True)
 
+    # Show typing indicator if bot is typing
+    if st.session_state.typing:
+        st.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
+
+    # User input box
     user_input = st.text_input("You:", key="input", placeholder="Ask me anything...")
 
+    # When user inputs text and presses Enter
     if user_input and user_input.strip():
-        st.session_state.input = ""  # Clear input box
-        st.session_state.messages.append({"role": "user", "content": user_input})
-
+        # Add user message
+        st.session_state.messages.append({"role": "user", "content": user_input.strip()})
+        # Clear input box immediately
+        st.session_state.input = ""
         # Show typing indicator
         st.session_state.typing = True
-        st.experimental_rerun()  # Show typing indicator
+        st.experimental_rerun()  # rerun to show typing indicator
 
-    if st.session_state.get("typing"):
-        # Show typing indicator
-        st.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
-        # Generate response
-        response = chatbot_response(st.session_state.messages[-1]["content"])
-        st.session_state.messages.append({"role": "bot", "content": response})
-        st.session_state.typing = False
-        st.experimental_rerun()
+    # After showing typing indicator, generate bot response and update messages
+    if st.session_state.typing and st.session_state.messages:
+        last_msg = st.session_state.messages[-1]
+        if last_msg["role"] == "user":
+            response = chatbot_response(last_msg["content"])
+            st.session_state.messages.append({"role": "bot", "content": response})
+            st.session_state.typing = False
+            st.experimental_rerun()
+
+if __name__ == "__main__":
+    main()
