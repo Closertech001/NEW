@@ -8,6 +8,7 @@ import re
 from symspellpy.symspellpy import SymSpell, Verbosity
 import pkg_resources
 import tiktoken
+import logging
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
@@ -124,7 +125,6 @@ def rag_fallback_with_context(query, top_k_matches):
 
         context_text = "\n".join(context_parts)
 
-        # Include multi-turn conversation history
         history = []
         for msg, is_user in st.session_state.history[-6:]:
             role = "user" if is_user else "assistant"
@@ -145,9 +145,8 @@ def rag_fallback_with_context(query, top_k_matches):
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-    import logging
-    logging.warning(f"OpenAI fallback error: {e}")
-    return "Sorry, I'm having trouble answering that right now. Please try again shortly."
+        logging.warning(f"OpenAI fallback error: {e}")
+        return "Sorry, I'm having trouble answering that right now. Please try again shortly."
 
 def handle_small_talk(msg):
     small_talk = {
