@@ -87,9 +87,8 @@ def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
     margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-    animation_class = "slideInRight" if is_user else "slideInLeft"
     return f"""
-    <div class="message {animation_class}" style="
+    <div style="
         background-color: {bg_color};
         padding: 10px;
         border-radius: 10px;
@@ -104,144 +103,53 @@ def render_message(message, is_user=True):
     </div><div style="clear: both;"></div>
     """
 
-# CSS for animations and typing indicator
-st.markdown(
-    """
-    <style>
-    .message {
-        opacity: 0;
-        animation-fill-mode: forwards;
-        animation-duration: 0.5s;
-        animation-timing-function: ease-out;
-    }
-    .slideInRight {
-        animation-name: slideInRight;
-    }
-    .slideInLeft {
-        animation-name: slideInLeft;
-    }
-    @keyframes slideInRight {
-        from {
-            transform: translateX(50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    @keyframes slideInLeft {
-        from {
-            transform: translateX(-50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    .typing-indicator {
-        font-style: italic;
-        color: gray;
-        margin: 10px 0 10px 50px;
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Initialize session state
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-if "typing" not in st.session_state:
-    st.session_state.typing = False
-if "greeted" not in st.session_state:
-    st.session_state.greeted = False
-
-def chatbot_response(question):
-    # Normalize input
-    normalized_question = normalize_text(question)
-    
-    # Special handling: if user asks about courses at a level without semester, return both semesters
-    level_match = re.search(r"(?:\b)(\d{3}|\d{2}|100|200|300|400|500|600|level|l)(?:\b)", normalized_question)
-    if level_match:
-        level = level_match.group(1)
-        # Look for department
-        dept_match = re.search(r"(computer science|cs|mass communication|comm|law|physics|chemistry|biology|architecture|economics|statistics|math|mathematics|engineering|history|english|education|accounting|management|business)", normalized_question)
-        if dept_match:
-            dept = dept_match.group(1)
-            # Compose answer fetching all courses for level for this department (both semesters)
-            # This assumes data format contains 'department', 'level', 'semester', 'course' fields
-            courses = []
-            for entry in data:
-                # Normalize entry department and level for matching
-                entry_dept = entry.get("department", "").lower()
-                entry_level = str(entry.get("level", "")).lower()
-                if dept in entry_dept and str(level) in entry_level:
-                    courses.append(f"{entry.get('course_code','')} - {entry.get('course_title','')}")
-            if courses:
-                answer = f"Here are the courses for {dept.title()} {level} level (all semesters):\n" + "\n".join(courses)
-                return answer
-    
-    # Else fallback: normal retrieval from data or GPT generation
-    
-    # Simple retrieval: find closest matching question in dataset (placeholder)
-    # For now, just return a generic response or best matching from data
-    
-    # To keep this example short, we'll simulate with a dummy fallback
-    return "Sorry, I am still learning. Could you please rephrase or ask something else?"
-
-def show_typing():
-    st.session_state.typing = True
-    placeholder = st.empty()
-    placeholder.markdown('<div class="typing-indicator">Bot is typing...</div>', unsafe_allow_html=True)
-    time.sleep(1.5)  # simulate typing delay
-    placeholder.empty()
-    st.session_state.typing = False
-
 def main():
-    st.title("Crescent University Chatbot")
-    
-    # Sidebar clear chat button
-    with st.sidebar:
-        if st.button("Clear Chat"):
-            st.session_state.messages = []
-            st.session_state.greeted = False
-    
-    # Greet user once
-    if not st.session_state.greeted:
-        user_greeting = "Hello!"
-        bot_greeting = "Hi there! I am Crescent Chatbot. How can I help you today?"
-        st.session_state.messages.append({"role": "user", "content": user_greeting})
-        st.session_state.messages.append({"role": "bot", "content": bot_greeting})
-        st.session_state.greeted = True
-    
+    st.title("🤖 Crescent University Chatbot")
+
+    # Initialize session state variables on first run
+    if "messages" not in st.session_state:
+        # Add initial greetings (bot message)
+        st.session_state.messages = [
+            {"role": "bot", "content": "Hello! Welcome to Crescent University chatbot. How can I help you today?"}
+        ]
+    if "typing" not in st.session_state:
+        st.session_state.typing = False
+
     # Display chat messages
     for msg in st.session_state.messages:
-        is_user = msg["role"] == "user"
+        is_user = (msg["role"] == "user")
         st.markdown(render_message(msg["content"], is_user=is_user), unsafe_allow_html=True)
-    
-    # Input box
-    user_input = st.text_input("You:", key="input", placeholder="Ask me anything...")
-    
+
+    # Show typing indicator if bot is typing
+    if st.session_state.typing:
+        st.markdown(render_message("<i>Bot is typing...</i>", is_user=False), unsafe_allow_html=True)
+
+    # Text input with key 'user_text' so we can clear it safely
+    user_input = st.text_input("You:", key="user_text", placeholder="Ask me anything...")
+
     if user_input:
-        # Clear input immediately
-        st.session_state.input = ""
-        
         # Append user message
         st.session_state.messages.append({"role": "user", "content": user_input})
-        
-        # Show typing indicator (in a separate thread so UI can update)
-        show_typing()
-        
-        # Get bot response
-        response = chatbot_response(user_input)
-        st.session_state.messages.append({"role": "bot", "content": response})
-        
-        # Rerun to display new messages (Streamlit automatically reruns on interaction)
+
+        # Clear the input box
+        st.session_state.user_text = ""
+
+        # Show typing indicator
+        st.session_state.typing = True
+        # Rerun to update UI and show typing
+        st.experimental_rerun()
+
+        # Simulate bot response delay (replace this with your actual chatbot logic)
+        time.sleep(1.5)
+
+        # Example bot response — replace with your actual bot logic
+        bot_response = f"I received your question: '{user_input}' and I'm processing it."
+
+        # Append bot response and stop typing indicator
+        st.session_state.messages.append({"role": "bot", "content": bot_response})
+        st.session_state.typing = False
+
+        # Rerun to show updated chat
         st.experimental_rerun()
 
 if __name__ == "__main__":
