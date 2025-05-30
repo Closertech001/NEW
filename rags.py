@@ -150,6 +150,46 @@ if dark_mode:
         body, .message { background-color: #121212 !important; color: #ffffff !important; }
         .user-msg { background-color: #1e88e5 !important; color: white !important; }
         .bot-msg { background-color: #2c2c2c !important; color: white !important; }
+        .message {
+        opacity: 0;
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-out;
+    }
+    .slideInRight {
+        animation-name: slideInRight;
+    }
+    .slideInLeft {
+        animation-name: slideInLeft;
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .typing-indicator {
+        font-style: italic;
+        color: gray;
+        margin: 10px 0 10px 50px;
+        clear: both;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
         </style>
     """, unsafe_allow_html=True)
 
@@ -204,55 +244,6 @@ def render_message(message, is_user=True):
         {message}
     </div><div style=\"clear: both;\"></div>
     """
-
-# UI style setup
-st.markdown(
-    """
-    <style>
-    .message {
-        opacity: 0;
-        animation-fill-mode: forwards;
-        animation-duration: 0.5s;
-        animation-timing-function: ease-out;
-    }
-    .slideInRight {
-        animation-name: slideInRight;
-    }
-    .slideInLeft {
-        animation-name: slideInLeft;
-    }
-    @keyframes slideInRight {
-        from {
-            transform: translateX(50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    @keyframes slideInLeft {
-        from {
-            transform: translateX(-50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    .typing-indicator {
-        font-style: italic;
-        color: gray;
-        margin: 10px 0 10px 50px;
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
 
 # Streamlit UI
 st.title("🎓 Crescent University Chatbot")
