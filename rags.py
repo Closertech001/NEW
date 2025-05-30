@@ -144,6 +144,8 @@ def rag_fallback_with_context(query, top_k_matches):
         return response.choices[0].message.content.strip()
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         logging.warning(f"OpenAI fallback error: {e}")
         return "Sorry, I'm having trouble answering that right now. Please try again shortly."
 
@@ -186,7 +188,7 @@ if submitted and user_input:
         top_index = indices[0]
         top_score = scores[0]
 
-        if top_score < 0.9:
+        if top_score < 0.6:
             response = rag_fallback_with_context(user_input_clean, indices)
         else:
             response = data[top_index]["answer"]
