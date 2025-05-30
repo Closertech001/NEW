@@ -16,7 +16,7 @@ import logging
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # 📚 Load structured dataset
-with open("qa_dataset_cleaned_structured.json", "r") as f:
+with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
 # 🏷 Topic filter UI
