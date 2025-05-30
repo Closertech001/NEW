@@ -139,25 +139,16 @@ def log_unmatched_query(query):
     with open(UNMATCHED_LOG, "a") as f:
         f.write(query + "\n")
 
-def render_message(message, is_user=True):
-    bg_color = "#DCF8C6" if is_user else "#E1E1E1"
-    align = "right" if is_user else "left"
-    margin = "10px 0 10px 50px" if is_user else "10px 50px 10px 0"
-    return f"""
-    <div style="
-        background-color: {bg_color};
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 70%;
-        margin: {margin};
-        text-align: left;
-        float: {align};
-        clear: both;
-        font-family: Arial, sans-serif;
-        font-size: 16px;">
-        {message}
-    </div><div style="clear: both;"></div>
-    """
+dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
+
+if dark_mode:
+    st.markdown("""
+        <style>
+        body, .message { background-color: #121212 !important; color: #ffffff !important; }
+        .user-msg { background-color: #1e88e5 !important; color: white !important; }
+        .bot-msg { background-color: #2c2c2c !important; color: white !important; }
+        </style>
+    """, unsafe_allow_html=True)
 
 def is_greeting(text):
     return text.lower().strip() in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
@@ -182,6 +173,53 @@ def get_random_farewell_response():
         "Farewell! Let me know if you need anything else.",
         "Peace out! Hope to chat again soon."
     ])
+
+st.markdown("""
+    <style>
+    /* Input box */
+    input[type="text"] {
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+    }
+
+    /* Button */
+    button[kind="primary"] {
+        background-color: #2e7d32 !important;
+        color: white !important;
+        border-radius: 12px !important;
+        font-size: 16px !important;
+        padding: 8px 20px !important;
+        margin-top: 5px;
+    }
+    button[kind="primary"]:hover {
+        background-color: #1b5e20 !important;
+    }
+
+    /* Message bubbles */
+    .message {
+        padding: 12px;
+        border-radius: 16px;
+        margin: 8px 0;
+        max-width: 75%;
+        word-wrap: break-word;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .user-msg {
+        background-color: #dcf8c6;
+        margin-left: auto;
+        text-align: right;
+    }
+    .bot-msg {
+        background-color: #f1f0f0;
+        margin-right: auto;
+        text-align: left;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 def main():
     st.title("Crescent University Chatbot")
