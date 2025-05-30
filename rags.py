@@ -10,32 +10,31 @@ import pkg_resources
 import tiktoken
 import logging
 
-# Set page config FIRST thing
-st.set_page_config(page_title="Crescent Chatbot", layout="centered")
-
-# Initialize OpenAI client
+# 🔐 Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# Load structured dataset
+# 🧹 Set Streamlit page config first
+st.set_page_config(page_title="Crescent Chatbot", layout="centered")
+
+# 📚 Load structured dataset
 with open("qa_dataset.json", "r") as f:
     data = json.load(f)
 
-# Topic filter UI
-topics = sorted(set(q["topic"] for q in data))
+# 🏷 Topic filter UI
+topics = sorted(set(q.get("topic", "") for q in data if q.get("topic")))
 selected_topic = st.selectbox("Filter by topic", ["All"] + topics)
 
-# Filter dataset by topic
+# Filter dataset
 if selected_topic != "All":
-    filtered_data = [q for q in data if q["topic"] == selected_topic]
+    filtered_data = [q for q in data if q.get("topic") == selected_topic]
 else:
     filtered_data = data
 
-# Initialize SymSpell
+# 🔠 SymSpell correction and abbreviation/synonym maps
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
-# Abbreviation mapping (add all you want here)
 abbreviations = {
     "u": "you", "r": "are", "ur": "your", "ow": "how", "pls": "please", "plz": "please",
     "tmrw": "tomorrow", "cn": "can", "wat": "what", "cud": "could", "shud": "should",
@@ -43,13 +42,7 @@ abbreviations = {
     "idk": "i don't know", "imo": "in my opinion", "msg": "message", "doc": "document", "d": "the",
     "yr": "year", "sem": "semester", "dept": "department", "admsn": "admission",
     "cresnt": "crescent", "uni": "university", "clg": "college", "sch": "school",
-    "info": "information", "l": "level", "CSC": "Computer Science", "ECO": "Economics with Operations Research",
-    "PHY": "Physics", "STAT": "Statistics", "1st": "first", "2nd": "second", 
-    "tech staff": "technical staff", "it people": "technical staff", "lab helper": "technical staff",
-    "computer staff": "technical staff", "equipment handler": "technical staff",
-    "office staff": "non-academic staff", "admin worker": "non-academic staff",
-    "support staff": "non-academic staff", "clerk": "non-academic staff", "receptionist": "non-academic staff",
-    "school worker": "non-academic staff", "it guy": "technical staff", "secretary": "non-academic staff"
+    "info": "information", "l": "level"
 }
 
 synonym_map = {
@@ -73,7 +66,6 @@ def normalize_text(text):
 @st.cache_resource
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
-
 model = load_model()
 
 @st.cache_resource
@@ -88,6 +80,25 @@ def build_index():
 
 index, embeddings, questions = build_index()
 
+# 🕵️ Extract course code from user query
+def extract_course_code(text):
+    match = re.search(r'\b([A-Za-z]{3}\s?\d{3})\b', text)
+    if match:
+        return match.group(1).replace(" ", "").upper()
+    return None
+
+# 🔍 Get detailed info about a course code
+def get_course_info(course_code):
+    course_code_lower = course_code.lower()
+    for entry in data:
+        # Check both question and course_code fields (if available)
+        if course_code_lower in entry.get("question", "").lower() or course_code_lower == entry.get("course_code", "").lower():
+            course_name = entry.get("course_name", "Unknown course name")
+            level = entry.get("level", "Unknown level")
+            return f"{course_code} is '{course_name}' and it is done at level {level}."
+    return f"Sorry, I couldn't find information about {course_code}."
+
+# 📘 RAG fallback with context
 def rag_fallback_with_context(query, top_k_matches):
     try:
         encoding = tiktoken.encoding_for_model("gpt-4")
@@ -114,15 +125,7 @@ def rag_fallback_with_context(query, top_k_matches):
         logging.warning(f"OpenAI fallback error: {e}")
         return "I couldn't find an exact match. Could you try rephrasing?"
 
-def search_course_departments(course_query):
-    course_query = course_query.lower()
-    matches = [q for q in data if course_query in q["question"].lower() and q.get("level") == "100"]
-    if matches:
-        depts = sorted(set(m["department"] for m in matches if m.get("department")))
-        facs = sorted(set(m["faculty"] for m in matches if m.get("faculty")))
-        return f"This course is taken in departments: {', '.join(depts)} under faculties: {', '.join(facs)}."
-    return "Course not found across departments."
-
+# 💬 Render message with styling
 def render_message(message, is_user=True):
     bg_color = "#DCF8C6" if is_user else "#E1E1E1"
     align = "right" if is_user else "left"
@@ -145,6 +148,7 @@ def render_message(message, is_user=True):
     </div>
     """
 
+# 🧾 Streamlit UI
 st.title("🎓 Crescent University Chatbot")
 st.markdown("Ask about admissions, courses, hostels, fees, staff, etc.")
 
@@ -159,10 +163,13 @@ if submitted and user_input:
     norm_input = normalize_text(user_input)
     st.session_state.history.append((user_input, True))
 
-    if "which department offers" in norm_input or "who takes" in norm_input:
-        course_info = search_course_departments(norm_input)
+    # Check for course code in user input
+    course_code = extract_course_code(user_input)
+    if course_code:
+        course_info = get_course_info(course_code)
         st.session_state.history.append((course_info, False))
     else:
+        # Use embedding search
         query_vec = model.encode([norm_input]).astype("float32")
         index.nprobe = 10
         D, I = index.search(query_vec, k=3)
@@ -178,6 +185,6 @@ if submitted and user_input:
         response = "Sure! " + response[0].upper() + response[1:]
         st.session_state.history.append((response, False))
 
-# Display conversation
+# Display conversation history
 for msg, is_user in st.session_state.history:
     st.markdown(render_message(msg, is_user), unsafe_allow_html=True)
