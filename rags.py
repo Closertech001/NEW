@@ -6,7 +6,7 @@ import json
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
-from openai import OpenAI
+import openai
 
 # --------------------------
 # Load data
@@ -34,7 +34,8 @@ def load_embedding_model():
 # Initialize OpenAI Client
 @st.cache_resource
 def init_openai():
-    return OpenAI()
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
+    return openai
 
 # --------------------------
 # Normalization dictionaries
@@ -73,6 +74,8 @@ SYNONYMS = {
     "bio": "biology", "chem": "chemistry", "mass comm": "mass communication", 
     "archi": "architecture", "exam": "examination", "marks": "grades"
 }
+
+ABUSE_WORDS = ["fuck", "shit", "bitch", "nigga", "dumb", "sex"]
 
 # --------------------------
 def normalize_text(text, sym_spell):
@@ -149,28 +152,35 @@ def main():
     if user_input:
         norm_input = normalize_text(user_input, sym_spell)
 
-        if is_greeting(norm_input):
+        if any(word in norm_input for word in ABUSE_WORDS):
+            response = "Sorry, I can’t help with that. Try asking about something academic."
+
+        elif is_greeting(norm_input):
             response = get_random_greeting_response()
+
         elif is_farewell(norm_input):
             response = get_random_farewell_response()
+
         else:
             matched_q, answer, score = retrieve_answer(norm_input, dataset, embed_model)
+
             if score > 0.75:
                 response = f"**Q:** {matched_q}\n\n**A:** {answer}"
-            else:
+
+            elif 0.5 <= score <= 0.75:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
-                    gpt_response = openai_client.chat.completions.create(
+                    gpt_response = openai_client.ChatCompletion.create(
                         model="gpt-4",
                         messages=gpt_prompt
                     )
                     response = gpt_response.choices[0].message.content
-                
-                except openai.AuthenticationError:
+                except openai.error.AuthenticationError:
                     response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
-                
                 except Exception:
                     response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
+            else:
+                response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
