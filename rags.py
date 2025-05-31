@@ -20,7 +20,8 @@ ABBREVIATIONS = {
     "d": "the", "msg": "message", "idk": "i don't know", "imo": "in my opinion", "asap": "as soon as possible",
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
-    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience"
+    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience", "CSC": "department of Computer Science",
+    "Mass comm": "department of Mass Communication", "law": "department of law", "Acc": "department of Accounting"
 }
 
 SYNONYMS = {
