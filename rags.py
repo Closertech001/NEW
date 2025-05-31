@@ -172,7 +172,7 @@ def main():
 
             elif 0.5 <= score <= 0.75 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
-               try:
+                try:
                     gpt_response = openai.ChatCompletion.create(
                         model="gpt-4",
                         messages=gpt_prompt
