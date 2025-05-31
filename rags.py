@@ -5,6 +5,7 @@ import random
 import json
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
+from huggingface_hub import HfApi, HfFolder, Repository, hf_hub_url, cached_download
 import pkg_resources
 import openai
 
