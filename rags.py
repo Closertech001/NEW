@@ -5,9 +5,10 @@ import random
 import json
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
+from openai.error import AuthenticationError
 import pkg_resources
 import openai
-from openai.error import AuthenticationError
+
 
 # --------------------------
 # Normalization dictionaries
