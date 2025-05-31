@@ -47,15 +47,7 @@ ABBREVIATIONS = {
     "d": "the", "msg": "message", "idk": "i don't know", "imo": "in my opinion", "asap": "as soon as possible",
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
-    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience",
-    "how far": "how are you", "wetin": "what", "no wahala": "no problem", "abeg": "please",
-    "sharp sharp": "quickly", "bros": "brother", "guy": "person", "waka": "walk", "chop": "eat",
-    "jollof": "rice dish", "nah": "no", "dey": "is", "yarn": "talk", "gbam": "exactly", "ehn": "yes",
-    "waka pass": "walk past", "how you dey": "how are you", "i no sabi": "i don't know",
-    "make we go": "let's go", "omo": "child", "dash": "give", "carry go": "continue", "owo": "money",
-    "pikin": "child", "see as e be": "look how it is", "no vex": "sorry", "sharp": "fast", 
-    "jare": "please", "e sure": "it is sure", "you sabi": "you know", "abeg make you": "please", 
-    "how you see am": "what do you think", "carry come": "bring"
+    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience"
 }
 
 SYNONYMS = {
@@ -69,10 +61,7 @@ SYNONYMS = {
     "hostel": "accommodation", "lodging": "accommodation", "room": "accommodation", "school fees": "tuition",
     "acceptance fee": "admission fee", "fees": "tuition", "enrol": "apply", "join": "apply", 
     "sign up": "apply", "admit": "apply", "requirement": "criteria", "conditions": "criteria",
-    "needed": "required", "needed for": "required for", "who handles": "who manages", 
-    "cs": "computer science", "eco": "economics", "stat": "statistics", "phy": "physics",
-    "bio": "biology", "chem": "chemistry", "mass comm": "mass communication", 
-    "archi": "architecture", "exam": "examination", "marks": "grades"
+    "needed": "required", "needed for": "required for", "who handles": "who manages"
 }
 
 ABUSE_WORDS = ["fuck", "shit", "bitch", "nigga", "dumb", "sex"]
@@ -138,7 +127,7 @@ def main():
     dataset = load_dataset()
     embed_model = load_embedding_model()
     sym_spell = init_symspell()
-    openai_client = init_openai()
+    init_openai()
 
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
@@ -170,7 +159,7 @@ def main():
             elif 0.5 <= score <= 0.75:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
-                    gpt_response = openai_client.ChatCompletion.create(
+                    gpt_response = openai.ChatCompletion.create(
                         model="gpt-4",
                         messages=gpt_prompt
                     )
