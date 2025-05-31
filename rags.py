@@ -171,7 +171,7 @@ def main():
             )
 
             if score >= 0.60:
-                response = f"**Q:** {matched_q}\n\n**A:** {answer}\n\n_Confidence: {score:.2f}_"
+                response = f"{answer}"
 
             elif score >= 0.45 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
