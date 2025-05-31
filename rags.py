@@ -165,10 +165,12 @@ def main():
                         messages=gpt_prompt
                     )
                     response = gpt_response.choices[0].message.content
-                except Exception as e:
+                
+                except openai.AuthenticationError:
+                    response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
+                
+                except Exception:
                     response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
-                    st.error(f"OpenAI Error: {e}")
-
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
