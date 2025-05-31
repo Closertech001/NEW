@@ -9774,5 +9774,105 @@
   {
     "question": "What are the graduation requirements for Accounting students at Crescent University?",
     "answer": "Accounting students must complete all core and elective courses, maintain a minimum CGPA, complete SIWES (Industrial Training), and successfully defend a final-year project."
+  },
+  {
+    "question": "How much is the acceptance fee?",
+    "answer": "The acceptance fee at Crescent University is \u20a650,000 and must be paid to secure your admission."
+  },
+  {
+    "question": "Is JAMB required for all courses?",
+    "answer": "Yes, JAMB is mandatory for all undergraduate courses at Crescent University as part of the admission requirements."
+  },
+  {
+    "question": "Can I change my course after admission?",
+    "answer": "Yes, students may apply for a change of course, but it is subject to departmental approval and availability."
+  },
+  {
+    "question": "Where can I complete my clearance?",
+    "answer": "Clearance is done both online via the student portal and physically at your department and the Admissions Office."
+  },
+  {
+    "question": "What is the total school fee for 100 level students?",
+    "answer": "The total school fees vary by department, ranging between \u20a6400,000 and \u20a6850,000 for 100-level students. Check the portal or admission letter for exact fees."
+  },
+  {
+    "question": "Can I pay my school fees in installments?",
+    "answer": "Yes, Crescent University allows installment payments, typically in two phases per semester."
+  },
+  {
+    "question": "How much is the hostel fee per semester?",
+    "answer": "Hostel fees range from \u20a6100,000 to \u20a6150,000 per semester, depending on the accommodation type."
+  },
+  {
+    "question": "What does the acceptance fee cover?",
+    "answer": "It covers administrative charges, student ID, medical screening, and part of orientation costs."
+  },
+  {
+    "question": "Do I have to pay ICT or lab fees separately?",
+    "answer": "Yes, ICT and laboratory fees are charged separately and are part of the itemized school fees breakdown."
+  },
+  {
+    "question": "How do I get a payment receipt?",
+    "answer": "Receipts can be printed from your student portal after completing any payment."
+  },
+  {
+    "question": "How many credit units are required to graduate?",
+    "answer": "A minimum of 120\u2013150 credit units is required to graduate, depending on your program."
+  },
+  {
+    "question": "Who is the HOD of the Computer Science department?",
+    "answer": "The Head of Department may change each session. For the latest, visit the department's page or check with the Dean\u2019s office."
+  },
+  {
+    "question": "Where can I find the lecture timetable?",
+    "answer": "The lecture timetable is posted on your departmental notice board and uploaded to the student portal each semester."
+  },
+  {
+    "question": "Is there a make-up exam policy?",
+    "answer": "Yes, students who miss exams for valid reasons can apply for make-up exams through the Exams and Records Office."
+  },
+  {
+    "question": "What is the grading system at Crescent University?",
+    "answer": "The grading system follows the NUC standard: A (70\u2013100), B (60\u201369), C (50\u201359), D (45\u201349), E (40\u201344), F (0\u201339)."
+  },
+  {
+    "question": "Are final year projects mandatory?",
+    "answer": "Yes, final year projects are compulsory for all undergraduate students as a graduation requirement."
+  },
+  {
+    "question": "Are there internet facilities on campus?",
+    "answer": "Yes, Wi-Fi is available in academic blocks and hostels for students with valid credentials."
+  },
+  {
+    "question": "Who do I contact for hostel maintenance issues?",
+    "answer": "Report to the Hall Administrator or Hostel Porters\u2019 Lodge in your residence block."
+  },
+  {
+    "question": "Are there any counseling or support services?",
+    "answer": "Yes, the Student Affairs Office provides academic, personal, and psychological counseling services."
+  },
+  {
+    "question": "Are phones allowed in class?",
+    "answer": "Phones may be carried but must remain silent during lectures. Use is subject to lecturer discretion."
+  },
+  {
+    "question": "What are the rules in the hostel?",
+    "answer": "Rules include no cooking, curfews, mandatory lights-out, and proper dress. Violations attract penalties."
+  },
+  {
+    "question": "Can I cook in the hostel?",
+    "answer": "No, cooking is not allowed in the hostel. Students are expected to use the campus cafeteria."
+  },
+  {
+    "question": "Are students allowed to drive on campus?",
+    "answer": "Only staff and approved final-year students with permits may drive on campus. Most students are not permitted."
+  },
+  {
+    "question": "Is there a curfew in the hostel?",
+    "answer": "Yes, the hostel curfew is 10:00 PM daily. Late returns require clearance from the hostel warden."
+  },
+  {
+    "question": "How can I check my results online?",
+    "answer": "Log into the student portal and navigate to \u201cAcademic Records\u201d to view your semester results."
   }
 ]
