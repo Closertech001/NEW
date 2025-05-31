@@ -57,27 +57,22 @@ def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
-# Load dataset and precompute question embeddings once
 @st.cache_resource
 def load_all_data():
     embed_model = load_embedding_model()
     sym_spell = init_symspell()
     dataset = load_dataset()
     questions = [item["question"] for item in dataset]
-    q_embeds = embed_model.encode(questions, convert_to_tensor=True)
+    q_embeds = embed_model.encode(questions, convert_to_tensor=True, normalize_embeddings=True)
     return embed_model, sym_spell, dataset, q_embeds
 
 def normalize_text(text, sym_spell):
     text = text.lower()
-    # First correct typos
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     corrected = suggestions[0].term if suggestions else text
 
-    # Then replace abbreviations
     for abbr, full in ABBREVIATIONS.items():
         corrected = re.sub(rf'\b{re.escape(abbr)}\b', full, corrected)
-
-    # Then replace synonyms
     for syn, rep in SYNONYMS.items():
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
@@ -107,7 +102,13 @@ def get_random_farewell_response():
     ])
 
 def retrieve_answer(user_input, dataset, q_embeds, embed_model):
-    user_embed = embed_model.encode(user_input, convert_to_tensor=True)
+    # Try exact match
+    for item in dataset:
+        if user_input.strip().lower() in item["question"].strip().lower():
+            return item["question"], item["answer"], 1.0
+
+    # Semantic match
+    user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_score = float(scores.max())
     best_idx = int(scores.argmax())
@@ -124,7 +125,6 @@ def main():
     st.title("🎓 Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or the university.")
 
-    # Check OpenAI API key
     openai_api_key = st.secrets.get("OPENAI_API_KEY")
     if not openai_api_key:
         st.error("OpenAI API key not configured. GPT fallback disabled.")
@@ -133,7 +133,6 @@ def main():
         openai.api_key = openai_api_key
         openai_enabled = True
 
-    # Load all resources once and store in session_state
     if "embed_model" not in st.session_state:
         embed_model, sym_spell, dataset, q_embeds = load_all_data()
         st.session_state.embed_model = embed_model
@@ -142,7 +141,6 @@ def main():
         st.session_state.q_embeds = q_embeds
         st.session_state.openai_enabled = openai_enabled
 
-    # Initialize chat messages list
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
@@ -155,7 +153,6 @@ def main():
     if user_input:
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
 
-        # Abuse detection with regex
         if ABUSE_PATTERN.search(norm_input):
             response = "Sorry, I can’t help with that. Try asking about something academic."
 
@@ -166,12 +163,17 @@ def main():
             response = get_random_farewell_response()
 
         else:
-            matched_q, answer, score = retrieve_answer(norm_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
+            matched_q, answer, score = retrieve_answer(
+                user_input,
+                st.session_state.dataset,
+                st.session_state.q_embeds,
+                st.session_state.embed_model
+            )
 
-            if score > 0.75:
+            if score >= 0.60:
                 response = f"**Q:** {matched_q}\n\n**A:** {answer}\n\n_Confidence: {score:.2f}_"
 
-            elif 0.5 <= score <= 0.75 and st.session_state.openai_enabled:
+            elif score >= 0.45 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
                     gpt_response = openai.ChatCompletion.create(
