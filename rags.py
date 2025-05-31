@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 import pkg_resources
 import openai
+from openai.error import AuthenticationError
 
 # --------------------------
 # Normalization dictionaries
@@ -171,17 +172,17 @@ def main():
 
             elif 0.5 <= score <= 0.75 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
-                try:
-                    with st.spinner("Bot is thinking..."):
-                        gpt_response = openai.ChatCompletion.create(
-                            model="gpt-4",
-                            messages=gpt_prompt
-                        )
+               try:
+                    gpt_response = openai.ChatCompletion.create(
+                        model="gpt-4",
+                        messages=gpt_prompt
+                    )
                     response = gpt_response.choices[0].message.content
-                except openai.error.AuthenticationError:
+                except AuthenticationError:
                     response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
                 except Exception:
                     response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
+
             else:
                 response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
