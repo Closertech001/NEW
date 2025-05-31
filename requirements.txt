@@ -1,5 +1,6 @@
-streamlit>=1.18.1
-sentence-transformers>=2.2.2
-symspellpy>=6.7.3
-openai>=0.27.0
-torch>=1.13.1
+streamlit==1.24.0
+sentence-transformers==2.2.2
+symspellpy==6.7.6
+openai==0.27.8
+torch==2.0.1
+setuptools==68.0.0
