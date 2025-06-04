@@ -3,7 +3,6 @@ import re
 import time
 import random
 import json
-import os
 from sentence_transformers import SentenceTransformer, util
 from symspellpy.symspellpy import SymSpell
 from openai.error import AuthenticationError
@@ -41,8 +40,6 @@ SYNONYMS = {
 ABUSE_WORDS = ["fuck", "shit", "bitch", "nigga", "dumb", "sex"]
 ABUSE_PATTERN = re.compile(r'\b(' + '|'.join(map(re.escape, ABUSE_WORDS)) + r')\b', re.IGNORECASE)
 
-MEMORY_FILE = "long_term_memory.json"
-
 # --------------------------
 @st.cache_resource
 def init_symspell():
@@ -68,18 +65,6 @@ def load_all_data():
     questions = [item["question"] for item in dataset]
     q_embeds = embed_model.encode(questions, convert_to_tensor=True, normalize_embeddings=True)
     return embed_model, sym_spell, dataset, q_embeds
-
-@st.cache_resource
-def load_long_term_memory():
-    if os.path.exists(MEMORY_FILE):
-        with open(MEMORY_FILE, "r") as f:
-            return json.load(f)
-    else:
-        return {"student_name": None, "faculty": None, "location": None, "department": None, "level": None, "topic": None}
-
-def save_long_term_memory(memory):
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(memory, f)
 
 def normalize_text(text, sym_spell):
     text = text.lower()
@@ -135,35 +120,34 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
     chat.append({"role": "user", "content": new_input})
     return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
 
-def update_memory(user_input):
-    memory = st.session_state.memory
-    # Try to extract name
-    if "my name is" in user_input:
-        name_part = user_input.split("my name is")[-1].strip()
-        if name_part:
-            memory["student_name"] = name_part.split()[0].capitalize()
-    # Try to extract faculty
-    if "i am in" in user_input and "faculty" in user_input:
-        fac_part = user_input.split("i am in")[-1].strip()
-        if "faculty" in fac_part:
-            fac_name = fac_part.split("faculty")[0].strip()
-            memory["faculty"] = fac_name.capitalize()
-    # Try to extract location
-    if "i live in" in user_input:
-        loc_part = user_input.split("i live in")[-1].strip()
-        if loc_part:
-            memory["location"] = loc_part.capitalize()
-    save_long_term_memory(memory)
+# --- New functions for context awareness ---
 
-def check_memory_question(user_input):
-    memory = st.session_state.memory
-    if ("what is my name" in user_input or "how about my name" in user_input) and memory["student_name"]:
-        return f"Your name is {memory['student_name']}."
-    elif ("how about my faculty" in user_input or "what is my faculty" in user_input) and memory["faculty"]:
-        return f"You are in the {memory['faculty']} Faculty."
-    elif ("what is my location" in user_input or "how about my location" in user_input) and memory["location"]:
-        return f"You are located in {memory['location']}."
+def detect_topic(user_input):
+    # Basic keywords to detect general topic in input for any department or subject
+    user_input_lower = user_input.lower()
+    # Extend keywords list as you expand dataset/topics
+    topic_keywords = [
+        "100 level", "200 level", "300 level", "400 level",
+        "law", "accounting", "computer science", "mass communication",
+        "faculty", "department", "course", "semester", "admission",
+        "fees", "registration", "tuition", "hostel", "accommodation",
+        "location", "staff", "lecturer", "professor", "exam", "result"
+    ]
+    for keyword in topic_keywords:
+        if keyword in user_input_lower:
+            return keyword
     return None
+
+def update_current_topic(user_input):
+    detected = detect_topic(user_input)
+    if detected:
+        st.session_state.current_topic = detected
+
+def combine_with_context(user_input):
+    # If input is short and we have current topic, append it for context
+    if len(user_input.split()) < 6 and st.session_state.get("current_topic"):
+        return f"{st.session_state.current_topic} {user_input}"
+    return user_input
 
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
@@ -186,11 +170,11 @@ def main():
         st.session_state.q_embeds = q_embeds
         st.session_state.openai_enabled = openai_enabled
 
-    if "memory" not in st.session_state:
-        st.session_state.memory = load_long_term_memory()
-
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
+
+    if "current_topic" not in st.session_state:
+        st.session_state.current_topic = None
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
@@ -199,59 +183,50 @@ def main():
     user_input = st.chat_input("Type your question here...")
 
     if user_input:
-        norm_input = normalize_text(user_input, st.session_state.sym_spell)
+        # Update topic based on user input (if any keyword found)
+        update_current_topic(user_input)
 
+        # Combine input with topic for better context in retrieval
+        context_aware_input = combine_with_context(user_input)
+
+        # Normalize input text
+        norm_input = normalize_text(context_aware_input, st.session_state.sym_spell)
+
+        # Check for abuse
         if ABUSE_PATTERN.search(norm_input):
-            response = "Sorry, I can’t help with that. Try asking about something academic."
-
+            bot_response = "Please avoid using inappropriate language."
         elif is_greeting(norm_input):
-            response = get_random_greeting_response()
-
+            bot_response = get_random_greeting_response()
         elif is_farewell(norm_input):
-            response = get_random_farewell_response()
-
+            bot_response = get_random_farewell_response()
         else:
-            # Update and check memory first
-            update_memory(norm_input)
-            memory_response = check_memory_question(norm_input)
+            # Try retrieval first
+            q, a, score = retrieve_answer(norm_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
 
-            if memory_response:
-                response = memory_response
-
+            # Use a threshold to decide if retrieval is confident enough
+            if score >= 0.65:
+                bot_response = a
+            elif openai_enabled:
+                # GPT fallback with chat history for context
+                prompt = build_contextual_prompt(st.session_state.messages, user_input)
+                try:
+                    completion = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages=prompt,
+                        max_tokens=400,
+                        temperature=0.3
+                    )
+                    bot_response = completion.choices[0].message.content.strip()
+                except Exception as e:
+                    bot_response = f"Sorry, I am having trouble processing your request: {str(e)}"
             else:
-                matched_q, answer, score = retrieve_answer(
-                    user_input,
-                    st.session_state.dataset,
-                    st.session_state.q_embeds,
-                    st.session_state.embed_model,
-                )
-                threshold = 0.65
-                if score < threshold and st.session_state.openai_enabled:
-                    # Fallback to OpenAI GPT-3.5 Turbo
-                    try:
-                        messages = build_contextual_prompt(st.session_state.messages, user_input)
-                        chat_completion = openai.ChatCompletion.create(
-                            model="gpt-3.5-turbo",
-                            messages=messages,
-                            temperature=0.2,
-                            max_tokens=300,
-                        )
-                        response = chat_completion.choices[0].message.content.strip()
-                    except AuthenticationError:
-                        response = "OpenAI API key invalid or quota exceeded. Please try again later."
-                elif score >= threshold:
-                    response = answer
-                else:
-                    response = "Sorry, I couldn't find a good answer to your question."
+                bot_response = "Sorry, I don't have an answer to that right now."
 
         st.session_state.messages.append({"role": "user", "content": user_input})
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "assistant", "content": bot_response})
 
-        with st.chat_message("user"):
-            st.markdown(user_input)
         with st.chat_message("assistant"):
-            st.markdown(response)
-
+            st.markdown(bot_response)
         st.experimental_rerun()
 
 if __name__ == "__main__":
