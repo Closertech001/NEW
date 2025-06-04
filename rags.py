@@ -40,12 +40,6 @@ SYNONYMS = {
 ABUSE_WORDS = ["fuck", "shit", "bitch", "nigga", "dumb", "sex"]
 ABUSE_PATTERN = re.compile(r'\b(' + '|'.join(map(re.escape, ABUSE_WORDS)) + r')\b', re.IGNORECASE)
 
-FOLLOWUP_PATTERNS = [
-    r"^(how|what|where|who|when|why|which)?\s*(about|of|is|are|else)\s*(that|it|them|him|her|this|those|these|me)?[\?\.]?$",
-    r"^(and|so)\s*(what|how|about|the)?\s*(.*)?",
-    r"^(can you tell me more|what else)\b.*"
-]
-
 # --------------------------
 @st.cache_resource
 def init_symspell():
@@ -76,16 +70,11 @@ def normalize_text(text, sym_spell):
     text = text.lower()
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     corrected = suggestions[0].term if suggestions else text
-
     for abbr, full in ABBREVIATIONS.items():
         corrected = re.sub(rf'\b{re.escape(abbr)}\b', full, corrected)
     for syn, rep in SYNONYMS.items():
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
-
-def is_followup(text):
-    text = text.strip().lower()
-    return any(re.match(pattern, text) for pattern in FOLLOWUP_PATTERNS)
 
 def is_greeting(text):
     return any(text.lower().strip() == g for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"])
@@ -127,6 +116,7 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
     chat.append({"role": "user", "content": new_input})
     return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
 
+# --------------------------
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
@@ -151,8 +141,12 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
-    if "last_topic" not in st.session_state:
-        st.session_state.last_topic = ""
+    if "short_term_memory" not in st.session_state:
+        st.session_state.short_term_memory = {
+            "department": None,
+            "topic": None,
+            "level": None,
+        }
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
@@ -163,8 +157,19 @@ def main():
     if user_input:
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
 
-        if is_followup(norm_input) and st.session_state.last_topic:
-            norm_input = f"{st.session_state.last_topic} {norm_input}"
+        # Save context if present
+        if "department of" in norm_input:
+            match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
+            if match:
+                st.session_state.short_term_memory["department"] = match.group(1).strip()
+
+        if re.search(r"(100|200|300|400|500)\s*level", norm_input):
+            match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
+            if match:
+                st.session_state.short_term_memory["level"] = match.group(1) + " level"
+
+        if any(word in norm_input for word in ["admission", "fees", "courses", "accommodation", "graduation", "requirement"]):
+            st.session_state.short_term_memory["topic"] = norm_input
 
         if ABUSE_PATTERN.search(norm_input):
             response = "Sorry, I can’t help with that. Try asking about something academic."
@@ -176,8 +181,18 @@ def main():
             response = get_random_farewell_response()
 
         else:
+            search_input = user_input
+
+            if any(x in norm_input for x in ["what about", "how about", "what of", "that one", "it"]):
+                if st.session_state.short_term_memory["topic"]:
+                    search_input = st.session_state.short_term_memory["topic"]
+                if st.session_state.short_term_memory["department"]:
+                    search_input += f" for the department of {st.session_state.short_term_memory['department']}"
+                if st.session_state.short_term_memory["level"]:
+                    search_input += f" at {st.session_state.short_term_memory['level']}"
+
             matched_q, answer, score = retrieve_answer(
-                norm_input,
+                search_input,
                 st.session_state.dataset,
                 st.session_state.q_embeds,
                 st.session_state.embed_model
@@ -185,17 +200,14 @@ def main():
 
             if score >= 0.60:
                 response = f"{answer}"
-                st.session_state.last_topic = matched_q
-
             elif score >= 0.45 and st.session_state.openai_enabled:
-                gpt_prompt = build_contextual_prompt(st.session_state.messages, norm_input)
+                gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
                     gpt_response = openai.ChatCompletion.create(
                         model="gpt-4",
                         messages=gpt_prompt
                     )
                     response = gpt_response.choices[0].message.content
-                    st.session_state.last_topic = user_input
                 except AuthenticationError:
                     response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
                 except Exception:
@@ -211,8 +223,11 @@ def main():
             placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             placeholder.markdown(response)
-
         st.session_state.messages.append({"role": "assistant", "content": response})
+
+    # Optional Debug View of Memory
+    with st.expander("🧠 Memory (Debug Mode)"):
+        st.json(st.session_state.short_term_memory)
 
 if __name__ == "__main__":
     main()
