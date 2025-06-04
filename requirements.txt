@@ -7,5 +7,3 @@ torch==1.13.1
 numpy==1.25.2
 transformers==4.31.0
 setuptools==68.0.0
-pkg_resources
-
