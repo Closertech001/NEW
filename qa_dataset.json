@@ -8048,6 +8048,1142 @@
     "level": "500"
   },
   {
+  "question": "What course is LAW 101 and what is it about?",
+  "answer": "LAW 101 is Legal Methods I, a 3 Unit course offered by Law in 100 level First Semester.",
+  "topic": "academics",
+  "department": "Law",
+  "faculty": "BACOLAW",
+  "level": "100"
+  },
+  {
+    "question": "What course is LIB 101 and what is it about?",
+    "answer": "LIB 101 is Use of Library, a 1 Unit course offered by Law in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is ENG 107 and what is it about?",
+    "answer": "ENG 107 is Literature in English I, a 2 Unit course offered by Law in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  }, 
+  {
+    "question": "What course is SOS 101 and what is it about?",
+    "answer": "SOS 101 is Introduction to Sociology, a 2 Unit course offered by Law in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is PIS 101 and what is it about?",
+    "answer": "PIS 101 is Introduction to Political Science, a 2 Unit course offered by Law in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is CPS 101 and what is it about?",
+    "answer": "CPS 101 is Introduction to Computer, a 2 Unit course offered by Law in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+  "question": "What course is LAW 102 and what is it about?",
+  "answer": "LAW 102 is Legal Methods II, a 3 Unit course offered by Law in 100 level Second Semester.",
+  "topic": "academics",
+  "department": "Law",
+  "faculty": "BACOLAW",
+  "level": "100"
+  },
+  {
+    "question": "What course is ENG 108 and what is it about?",
+    "answer": "ENG 108 is Literature in English II, a 2 Unit course offered by Law in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is PSY 102 and what is it about?",
+    "answer": "PSY 102 is Introduction to Psychology, a 2 Unit course offered by Law in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is PIS 102 and what is it about?",
+    "answer": "PIS 102 is Nigerian Constitutional Development, a 2 Unit course offered by Law in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "100"
+  },
+  {
+    "question": "What course is LPI 201 and what is it about?",
+    "answer": "LPI 201 is Constitutional Law I, a 4 Unit course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPI 203 and what is it about?",
+    "answer": "LPI 203 is Nigerian Legal System I, a 3 Unit course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPB 201 and what is it about?",
+    "answer": "LPB 201 is Law of Contract I, a 4 Unit course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is ICL 201 and what is it about?",
+    "answer": "ICL 201 is Introduction to Islamic Law I, a 3 Unit course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPI 205 and what is it about?",
+    "answer": "LPI 205 is Administrative Law I, a 2 Unit elective course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPB 203 and what is it about?",
+    "answer": "LPB 203 is Labour Law I, a 2 Unit elective course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is ICL 203 and what is it about?",
+    "answer": "ICL 203 is Islamic Law of Transaction I, a 2 Unit elective course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is FAC 204 and what is it about?",
+    "answer": "FAC 204 is Principles of Crop Production, a 2 Unit elective course offered by Law in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPI 202 and what is it about?",
+    "answer": "LPI 202 is Constitutional Law II, a 4 Unit course offered by Law in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPI 204 and what is it about?",
+    "answer": "LPI 204 is Nigerian Legal System II, a 3 Unit course offered by Law in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPB 202 and what is it about?",
+    "answer": "LPB 202 is Law of Contract II, a 4 Unit course offered by Law in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is ICL 202 and what is it about?",
+    "answer": "ICL 202 is Introduction to Islamic Law II, a 3 Unit course offered by Law in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "200"
+  },
+  {
+    "question": "What course is LPI 301 and what is it about?",
+    "answer": "LPI 301 is Criminal Law I, a 4 Unit course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPI 303 and what is it about?",
+    "answer": "LPI 303 is ICT Law I, a 2 Unit course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 301 and what is it about?",
+    "answer": "LPB 301 is Law of Torts I, a 4 Unit course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 303 and what is it about?",
+    "answer": "LPB 303 is Commercial Law I, a 4 Unit course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 305 and what is it about?",
+    "answer": "LPB 305 is Family Law and Succession I, a 2 Unit elective course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 307 and what is it about?",
+    "answer": "LPB 307 is ADR I, a 2 Unit elective course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPI 307 and what is it about?",
+    "answer": "LPI 307 is Human Rights Law I, a 2 Unit elective course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is ICL 301 and what is it about?",
+    "answer": "ICL 301 is Islamic Law of Crime and Tort I, a 2 Unit elective course offered by Law in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPI 302 and what is it about?",
+    "answer": "LPI 302 is Criminal Law II, a 4 Unit course offered by Law in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is TPT 304 and what is it about?",
+    "answer": "TPT 304 is ICT Law II, a 2 Unit course offered by Law in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 302 and what is it about?",
+    "answer": "LPB 302 is Law of Torts II, a 4 Unit course offered by Law in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPB 304 and what is it about?",
+    "answer": "LPB 304 is Commercial Law II, a 4 Unit course offered by Law in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "300"
+  },
+  {
+    "question": "What course is LPI 401 and what is it about?",
+    "answer": "LPI 401 is Law of Evidence I, a 4 Unit course offered by Law in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPB 401 and what is it about?",
+    "answer": "LPB 401 is Property Law I, a 4 Unit course offered by Law in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPB 403 and what is it about?",
+    "answer": "LPB 403 is Equity and Trusts I, a 4 Unit course offered by Law in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LAW 402 and what is it about?",
+    "answer": "LAW 402 is Research Methodology, a 2 Unit course offered by Law in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPI 402 and what is it about?",
+    "answer": "LPI 402 is Law of Evidence II, a 4 Unit course offered by Law in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPB 402 and what is it about?",
+    "answer": "LPB 402 is Property Law II, a 4 Unit course offered by Law in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPB 404 and what is it about?",
+    "answer": "LPB 404 is Equity and Trusts II, a 4 Unit course offered by Law in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "400"
+  },
+  {
+    "question": "What course is LPI 501 and what is it about?",
+    "answer": "LPI 501 is Jurisprudence and Legal Theory I, a 4 Unit course offered by Law in 500 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "500"
+  },
+  {
+    "question": "What course is LPB 501 and what is it about?",
+    "answer": "LPB 501 is Company Law I, a 4 Unit course offered by Law in 500 level First Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "500"
+  },
+  {
+    "question": "What course is LPI 502 and what is it about?",
+    "answer": "LPI 502 is Jurisprudence and Legal Theory II, a 4 Unit course offered by Law in 500 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "500"
+  },
+  {
+    "question": "What course is LPB 502 and what is it about?",
+    "answer": "LPB 502 is Company Law II, a 4 Unit course offered by Law in 500 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "500"
+  },
+  {
+    "question": "What course is LAW 599 and what is it about?",
+    "answer": "LAW 599 is Long Essay, a 6 Unit course offered by Law in 500 level Second Semester.",
+    "topic": "academics",
+    "department": "Law",
+    "faculty": "BACOLAW",
+    "level": "500"
+  },
+    {
+    "question": "What course is CSC 103 and what is it about?",
+    "answer": "CSC 103 is Islamic Perspective in ICT, a 2 Unit course offered by Computer Science in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "100"
+  },
+  {
+    "question": "What course is CSC 105 and what is it about?",
+    "answer": "CSC 105 is Use of Library for Computer Science Students, a 2 Unit course offered by Computer Science in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "100"
+  },
+  {
+    "question": "What course is CSC 104 and what is it about?",
+    "answer": "CSC 104 is System Analysis and Design, a 2 Unit course offered by Computer Science in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "100"
+  },
+  {
+    "question": "What course is CSC 106 and what is it about?",
+    "answer": "CSC 106 is Introduction to Algebra, a 2 Unit course offered by Computer Science in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "100"
+  },
+  {
+    "question": "What course is CSC 108 and what is it about?",
+    "answer": "CSC 108 is Foundation of Sequential Program, a 2 Unit course offered by Computer Science in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "100"
+  },
+  {
+    "question": "What course is CSC 203 and what is it about?",
+    "answer": "CSC 203 is Discrete Structures, a 2 Unit course offered by Computer Science in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is CSC 299 and what is it about?",
+    "answer": "CSC 299 is SIWES I, a 3 Unit course offered by Computer Science in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is IFT 211 and what is it about?",
+    "answer": "IFT 211 is Digital Logic Design, a 2 Unit course offered by Computer Science in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is SEN 201 and what is it about?",
+    "answer": "SEN 201 is Introduction to Software Engineering, a 2 Unit course offered by Computer Science in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is IFT 212 and what is it about?",
+    "answer": "IFT 212 is Computer Architecture and Organisation, a 2 Unit course offered by Computer Science in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is CSC 204 and what is it about?",
+    "answer": "CSC 204 is Distributed Computing System, a 2 Unit course offered by Computer Science in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is CSC 206 and what is it about?",
+    "answer": "CSC 206 is Software Engineering, a 2 Unit course offered by Computer Science in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is CSC 208 and what is it about?",
+    "answer": "CSC 208 is Introduction to Numerical Analysis, a 2 Unit course offered by Computer Science in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "200"
+  },
+  {
+    "question": "What course is CSC 301 and what is it about?",
+    "answer": "CSC 301 is Data Structures, a 3 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 309 and what is it about?",
+    "answer": "CSC 309 is Artificial Intelligence, a 2 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 399 and what is it about?",
+    "answer": "CSC 399 is SIWES II, a 3 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CYB 201 and what is it about?",
+    "answer": "CYB 201 is Introduction to Cybersecurity and Strategy, a 2 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is ICT 305 and what is it about?",
+    "answer": "ICT 305 is Data Communication System & Network, a 3 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 303 and what is it about?",
+    "answer": "CSC 303 is Computational Science & Numerical Methods, a 2 Unit course offered by Computer Science in 300 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 308 and what is it about?",
+    "answer": "CSC 308 is Operating Systems, a 3 Unit course offered by Computer Science in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 322 and what is it about?",
+    "answer": "CSC 322 is Computer Science Innovation and New Technologies, a 2 Unit course offered by Computer Science in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is DTS 304 and what is it about?",
+    "answer": "DTS 304 is Data Management I, a 3 Unit course offered by Computer Science in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 302 and what is it about?",
+    "answer": "CSC 302 is Modelling and Simulation, a 2 Unit course offered by Computer Science in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 304 and what is it about?",
+    "answer": "CSC 304 is Formal Language & Automata Theory, a 2 Unit course offered by Computer Science in 300 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "300"
+  },
+  {
+    "question": "What course is CSC 401 and what is it about?",
+    "answer": "CSC 401 is Algorithms and Complexity Analysis, a 2 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 497 and what is it about?",
+    "answer": "CSC 497 is Final Year Project I, a 3 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is INS 401 and what is it about?",
+    "answer": "INS 401 is Project Management, a 2 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 403 and what is it about?",
+    "answer": "CSC 403 is Introduction to Operation Research, a 2 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 405 and what is it about?",
+    "answer": "CSC 405 is Human Computer Interface, a 2 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CPS 407 and what is it about?",
+    "answer": "CPS 407 is Data Visualization for Data-Driven Decision Making, a 2 Unit course offered by Computer Science in 400 level First Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 402 and what is it about?",
+    "answer": "CSC 402 is Ethics and Legal Issues in Computer Science, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 498 and what is it about?",
+    "answer": "CSC 498 is Final Year Project II, a 3 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 404 and what is it about?",
+    "answer": "CSC 404 is Computer System Performance Evaluation, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 406 and what is it about?",
+    "answer": "CSC 406 is Computer Graphics & Visualization, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 408 and what is it about?",
+    "answer": "CSC 408 is Compiler Construction, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 410 and what is it about?",
+    "answer": "CSC 410 is Survey of Programming Languages, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+  {
+    "question": "What course is CSC 412 and what is it about?",
+    "answer": "CSC 412 is Internet Technology & Web Programming, a 2 Unit course offered by Computer Science in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Computer Science",
+    "faculty": "CST",
+    "level": "400"
+  },
+    {
+    "question": "What course is ECO 101 and what is it about?",
+    "answer": "ECO 101 is Principles of Economics I, a 3 Unit course offered by Economics in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ECO 102 and what is it about?",
+    "answer": "ECO 102 is Principles of Economics II, a 3 Unit course offered by Economics in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is MTH 113 and what is it about?",
+    "answer": "MTH 113 is Mathematics for Social Sciences I, a 3 Unit course offered by Economics in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is MTH 123 and what is it about?",
+    "answer": "MTH 123 is Mathematics for Social Sciences II, a 3 Unit course offered by Economics in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is STA 111 and what is it about?",
+    "answer": "STA 111 is Introduction to Statistics I, a 3 Unit course offered by Economics in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is STA 121 and what is it about?",
+    "answer": "STA 121 is Introduction to Statistics II, a 3 Unit course offered by Economics in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ACC 111 and what is it about?",
+    "answer": "ACC 111 is Introduction to Accounting, a 3 Unit course offered by Economics in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is BUS 103 and what is it about?",
+    "answer": "BUS 103 is Introduction to Business, a 3 Unit course offered by Economics in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ECO 201 and what is it about?",
+    "answer": "ECO 201 is Microeconomic Theory I, a 3 Unit course offered by Economics in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 202 and what is it about?",
+    "answer": "ECO 202 is Microeconomic Theory II, a 3 Unit course offered by Economics in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 203 and what is it about?",
+    "answer": "ECO 203 is Macroeconomic Theory I, a 3 Unit course offered by Economics in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 204 and what is it about?",
+    "answer": "ECO 204 is Macroeconomic Theory II, a 3 Unit course offered by Economics in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 205 and what is it about?",
+    "answer": "ECO 205 is History and Structure of the Nigerian Economy I, a 2 Unit course offered by Economics in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 206 and what is it about?",
+    "answer": "ECO 206 is History and Structure of the Nigerian Economy II, a 2 Unit course offered by Economics in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 207 and what is it about?",
+    "answer": "ECO 207 is Mathematics for Economists I, a 3 Unit course offered by Economics in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 208 and what is it about?",
+    "answer": "ECO 208 is Mathematics for Economists II, a 3 Unit course offered by Economics in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 209 and what is it about?",
+    "answer": "ECO 209 is Statistics for Economists I, a 3 Unit course offered by Economics in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ECO 210 and what is it about?",
+    "answer": "ECO 210 is Statistics for Economists II, a 3 Unit course offered by Economics in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Economics",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 103 and what is it about?",
+    "answer": "ACC 103 is Business Mathematics I, a 2 Unit course offered by Accounting in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ACC 105 and what is it about?",
+    "answer": "ACC 105 is Elements of Banking, a 2 Unit course offered by Accounting in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ACC 104 and what is it about?",
+    "answer": "ACC 104 is Business Mathematics II, a 2 Unit course offered by Accounting in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ACC 106 and what is it about?",
+    "answer": "ACC 106 is Introduction to Business, a 2 Unit course offered by Accounting in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is ACC 201 and what is it about?",
+    "answer": "ACC 201 is Financial Accounting I, a 3 Unit course offered by Accounting in 200 level first semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 203 and what is it about?",
+    "answer": "ACC 203 is Cost Accounting I, a 3 Unit course offered by Accounting in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 205 and what is it about?",
+    "answer": "ACC 205 is Business Law I, a 2 Unit course offered by Accounting in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 207 and what is it about?",
+    "answer": "ACC 207 is Statistics for Management Sciences I, a 3 Unit course offered by Accounting in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 202 and what is it about?",
+    "answer": "ACC 202 is Financial Accounting II, a 3 Unit course offered by Accounting in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 204 and what is it about?",
+    "answer": "ACC 204 is Cost Accounting II, a 3 Unit course offered by Accounting in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 206 and what is it about?",
+    "answer": "ACC 206 is Business Law II, a 2 Unit course offered by Accounting in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is ACC 208 and what is it about?",
+    "answer": "ACC 208 is Statistics for Management Sciences II, a 3 Unit course offered by Accounting in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Accounting",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is BUS 101 and what is it about?",
+    "answer": "BUS 101 is Introduction to Business I, a 3 Unit course offered by Business Administration in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is BUS 103 and what is it about?",
+    "answer": "BUS 103 is Business Mathematics I, a 3 Unit course offered by Business Administration in 100 level First Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is BUS 102 and what is it about?",
+    "answer": "BUS 102 is Introduction to Business II, a 3 Unit course offered by Business Administration in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is BUS 104 and what is it about?",
+    "answer": "BUS 104 is Business Mathematics II, a 3 Unit course offered by Business Administration in 100 level Second Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "100"
+  },
+  {
+    "question": "What course is BUS 201 and what is it about?",
+    "answer": "BUS 201 is Principles of Management I, a 3 Unit course offered by Business Administration in 200 level First Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is BUS 202 and what is it about?",
+    "answer": "BUS 202 is Principles of Management II, a 3 Unit course offered by Business Administration in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+  {
+    "question": "What course is BUS 204 and what is it about?",
+    "answer": "BUS 204 is Business Statistics II, a 3 Unit course offered by Business Administration in 200 level Second Semester.",
+    "topic": "academics",
+    "department": "Business Administration",
+    "faculty": "SOCIAL SCIENCE",
+    "level": "200"
+  },
+    {
+    "question": "What is MCM 201 and what does it cover?",
+    "answer": "MCM 201 is News Reporting and Writing I, a 3 Unit course offered by the Department of Mass Communication for the Print major at 200 level First Semester.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "Can you tell me about MCM 202?",
+    "answer": "MCM 202 is Editing and Layout, a 3 Unit course taught at 200 level Second Semester by the Department of Mass Communication for Print majors.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "What is MCM 211 about?",
+    "answer": "MCM 211 is Principles of Public Relations, a 3 Unit course offered by the Department of Mass Communication for the PRAD major at 200 level First Semester.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "Tell me about MCM 212.",
+    "answer": "MCM 212 is Introduction to Advertising, a 3 Unit course offered for PRAD majors at 200 level Second Semester by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "What is MCM 221?",
+    "answer": "MCM 221 is Radio Production I, a 3 Unit course offered to Broadcast/Film majors at 200 level First Semester in the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "Can you explain MCM 222?",
+    "answer": "MCM 222 is Introduction to Television Production, a 3 Unit course for Broadcast/Film majors at 200 level Second Semester offered by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "200"
+  },
+  {
+    "question": "What course is MCM 301 and what is it about?",
+    "answer": "MCM 301 is Journalism Research Methods, a 3 Unit course offered to Print majors at 300 level First Semester by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "Can you explain the course MCM 302?",
+    "answer": "MCM 302 is Newspaper Management and Production, a 3 Unit Print specialization course taught at 300 level Second Semester in the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "What is MCM 311 and its focus?",
+    "answer": "MCM 311 is Public Relations Research and Evaluation, a 3 Unit course offered to PRAD majors at 300 level First Semester by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "Tell me about MCM 312.",
+    "answer": "MCM 312 is Advertising Campaign Strategy, a 3 Unit PRAD major course taught at 300 level Second Semester by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "What is MCM 321 and what does it teach?",
+    "answer": "MCM 321 is Public Affairs Broadcasting, a 3 Unit course for Broadcast/Film majors at 300 level First Semester in the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "Can you describe MCM 322?",
+    "answer": "MCM 322 is Film Production and Directing, a 3 Unit course taught in the Department of Mass Communication at 300 level Second Semester for Broadcast/Film majors.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "300"
+  },
+  {
+    "question": "What course is MCM 401 and what does it focus on?",
+    "answer": "MCM 401 is International Communication, a 3 Unit course offered at 400 level First Semester by the Department of Mass Communication, covering global media systems and cross-border information flow.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "Can you describe MCM 402?",
+    "answer": "MCM 402 is Media Law and Ethics, a 3 Unit course offered by the Department of Mass Communication at 400 level First Semester, focusing on regulations, press freedom, and ethical journalism practices.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What is MCM 403 about?",
+    "answer": "MCM 403 is Research Project, a 6 Unit course that involves independent research on a media-related topic under faculty supervision, offered in 400 level Second Semester.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What course is MCM 404 and what does it cover?",
+    "answer": "MCM 404 is Media Attachment (Industrial Training), a 6 Unit Second Semester course requiring students to gain hands-on experience in media organizations or communication agencies.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What is MCM 411 and its focus area?",
+    "answer": "MCM 411 is Brand and Event Management, a 3 Unit PRAD-focused course at 400 level First Semester, exploring strategies in promotional campaigns and branded communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What does MCM 412 cover?",
+    "answer": "MCM 412 is Digital Public Relations, a 3 Unit elective at 400 level Second Semester for PRAD majors, focusing on online reputation, social media engagement, and digital storytelling.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What is MCM 421 about?",
+    "answer": "MCM 421 is Investigative Reporting, a 3 Unit course at 400 level First Semester for Print majors, emphasizing deep-dive journalism and fact verification techniques.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "Can you explain MCM 422?",
+    "answer": "MCM 422 is Fact-checking and Media Literacy, a 3 Unit Print-focused course taught at 400 level Second Semester by the Department of Mass Communication.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "What is MCM 431 and its objective?",
+    "answer": "MCM 431 is Advanced Digital Broadcasting, a 3 Unit course for Broadcast/Film majors at 400 level First Semester, covering new media production techniques and streaming technologies.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
+    "question": "Tell me about MCM 432.",
+    "answer": "MCM 432 is Documentary Filmmaking, a 3 Unit specialization course at 400 level Second Semester focusing on scripting, directing, and editing nonfictional visual stories.",
+    "topic": "academics",
+    "department": "Mass Communication",
+    "faculty": "CASMAS",
+    "level": "400"
+  },
+  {
     "question": "Who is the Dean of Student Affairs?",
     "answer": "Professor R.O. Kareem is the Dean of Student Affairs at Crescent University.",
     "topic": "general",
