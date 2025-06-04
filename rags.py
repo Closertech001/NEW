@@ -9,7 +9,6 @@ from openai.error import AuthenticationError
 import pkg_resources
 import openai
 
-
 # --------------------------
 # Normalization dictionaries
 ABBREVIATIONS = {
@@ -40,6 +39,12 @@ SYNONYMS = {
 
 ABUSE_WORDS = ["fuck", "shit", "bitch", "nigga", "dumb", "sex"]
 ABUSE_PATTERN = re.compile(r'\b(' + '|'.join(map(re.escape, ABUSE_WORDS)) + r')\b', re.IGNORECASE)
+
+FOLLOWUP_PATTERNS = [
+    r"^(how|what|where|who|when|why|which)?\s*(about|of|is|are|else)\s*(that|it|them|him|her|this|those|these|me)?[\?\.]?$",
+    r"^(and|so)\s*(what|how|about|the)?\s*(.*)?",
+    r"^(can you tell me more|what else)\b.*"
+]
 
 # --------------------------
 @st.cache_resource
@@ -78,6 +83,10 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
+def is_followup(text):
+    text = text.strip().lower()
+    return any(re.match(pattern, text) for pattern in FOLLOWUP_PATTERNS)
+
 def is_greeting(text):
     return any(text.lower().strip() == g for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"])
 
@@ -103,12 +112,9 @@ def get_random_farewell_response():
     ])
 
 def retrieve_answer(user_input, dataset, q_embeds, embed_model):
-    # Try exact match
     for item in dataset:
         if user_input.strip().lower() in item["question"].strip().lower():
             return item["question"], item["answer"], 1.0
-
-    # Semantic match
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_score = float(scores.max())
@@ -145,6 +151,9 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
+    if "last_topic" not in st.session_state:
+        st.session_state.last_topic = ""
+
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
@@ -153,6 +162,9 @@ def main():
 
     if user_input:
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
+
+        if is_followup(norm_input) and st.session_state.last_topic:
+            norm_input = f"{st.session_state.last_topic} {norm_input}"
 
         if ABUSE_PATTERN.search(norm_input):
             response = "Sorry, I can’t help with that. Try asking about something academic."
@@ -165,7 +177,7 @@ def main():
 
         else:
             matched_q, answer, score = retrieve_answer(
-                user_input,
+                norm_input,
                 st.session_state.dataset,
                 st.session_state.q_embeds,
                 st.session_state.embed_model
@@ -173,20 +185,21 @@ def main():
 
             if score >= 0.60:
                 response = f"{answer}"
+                st.session_state.last_topic = matched_q
 
             elif score >= 0.45 and st.session_state.openai_enabled:
-                gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
+                gpt_prompt = build_contextual_prompt(st.session_state.messages, norm_input)
                 try:
                     gpt_response = openai.ChatCompletion.create(
                         model="gpt-4",
                         messages=gpt_prompt
                     )
                     response = gpt_response.choices[0].message.content
+                    st.session_state.last_topic = user_input
                 except AuthenticationError:
                     response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
                 except Exception:
                     response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
-
             else:
                 response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
@@ -198,6 +211,7 @@ def main():
             placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             placeholder.markdown(response)
+
         st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
