@@ -137,7 +137,10 @@ def update_current_topic(user_input):
         st.session_state.current_topic = detected
 
 def combine_with_context(user_input):
-    if len(user_input.split()) < 6 and st.session_state.get("current_topic"):
+    input_lower = user_input.lower()
+    keywords = ["biochemistry", "course", "dept", "department", "faculty", "semester", "level", "100", "200", "300", "400"]
+    
+    if not any(kw in input_lower for kw in keywords) and st.session_state.get("current_topic"):
         return f"{st.session_state.current_topic} {user_input}"
     return user_input
 
