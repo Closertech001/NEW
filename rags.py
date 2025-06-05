@@ -10,6 +10,7 @@ import pkg_resources
 import openai
 
 # --------------------------
+# Normalization dictionaries
 ABBREVIATIONS = {
     "u": "you", "r": "are", "ur": "your", "cn": "can", "cud": "could", "shud": "should", "wud": "would",
     "abt": "about", "bcz": "because", "plz": "please", "pls": "please", "tmrw": "tomorrow", "wat": "what",
@@ -104,7 +105,6 @@ def retrieve_answer(user_input, dataset, q_embeds, embed_model):
     for item in dataset:
         if user_input.strip().lower() in item["question"].strip().lower():
             return item["question"], item["answer"], 1.0
-
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_score = float(scores.max())
@@ -145,17 +145,19 @@ def extract_user_info(text):
     info = {}
     name_match = re.search(r"\bmy name is (\w+)", text, re.IGNORECASE)
     if not name_match:
-        name_match = re.search(r"\bi am (\w+)", text, re.IGNORECASE)
+        name_match = re.search(r"\bi am ([A-Z][a-z]+)\b", text, re.IGNORECASE)
     if name_match:
-        info['name'] = name_match.group(1).title()
+        name_candidate = name_match.group(1).title()
+        if name_candidate.lower() not in ["in", "on", "from", "at", "into", "under"]:
+            info['name'] = name_candidate
 
     faculty_match = re.search(r"\b(i am|i'm) (a|an)? ?([\w\s]+) student\b", text, re.IGNORECASE)
     if faculty_match:
-        info['faculty'] = faculty_match.group(3).title()
+        info['faculty'] = faculty_match.group(3).strip().title()
 
     location_match = re.search(r"\b(from|located in|live in) ([\w\s]+)", text, re.IGNORECASE)
     if location_match:
-        info['location'] = location_match.group(2).title()
+        info['location'] = location_match.group(2).strip().title()
 
     return info
 
@@ -171,12 +173,14 @@ def personalize_response(response):
 # --------------------------
 def main():
     st.title("🎓 Crescent University Chatbot")
+
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "current_topic" not in st.session_state:
         st.session_state.current_topic = None
 
     embed_model, sym_spell, dataset, q_embeds = load_all_data()
+
     user_input = st.chat_input("Ask me anything about Crescent University...")
 
     if user_input:
@@ -204,19 +208,16 @@ def main():
                     response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=contextual_prompt)
                     bot_response = response.choices[0].message.content.strip()
                 except AuthenticationError:
-                    bot_response = "I'm currently unable to answer that question. Please try again later."
+                    bot_response = "OpenAI key not configured. Please set your API key."
                 except Exception as e:
-                    bot_response = f"Something went wrong. Please try again later."
+                    bot_response = f"Something went wrong: {e}"
 
-        # Extract & store user info in session (long-term memory)
+        # Extract and store user info
         user_info = extract_user_info(user_input)
         for key, value in user_info.items():
             st.session_state[key] = value
 
-        # Only personalize if no error in bot response
-        if "unable to answer" not in bot_response.lower() and "something went wrong" not in bot_response.lower():
-            bot_response = personalize_response(bot_response)
-
+        bot_response = personalize_response(bot_response)
         st.session_state.messages.append({"role": "assistant", "content": bot_response})
 
     for message in st.session_state.messages:
