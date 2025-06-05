@@ -225,9 +225,5 @@ def main():
             placeholder.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # Optional Debug View of Memory
-    with st.expander("🧠 Memory (Debug Mode)"):
-        st.json(st.session_state.short_term_memory)
-
 if __name__ == "__main__":
     main()
