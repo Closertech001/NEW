@@ -9,6 +9,7 @@ from openai.error import AuthenticationError
 import pkg_resources
 import openai
 
+
 # --------------------------
 # Normalization dictionaries
 ABBREVIATIONS = {
@@ -70,6 +71,7 @@ def normalize_text(text, sym_spell):
     text = text.lower()
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     corrected = suggestions[0].term if suggestions else text
+
     for abbr, full in ABBREVIATIONS.items():
         corrected = re.sub(rf'\b{re.escape(abbr)}\b', full, corrected)
     for syn, rep in SYNONYMS.items():
@@ -101,9 +103,12 @@ def get_random_farewell_response():
     ])
 
 def retrieve_answer(user_input, dataset, q_embeds, embed_model):
+    # Try exact match
     for item in dataset:
         if user_input.strip().lower() in item["question"].strip().lower():
             return item["question"], item["answer"], 1.0
+
+    # Semantic match
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_score = float(scores.max())
@@ -116,7 +121,6 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
     chat.append({"role": "user", "content": new_input})
     return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
 
-# --------------------------
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
@@ -141,13 +145,6 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
-    if "short_term_memory" not in st.session_state:
-        st.session_state.short_term_memory = {
-            "department": None,
-            "topic": None,
-            "level": None,
-        }
-
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
@@ -156,20 +153,6 @@ def main():
 
     if user_input:
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
-
-        # Save context if present
-        if "department of" in norm_input:
-            match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
-            if match:
-                st.session_state.short_term_memory["department"] = match.group(1).strip()
-
-        if re.search(r"(100|200|300|400|500)\s*level", norm_input):
-            match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
-            if match:
-                st.session_state.short_term_memory["level"] = match.group(1) + " level"
-
-        if any(word in norm_input for word in ["admission", "fees", "courses", "accommodation", "graduation", "requirement"]):
-            st.session_state.short_term_memory["topic"] = norm_input
 
         if ABUSE_PATTERN.search(norm_input):
             response = "Sorry, I can’t help with that. Try asking about something academic."
@@ -181,18 +164,8 @@ def main():
             response = get_random_farewell_response()
 
         else:
-            search_input = user_input
-
-            if any(x in norm_input for x in ["what about", "how about", "what of", "that one", "it"]):
-                if st.session_state.short_term_memory["topic"]:
-                    search_input = st.session_state.short_term_memory["topic"]
-                if st.session_state.short_term_memory["department"]:
-                    search_input += f" for the department of {st.session_state.short_term_memory['department']}"
-                if st.session_state.short_term_memory["level"]:
-                    search_input += f" at {st.session_state.short_term_memory['level']}"
-
             matched_q, answer, score = retrieve_answer(
-                search_input,
+                user_input,
                 st.session_state.dataset,
                 st.session_state.q_embeds,
                 st.session_state.embed_model
@@ -200,6 +173,7 @@ def main():
 
             if score >= 0.60:
                 response = f"{answer}"
+
             elif score >= 0.45 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
@@ -212,6 +186,7 @@ def main():
                     response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
                 except Exception:
                     response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
+
             else:
                 response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
@@ -226,4 +201,4 @@ def main():
         st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
-    main()
+    main()S
