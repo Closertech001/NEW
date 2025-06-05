@@ -200,11 +200,12 @@ def retrieve_answer(user_input, dataset, q_embeds, embed_model):
     for item in dataset:
         if user_input.strip().lower() in item["question"].strip().lower():
             return item["answer"], 1.0
+
     user_embed = embed_model.encode(
         user_input, convert_to_tensor=True, normalize_embeddings=True
     )
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    best_idx = int(scores.argmax())
+    best_idx = scores.argmax().item()  # FIXED: extract scalar with .item()
     best_score = float(scores[best_idx])
     return dataset[best_idx]["answer"], best_score
 
