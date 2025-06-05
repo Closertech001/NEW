@@ -19,10 +19,8 @@ ABBREVIATIONS = {
     "d": "the", "msg": "message", "idk": "i don't know", "imo": "in my opinion", "asap": "as soon as possible",
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
-    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience", 
-    "csc": "department of computer science", "mass comm": "department of mass communication", 
-    "law": "department of law", "acc": "department of accounting", "bio chem": "biochemistry",
-    "eng": "engineering", "comm": "communication", "econs": "economics", "comp sci": "computer science"
+    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience", "CSC": "department of Computer Science",
+    "Mass comm": "department of Mass Communication", "law": "department of law", "Acc": "department of Accounting"
 }
 
 SYNONYMS = {
@@ -33,7 +31,6 @@ SYNONYMS = {
     "unit": "credit", "credit unit": "unit", "course load": "unit", "non teaching": "non-academic",
     "admin worker": "non-academic staff", "support staff": "non-academic staff", "clerk": "non-academic staff",
     "receptionist": "non-academic staff", "secretary": "non-academic staff", "tech staff": "technical staff",
-    "it staff": "technical staff", "lab assistants": "technical staff", "network team": "technical staff",
     "hostel": "accommodation", "lodging": "accommodation", "room": "accommodation", "school fees": "tuition",
     "acceptance fee": "admission fee", "fees": "tuition", "enrol": "apply", "join": "apply", 
     "sign up": "apply", "admit": "apply", "requirement": "criteria", "conditions": "criteria",
@@ -73,7 +70,6 @@ def normalize_text(text, sym_spell):
     text = text.lower()
     suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
     corrected = suggestions[0].term if suggestions else text
-
     for abbr, full in ABBREVIATIONS.items():
         corrected = re.sub(rf'\b{re.escape(abbr)}\b', full, corrected)
     for syn, rep in SYNONYMS.items():
@@ -120,116 +116,118 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
     chat.append({"role": "user", "content": new_input})
     return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
 
-def detect_topic(user_input):
-    user_input_lower = user_input.lower()
-    topic_keywords = [
-        "100 level", "200 level", "300 level", "400 level",
-        "law", "accounting", "computer science", "mass communication",
-        "faculty", "department", "course", "semester", "admission",
-        "fees", "registration", "tuition", "hostel", "accommodation",
-        "location", "staff", "lecturer", "professor", "exam", "result"
-    ]
-    for keyword in topic_keywords:
-        if keyword in user_input_lower:
-            return keyword
-    return None
-
-def update_current_topic(user_input):
-    detected = detect_topic(user_input)
-    if detected:
-        st.session_state.current_topic = detected
-
-def combine_with_context(user_input):
-    input_lower = user_input.lower()
-    keywords = ["biochemistry", "course", "dept", "department", "faculty", "semester", "level", "100", "200", "300", "400"]
-    if not any(kw in input_lower for kw in keywords) and st.session_state.get("current_topic"):
-        return f"{st.session_state.current_topic} {user_input}"
-    return user_input
-
-def extract_user_info(text):
-    info = {}
-    name_match = re.search(r"\bmy name is ([A-Z][a-z]+)\b", text, re.IGNORECASE)
-    if not name_match:
-        name_match = re.search(r"\bi am ([A-Z][a-z]+)\b", text, re.IGNORECASE)
-    if not name_match:
-        name_match = re.search(r"\bcall me ([A-Z][a-z]+)\b", text, re.IGNORECASE)
-    if name_match:
-        name_candidate = name_match.group(1).title()
-        if name_candidate.lower() not in ["in", "on", "from", "at", "into", "under"]:
-            info['name'] = name_candidate
-
-    faculty_match = re.search(r"\b(i am|i'm|studying|study|student of) (a|an)? ?([\w\s]+) (dept|department|faculty)\b", text, re.IGNORECASE)
-    if faculty_match:
-        info['faculty'] = faculty_match.group(3).strip().title()
-
-    location_match = re.search(r"\b(from|located in|live in|based in) ([\w\s]+)", text, re.IGNORECASE)
-    if location_match:
-        info['location'] = location_match.group(2).strip().title()
-
-    return info
-
-def personalize_response(response):
-    if 'name' in st.session_state:
-        response += f"\n\nNice to talk with you again, {st.session_state['name']}!"
-    if 'faculty' in st.session_state:
-        response += f"\nI remember you're in the {st.session_state['faculty']} department."
-    if 'location' in st.session_state:
-        response += f"\nAnd you're from {st.session_state['location']}, right?"
-    return response
-
 # --------------------------
 def main():
+    st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
+    st.markdown("Ask me anything about your department, courses, or the university.")
+
+    openai_api_key = st.secrets.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        st.error("OpenAI API key not configured. GPT fallback disabled.")
+        openai_enabled = False
+    else:
+        openai.api_key = openai_api_key
+        openai_enabled = True
+
+    if "embed_model" not in st.session_state:
+        embed_model, sym_spell, dataset, q_embeds = load_all_data()
+        st.session_state.embed_model = embed_model
+        st.session_state.sym_spell = sym_spell
+        st.session_state.dataset = dataset
+        st.session_state.q_embeds = q_embeds
+        st.session_state.openai_enabled = openai_enabled
 
     if "messages" not in st.session_state:
-        st.session_state.messages = []
-    if "current_topic" not in st.session_state:
-        st.session_state.current_topic = None
+        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
 
-    embed_model, sym_spell, dataset, q_embeds = load_all_data()
+    if "short_term_memory" not in st.session_state:
+        st.session_state.short_term_memory = {
+            "department": None,
+            "topic": None,
+            "level": None,
+        }
 
-    user_input = st.chat_input("Ask me anything about Crescent University...")
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    user_input = st.chat_input("Type your question here...")
 
     if user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
+        norm_input = normalize_text(user_input, st.session_state.sym_spell)
 
-        if is_greeting(user_input):
-            bot_response = get_random_greeting_response()
-        elif is_farewell(user_input):
-            bot_response = get_random_farewell_response()
-        elif ABUSE_PATTERN.search(user_input):
-            bot_response = "Please avoid using abusive language."
+        # Save context if present
+        if "department of" in norm_input:
+            match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
+            if match:
+                st.session_state.short_term_memory["department"] = match.group(1).strip()
+
+        if re.search(r"(100|200|300|400|500)\s*level", norm_input):
+            match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
+            if match:
+                st.session_state.short_term_memory["level"] = match.group(1) + " level"
+
+        if any(word in norm_input for word in ["admission", "fees", "courses", "accommodation", "graduation", "requirement"]):
+            st.session_state.short_term_memory["topic"] = norm_input
+
+        if ABUSE_PATTERN.search(norm_input):
+            response = "Sorry, I can’t help with that. Try asking about something academic."
+
+        elif is_greeting(norm_input):
+            response = get_random_greeting_response()
+
+        elif is_farewell(norm_input):
+            response = get_random_farewell_response()
+
         else:
-            update_current_topic(user_input)
-            expanded_input = combine_with_context(user_input)
-            normalized_input = normalize_text(expanded_input, sym_spell)
+            search_input = user_input
 
-            matched_question, matched_answer, confidence = retrieve_answer(normalized_input, dataset, q_embeds, embed_model)
+            if any(x in norm_input for x in ["what about", "how about", "what of", "that one", "it"]):
+                if st.session_state.short_term_memory["topic"]:
+                    search_input = st.session_state.short_term_memory["topic"]
+                if st.session_state.short_term_memory["department"]:
+                    search_input += f" for the department of {st.session_state.short_term_memory['department']}"
+                if st.session_state.short_term_memory["level"]:
+                    search_input += f" at {st.session_state.short_term_memory['level']}"
 
-            if confidence > 0.72:
-                bot_response = matched_answer
-            else:
+            matched_q, answer, score = retrieve_answer(
+                search_input,
+                st.session_state.dataset,
+                st.session_state.q_embeds,
+                st.session_state.embed_model
+            )
+
+            if score >= 0.60:
+                response = f"{answer}"
+            elif score >= 0.45 and st.session_state.openai_enabled:
+                gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
                 try:
-                    openai.api_key = st.secrets["OPENAI_API_KEY"]
-                    contextual_prompt = build_contextual_prompt(st.session_state.messages, normalized_input)
-                    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=contextual_prompt)
-                    bot_response = response.choices[0].message.content.strip()
+                    gpt_response = openai.ChatCompletion.create(
+                        model="gpt-4",
+                        messages=gpt_prompt
+                    )
+                    response = gpt_response.choices[0].message.content
                 except AuthenticationError:
-                    bot_response = "OpenAI key not configured. Please set your API key."
-                except Exception as e:
-                    bot_response = f"Something went wrong: {e}"
+                    response = "Sorry, the assistant is currently not available due to a system configuration issue. Please contact support."
+                except Exception:
+                    response = "Sorry, I encountered an issue while trying to answer that. Please try again later."
+            else:
+                response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
-        # Extract and store user info
-        user_info = extract_user_info(user_input)
-        for key, value in user_info.items():
-            st.session_state[key] = value
+        st.session_state.messages.append({"role": "user", "content": user_input})
+        st.chat_message("user").markdown(user_input)
 
-        bot_response = personalize_response(bot_response)
-        st.session_state.messages.append({"role": "assistant", "content": bot_response})
+        with st.chat_message("assistant"):
+            placeholder = st.empty()
+            placeholder.markdown("_Bot is typing..._")
+            time.sleep(1.5)
+            placeholder.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+    # Optional Debug View of Memory
+    with st.expander("🧠 Memory (Debug Mode)"):
+        st.json(st.session_state.short_term_memory)
 
 if __name__ == "__main__":
     main()
