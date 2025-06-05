@@ -102,12 +102,9 @@ def get_random_farewell_response():
     ])
 
 def retrieve_answer(user_input, dataset, q_embeds, embed_model):
-    # Try exact match
     for item in dataset:
         if user_input.strip().lower() in item["question"].strip().lower():
             return item["question"], item["answer"], 1.0
-
-    # Semantic match
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_score = float(scores.max())
@@ -119,8 +116,6 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
     chat = [{"role": m["role"], "content": m["content"]} for m in recent]
     chat.append({"role": "user", "content": new_input})
     return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
-
-# --- New functions for context awareness ---
 
 def detect_topic(user_input):
     user_input_lower = user_input.lower()
@@ -146,30 +141,27 @@ def combine_with_context(user_input):
         return f"{st.session_state.current_topic} {user_input}"
     return user_input
 
-# --- New function: Extract user info for long-term memory ---
 def extract_user_info(text):
     info = {}
-    # Name detection
     name_match = re.search(r"\bmy name is (\w+)", text, re.IGNORECASE)
     if not name_match:
-        name_match = re.search(r"\bi am (\w+)", text, re.IGNORECASE)
+        name_match = re.search(r"\bi am ([A-Z][a-z]+)\b", text, re.IGNORECASE)
     if name_match:
-        info['name'] = name_match.group(1).title()
+        name_candidate = name_match.group(1).title()
+        if name_candidate.lower() not in ["in", "on", "from", "at", "into", "under"]:
+            info['name'] = name_candidate
 
-    # Faculty or department detection
     faculty_match = re.search(r"\b(i am|i'm) (a|an)? ?([\w\s]+) student\b", text, re.IGNORECASE)
     if faculty_match:
-        info['faculty'] = faculty_match.group(3).title()
+        info['faculty'] = faculty_match.group(3).strip().title()
 
-    # Location detection
     location_match = re.search(r"\b(from|located in|live in) ([\w\s]+)", text, re.IGNORECASE)
     if location_match:
-        info['location'] = location_match.group(2).title()
+        info['location'] = location_match.group(2).strip().title()
 
     return info
 
 def personalize_response(response):
-    # Add personalized info to bot response if available
     if 'name' in st.session_state:
         response += f"\n\nNice to talk with you again, {st.session_state['name']}!"
     if 'faculty' in st.session_state:
@@ -213,27 +205,21 @@ def main():
                 try:
                     openai.api_key = st.secrets["OPENAI_API_KEY"]
                     contextual_prompt = build_contextual_prompt(st.session_state.messages, normalized_input)
-                    response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
-                        messages=contextual_prompt
-                    )
+                    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=contextual_prompt)
                     bot_response = response.choices[0].message.content.strip()
                 except AuthenticationError:
                     bot_response = "OpenAI key not configured. Please set your API key."
                 except Exception as e:
                     bot_response = f"Something went wrong: {e}"
 
-        # Extract and store user info in session (long-term memory)
+        # Extract and store user info
         user_info = extract_user_info(user_input)
         for key, value in user_info.items():
             st.session_state[key] = value
 
-        # Personalize the response
         bot_response = personalize_response(bot_response)
-
         st.session_state.messages.append({"role": "assistant", "content": bot_response})
 
-    # Display all messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
