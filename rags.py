@@ -123,9 +123,7 @@ def build_contextual_prompt(messages, new_input, max_turns=3):
 # --- New functions for context awareness ---
 
 def detect_topic(user_input):
-    # Basic keywords to detect general topic in input for any department or subject
     user_input_lower = user_input.lower()
-    # Extend keywords list as you expand dataset/topics
     topic_keywords = [
         "100 level", "200 level", "300 level", "400 level",
         "law", "accounting", "computer science", "mass communication",
@@ -144,90 +142,97 @@ def update_current_topic(user_input):
         st.session_state.current_topic = detected
 
 def combine_with_context(user_input):
-    # If input is short and we have current topic, append it for context
     if len(user_input.split()) < 6 and st.session_state.get("current_topic"):
         return f"{st.session_state.current_topic} {user_input}"
     return user_input
 
+# --- New function: Extract user info for long-term memory ---
+def extract_user_info(text):
+    info = {}
+    # Name detection
+    name_match = re.search(r"\bmy name is (\w+)", text, re.IGNORECASE)
+    if not name_match:
+        name_match = re.search(r"\bi am (\w+)", text, re.IGNORECASE)
+    if name_match:
+        info['name'] = name_match.group(1).title()
+
+    # Faculty or department detection
+    faculty_match = re.search(r"\b(i am|i'm) (a|an)? ?([\w\s]+) student\b", text, re.IGNORECASE)
+    if faculty_match:
+        info['faculty'] = faculty_match.group(3).title()
+
+    # Location detection
+    location_match = re.search(r"\b(from|located in|live in) ([\w\s]+)", text, re.IGNORECASE)
+    if location_match:
+        info['location'] = location_match.group(2).title()
+
+    return info
+
+def personalize_response(response):
+    # Add personalized info to bot response if
+if 'name' in st.session_state:
+response += f"\n\nNice to talk with you again, {st.session_state['name']}!"
+if 'faculty' in st.session_state:
+response += f"\nI remember you're in the {st.session_state['faculty']} department."
+if 'location' in st.session_state:
+response += f"\nAnd you're from {st.session_state['location']}, right?"
+return response
+
+--------------------------
 def main():
-    st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
-    st.title("🎓 Crescent University Chatbot")
-    st.markdown("Ask me anything about your department, courses, or the university.")
+st.title("🎓 Crescent University Chatbot")
+if "messages" not in st.session_state:
+st.session_state.messages = []
+if "current_topic" not in st.session_state:
+st.session_state.current_topic = None
 
-    openai_api_key = st.secrets.get("OPENAI_API_KEY")
-    if not openai_api_key:
-        st.error("OpenAI API key not configured. GPT fallback disabled.")
-        openai_enabled = False
+embed_model, sym_spell, dataset, q_embeds = load_all_data()
+
+user_input = st.chat_input("Ask me anything about Crescent University...")
+
+if user_input:
+    st.session_state.messages.append({"role": "user", "content": user_input})
+
+    if is_greeting(user_input):
+        bot_response = get_random_greeting_response()
+    elif is_farewell(user_input):
+        bot_response = get_random_farewell_response()
+    elif ABUSE_PATTERN.search(user_input):
+        bot_response = "Please avoid using abusive language."
     else:
-        openai.api_key = openai_api_key
-        openai_enabled = True
-
-    if "embed_model" not in st.session_state:
-        embed_model, sym_spell, dataset, q_embeds = load_all_data()
-        st.session_state.embed_model = embed_model
-        st.session_state.sym_spell = sym_spell
-        st.session_state.dataset = dataset
-        st.session_state.q_embeds = q_embeds
-        st.session_state.openai_enabled = openai_enabled
-
-    if "messages" not in st.session_state:
-        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
-
-    if "current_topic" not in st.session_state:
-        st.session_state.current_topic = None
-
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
-
-    user_input = st.chat_input("Type your question here...")
-
-    if user_input:
-        # Update topic based on user input (if any keyword found)
         update_current_topic(user_input)
+        expanded_input = combine_with_context(user_input)
+        normalized_input = normalize_text(expanded_input, sym_spell)
 
-        # Combine input with topic for better context in retrieval
-        context_aware_input = combine_with_context(user_input)
+        matched_question, matched_answer, confidence = retrieve_answer(normalized_input, dataset, q_embeds, embed_model)
 
-        # Normalize input text
-        norm_input = normalize_text(context_aware_input, st.session_state.sym_spell)
-
-        # Check for abuse
-        if ABUSE_PATTERN.search(norm_input):
-            bot_response = "Please avoid using inappropriate language."
-        elif is_greeting(norm_input):
-            bot_response = get_random_greeting_response()
-        elif is_farewell(norm_input):
-            bot_response = get_random_farewell_response()
+        if confidence > 0.75:
+            bot_response = matched_answer
         else:
-            # Try retrieval first
-            q, a, score = retrieve_answer(norm_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
+            try:
+                openai.api_key = st.secrets["OPENAI_API_KEY"]
+                contextual_prompt = build_contextual_prompt(st.session_state.messages, normalized_input)
+                response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=contextual_prompt)
+                bot_response = response.choices[0].message.content.strip()
+            except AuthenticationError:
+                bot_response = "OpenAI key not configured. Please set your API key."
+            except Exception as e:
+                bot_response = f"Something went wrong: {e}"
 
-            # Use a threshold to decide if retrieval is confident enough
-            if score >= 0.65:
-                bot_response = a
-            elif openai_enabled:
-                # GPT fallback with chat history for context
-                prompt = build_contextual_prompt(st.session_state.messages, user_input)
-                try:
-                    completion = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
-                        messages=prompt,
-                        max_tokens=400,
-                        temperature=0.3
-                    )
-                    bot_response = completion.choices[0].message.content.strip()
-                except Exception as e:
-                    bot_response = f"Sorry, I am having trouble processing your request: {str(e)}"
-            else:
-                bot_response = "Sorry, I don't have an answer to that right now."
+    # Extract and store user info in session (long-term memory)
+    user_info = extract_user_info(user_input)
+    for key, value in user_info.items():
+        st.session_state[key] = value
 
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        st.session_state.messages.append({"role": "assistant", "content": bot_response})
+    # Personalize the response if memory info exists
+    bot_response = personalize_response(bot_response)
 
-        with st.chat_message("assistant"):
-            st.markdown(bot_response)
-        st.experimental_rerun()
+    st.session_state.messages.append({"role": "assistant", "content": bot_response})
 
-if __name__ == "__main__":
-    main()
+# Display all messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+        
+if name == "main":
+main()
