@@ -169,70 +169,74 @@ def extract_user_info(text):
     return info
 
 def personalize_response(response):
-    # Add personalized info to bot response if
-if 'name' in st.session_state:
-response += f"\n\nNice to talk with you again, {st.session_state['name']}!"
-if 'faculty' in st.session_state:
-response += f"\nI remember you're in the {st.session_state['faculty']} department."
-if 'location' in st.session_state:
-response += f"\nAnd you're from {st.session_state['location']}, right?"
-return response
+    # Add personalized info to bot response if available
+    if 'name' in st.session_state:
+        response += f"\n\nNice to talk with you again, {st.session_state['name']}!"
+    if 'faculty' in st.session_state:
+        response += f"\nI remember you're in the {st.session_state['faculty']} department."
+    if 'location' in st.session_state:
+        response += f"\nAnd you're from {st.session_state['location']}, right?"
+    return response
 
---------------------------
+# --------------------------
 def main():
-st.title("🎓 Crescent University Chatbot")
-if "messages" not in st.session_state:
-st.session_state.messages = []
-if "current_topic" not in st.session_state:
-st.session_state.current_topic = None
+    st.title("🎓 Crescent University Chatbot")
 
-embed_model, sym_spell, dataset, q_embeds = load_all_data()
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    if "current_topic" not in st.session_state:
+        st.session_state.current_topic = None
 
-user_input = st.chat_input("Ask me anything about Crescent University...")
+    embed_model, sym_spell, dataset, q_embeds = load_all_data()
 
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    user_input = st.chat_input("Ask me anything about Crescent University...")
 
-    if is_greeting(user_input):
-        bot_response = get_random_greeting_response()
-    elif is_farewell(user_input):
-        bot_response = get_random_farewell_response()
-    elif ABUSE_PATTERN.search(user_input):
-        bot_response = "Please avoid using abusive language."
-    else:
-        update_current_topic(user_input)
-        expanded_input = combine_with_context(user_input)
-        normalized_input = normalize_text(expanded_input, sym_spell)
+    if user_input:
+        st.session_state.messages.append({"role": "user", "content": user_input})
 
-        matched_question, matched_answer, confidence = retrieve_answer(normalized_input, dataset, q_embeds, embed_model)
-
-        if confidence > 0.75:
-            bot_response = matched_answer
+        if is_greeting(user_input):
+            bot_response = get_random_greeting_response()
+        elif is_farewell(user_input):
+            bot_response = get_random_farewell_response()
+        elif ABUSE_PATTERN.search(user_input):
+            bot_response = "Please avoid using abusive language."
         else:
-            try:
-                openai.api_key = st.secrets["OPENAI_API_KEY"]
-                contextual_prompt = build_contextual_prompt(st.session_state.messages, normalized_input)
-                response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=contextual_prompt)
-                bot_response = response.choices[0].message.content.strip()
-            except AuthenticationError:
-                bot_response = "OpenAI key not configured. Please set your API key."
-            except Exception as e:
-                bot_response = f"Something went wrong: {e}"
+            update_current_topic(user_input)
+            expanded_input = combine_with_context(user_input)
+            normalized_input = normalize_text(expanded_input, sym_spell)
 
-    # Extract and store user info in session (long-term memory)
-    user_info = extract_user_info(user_input)
-    for key, value in user_info.items():
-        st.session_state[key] = value
+            matched_question, matched_answer, confidence = retrieve_answer(normalized_input, dataset, q_embeds, embed_model)
 
-    # Personalize the response if memory info exists
-    bot_response = personalize_response(bot_response)
+            if confidence > 0.75:
+                bot_response = matched_answer
+            else:
+                try:
+                    openai.api_key = st.secrets["OPENAI_API_KEY"]
+                    contextual_prompt = build_contextual_prompt(st.session_state.messages, normalized_input)
+                    response = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages=contextual_prompt
+                    )
+                    bot_response = response.choices[0].message.content.strip()
+                except AuthenticationError:
+                    bot_response = "OpenAI key not configured. Please set your API key."
+                except Exception as e:
+                    bot_response = f"Something went wrong: {e}"
 
-    st.session_state.messages.append({"role": "assistant", "content": bot_response})
+        # Extract and store user info in session (long-term memory)
+        user_info = extract_user_info(user_input)
+        for key, value in user_info.items():
+            st.session_state[key] = value
 
-# Display all messages
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-        
-if name == "main":
-main()
+        # Personalize the response
+        bot_response = personalize_response(bot_response)
+
+        st.session_state.messages.append({"role": "assistant", "content": bot_response})
+
+    # Display all messages
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+if __name__ == "__main__":
+    main()
