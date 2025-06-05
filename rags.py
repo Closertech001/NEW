@@ -110,11 +110,16 @@ def retrieve_answer(user_input, dataset, q_embeds, embed_model):
     best_idx = int(scores.argmax())
     return dataset[best_idx]["question"], dataset[best_idx]["answer"], best_score
 
-def build_contextual_prompt(messages, new_input, max_turns=3):
-    recent = messages[-max_turns * 2:] if len(messages) >= 2 else []
-    chat = [{"role": m["role"], "content": m["content"]} for m in recent]
-    chat.append({"role": "user", "content": new_input})
-    return [{"role": "system", "content": "You are a helpful assistant for Crescent University."}] + chat
+def build_contextual_prompt(messages, short_term_memory, max_turns=6):
+    recent = messages[-max_turns*2:] if len(messages) > max_turns*2 else messages
+    memory = short_term_memory
+    memory_info = (
+        f"Conversation context:\n"
+        f"- Department: {memory.get('department') or 'unspecified'}\n"
+        f"- Level: {memory.get('level') or 'unspecified'}\n"
+        f"- Topic: {memory.get('topic') or 'unspecified'}"
+    )
+    return [{"role": "system", "content": f"You are a helpful assistant for Crescent University.\n{memory_info}"}] + recent
 
 # --------------------------
 def main():
@@ -182,7 +187,6 @@ def main():
 
         else:
             search_input = user_input
-
             if any(x in norm_input for x in ["what about", "how about", "what of", "that one", "it"]):
                 if st.session_state.short_term_memory["topic"]:
                     search_input = st.session_state.short_term_memory["topic"]
@@ -198,10 +202,15 @@ def main():
                 st.session_state.embed_model
             )
 
+            st.session_state.messages.append({"role": "user", "content": user_input})
+
             if score >= 0.60:
                 response = f"{answer}"
             elif score >= 0.45 and st.session_state.openai_enabled:
-                gpt_prompt = build_contextual_prompt(st.session_state.messages, user_input)
+                gpt_prompt = build_contextual_prompt(
+                    st.session_state.messages,
+                    st.session_state.short_term_memory
+                )
                 try:
                     gpt_response = openai.ChatCompletion.create(
                         model="gpt-4",
@@ -215,15 +224,18 @@ def main():
             else:
                 response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
-        st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").markdown(user_input)
-
         with st.chat_message("assistant"):
             placeholder = st.empty()
             placeholder.markdown("_Bot is typing..._")
             time.sleep(1.5)
             placeholder.markdown(response)
+
         st.session_state.messages.append({"role": "assistant", "content": response})
+
+        # Optional: show memory in sidebar
+        # st.sidebar.write("🔁 Short-Term Memory")
+        # st.sidebar.json(st.session_state.short_term_memory)
 
 if __name__ == "__main__":
     main()
