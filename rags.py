@@ -139,7 +139,7 @@ def update_current_topic(user_input):
 def combine_with_context(user_input):
     input_lower = user_input.lower()
     keywords = ["biochemistry", "course", "dept", "department", "faculty", "semester", "level", "100", "200", "300", "400"]
-    
+
     if not any(kw in input_lower for kw in keywords) and st.session_state.get("current_topic"):
         return f"{st.session_state.current_topic} {user_input}"
     return user_input
@@ -215,7 +215,6 @@ def main():
                 except Exception as e:
                     bot_response = f"Something went wrong: {e}"
 
-        # Extract and store user info
         user_info = extract_user_info(user_input)
         for key, value in user_info.items():
             st.session_state[key] = value
