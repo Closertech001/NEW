@@ -313,7 +313,7 @@ def main():
             st.session_state.messages.append({"role": "user", "content": user_input})
 
             # 5️⃣ Decide: direct answer or GPT fallback
-            if score >= 0.45:
+            if score >= 0.50:
                 response = answer
             elif score >= 0.45 and st.session_state.openai_enabled:
                 gpt_prompt = build_contextual_prompt(
