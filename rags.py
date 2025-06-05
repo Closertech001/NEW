@@ -19,8 +19,10 @@ ABBREVIATIONS = {
     "d": "the", "msg": "message", "idk": "i don't know", "imo": "in my opinion", "asap": "as soon as possible",
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate", "app": "application",
     "req": "requirement", "nd": "national diploma", "a-level": "advanced level", "alevel": "advanced level",
-    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience", "CSC": "department of Computer Science",
-    "Mass comm": "department of Mass Communication", "law": "department of law", "Acc": "department of Accounting"
+    "2nd": "second", "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience", 
+    "csc": "department of computer science", "mass comm": "department of mass communication", 
+    "law": "department of law", "acc": "department of accounting", "bio chem": "biochemistry",
+    "eng": "engineering", "comm": "communication", "econs": "economics", "comp sci": "computer science"
 }
 
 SYNONYMS = {
@@ -31,6 +33,7 @@ SYNONYMS = {
     "unit": "credit", "credit unit": "unit", "course load": "unit", "non teaching": "non-academic",
     "admin worker": "non-academic staff", "support staff": "non-academic staff", "clerk": "non-academic staff",
     "receptionist": "non-academic staff", "secretary": "non-academic staff", "tech staff": "technical staff",
+    "it staff": "technical staff", "lab assistants": "technical staff", "network team": "technical staff",
     "hostel": "accommodation", "lodging": "accommodation", "room": "accommodation", "school fees": "tuition",
     "acceptance fee": "admission fee", "fees": "tuition", "enrol": "apply", "join": "apply", 
     "sign up": "apply", "admit": "apply", "requirement": "criteria", "conditions": "criteria",
@@ -139,26 +142,27 @@ def update_current_topic(user_input):
 def combine_with_context(user_input):
     input_lower = user_input.lower()
     keywords = ["biochemistry", "course", "dept", "department", "faculty", "semester", "level", "100", "200", "300", "400"]
-
     if not any(kw in input_lower for kw in keywords) and st.session_state.get("current_topic"):
         return f"{st.session_state.current_topic} {user_input}"
     return user_input
 
 def extract_user_info(text):
     info = {}
-    name_match = re.search(r"\bmy name is (\w+)", text, re.IGNORECASE)
+    name_match = re.search(r"\bmy name is ([A-Z][a-z]+)\b", text, re.IGNORECASE)
     if not name_match:
         name_match = re.search(r"\bi am ([A-Z][a-z]+)\b", text, re.IGNORECASE)
+    if not name_match:
+        name_match = re.search(r"\bcall me ([A-Z][a-z]+)\b", text, re.IGNORECASE)
     if name_match:
         name_candidate = name_match.group(1).title()
         if name_candidate.lower() not in ["in", "on", "from", "at", "into", "under"]:
             info['name'] = name_candidate
 
-    faculty_match = re.search(r"\b(i am|i'm) (a|an)? ?([\w\s]+) student\b", text, re.IGNORECASE)
+    faculty_match = re.search(r"\b(i am|i'm|studying|study|student of) (a|an)? ?([\w\s]+) (dept|department|faculty)\b", text, re.IGNORECASE)
     if faculty_match:
         info['faculty'] = faculty_match.group(3).strip().title()
 
-    location_match = re.search(r"\b(from|located in|live in) ([\w\s]+)", text, re.IGNORECASE)
+    location_match = re.search(r"\b(from|located in|live in|based in) ([\w\s]+)", text, re.IGNORECASE)
     if location_match:
         info['location'] = location_match.group(2).strip().title()
 
@@ -202,7 +206,7 @@ def main():
 
             matched_question, matched_answer, confidence = retrieve_answer(normalized_input, dataset, q_embeds, embed_model)
 
-            if confidence > 0.75:
+            if confidence > 0.72:
                 bot_response = matched_answer
             else:
                 try:
@@ -215,6 +219,7 @@ def main():
                 except Exception as e:
                     bot_response = f"Something went wrong: {e}"
 
+        # Extract and store user info
         user_info = extract_user_info(user_input)
         for key, value in user_info.items():
             st.session_state[key] = value
