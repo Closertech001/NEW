@@ -54,6 +54,10 @@ DEPARTMENT_NAMES = [d.lower() for d in [
     "Accounting", "Political Science", "Business Administration", "Business Admin"
 ]]
 
+# --- Hardcoded OpenAI API key (replace with your actual key) ---
+OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai.api_key = OPENAI_API_KEY
+
 # --- Cache Loaders ---
 @st.cache_resource
 def init_symspell():
@@ -91,7 +95,7 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
-# --- Utility: Greetings & Farewells ---
+# --- Utility: Greetings ---
 def is_greeting(text):
     return text.lower().strip() in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
 
@@ -160,142 +164,98 @@ def resolve_follow_up(raw_input, memory):
     return raw_input
 
 # --- Retrieval & Fallback ---
-def get_top_k_relevant_snippets(user_input, dataset, embed_model, q_embeds, k=3):
+def retrieve_answer(user_input, dataset, q_embeds, embed_model):
+    for item in dataset:
+        if user_input.strip().lower() == item["question"].strip().lower():
+            return item["answer"], 1.0
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    topk = scores.topk(k)
-    snippets = []
-    for idx in topk.indices:
-        item = dataset[idx]
-        snippets.append(f"Q: {item['question']}\nA: {item['answer']}")
-    return "\n\n".join(snippets)
+    best_idx = scores.argmax().item()
+    return dataset[best_idx]["answer"], float(scores[best_idx])
 
-def summarize_memory(chat_history, max_turns=6):
-    # Summarize last N turns in simple text, can be improved with GPT summarization if desired
-    last_turns = chat_history[-max_turns*2:]  # each turn = user + assistant
-    summary_lines = []
-    for msg in last_turns:
-        role = "User" if msg["role"] == "user" else "Assistant"
-        content = msg["content"].replace("\n", " ")
-        summary_lines.append(f"{role}: {content}")
-    summary = "\n".join(summary_lines)
-    return summary
+def build_contextual_prompt(messages, memory, max_turns=6):
+    recent = messages[-max_turns * 2:]
+    mem_info = f"- Department: {memory.get('department') or 'unspecified'}\n- Level: {memory.get('level') or 'unspecified'}\n- Topic: {memory.get('topic') or 'unspecified'}"
+    return [{"role": "system", "content": "You are a helpful assistant for Crescent University.\n" + mem_info}] + recent
 
-def build_gpt_prompt(user_input, memory_summary, knowledge_snippets):
-    system_msg = f"""You are a friendly, helpful, and professional assistant for Crescent University.
-You have access to some past conversation context and university knowledge to help answer questions accurately.
-    
-Past conversation summary:
-{memory_summary}
+def log_to_long_term_memory(user_input, assistant_response):
+    os.makedirs("logs", exist_ok=True)
+    log_entry = {
+        "user": user_input,
+        "assistant": assistant_response,
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+    }
+    try:
+        with open("logs/chat_history_log.json", "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"Error logging chat history: {e}")
 
-Relevant university knowledge:
-{knowledge_snippets}
-
-Please answer the user's question below clearly and politely:
-"""
-    messages = [
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": user_input}
-    ]
-    return messages
-
-def is_abusive(text):
-    return ABUSE_PATTERN.search(text) is not None
-
-# --- Streamlit UI ---
+# --- Main App ---
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
-    st.title("Crescent University Chatbot 🤖")
+    st.title("🎓 Crescent University Chatbot")
+    st.markdown("Ask me anything about your department, courses, or the university.")
 
-    # Initialize session state
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    if "memory" not in st.session_state:
-        st.session_state.memory = {}
-    if "dataset_loaded" not in st.session_state:
+    if "embed_model" not in st.session_state:
         embed_model, sym_spell, dataset, q_embeds = load_all_data()
         st.session_state.embed_model = embed_model
         st.session_state.sym_spell = sym_spell
         st.session_state.dataset = dataset
         st.session_state.q_embeds = q_embeds
-        st.session_state.dataset_loaded = True
+        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
+        st.session_state.short_term_memory = {"department": None, "topic": None, "level": None}
 
-    # API key input
-    if "openai_api_key" not in st.session_state:
-        st.session_state.openai_api_key = ""
+    # No API key input UI; key is hardcoded above
+    openai_enabled = bool(openai.api_key)
 
-    if not st.session_state.openai_api_key:
-        with st.expander("Enter your OpenAI API Key (required for chatbot)"):
-            key = st.text_input("OpenAI API Key", type="password")
-            if key:
-                st.session_state.openai_api_key = key.strip()
-                openai.api_key = st.session_state.openai_api_key
-    else:
-        openai.api_key = st.session_state.openai_api_key
-
-    # Chat display
     for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            st.markdown(f"**You:** {msg['content']}")
-        else:
-            st.markdown(f"**Bot:** {msg['content']}")
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
 
-    # User input
-    user_input = st.text_input("Ask me anything about Crescent University:", key="user_input")
-
+    user_input = st.chat_input("Type your question here...")
     if user_input:
-        if is_abusive(user_input):
-            bot_reply = "Please avoid using offensive language."
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-            st.experimental_rerun()
-
-        # Normalize & expand
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
-        norm_input = resolve_follow_up(norm_input, st.session_state.memory)
-        st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
 
-        # Handle greetings & farewells fast
-        if is_greeting(user_input):
-            bot_reply = get_random_greeting_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-            st.experimental_rerun()
-        elif is_farewell(user_input):
-            bot_reply = get_random_farewell_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-            st.experimental_rerun()
+        if ABUSE_PATTERN.search(norm_input):
+            response = "Sorry, I can’t help with that. Try asking about something academic."
+        elif is_greeting(norm_input):
+            response = get_random_greeting_response()
+        elif is_farewell(norm_input):
+            response = get_random_farewell_response()
+        else:
+            st.session_state.short_term_memory = update_chat_memory(norm_input, st.session_state.short_term_memory)
+            search_input = resolve_follow_up(user_input, st.session_state.short_term_memory)
+            answer, score = retrieve_answer(search_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
 
-        # Generate response via GPT with retrieval + memory context
-        memory_summary = summarize_memory(st.session_state.messages)
-        knowledge_snippets = get_top_k_relevant_snippets(
-            norm_input,
-            st.session_state.dataset,
-            st.session_state.embed_model,
-            st.session_state.q_embeds,
-            k=3
-        )
-        gpt_messages = build_gpt_prompt(norm_input, memory_summary, knowledge_snippets)
+            if score >= 0.50:
+                response = answer
+            elif score >= 0.45 and openai_enabled:
+                try:
+                    gpt_prompt = build_contextual_prompt(st.session_state.messages, st.session_state.short_term_memory)
+                    gpt_response = openai.ChatCompletion.create(
+                        model="gpt-4",
+                        messages=gpt_prompt,
+                        temperature=0.3,
+                    )
+                    response = gpt_response.choices[0].message.content
+                except AuthenticationError:
+                    response = "Sorry, GPT is not available due to a configuration issue."
+                except Exception:
+                    response = "Sorry, I encountered an issue while trying to answer that."
+            else:
+                response = "Hmm, I’m not sure what you mean. Can you rephrase or ask differently?"
 
-        try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",
-                messages=gpt_messages,
-                temperature=0.5,
-                max_tokens=400,
-            )
-            bot_reply = response.choices[0].message.content.strip()
-        except AuthenticationError:
-            bot_reply = "Invalid OpenAI API Key. Please check your key and try again."
-        except Exception as e:
-            bot_reply = f"Sorry, something went wrong: {str(e)}"
+        st.chat_message("user").markdown(user_input)
+        with st.chat_message("assistant"):
+            placeholder = st.empty()
+            placeholder.markdown("_Bot is typing..._")
+            time.sleep(1.2)
+            placeholder.markdown(response)
 
-        # Append chat messages
         st.session_state.messages.append({"role": "user", "content": user_input})
-        st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-
-        st.experimental_rerun()
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        log_to_long_term_memory(user_input, response)
 
 if __name__ == "__main__":
     main()
