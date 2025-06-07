@@ -54,20 +54,6 @@ DEPARTMENT_NAMES = [d.lower() for d in [
     "Accounting", "Political Science", "Business Administration", "Business Admin"
 ]]
 
-LONG_TERM_MEMORY_PATH = "long_term_memory.json"
-
-# --- Long-Term Memory Load/Save ---
-def load_long_term_memory():
-    if os.path.exists(LONG_TERM_MEMORY_PATH):
-        with open(LONG_TERM_MEMORY_PATH, "r") as f:
-            return json.load(f)
-    else:
-        return {}
-
-def save_long_term_memory(memory):
-    with open(LONG_TERM_MEMORY_PATH, "w") as f:
-        json.dump(memory, f, indent=2)
-
 # --- Cache Loaders ---
 @st.cache_resource
 def init_symspell():
@@ -105,7 +91,7 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
-# --- Utility: Greetings ---
+# --- Utility: Greetings & Farewells ---
 def is_greeting(text):
     return text.lower().strip() in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
 
@@ -174,141 +160,141 @@ def resolve_follow_up(raw_input, memory):
     return raw_input
 
 # --- Retrieval & Fallback ---
-def retrieve_answer(user_input, dataset, q_embeds, embed_model):
-    for item in dataset:
-        if user_input.strip().lower() in item["question"].strip().lower():
-            return item["answer"], 1.0
+def get_top_k_relevant_snippets(user_input, dataset, embed_model, q_embeds, k=3):
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
-    best_idx = scores.argmax().item()
-    return dataset[best_idx]["answer"], float(scores[best_idx])
+    topk = scores.topk(k)
+    snippets = []
+    for idx in topk.indices:
+        item = dataset[idx]
+        snippets.append(f"Q: {item['question']}\nA: {item['answer']}")
+    return "\n\n".join(snippets)
 
-def build_contextual_prompt(messages, short_term_memory, long_term_memory, user_key="global", max_turns=6):
-    recent = messages[-max_turns * 2:]
-    long_mem_user = long_term_memory.get(user_key, {"departments": [], "topics": [], "levels": []})
+def summarize_memory(chat_history, max_turns=6):
+    # Summarize last N turns in simple text, can be improved with GPT summarization if desired
+    last_turns = chat_history[-max_turns*2:]  # each turn = user + assistant
+    summary_lines = []
+    for msg in last_turns:
+        role = "User" if msg["role"] == "user" else "Assistant"
+        content = msg["content"].replace("\n", " ")
+        summary_lines.append(f"{role}: {content}")
+    summary = "\n".join(summary_lines)
+    return summary
 
-    mem_info = (
-        f"- Department: {short_term_memory.get('department') or 'unspecified'}\n"
-        f"- Level: {short_term_memory.get('level') or 'unspecified'}\n"
-        f"- Topic: {short_term_memory.get('topic') or 'unspecified'}\n"
-        f"Long-term memory summary:\n"
-        f"- Past departments discussed: {', '.join(long_mem_user.get('departments', [])) or 'none'}\n"
-        f"- Past topics discussed: {', '.join(long_mem_user.get('topics', [])) or 'none'}\n"
-        f"- Past levels discussed: {', '.join(long_mem_user.get('levels', [])) or 'none'}"
-    )
+def build_gpt_prompt(user_input, memory_summary, knowledge_snippets):
+    system_msg = f"""You are a friendly, helpful, and professional assistant for Crescent University.
+You have access to some past conversation context and university knowledge to help answer questions accurately.
+    
+Past conversation summary:
+{memory_summary}
 
-    system_msg = {
-        "role": "system",
-        "content": "You are a helpful assistant for Crescent University.\n" + mem_info,
-    }
-    return [system_msg] + recent
+Relevant university knowledge:
+{knowledge_snippets}
 
-def call_gpt_api(prompt_messages, model="gpt-4o-mini", temperature=0.3):
-    try:
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=prompt_messages,
-            temperature=temperature,
-            max_tokens=512
-        )
-        return response.choices[0].message.content.strip()
-    except AuthenticationError:
-        return "OpenAI API key is invalid or missing."
-    except Exception as e:
-        return f"Error contacting GPT API: {e}"
+Please answer the user's question below clearly and politely:
+"""
+    messages = [
+        {"role": "system", "content": system_msg},
+        {"role": "user", "content": user_input}
+    ]
+    return messages
 
-# --- Streamlit App ---
+def is_abusive(text):
+    return ABUSE_PATTERN.search(text) is not None
+
+# --- Streamlit UI ---
 def main():
-    st.set_page_config(page_title="Crescent University Assistant", page_icon="🎓")
-    st.title("🎓 Crescent University Chatbot Assistant")
+    st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
+    st.title("Crescent University Chatbot 🤖")
 
-    # Load or initialize resources
-    if "embed_model" not in st.session_state:
+    # Initialize session state
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    if "memory" not in st.session_state:
+        st.session_state.memory = {}
+    if "dataset_loaded" not in st.session_state:
         embed_model, sym_spell, dataset, q_embeds = load_all_data()
         st.session_state.embed_model = embed_model
         st.session_state.sym_spell = sym_spell
         st.session_state.dataset = dataset
         st.session_state.q_embeds = q_embeds
-        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
-        st.session_state.short_term_memory = {"department": None, "topic": None, "level": None}
-    if "long_term_memory" not in st.session_state:
-        st.session_state.long_term_memory = load_long_term_memory()
+        st.session_state.dataset_loaded = True
 
-    # Display chat messages
+    # API key input
+    if "openai_api_key" not in st.session_state:
+        st.session_state.openai_api_key = ""
+
+    if not st.session_state.openai_api_key:
+        with st.expander("Enter your OpenAI API Key (required for chatbot)"):
+            key = st.text_input("OpenAI API Key", type="password")
+            if key:
+                st.session_state.openai_api_key = key.strip()
+                openai.api_key = st.session_state.openai_api_key
+    else:
+        openai.api_key = st.session_state.openai_api_key
+
+    # Chat display
     for msg in st.session_state.messages:
         if msg["role"] == "user":
             st.markdown(f"**You:** {msg['content']}")
         else:
             st.markdown(f"**Bot:** {msg['content']}")
 
-    # User input box
-    user_input = st.text_input("You:", key="input", placeholder="Type your question here and press Enter...")
+    # User input
+    user_input = st.text_input("Ask me anything about Crescent University:", key="user_input")
 
     if user_input:
-        # Reset input box
-        st.session_state.input = ""
-
-        # Check abuse words
-        if ABUSE_PATTERN.search(user_input):
-            response = "Please avoid using inappropriate language. How can I assist you properly?"
+        if is_abusive(user_input):
+            bot_reply = "Please avoid using offensive language."
             st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
+            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
             st.experimental_rerun()
 
-        # Greetings / Farewell
-        if is_greeting(user_input):
-            response = get_random_greeting_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.experimental_rerun()
-
-        if is_farewell(user_input):
-            response = get_random_farewell_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.experimental_rerun()
-
-        # Normalize and resolve follow-up
+        # Normalize & expand
         norm_input = normalize_text(user_input, st.session_state.sym_spell)
-        norm_input = resolve_follow_up(norm_input, st.session_state.short_term_memory)
+        norm_input = resolve_follow_up(norm_input, st.session_state.memory)
+        st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
 
-        # Update short-term memory
-        st.session_state.short_term_memory = update_chat_memory(norm_input, st.session_state.short_term_memory)
+        # Handle greetings & farewells fast
+        if is_greeting(user_input):
+            bot_reply = get_random_greeting_response()
+            st.session_state.messages.append({"role": "user", "content": user_input})
+            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
+            st.experimental_rerun()
+        elif is_farewell(user_input):
+            bot_reply = get_random_farewell_response()
+            st.session_state.messages.append({"role": "user", "content": user_input})
+            st.session_state.messages.append({"role": "assistant", "content": bot_reply})
+            st.experimental_rerun()
 
-        # Update long-term memory
-        memory = st.session_state.long_term_memory
-        user_key = "global"  # can extend to multi-user if needed
+        # Generate response via GPT with retrieval + memory context
+        memory_summary = summarize_memory(st.session_state.messages)
+        knowledge_snippets = get_top_k_relevant_snippets(
+            norm_input,
+            st.session_state.dataset,
+            st.session_state.embed_model,
+            st.session_state.q_embeds,
+            k=3
+        )
+        gpt_messages = build_gpt_prompt(norm_input, memory_summary, knowledge_snippets)
 
-        if user_key not in memory:
-            memory[user_key] = {"departments": [], "topics": [], "levels": []}
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-4o-mini",
+                messages=gpt_messages,
+                temperature=0.5,
+                max_tokens=400,
+            )
+            bot_reply = response.choices[0].message.content.strip()
+        except AuthenticationError:
+            bot_reply = "Invalid OpenAI API Key. Please check your key and try again."
+        except Exception as e:
+            bot_reply = f"Sorry, something went wrong: {str(e)}"
 
-        dep = st.session_state.short_term_memory.get("department")
-        if dep and dep.lower() not in [d.lower() for d in memory[user_key]["departments"]]:
-            memory[user_key]["departments"].append(dep)
-
-        topic = st.session_state.short_term_memory.get("topic")
-        if topic and topic.lower() not in [t.lower() for t in memory[user_key]["topics"]]:
-            memory[user_key]["topics"].append(topic)
-
-        lvl = st.session_state.short_term_memory.get("level")
-        if lvl and lvl not in memory[user_key]["levels"]:
-            memory[user_key]["levels"].append(lvl)
-
-        save_long_term_memory(memory)
-
+        # Append chat messages
         st.session_state.messages.append({"role": "user", "content": user_input})
+        st.session_state.messages.append({"role": "assistant", "content": bot_reply})
 
-        # Try exact or semantic retrieval
-        answer, score = retrieve_answer(norm_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
-
-        if score >= 0.55:
-            bot_response = answer
-        else:
-            # GPT fallback with context
-            prompt_messages = build_contextual_prompt(st.session_state.messages, st.session_state.short_term_memory, st.session_state.long_term_memory, user_key=user_key)
-            bot_response = call_gpt_api(prompt_messages)
-
-        st.session_state.messages.append({"role": "assistant", "content": bot_response})
         st.experimental_rerun()
 
 if __name__ == "__main__":
