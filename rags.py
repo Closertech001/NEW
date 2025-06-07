@@ -164,14 +164,35 @@ def resolve_follow_up(raw_input, memory):
     return raw_input
 
 # --- Retrieval & Fallback ---
-def retrieve_answer(user_input, dataset, q_embeds, embed_model):
-    for item in dataset:
-        if user_input.strip().lower() == item["question"].strip().lower():
-            return item["answer"], 1.0
+def retrieve_or_gpt(user_input, dataset, q_embeds, embed_model, messages, memory):
+    exact_match = next((item for item in dataset if user_input.strip().lower() == item["question"].strip().lower()), None)
+    if exact_match:
+        return exact_match["answer"], 1.0
+
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
     best_idx = scores.argmax().item()
-    return dataset[best_idx]["answer"], float(scores[best_idx])
+    top_score = float(scores[best_idx])
+
+    if top_score >= 0.60:
+        return dataset[best_idx]["answer"], top_score
+
+    if openai.api_key:
+        try:
+            prompt = build_contextual_prompt(messages, memory)
+            prompt.append({"role": "user", "content": user_input})
+            gpt_response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=prompt,
+                temperature=0.3,
+            )
+            return gpt_response.choices[0].message.content, top_score
+        except AuthenticationError:
+            return "GPT is not available due to a configuration issue.", top_score
+        except Exception:
+            return "Sorry, I had trouble answering that just now.", top_score
+
+    return "I’m not sure what you mean. Can you rephrase or ask differently?", top_score
 
 def build_contextual_prompt(messages, memory, max_turns=6):
     recent = messages[-max_turns * 2:]
