@@ -219,97 +219,51 @@ def call_gpt_api(prompt_messages, model="gpt-4o-mini", temperature=0.3):
 
 # --- Streamlit App ---
 def main():
-    st.set_page_config(page_title="Crescent University Assistant", page_icon="🎓")
-    st.title("🎓 Crescent University Chatbot Assistant")
+    st.set_page_config(page_title="Crescent University Chatbot", layout="wide")
 
-    # Load or initialize resources
-    if "embed_model" not in st.session_state:
-        embed_model, sym_spell, dataset, q_embeds = load_all_data()
-        st.session_state.embed_model = embed_model
-        st.session_state.sym_spell = sym_spell
-        st.session_state.dataset = dataset
-        st.session_state.q_embeds = q_embeds
-        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm your Crescent University assistant. Ask me anything!"}]
-        st.session_state.short_term_memory = {"department": None, "topic": None, "level": None}
-    if "long_term_memory" not in st.session_state:
-        st.session_state.long_term_memory = load_long_term_memory()
+    # ✅ Step 1: Initialize all needed session state variables
+    default_session_keys = {
+        "input": "",
+        "chat_history": [],
+        "selected_faculty": None,
+        "selected_department": None,
+        "selected_level": None,
+        "selected_semester": None,
+        "response": "",
+    }
 
-    # Display chat messages
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            st.markdown(f"**You:** {msg['content']}")
+    for key, default in default_session_keys.items():
+        st.session_state.setdefault(key, default)
+
+    # ✅ Step 2: Sidebar filters (optional, based on your use case)
+    st.sidebar.title("Filters")
+    st.session_state.selected_faculty = st.sidebar.selectbox("Select Faculty", ["All", "Science", "Arts", "Management"], index=0)
+    st.session_state.selected_department = st.sidebar.selectbox("Select Department", ["All", "Computer Science", "Biochemistry", "Economics"], index=0)
+    st.session_state.selected_level = st.sidebar.selectbox("Select Level", ["All", "100", "200", "300", "400"], index=0)
+    st.session_state.selected_semester = st.sidebar.selectbox("Select Semester", ["All", "First", "Second"], index=0)
+
+    # ✅ Step 3: Chat UI
+    st.title("🎓 Crescent University Chatbot")
+    user_input = st.text_input("Ask me a question:", value=st.session_state.input, key="user_input")
+
+    if st.button("Submit"):
+        if user_input.strip():
+            # Process question here
+            answer = get_answer(user_input)  # Replace with your actual answer function
+            st.session_state.chat_history.append(("user", user_input))
+            st.session_state.chat_history.append(("bot", answer))
+            st.session_state.input = ""  # Reset after submission
+
+    # ✅ Step 4: Display chat history
+    for speaker, message in st.session_state.chat_history:
+        if speaker == "user":
+            st.markdown(f"**You:** {message}")
         else:
-            st.markdown(f"**Bot:** {msg['content']}")
+            st.markdown(f"**Bot:** {message}")
 
-    # User input box
-    user_input = st.text_input("You:", key="input", placeholder="Type your question here and press Enter...")
-
-    if user_input:
-        # Reset input box
-        st.session_state.input = ""
-
-        # Check abuse words
-        if ABUSE_PATTERN.search(user_input):
-            response = "Please avoid using inappropriate language. How can I assist you properly?"
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.experimental_rerun()
-
-        # Greetings / Farewell
-        if is_greeting(user_input):
-            response = get_random_greeting_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.experimental_rerun()
-
-        if is_farewell(user_input):
-            response = get_random_farewell_response()
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.experimental_rerun()
-
-        # Normalize and resolve follow-up
-        norm_input = normalize_text(user_input, st.session_state.sym_spell)
-        norm_input = resolve_follow_up(norm_input, st.session_state.short_term_memory)
-
-        # Update short-term memory
-        st.session_state.short_term_memory = update_chat_memory(norm_input, st.session_state.short_term_memory)
-
-        # Update long-term memory
-        memory = st.session_state.long_term_memory
-        user_key = "global"  # can extend to multi-user if needed
-
-        if user_key not in memory:
-            memory[user_key] = {"departments": [], "topics": [], "levels": []}
-
-        dep = st.session_state.short_term_memory.get("department")
-        if dep and dep.lower() not in [d.lower() for d in memory[user_key]["departments"]]:
-            memory[user_key]["departments"].append(dep)
-
-        topic = st.session_state.short_term_memory.get("topic")
-        if topic and topic.lower() not in [t.lower() for t in memory[user_key]["topics"]]:
-            memory[user_key]["topics"].append(topic)
-
-        lvl = st.session_state.short_term_memory.get("level")
-        if lvl and lvl not in memory[user_key]["levels"]:
-            memory[user_key]["levels"].append(lvl)
-
-        save_long_term_memory(memory)
-
-        st.session_state.messages.append({"role": "user", "content": user_input})
-
-        # Try exact or semantic retrieval
-        answer, score = retrieve_answer(norm_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model)
-
-        if score >= 0.55:
-            bot_response = answer
-        else:
-            # GPT fallback with context
-            prompt_messages = build_contextual_prompt(st.session_state.messages, st.session_state.short_term_memory, st.session_state.long_term_memory, user_key=user_key)
-            bot_response = call_gpt_api(prompt_messages)
-
-        st.session_state.messages.append({"role": "assistant", "content": bot_response})
-        st.experimental_rerun()
+# Dummy answer processor for testing
+def get_answer(query):
+    return "This is a placeholder response to your query."
 
 if __name__ == "__main__":
     main()
