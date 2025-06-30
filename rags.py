@@ -94,7 +94,7 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
-# --- Follow-up Handler with Department Switching ---
+# --- Smarter Follow-up Handler ---
 def resolve_follow_up(raw_input, memory):
     text = raw_input.strip().lower()
 
@@ -108,7 +108,7 @@ def resolve_follow_up(raw_input, memory):
             return f"What are the {level} level courses in {dept}?"
         return f"What are the {level} level courses?"
 
-    if m := re.match(r"(how|what) about ([a-zA-Z &]+)\\??", text):
+    if m := re.match(r"(how|what) about ([a-zA-Z &]+)\??", text):
         dept = m.group(2).strip().title()
         topic = memory.get("topic")
         level = memory.get("level")
@@ -118,9 +118,9 @@ def resolve_follow_up(raw_input, memory):
             return f"What about {topic} in {dept}?"
         if level:
             return f"What are the {level} level courses in {dept}?"
-        return f"What can you tell me about the Department of {dept}?"
+        return f"Tell me more about the Department of {dept}."
 
-    if m := re.match(r"(and|what about)?\\s*(\\d{3}) level for ([a-zA-Z &]+)", text):
+    if m := re.match(r"(and|what about)?\s*(\d{3}) level for ([a-zA-Z &]+)", text):
         level = m.group(2)
         dept = m.group(3).strip().title()
         topic = memory.get("topic")
@@ -129,6 +129,60 @@ def resolve_follow_up(raw_input, memory):
         return f"What are the {level} level courses in {dept}?"
 
     return raw_input
+
+# --- Response Template Enhancer ---
+def enrich_response(response, memory):
+    suggestions = [
+        "Would you like to know about the fees or accommodation?",
+        "Should I help you with admission requirements too?",
+        "Let me know if you want details on the exam process or CGPA."
+    ]
+    if any(keyword in response.lower() for keyword in ["course", "unit", "siwes"]):
+        return response + "\n\n" + random.choice(suggestions)
+    return response
+
+# --- Chat Memory Enhancer ---
+def update_chat_memory(norm_input, memory):
+    for dept in DEPARTMENT_NAMES:
+        if re.search(rf"\b{re.escape(dept)}\b", norm_input):
+            memory["department"] = dept.title()
+            memory["last_department"] = dept.title()
+            break
+    dep_match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
+    if dep_match:
+        memory["department"] = dep_match.group(1).title()
+        memory["last_department"] = dep_match.group(1).title()
+    lvl_match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
+    if lvl_match:
+        memory["level"] = lvl_match.group(1)
+    topics = [
+        ("admission", ["admission", "apply", "jamb", "requirement"]),
+        ("fees", ["fee", "tuition", "cost", "school fees"]),
+        ("courses", ["course", "subject", "unit", "curriculum", "study"]),
+        ("accommodation", ["accommodation", "hostel", "reside", "lodging"]),
+        ("graduation", ["graduation", "convocation"]),
+        ("exam", ["exam", "test", "cgpa", "grade"]),
+        ("scholarship", ["scholarship", "aid", "bursary"]),
+        ("siwes", ["siwes", "internship", "industrial training"]),
+        ("dress code", ["dress code", "uniform", "appearance"])
+    ]
+    for topic, kws in topics:
+        if any(kw in norm_input for kw in kws):
+            memory["topic"] = topic
+            memory["last_topic"] = topic
+            break
+    memory["last_question"] = norm_input
+    return memory
+
+# --- Emotion & Small Talk Detection ---
+def detect_emotion_or_smalltalk(text):
+    if any(kw in text for kw in ["thank", "thanks"]):
+        return "You're welcome! Let me know if you need anything else."
+    if any(kw in text for kw in ["confused", "don't get", "not clear"]):
+        return "I’m here to help! Let me explain that more clearly."
+    if any(kw in text for kw in ["you suck", "bad bot", "useless"]):
+        return "I'm sorry to hear that. I'm learning every day and I appreciate your feedback."
+    return None
 
 # --- Retrieval / GPT Fallback ---
 def build_contextual_prompt(messages, memory):
