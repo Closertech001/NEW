@@ -226,7 +226,7 @@ def main():
     st.title(":mortar_board: Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or university life.")
 
-    if st.button("\ud83d\udd04 Reset Chat"):
+    if st.button("Reset Chat"):
         for key in ["messages", "memory"]:
             st.session_state.pop(key, None)
         st.experimental_rerun()
