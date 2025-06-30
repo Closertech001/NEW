@@ -98,25 +98,35 @@ def normalize_text(text, sym_spell):
 def resolve_follow_up(raw_input, memory):
     text = raw_input.strip().lower()
 
-    if m := re.match(r"what about (\d{3}) level", text):
-        if memory.get("department"):
-            return f"What are the {m.group(1)} level courses in {memory['department']}?"
+    if m := re.match(r"(how|what) about (\d{3}) level", text):
+        level = m.group(2)
+        dept = memory.get("department")
+        topic = memory.get("topic")
+        if topic and dept:
+            return f"What about {topic} in {dept} for {level} level?"
+        if dept:
+            return f"What are the {level} level courses in {dept}?"
+        return f"What are the {level} level courses?"
 
-    if text.startswith("what about") and memory.get("level") and memory.get("department"):
-        return f"What are the {memory['level']} level courses in {memory['department']}?"
+    if m := re.match(r"(how|what) about ([a-zA-Z &]+)\\??", text):
+        dept = m.group(2).strip().title()
+        topic = memory.get("topic")
+        level = memory.get("level")
+        if topic and level:
+            return f"What about {topic} in {dept} for {level} level?"
+        if topic:
+            return f"What about {topic} in {dept}?"
+        if level:
+            return f"What are the {level} level courses in {dept}?"
+        return f"What can you tell me about the Department of {dept}?"
 
-    if m := re.match(r"how about ([a-zA-Z &]+)\??", text):
-        new_dept = m.group(1).strip().title()
-        if memory.get("topic"):
-            return f"What about {memory['topic']} in {new_dept}?"
-        if memory.get("level"):
-            return f"What are the {memory['level']} level courses in {new_dept}?"
-        return f"Can you tell me more about {new_dept}?"
-
-    if m := re.match(r"what about ([a-zA-Z &]+)\??", text):
-        new_dept = m.group(1).strip().title()
-        if memory.get("topic"):
-            return f"What about {memory['topic']} in {new_dept}?"
+    if m := re.match(r"(and|what about)?\\s*(\\d{3}) level for ([a-zA-Z &]+)", text):
+        level = m.group(2)
+        dept = m.group(3).strip().title()
+        topic = memory.get("topic")
+        if topic:
+            return f"What about {topic} in {dept} for {level} level?"
+        return f"What are the {level} level courses in {dept}?"
 
     return raw_input
 
