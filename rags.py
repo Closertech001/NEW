@@ -147,6 +147,7 @@ def update_chat_memory(norm_input, memory):
             break
     return memory
 
+# --- Follow-up Handling ---
 def resolve_follow_up(raw_input, memory):
     text = raw_input.strip().lower()
     if m := re.match(r"what about (\d{3}) level", text):
@@ -160,6 +161,8 @@ def resolve_follow_up(raw_input, memory):
     if m3 := re.match(r"how about .* for ([a-zA-Z &]+)\?", text):
         if memory.get("topic"):
             return f"Do they also offer {memory['topic']} in {m3.group(1).title()}?"
+    if "what about" in text and memory.get("topic") and memory.get("department"):
+        return f"Tell me more about {memory['topic']} in {memory['department']}"
     return raw_input
 
 # --- Retrieval / GPT Fallback ---
@@ -204,6 +207,11 @@ def main():
     st.title("🎓 Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or the university.")
 
+    if st.button("🔄 Reset Chat"):
+        st.session_state.messages = [{"role": "assistant", "content": "Hi! I'm here to assist you with Crescent University information."}]
+        st.session_state.memory = {"department": None, "topic": None, "level": None}
+        st.experimental_rerun()
+
     if "embed_model" not in st.session_state:
         embed_model, sym_spell, dataset, q_embeds = load_all_data()
         st.session_state.embed_model = embed_model
@@ -230,12 +238,20 @@ def main():
             st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
             resolved_input = resolve_follow_up(user_input, st.session_state.memory)
             response, _ = retrieve_or_gpt(resolved_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model, st.session_state.messages, st.session_state.memory)
+
         st.chat_message("user").markdown(user_input)
         with st.chat_message("assistant"):
             placeholder = st.empty()
             placeholder.markdown("_Typing..._")
             time.sleep(1.2)
             placeholder.markdown(response)
+
+        if "course" in response or "unit" in response:
+            st.markdown("**You might also be interested in:**")
+            st.write("\u2022 What are the admission requirements?")
+            st.write("\u2022 How much are the fees?")
+            st.write("\u2022 Do they provide accommodation?")
+
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.session_state.messages.append({"role": "assistant", "content": response})
         log_to_long_term_memory(user_input, response)
