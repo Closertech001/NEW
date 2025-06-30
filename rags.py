@@ -183,6 +183,15 @@ def detect_emotion_or_smalltalk(text):
     if any(kw in text for kw in ["you suck", "bad bot", "useless"]):
         return "I'm sorry to hear that. I'm learning every day and I appreciate your feedback."
     return None
+    
+emotion_response = detect_emotion_or_smalltalk(norm_input)
+    if emotion_response:
+        response = emotion_response
+    else:
+        st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
+        resolved_input = resolve_follow_up(user_input, st.session_state.memory)
+        response, _ = retrieve_or_gpt(resolved_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model, st.session_state.messages, st.session_state.memory)
+        response = enrich_response(response, st.session_state.memory)
 
 # --- Retrieval / GPT Fallback ---
 def build_contextual_prompt(messages, memory):
