@@ -57,7 +57,7 @@ DEPARTMENT_NAMES = [d.lower() for d in [
 # --- OpenAI API Key ---
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# --- Cache Loaders ---
+# --- Caching ---
 @st.cache_resource
 def init_symspell():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
@@ -74,15 +74,6 @@ def load_dataset():
     with open("qa_dataset.json", "r") as f:
         return json.load(f)
 
-@st.cache_resource
-def load_all_data():
-    embed_model = load_embedding_model()
-    sym_spell = init_symspell()
-    dataset = load_dataset()
-    questions = [item["question"] for item in dataset]
-    q_embeds = embed_model.encode(questions, convert_to_tensor=True, normalize_embeddings=True)
-    return embed_model, sym_spell, dataset, q_embeds
-
 # --- Normalization ---
 def normalize_text(text, sym_spell):
     text = text.lower()
@@ -94,67 +85,46 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
-# --- Smarter Follow-up Handler ---
-def resolve_follow_up(raw_input, memory):
-    text = raw_input.strip().lower()
+# --- Helpers ---
+def is_greeting(text):
+    return any(kw in text for kw in ["hi", "hello", "hey", "good morning", "greetings"])
 
-    if m := re.match(r"(how|what) about (\d{3}) level", text):
-        level = m.group(2)
-        dept = memory.get("department")
-        topic = memory.get("topic")
-        if topic and dept:
-            return f"What about {topic} in {dept} for {level} level?"
-        if dept:
-            return f"What are the {level} level courses in {dept}?"
-        return f"What are the {level} level courses?"
+def get_random_greeting_response():
+    return random.choice([
+        "Hi there! How can I help you today?",
+        "Hello! Ask me anything about Crescent University.",
+        "Hey! What would you like to know?"
+    ])
 
-    if m := re.match(r"(how|what) about ([a-zA-Z &]+)\??", text):
-        dept = m.group(2).strip().title()
-        topic = memory.get("topic")
-        level = memory.get("level")
-        if topic and level:
-            return f"What about {topic} in {dept} for {level} level?"
-        if topic:
-            return f"What about {topic} in {dept}?"
-        if level:
-            return f"What are the {level} level courses in {dept}?"
-        return f"Tell me more about the Department of {dept}."
+def is_farewell(text):
+    return any(kw in text for kw in ["bye", "goodbye", "see you", "take care"])
 
-    if m := re.match(r"(and|what about)?\s*(\d{3}) level for ([a-zA-Z &]+)", text):
-        level = m.group(2)
-        dept = m.group(3).strip().title()
-        topic = memory.get("topic")
-        if topic:
-            return f"What about {topic} in {dept} for {level} level?"
-        return f"What are the {level} level courses in {dept}?"
+def get_random_farewell_response():
+    return random.choice([
+        "Goodbye! Let me know if you need anything else.",
+        "Take care! I'm always here to help.",
+        "Bye! Have a great day ahead."
+    ])
 
-    return raw_input
-
-# --- Response Template Enhancer ---
 def enrich_response(response, memory):
     suggestions = [
         "Would you like to know about the fees or accommodation?",
         "Should I help you with admission requirements too?",
         "Let me know if you want details on the exam process or CGPA."
     ]
-    if any(keyword in response.lower() for keyword in ["course", "unit", "siwes"]):
+    if any(k in response.lower() for k in ["course", "unit", "siwes"]):
         return response + "\n\n" + random.choice(suggestions)
     return response
 
-# --- Chat Memory Enhancer ---
+# --- Chat Memory & Resolution ---
 def update_chat_memory(norm_input, memory):
     for dept in DEPARTMENT_NAMES:
         if re.search(rf"\b{re.escape(dept)}\b", norm_input):
             memory["department"] = dept.title()
-            memory["last_department"] = dept.title()
-            break
-    dep_match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
-    if dep_match:
-        memory["department"] = dep_match.group(1).title()
-        memory["last_department"] = dep_match.group(1).title()
-    lvl_match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
-    if lvl_match:
-        memory["level"] = lvl_match.group(1)
+    if m := re.search(r"department of ([a-zA-Z &]+)", norm_input):
+        memory["department"] = m.group(1).title()
+    if m := re.search(r"(100|200|300|400|500)\s*level", norm_input):
+        memory["level"] = m.group(1)
     topics = [
         ("admission", ["admission", "apply", "jamb", "requirement"]),
         ("fees", ["fee", "tuition", "cost", "school fees"]),
@@ -169,34 +139,22 @@ def update_chat_memory(norm_input, memory):
     for topic, kws in topics:
         if any(kw in norm_input for kw in kws):
             memory["topic"] = topic
-            memory["last_topic"] = topic
-            break
     memory["last_question"] = norm_input
     return memory
 
-# --- Emotion & Small Talk Detection ---
-def detect_emotion_or_smalltalk(text):
-    if any(kw in text for kw in ["thank", "thanks"]):
-        return "You're welcome! Let me know if you need anything else."
-    if any(kw in text for kw in ["confused", "don't get", "not clear"]):
-        return "I’m here to help! Let me explain that more clearly."
-    if any(kw in text for kw in ["you suck", "bad bot", "useless"]):
-        return "I'm sorry to hear that. I'm learning every day and I appreciate your feedback."
-    return None
-    
-emotion_response = detect_emotion_or_smalltalk(norm_input)
-    if emotion_response:
-        response = emotion_response
-    else:
-        st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
-        resolved_input = resolve_follow_up(user_input, st.session_state.memory)
-        response, _ = retrieve_or_gpt(resolved_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model, st.session_state.messages, st.session_state.memory)
-        response = enrich_response(response, st.session_state.memory)
+def resolve_follow_up(raw_input, memory):
+    text = raw_input.strip().lower()
+    if m := re.match(r"(how|what) about (\d{3}) level", text):
+        level = m.group(2)
+        dept = memory.get("department")
+        topic = memory.get("topic")
+        return f"What about {topic} in {dept} for {level} level?" if topic and dept else raw_input
+    return raw_input
 
-# --- Retrieval / GPT Fallback ---
+# --- Retrieval Logic ---
 def build_contextual_prompt(messages, memory):
-    mem = f"- Department: {memory.get('department') or 'unspecified'}\n- Level: {memory.get('level') or 'unspecified'}\n- Topic: {memory.get('topic') or 'unspecified'}"
-    return [{"role": "system", "content": "You are a helpful assistant for Crescent University.\n" + mem}] + messages[-12:]
+    context = f"- Department: {memory.get('department') or 'unspecified'}\n- Level: {memory.get('level') or 'unspecified'}\n- Topic: {memory.get('topic') or 'unspecified'}"
+    return [{"role": "system", "content": "You are a helpful assistant for Crescent University.\n" + context}] + messages[-12:]
 
 def retrieve_or_gpt(user_input, dataset, q_embeds, embed_model, messages, memory):
     for item in dataset:
@@ -204,44 +162,55 @@ def retrieve_or_gpt(user_input, dataset, q_embeds, embed_model, messages, memory
             return item["answer"], 1.0
     user_embed = embed_model.encode(user_input, convert_to_tensor=True, normalize_embeddings=True)
     scores = util.pytorch_cos_sim(user_embed, q_embeds)[0]
+    top_score = float(scores.max())
     best_idx = scores.argmax().item()
-    top_score = float(scores[best_idx])
     if top_score >= 0.60:
         return dataset[best_idx]["answer"], top_score
     if openai.api_key:
         try:
             prompt = build_contextual_prompt(messages, memory)
             prompt.append({"role": "user", "content": user_input})
-            gpt_response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=prompt,
-                temperature=0.4,
-            )
+            gpt_response = openai.ChatCompletion.create(model="gpt-4", messages=prompt, temperature=0.4)
             return gpt_response.choices[0].message.content, top_score
-        except:
+        except Exception as e:
+            print(f"GPT error: {e}")
             return "Sorry, I couldn’t fetch a proper response right now.", top_score
-    return "I’m not sure what you mean. Could you try rephrasing?", top_score
+    return "I'm not sure what you mean. Could you try rephrasing?", top_score
 
 # --- Logging ---
 def log_to_long_term_memory(user_input, assistant_response):
     os.makedirs("logs", exist_ok=True)
+    log_path = "logs/chat_history_log.json"
     entry = {"user": user_input, "assistant": assistant_response, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
-    with open("logs/chat_history_log.json", "a") as f:
-        f.write(json.dumps(entry) + "\n")
+    try:
+        if os.path.exists(log_path):
+            with open(log_path, "r+") as f:
+                data = json.load(f)
+                data.append(entry)
+                f.seek(0)
+                json.dump(data, f, indent=2)
+        else:
+            with open(log_path, "w") as f:
+                json.dump([entry], f, indent=2)
+    except:
+        pass
 
 # --- Main App ---
 def main():
     st.set_page_config(page_title="Crescent University Chatbot", page_icon="🎓")
     st.title("🎓 Crescent University Chatbot")
-    st.markdown("Ask me anything about your department, courses, or the university.")
+    st.markdown("Ask me anything about your department, courses, or university life.")
 
     if st.button("🔄 Reset Chat"):
-        st.session_state.messages = [{"role": "assistant", "content": "Hi! I'm here to assist you with Crescent University information."}]
-        st.session_state.memory = {"department": None, "topic": None, "level": None}
+        for key in ["messages", "memory"]:
+            st.session_state.pop(key, None)
         st.experimental_rerun()
 
     if "embed_model" not in st.session_state:
-        embed_model, sym_spell, dataset, q_embeds = load_all_data()
+        embed_model = load_embedding_model()
+        sym_spell = init_symspell()
+        dataset = load_dataset()
+        q_embeds = embed_model.encode([item["question"] for item in dataset], convert_to_tensor=True, normalize_embeddings=True)
         st.session_state.embed_model = embed_model
         st.session_state.sym_spell = sym_spell
         st.session_state.dataset = dataset
@@ -266,19 +235,14 @@ def main():
             st.session_state.memory = update_chat_memory(norm_input, st.session_state.memory)
             resolved_input = resolve_follow_up(user_input, st.session_state.memory)
             response, _ = retrieve_or_gpt(resolved_input, st.session_state.dataset, st.session_state.q_embeds, st.session_state.embed_model, st.session_state.messages, st.session_state.memory)
+            response = enrich_response(response, st.session_state.memory)
 
         st.chat_message("user").markdown(user_input)
         with st.chat_message("assistant"):
             placeholder = st.empty()
-            placeholder.markdown("_Typing..._")
+            placeholder.markdown("🤖 _Typing..._")
             time.sleep(1.2)
             placeholder.markdown(response)
-
-        if "course" in response or "unit" in response:
-            st.markdown("**You might also be interested in:**")
-            st.write("\u2022 What are the admission requirements?")
-            st.write("\u2022 How much are the fees?")
-            st.write("\u2022 Do they provide accommodation?")
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.session_state.messages.append({"role": "assistant", "content": response})
