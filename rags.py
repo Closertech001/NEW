@@ -94,75 +94,30 @@ def normalize_text(text, sym_spell):
         corrected = re.sub(rf'\b{re.escape(syn)}\b', rep, corrected)
     return corrected
 
-# --- Greetings / Farewell ---
-def is_greeting(text):
-    return text.lower().strip() in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
-
-def get_random_greeting_response():
-    return random.choice([
-        "Hello! How can I assist you today?",
-        "Hi there! What can I help you with?",
-        "Hey! Feel free to ask me anything about Crescent University.",
-        "Greetings! How may I be of service?",
-        "Hello! Ready to help you with any questions."
-    ])
-
-def is_farewell(text):
-    return text.lower().strip() in ["bye", "goodbye", "see you", "later", "farewell", "cya", "peace", "exit"]
-
-def get_random_farewell_response():
-    return random.choice([
-        "Goodbye! Have a great day!",
-        "See you later! Feel free to come back anytime.",
-        "Bye! Take care!",
-        "Farewell! Let me know if you need anything else.",
-        "Peace out! Hope to chat again soon."
-    ])
-
-# --- Memory ---
-def update_chat_memory(norm_input, memory):
-    for dept in DEPARTMENT_NAMES:
-        if re.search(rf"\b{re.escape(dept)}\b", norm_input):
-            memory["department"] = dept.title()
-            break
-    dep_match = re.search(r"department of ([a-zA-Z &]+)", norm_input)
-    if dep_match:
-        memory["department"] = dep_match.group(1).title()
-    lvl_match = re.search(r"(100|200|300|400|500)\s*level", norm_input)
-    if lvl_match:
-        memory["level"] = lvl_match.group(1)
-    topics = [
-        ("admission", ["admission", "apply", "jamb", "requirement"]),
-        ("fees", ["fee", "tuition", "cost", "school fees"]),
-        ("courses", ["course", "subject", "unit", "curriculum", "study"]),
-        ("accommodation", ["accommodation", "hostel", "reside", "lodging"]),
-        ("graduation", ["graduation", "convocation"]),
-        ("exam", ["exam", "test", "cgpa", "grade"]),
-        ("scholarship", ["scholarship", "aid", "bursary"]),
-        ("dress code", ["dress code", "uniform", "appearance"])
-    ]
-    for topic, kws in topics:
-        if any(kw in norm_input for kw in kws):
-            memory["topic"] = topic
-            break
-    return memory
-
-# --- Follow-up Handling ---
+# --- Follow-up Handler with Department Switching ---
 def resolve_follow_up(raw_input, memory):
     text = raw_input.strip().lower()
+
     if m := re.match(r"what about (\d{3}) level", text):
         if memory.get("department"):
             return f"What are the {m.group(1)} level courses in {memory['department']}?"
+
     if text.startswith("what about") and memory.get("level") and memory.get("department"):
         return f"What are the {memory['level']} level courses in {memory['department']}?"
-    if m2 := re.match(r"do they also .* in ([a-zA-Z &]+)\?", text):
+
+    if m := re.match(r"how about ([a-zA-Z &]+)\??", text):
+        new_dept = m.group(1).strip().title()
         if memory.get("topic"):
-            return f"Do they also offer {memory['topic']} in {m2.group(1).title()}?"
-    if m3 := re.match(r"how about .* for ([a-zA-Z &]+)\?", text):
+            return f"What about {memory['topic']} in {new_dept}?"
+        if memory.get("level"):
+            return f"What are the {memory['level']} level courses in {new_dept}?"
+        return f"Can you tell me more about {new_dept}?"
+
+    if m := re.match(r"what about ([a-zA-Z &]+)\??", text):
+        new_dept = m.group(1).strip().title()
         if memory.get("topic"):
-            return f"Do they also offer {memory['topic']} in {m3.group(1).title()}?"
-    if "what about" in text and memory.get("topic") and memory.get("department"):
-        return f"Tell me more about {memory['topic']} in {memory['department']}"
+            return f"What about {memory['topic']} in {new_dept}?"
+
     return raw_input
 
 # --- Retrieval / GPT Fallback ---
