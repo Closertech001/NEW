@@ -8,7 +8,7 @@ import os
 import pkg_resources
 from symspellpy.symspellpy import SymSpell
 from sentence_transformers import SentenceTransformer, util
-from openai.error import AuthenticationError
+from openai._exceptions import AuthenticationError
 import openai
 from textblob import TextBlob
 
