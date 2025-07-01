@@ -8,7 +8,7 @@ import os
 import pkg_resources
 from symspellpy.symspellpy import SymSpell
 from sentence_transformers import SentenceTransformer, util
-from openai._exceptions import AuthenticationError
+from openai.error import AuthenticationError
 import openai
 from textblob import TextBlob
 
@@ -74,6 +74,16 @@ def load_dataset():
         return json.load(f)
 
 # --- Helpers ---
+
+def normalize_text(text, sym_spell):
+    text = text.lower()
+    suggestions = sym_spell.lookup_compound(text, max_edit_distance=2)
+    corrected = suggestions[0].term if suggestions else text
+    for abbr, full in ABBREVIATIONS.items():
+        corrected = re.sub(rf'{re.escape(abbr)}', full, corrected)
+    for syn, rep in SYNONYMS.items():
+        corrected = re.sub(rf'{re.escape(syn)}', rep, corrected)
+    return corrected
 
 def normalize_text(text, sym_spell):
     text = text.lower()
@@ -237,7 +247,7 @@ def main():
     st.title(":mortar_board: Crescent University Chatbot")
     st.markdown("Ask me anything about your department, courses, or university life.")
 
-    if st.button("Reset Chat"):
+    if st.button("\ud83d\udd04 Reset Chat"):
         for key in ["messages", "memory"]:
             st.session_state.pop(key, None)
         st.experimental_rerun()
