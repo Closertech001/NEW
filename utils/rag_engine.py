@@ -131,13 +131,9 @@ def find_response(user_input, dataset, embeddings, threshold=0.4):
     top_score = top_scores[0].item()
     top_index = top_indices[0].item()
 
-    if top_score < threshold:
-        context_qa = {
-            "question": dataset.iloc[top_index]["question"],
-            "answer": dataset.iloc[top_index]["answer"]
-        }
-        gpt_reply = fallback_openai(user_input, context_qa)
-        return gpt_reply, None, top_score, []
+ if top_score < threshold:
+    gpt_reply = fallback_openai(user_input)
+    return gpt_reply, None, top_score, []
 
     response = dataset.iloc[top_index]["answer"]
     question = dataset.iloc[top_index]["question"]
