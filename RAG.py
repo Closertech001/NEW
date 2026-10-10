@@ -80,9 +80,6 @@ for message in st.session_state.chat_history:
     role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
 st.markdown(message["content"])
-        if message["role"] == "assistant" and st.session_state.last_department:
-            dept_label = st.session_state.last_department.title()
-            st.markdown(f'<div class="department-label">Department: {dept_label}</div>', unsafe_allow_html=True)
 
 # --- Chat Input ---
 prompt = st.chat_input("Ask me anything about Crescent University...")
