@@ -23,6 +23,7 @@ def load_model():
 
 
 # --- Load Data ---
+@st.cache_data
 def load_data():
     with open("qa_dataset.json", "r", encoding="utf-8") as f:
         raw_data = json.load(f)
