@@ -1,1 +1,1 @@
-run = "python app.py"
+run = "streamlit run RAG.py"
