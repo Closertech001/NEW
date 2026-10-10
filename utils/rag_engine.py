@@ -2,8 +2,10 @@
 import json
 import os
 import random
+import re
 import pandas as pd
 import torch
+
 from sentence_transformers import SentenceTransformer, util
 import openai
 from .preprocessing import preprocess_text, extract_prefix
