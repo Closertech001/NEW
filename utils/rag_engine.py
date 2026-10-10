@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 
 from sentence_transformers import SentenceTransformer, util
-import openai
+from openai import OpenAI
 from .preprocessing import preprocess_text, extract_prefix
 from .constants import department_map
 
@@ -42,30 +42,66 @@ def compute_question_embeddings(questions: list):
     return model.encode(questions, convert_to_tensor=True)
 
 # --- Fallback with OpenAI ---
+
 def fallback_openai(user_input, context_qa=None):
     system_prompt = (
-        "You are a helpful assistant specialized in Crescent University information. "
-        "If you don't know an answer, politely say so and refer to university resources."
+        "You are CUAB Buddy, a helpful assistant specializing in "
+        "Crescent University, Nigeria. "
+        "Use reliable university information when available. "
+        "Never invent course codes, fees, admission requirements, "
+        "or university policies. If you do not know an answer, "
+        "say so politely and recommend checking official university sources."
     )
+
     messages = [{"role": "system", "content": system_prompt}]
 
     if context_qa:
-        context_text = f"Here is some relevant university information:\nQ: {context_qa['question']}\nA: {context_qa['answer']}\n\n"
-        user_message = context_text + "Answer this question: " + user_input
+        context_text = (
+            "Relevant university information:\n"
+            f"Question: {context_qa['question']}\n"
+            f"Answer: {context_qa['answer']}\n\n"
+            "Use this information only if it is relevant to the user's question. "
+        )
+        user_message = context_text + "User's question: " + user_input
     else:
         user_message = user_input
 
     messages.append({"role": "user", "content": user_message})
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        if not api_key:
+            try:
+                import streamlit as st
+                api_key = st.secrets.get("OPENAI_API_KEY")
+            except Exception:
+                api_key = None
+
+        if api_key:
+            client = OpenAI(api_key=api_key)
+        else:
+            client = OpenAI()
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=messages,
             temperature=0.3
         )
-        return response.choices[0].message["content"].strip()
-    except Exception:
-        return "Sorry, I couldn't reach the server. Try again later."
+
+        answer = response.choices[0].message.content
+
+        if answer:
+            return answer.strip()
+
+        return "Sorry, I couldn't generate an answer. Please try again."
+
+    except Exception as error:
+        print(f"OpenAI API error: {error}")
+        return (
+            "Sorry, I'm having trouble connecting to the AI service right now. "
+            "Please try again shortly."
+        )
 
 # --- Main RAG Response Logic ---
 def find_response(user_input, dataset, embeddings, threshold=0.4):
