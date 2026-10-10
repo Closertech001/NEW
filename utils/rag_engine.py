@@ -59,8 +59,8 @@ def load_data():
         ],
     )
 
-
 # --- Compute Embeddings ---
+@st.cache_data
 def compute_question_embeddings(questions: list):
     model = load_model()
 
