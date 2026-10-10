@@ -1,0 +1,9 @@
+# API keys and private configuration
+.streamlit/secrets.toml
+.env
+.env.*
+!.env.example
+
+# Python cache files
+__pycache__/
+*.py[cod]
