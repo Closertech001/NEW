@@ -77,9 +77,8 @@ st.title(":mortar_board: Crescent University Chatbot")
 
 # --- Chat History Render ---
 for message in st.session_state.chat_history:
-    role_class = "chat-message-user" if message["role"] == "user" else "chat-message-assistant"
     with st.chat_message(message["role"]):
-st.markdown(message["content"])
+        st.markdown(message["content"])
 
 # --- Chat Input ---
 prompt = st.chat_input("Ask me anything about Crescent University...")
