@@ -11,9 +11,7 @@ abbreviations = {
     "dept": "department", "reg": "registration", "fee": "fees", "pg": "postgraduate",
     "app": "application", "req": "requirement", "nd": "national diploma",
     "a-level": "advanced level", "alevel": "advanced level", "2nd": "second",
-    "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience",
-    "CSC": "department of Computer Science", "Mass comm": "department of Mass Communication",
-    "law": "department of law", "Acc": "department of Accounting"
+    "1st": "first", "nxt": "next", "prev": "previous", "exp": "experience"
 }
 
 synonyms = {
